@@ -1,0 +1,121 @@
+\documentclass[a4paper,12pt,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage[czech]{babel}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage{math}
+
+\title{Základy spojité optimalizace}
+\author{Ladislav Láska}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Úvod}
+\setcounter{equation}{0}
+\subsection{Úloha, cílová funkce, množina řešení}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Úloha matematického programování (optimalizace) rozumíme úlohu
+\begin{align*}
+	\min_{x\in M} f(x)
+\end{align*}
+kde $f: \R^n \to \R$.
+\paragraph{Definice}
+Funkci $f(x)$ nazýváme \textbf{cílovou}, účelovou, kriteriální, objektivní funkcí.
+\paragraph{Definice}
+Množinu $M$ nazýváme množinou přípustných řešení. Prvek $x \in M$ nazýváme
+přípustným řešením optimalizační úlohy. Prvek $x_0 \in M$ nazveme optimálním
+řešením.
+
+\subsection{Dělení na jednotlivé disciplíny optimalizace}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item Volný extrém - $\min_M f(x)$
+	\item Vázaný extrém - $\min_M f(x), M \subset \R^n$
+	\begin{enumerate}
+		\item Lineární programování: \\
+			$\min_M cx$, $M = \{ x | A_x
+			\{=,\lt,\gt\}
+			b\}$, kde $c \in \R^n$, $A \in \R^{m \times n}$, $b \in b^m$
+		\item Nelineární programování: \\
+			$\min_M f(x), M = \{ x | g_j(x) \lt 0 (j = 1, ..., m) \}, f, g_j:
+			\R^n \to \R$
+			\begin{enumerate}
+				\item Konvexní a zobecněné konvexní programování - $f,g_j$
+				konvexní, dále pak kvadratické a hyperbolické programování
+				\item Nekonvexní (speciální typy)
+			\end{enumerate}
+		\item Celočíselné programování: \\
+			Lineární/nelineární programování, navíc podmínky pro celočíselnost
+			$Ax * b$, aby $x \in \N$.
+		\item Parametrické programování: \\
+			Lineární/nelineární programování, navíc parametr $\min_{M(U)} c
+			(\lambda)^T x$, $c(x) = c + C\lambda$, $M(U) = \{ x | A(U) x * b(U)
+			\}$
+		\item Vícekriteriální (vektorové) programování: \\
+			$\min_M f(x)$, $f(x) = \{f_1(x), .., f_s(x)\}$
+		\item Dynamické programování - hledání optimální strategie
+		\item Spojité programování (optimalizační procesy)
+		\item Teorie her - optimální strategie dvou hráčů
+		\item Semiinfinitní programování - nekonečně mnoho podmínek
+	\end{enumerate}
+\end{enumerate}
+
+\subsection{Motivační úloha}
+\setcounter{equation}{0}
+\subsubsection{Lineární programování}
+$V_1, ..., V_n$ - výrobci vyrábějící výrobek $V$ v množstvích $a_i \gt 0$ \\
+$S_1, ..., S_k$ - spotřebitelé požadující výrobek $V$ v množstvích $b_j \gt 0$.\\
+Známe cenu za dopravu jednotky výrobku $V$ z $V_i$ do $S_j$ - $c_{i,j} \ge 0$.
+\paragraph{Předpoklad:} ceny za dopravu rostou lineárně.
+\paragraph{Cíl:} minimalizovat celkové náklady na dopravu.
+\paragraph{Hledáme:} množství $x_{i,j} \ge 0$ - kolik výrobce $V_i$ dodá $S_j$.
+\paragraph{Cílová funkce}
+\begin{align}
+	f(x) = \sum_i \sum_j c_{i,j} x_{i,j}
+\end{align}
+na množině řešení
+\begin{align}
+	M = \{ x_{i,j} | \sum_{i=1}^m x_{i,j} = b_j \forall j, \sum_{j=1}^m x_{i,j}
+	= a_i \forall i, \sum_i a_i = \sum b_j, x_{i,j} \ge 0 \forall i \forall j \}
+\end{align}
+Všechno je lineární - úloha lineárního programování.
+\subsubsection{Celočíslené programování}
+Pokud nelze položky libovolně dělit (například lidi), můžeme přidat celočíselnou
+podmínku do množiny řešení:
+\begin{align}
+	x_{i,j} \N_0 \forall i \forall j
+\end{align}
+\subsubsection{Nelineární programování}
+Zrušíme předpoklad lineárního růstu cen (tedy cena závisí na množství)
+\begin{align}
+	f(x) = \sum_i \sum_j c_{i,j}(x_{i,j}) x_{i,j}
+\end{align}
+$c_{i,j} = C_{i,j} + c_{i,j} x_{i,j}$
+\subsubsection{Parametrické programování}
+Produkce není pevná a závisí na parametru: $a_i = \lambda a_i'$. Ostatní vztahy
+můžou zůstat třeba jako u lineárního programování.
+\subsubsection{Vícekriteriální programování}
+Minimalizovat ceny za dopravu, maximalizovat zisky Z.
+\begin{align}
+	\min \{f(x), g(x)\} \\
+	f(x) = \sum_i \sum_j c_{i,j} x_{i,j} \\
+	g(x) = - Z(x_{i,j}) 
+\end{align}
+\subsubsection{Dynamické programování}
+Ceny závisí na rozhodnutí.
+
+
+
+
+
+
+
+\end{document}
+
