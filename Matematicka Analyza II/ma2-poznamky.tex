@@ -1,0 +1,1433 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage[czech]{babel}
+%\usepackage{bbm}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage{math}
+\usepackage{enumerate}
+
+\newcommand{\Nu}{\nu}
+
+\title{Matematická analýza II}
+\author{Ladislav Láska}
+
+\begin{document}
+\maketitle
+Učební text k předmětu \texttt{Matematická analýza II} pro informatiky. Vytvořen podle
+požadavků ke zkoušce pro paralelku Y (Šámal). Text je povětšinou výtahem z
+přednášek uspořádaným do srozumitelných krátkých celků zaměřený na definice,
+věty a probrané důkazy.\\
+
+Poděkování za korekce a připomínky: Martin Pelikán, Marek Feňko.
+
+Na obsahu se podíleli: Martin Pelikán (rozklad na parciální zlomky a spoustu
+dalších oprav)
+
+\ \\
+
+Pokud najdete chybu nebo nepřesnost, neváhejte mě kontaktovat (třeba na email
+ladislav.laska@gmail.com)
+
+\ \\
+
+\textbf{Upozornění}: Tyto poznámky jsou bez jakékoliv záruky. Nemusí být kompletní a mohou
+obsahovat chyby.
+\newpage
+\newpage
+
+% Titlepage is not numbered, but this is required for page compatibility in pdf
+% form
+% \setcounter{page}{2}
+
+\tableofcontents
+\newpage
+
+\section{Primitivní funkce}
+\subsection{Definice primitivní funkce}
+\setcounter{equation}{0}
+\paragraph{Definice} Nechť $f: I \to \R$, $I \in \R^*$, kde $I$ je otevřený interval. 
+Řekneme, že $F$~je primitivní funkce k $f$, pokud platí:
+\begin{align*}
+	\forall x \in I \quad F'(x) = f(x)
+\end{align*}
+\paragraph{Pozorování} $F(x)$ je primitivní fce k $f(x) \Rightarrow F(x) + c$ je primitivní fce k $f(x)$
+
+\subsection{Věta o jednoznačnosti primitivní funkce}
+\setcounter{equation}{0}
+\paragraph{Věta} Nechť $F(x)$, $G(x)$ jsou primitivní funkce $f(x)$ na intervalu $I$, pak 
+\begin{align*}
+	\exists c \in \R \quad \forall x \in I \quad G(x) = F(x) +c
+\end{align*}
+
+\paragraph{Důkaz}
+\begin{align}
+	F'(x) = f(x) \quad G'(x) = f(x) \qquad \forall x \in I
+\end{align}
+Mějme funkci $H(x) = G(x) - F(x)$. Po zderivování:
+\begin{align}
+    H'(x) = G'(x) - F'(x) = f(x) - f(x) = 0
+\end{align}
+Potom ale funkce $H$ je konstantní, proto také existuje konstanta $c$.
+
+\subsection{Existenční věta}
+\paragraph{Věta} Nechť $I$ je otevřený interval a $f$ je spojitá na $I$. Pak má $f$ prim. funkci.
+\paragraph{Důkaz} Odložen. (vizte větu o~derivaci integrálu podle horní meze)
+
+
+\subsection{Věta o linearitě primitivní funkce}
+\setcounter{equation}{0}
+\paragraph{Věta} Nechť $f$ má primitivní fci $F$ a $g$ má primitivní fci $G$ na intervalu $I$. Pak:
+\begin{align*}
+	\int \alpha f + \beta g  = \alpha F + \beta G
+\end{align*}
+
+\paragraph{Důkaz}
+Triviálně z linearity derivace:
+\begin{align}
+	(\alpha F + \beta G)' = \alpha f + \beta g
+\end{align}
+
+
+\subsection{Věta o substituci}
+\setcounter{equation}{0}
+\paragraph{Věta}
+\begin{enumerate}[i.]
+	\item Nechť $F$ je primitivní funkce k $f$ na $(a,b)$. A funkce $\varphi$ je:
+        \begin{align*}
+            &\varphi: (\alpha, \beta) \to (a,b) \\
+            &\forall x \in (\alpha, \beta) \quad \varphi'(x)
+        \end{align*}
+        Pak na  intervalu $(\alpha, \beta)$ platí:
+        \begin{align*}
+        	\int f(\varphi(t)) \varphi'(t) \dt = F( \varphi(t)) + c
+        \end{align*}
+    \item Nechť funkce $\varphi$ je $na$ (tj. každý bod z $(a,b)$ má vzor) a platí:
+        \begin{align*}
+            &f: (a,b) \to \R \\
+            &\varphi: (\alpha, \beta) \to (a, b)
+        	\quad : \quad \forall x \in (\alpha, \beta) \quad \varphi'(x) \neq 0 \\
+            &\int f(\varphi(t)) \varphi'(t) \dt = G(t)
+        \end{align*}
+        Pak na intervalu $(a, b)$ platí:
+        \begin{align*}
+            \int f(x) \dx = G(\varphi^{-1}(x)) + c 
+        \end{align*}
+\end{enumerate}
+
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Ověříme zderivováním (jako složenou funkci):
+        \begin{align}
+        	[F(\varphi(t))+c]' = F'(\varphi(t)) \varphi'(t) = f(\varphi(t)) \varphi'(t)
+        \end{align}
+    \item Ověříme zderivováním (jako složenou funkci):
+        \begin{align}
+        	[G(\varphi^{-1}(x))+c]' = G'(\varphi^{-1}(x)) [ \varphi^{-1}(x)]'
+        \end{align}
+        Z předpokladu ($\varphi' \neq 0$) je $\varphi$ neklesající/nerostoucí na
+		celém intervalu. Podle věty o derivaci inverzní funkce potom platí:
+        \begin{align}
+        	 \label{vos-der} G'(\varphi^{-1}(x)) [ \varphi^{-1}(x)]' = G'(\varphi^{-1}(x)) \cdot \frac{1}{\varphi'(\varphi^{-1}(x))}
+        \end{align}
+        Do předpokladu ($\int f(\varphi(t)) \varphi'(t) \dt = G(t)$) dosadíme za
+		t = $\varphi^{-1}(x)$ a předpoklad zderivujeme:
+		\begin{align}
+			f(\varphi(\varphi^{-1}(x))) \varphi'(\varphi^{-1}(x)) =
+			G'(\varphi^{-1}(x))
+		\end{align}
+		Což můžeme dosadit do (\ref{vos-der}):
+        \begin{align}
+        	f(\varphi(\varphi^{-1}(x))) \varphi'(\varphi^{-1}(x)) \cdot \frac{1}{\varphi'(\varphi^{-1}(x))}
+        \end{align}
+        Což po zkrácení a upravení je $f(x)$.
+
+\subsection{Per-partes}
+\setcounter{equation}{0}
+\paragraph{Věta} Nechť $I$ je otevřený interval, $f$ a $g$ spojité funkce na $I$. $F$ je primitivní fce k $f$ na $I$, $G$ je primitivní fce k $g$ na $I$. Pak platí:
+    \begin{align*}
+    	\int F(x)g(x) \dx = F(x) G(x) - \int f(x) G(x) \dx
+    \end{align*}
+
+\paragraph{Důkaz}
+Mějme pomocnou funkci $H(x)$, primitivní funkci k $f(x)G(x)$, tedy:
+    \begin{align}
+    	\int f(x)G(x) \dx = H(x)
+    \end{align}
+Ověříme zderivováním a upravením:
+    \begin{align}
+    	F(x)g(x) &= (F(x)G(x) - H(x))' \nonumber \\
+                &= F'(x)G(x) + F(x)G'(x) - H(x) \nonumber \\
+                &= f(x)G(x) + F(x)g(x) - f(x)G(x) \nonumber \\
+                &=F(x)g(x)                
+    \end{align}
+\end{enumerate}
+
+\newpage
+\section{Typové integrace}
+\subsection{Rozklad na parciální zlomky}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť jsou $P$ a $Q$ polynomy s reálnými koeficienty takovými, že
+\begin{enumerate}
+	\item $\deg P < \deg Q$
+	\item $Q$ je ve tvaru $ a_n (x-x_1)^{p_1} \dots (x-x_k)^{p_k} 
+		(x^2+{\alpha}_1+{\beta}_1)^{q_1} \dots (x^2+{\alpha}_l+{\beta}_l)^{q_l} $
+		a platí, že žádné dva nemají společný kořen.
+\end{enumerate}
+Potom existují jednoznačně určena čísla $ A^i_j, B^i_j, C^i_j $  tak, že
+\begin{align*}
+	\frac{P(x)}{Q(x)} = \sum_{i=1}^{k} \sum_{j=1}^{p_k} \frac{A^i_j}{(x-x_i)^{j}} 
+	+ \sum_{i=1}^l \sum_{j=1}^{q_l} \frac{B^i_jx+C^i_j}{(x^2+{\alpha}_ix+{\beta}_i)^{j}} 
+\end{align*}
+\paragraph{Důkaz}
+(pro reálné kořeny) Matematickou indukcí podle stupně Q:
+\begin{enumerate}
+	\item stupeň $Q = 1 \Rightarrow$ stupeň $P = 0 \Rightarrow Q(x) = a_1(x-x_1) $ a $ P(x) = C $
+		$\Rightarrow  \frac{P(x)}{Q(x)} = \frac{\alpha}{x-x_1} $
+
+	\item
+Zkusíme šikovně zvolit $\alpha$, aby na $ \displaystyle \frac{P(x)}{Q(x)} - \frac{\alpha}{(x-x_1)^{p_1}} $ šel užít indukční předpoklad: \\
+zavedeme funkci
+\begin{align}
+	H(x) = a_n(x-x_2)^{p_2} \dots (x-x_k)^{p_k} = \frac{Q(x)}{(x-x_1)^{p_1}}    \parbox{1.5cm}{~} H(x_1) \ne 0
+\end{align}
+a použijeme ji k vyjádření požadovaného
+\begin{align}
+	\frac{P(x)}{Q(x)} - \frac{\alpha}{(x-x_1)^{p_1}} 
+	 = \frac{P(x)}{Q(x)} - \frac{\displaystyle \frac{\alpha Q(x)}{(x-x_1)^{p_1}} }{Q(x)} 
+	 = \frac{P(x) - \displaystyle \frac{\alpha Q(x)}{(x-x_1)^{p_1}} }{Q(x)} 
+	 = \frac{P(x) - \alpha H(x)}{Q(x)}
+\end{align}
+Takže $ \exists \alpha$ : $ P(x_1) - \alpha H(x_1) = 0 $ ($x_1$ je kořen, takže ho můžeme vytknout)
+\begin{align}
+	P(x) - \alpha H(x) = (x-x_1) P_1(x)
+\end{align}
+Tedy pro $ \alpha = \displaystyle \frac{P(x_1)}{H(x_1)} $ vypadá upravený výraz takto:
+\begin{align}
+	\frac{(x-x_1)P_1(x)}{Q(x)} = \frac{P_1(x)}{a_n (x-x_1)^{p_1-1} \dots (x-x_k)^{p_k}}
+\end{align}
+Snížili jsme o 1 stupeň čitatele i jmenovatele, takže lze výsledek rozložit na parciální zlomky,
+\begin{align}
+	\displaystyle \frac{P(x)}{Q(x)} - \frac{\alpha}{(x-x_1)^{p_1}}
+\end{align}
+je lineární kombinace výrazů  
+\begin{align}
+	\displaystyle \{\frac{1}{(x-x_i)^{s}}; 1 \le s \le p_i \} \setminus 
+	\{ \frac{1}{(x-x_1)^{p_1}} \}
+\end{align}
+$\Rightarrow$ po přidání $\displaystyle \frac{\alpha}{(x-x_1)^{p_1}} $ máme rozklad $ \displaystyle \frac{P(x)}{Q(x)} $
+\end{enumerate}
+
+
+\subsection{Integrace racionální funkce}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Racionální funkce $R(x)$ je funkce tvaru:
+\begin{align*}
+R(x) = \frac{P(x)}{Q(x)}
+\end{align*}
+\paragraph{Postup}
+\begin{enumerate}
+	\item Částečně vydělíme, pokud $\deg P \ge \deg Q$
+        \begin{align*}
+            R(x) = S(x) + \frac{P_1(x)}{Q(x)}       	
+        \end{align*}
+ 	\item Q(x) rozložíme na součin tvaru $(x-x_1)^{p_1} \cdot ... \cdot (x+\alpha_1x+\beta_1)^{q_1}$.
+	\item Rozložíme na parciální zlomky.
+	\item Integrál vypočítáme jako:
+        \begin{align*}
+            \int \frac{P(x)}{Q(x)} = \int S(x) + \int \text{ parciálních zlomků }
+        \end{align*}
+\end{enumerate}
+
+\subsection{Jednoduché substituce}
+\setcounter{equation}{0}
+\begin{align}
+	\int R(e^{a x}) \dx = \left| 
+		\begin{matrix}
+			y = e^{ax} \\
+			\dy = a e^{ax} \dx
+		\end{matrix}
+		\right| = \int \frac{R(y)}{ay} \dy \\
+	\int R(\log x) \frac{1}{x} \dx = \left| \begin{matrix}y=\log x \\ \dy =
+	\frac{1}{x} \end{matrix} \right| = \int R(y) \dy
+\end{align}
+
+\subsection{Trigonomické funkce}
+\setcounter{equation}{0}
+\begin{align*}
+	\int R(\sin x, \cos x) \dx
+\end{align*}
+\begin{enumerate}
+	\item  $t = \sin x$
+	\item  $t = \cos x$
+	\item  $t = \tg x$
+	\item  $t = \tg \frac{x}{2}$ - funguje vždy
+\end{enumerate} 
+
+\subsection{Integrály s odmocninama}
+\setcounter{equation}{0}
+\begin{align*}
+	\int R\left( x, \left (\frac{ax + b}{cx+d}\right)^\frac{1}{q} \right) \dx
+\end{align*}
+
+\subsection{Eulerovy substituce}
+\setcounter{equation}{0}
+\begin{align*}
+	\int R(x, \sqrt{ax^2 + bx + c}) \dx
+\end{align*}
+Pokud $a \neq 0$ ($a = 0 \Rightarrow$ předchozí případ):
+\begin{enumerate}
+	\item  kv. polynom má jeden kořen v $\R$:
+	\begin{align*}
+		ax^2 + bx + c &= a(x-\alpha)^2 \\
+		\sqrt{ax^2 + bx + c} &= \sqrt{a} |x - \alpha|
+	\end{align*}
+	Spočítáme $\int R(x, \sqrt{a}|x-\alpha|)$
+	\item  kv. polynom má 2 kořeny v $\R$:
+	\begin{align*}
+		ax^2 + bx + c &= a(x-x_1)(x-x_2) \\
+		&= \frac{a(x-x_1)(x-x_2)^2}{x-x_2}
+	\end{align*}
+	\item  kv. polynom má 0 kořenů v $\R$:
+	\begin{align*}
+		\sqrt{ax^2 + bx + c} = \sqrt{a} x + t \\
+		ax^2 + bx + c = ax^2 + 2t\sqrt{a}x + t^2 \\
+		x = \frac{t^2-c}{b-2t\sqrt{a}} 
+	\end{align*}
+	Po zbavení se kvadratického členu snadno dopočítáme.
+\end{enumerate}
+
+
+\newpage
+\section{Určitý (Riemannův) integrál}
+\subsection{Dělení intervalu}
+\setcounter{equation}{0}
+\paragraph{Definice}
+\textbf{Dělení} intervalu $[a,b]$ je posloupnost $D = (x_j)_{j=0}^n$, kde $a = x_0 < x_1 <
+... < x_n = b$.
+\paragraph{Definice}
+Nechť $D$, $D'$ jsou dělení intervalu $[a,b]$. O $D'$ řekneme, že
+\textbf{zjemňuje} $D$ pokud $D\subsetq D'$ (tj. $\forall x \in D \quad  x \in D'$)
+
+
+\subsection{Horní a dolní součet}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť f je omezená funkce na $[a,b]$, $D=(x_j)$ dělení $[a,b]$. Potom: \\
+\textbf{Horní součet} je:
+\begin{align*}
+	S(f, D) = \sum_{j=1}^n |x_j - x_{j-1}| \cdot \sup \{f(x) \quad 
+	x \in [x_{j-1},	x_j]\}
+\end{align*}
+\textbf{Dolní součet} je:
+\begin{align*}
+	s(f, D) = \sum_{j=1}^n |x_j - x_{j-1}| \cdot \inf \{f(x) \quad 
+	x \in [x_{j-1},	x_j]\}
+\end{align*}
+
+
+\paragraph{Poznámka}Pokud plocha pod křivkou je P: $s(f,D) \le P \le S(f,D)$
+
+\subsection{Horní a dolní Riemannův integrál}
+\setcounter{equation}{0}
+\paragraph{Definice}
+\begin{align*}
+	(R) \overline{\int_a^b} f(x) \dx = \inf \{ S(f, D) \quad D \text{ dělení }
+	[a,b]\} \\
+	(R) \underline{\int_a^b} f(x) \dx = \sup \{ s(f, D) \quad D \text{ dělení }
+	[a,b]\}
+\end{align*}
+
+\paragraph{Definice}
+Pokud 
+\begin{align*}
+(R) \overline{\int_a^b} f(x) \dx = (R) \underline{\int_a^b} f(x) \dx = A
+\end{align*}
+Potom
+\begin{align*}
+(R) \int_a^b f(x) \dx := A
+\end{align*}
+a říkáme, že je $f$ Riemannovsky integrovatelná.
+
+\paragraph{Definice}
+\begin{align*}
+	R([a,b]) = \{ \text{ Riemannovsky integrovatelných funkcí na } [a,b]\}
+\end{align*}
+
+\paragraph{Poznámka}
+\setcounter{equation}{0}
+\begin{align}
+	f \text{ spojitá na } [a,b] \Rightarrow f \in R([a,b]) \\
+	f \in R([a,b]) \Rightarrow f \text{ je omezená }
+\end{align}
+
+\subsection{Věta o zjemnění dělení}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je omezená funkce na $[a,b]$, $D$ a $D'$ jsou dělení $[a,b]$ a $D'$
+zjemňuje $D$, potom:
+\begin{align*}
+	s(f,D) \le^{(1)} s(f,D') \le^{(2)} S(f,D') \le^{(3)} S(f,D)
+\end{align*}
+% Tady jsem si pridal vlastni inline cislovani, tak proto...
+\setcounter{equation}{3}
+
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item  $s(f,D) \le s(f,D')$ \\ 
+	Matematickou indukcí podle počtu přidaných bodů: 
+	\begin{enumerate}[i.]
+		\item  $|D'| = |D|+1$
+		\item  
+			\begin{align*}
+				s(f, D) = \sum_{j=1}^n |x_j - x_{j-1}| \cdot \inf \{f(x) \quad 
+				x \in [x_{j-1},	x_j]\}
+			\end{align*}
+			Pokud přibyde jeden bod do zjemnění, i-tý člen se rozdělí na dva, ty
+			jsou však alespoň stejně tak velké jako původní (protože pokud by
+			existoval menší, muselo by i infinum původního členu být menší).
+	\end{enumerate}
+	\item  triviální: $\inf M \le \sup M$
+	\item  analogicky k 1.
+\end{enumerate}
+
+\subsection{Věta o dvou děleních}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je omezená funkce na $[a,b]$, $D_1$ a $D_2$ jsou dělení na $[a,b]$. Pak
+\begin{align*}
+	s(f, D_1) \le S(f, D_2)
+\end{align*}
+
+\paragraph{Důkaz}
+Vytvoříme společné zjemnění $D := D_1 \cup D_2$. Pak je podle předchozí věty
+triviální.
+
+\subsection{Norma dělení}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $D$ je dělení $[a,b]$, $D = (x_j)_{j=0}^n$. Potom \textbf{normou dělení}
+nazveme
+\begin{align*}
+	\Nu(D) := \max \{ |x_j - x_{j-1} |, j = 1..n \}
+\end{align*}
+
+
+\subsection{Věta o aproximaci Riemannova integrálu pomocí součtů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je omezená funkce $[a,b] \to \R$. $(D_n)_{n=1}^\infty$ je posloupnost
+dělení taková, že 
+\begin{align*}
+	\lim_{n\to\infty} \Nu(D_n) = 0
+\end{align*}
+Potom:
+\begin{align*}
+	\overline{\int_a^b} f(x) \dx = \inf S(f, D_n) \\
+	\underline{\int_a^b} f(x) \dx = \sup s(f, D_n)
+\end{align*}
+
+\paragraph{Poznámka}
+\begin{enumerate}
+	\item  Rovnoměrné dělení: $\Nu(D_n) = \frac{1}{2}$
+	\item  Pokud $\lim S(f, D_n) = \lim s(f, D_n) = a$, potom $\int f(x) \dx = A$
+	\item  Pokud víme, že je funkce Riemannovsky integrovatelná, stačí jedna z
+	limit.
+\end{enumerate}
+
+\paragraph{Bez důkazu.}
+
+
+\subsection{Kritérium existence Riemannova integrálu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je omezená funkce na $[a,b]$. Potom:
+\begin{align*}
+	f \in R([a,b]) \Leftrightarrow \forall \epsilon > 0 \quad  \exists D \text{
+	dělení } [a,b]: \quad S(f, D) - s(f,D) < \epsilon
+\end{align*}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item  $\Rightarrow$ 
+		\begin{align}
+			(R) \int f(x) \dx = A
+			&= \sup\{s(f,D) \} \label{kriterium-r-1}\\
+			&= \inf\{S(f,D)\} \label{kriterium-r-2}
+		\end{align}
+		Tedy podle (\ref{kriterium-r-1}) víme, že $A - \frac{\epsilon}{2}$ není
+		horní závora a podle (\ref{kriterium-r-2}) že $A+\frac{\epsilon}{2}$ není
+		dolní závora. Tedy:
+		\begin{align}
+			\exists D_1 \quad s(f, D_1) > A - \frac{\epsilon}{2}
+			\label{kriterium-r-d1} \\
+			\exists D_2 \quad S(f, D_2) < A + \frac{\epsilon}{2}
+			\label{kriterium-r-d2}
+		\end{align}
+		Vytvořme tedy společné zjemnění $D$ dělení $D_1$ a $D_2$. Podle věty o zjemnění
+		dělení tedy:
+		\begin{align}
+			A-\frac{\epsilon}{2} < s(f, D_1) \le s(f, D) \le S(f,D) \le S(f,
+			D_2) < A+ \frac{\epsilon}{2}
+		\end{align}
+		Po úpravě (odečtení A, přičtení $\frac{\epsilon}{2}$) získáme:
+		\begin{align}
+			S(f, D) - s(f,D) < \epsilon
+		\end{align} 
+	\item  $\Leftarrow$ 
+		\begin{align}
+			\exists D_\epsilon \text{ dělení } \quad S(f, D_\epsilon) -
+			s(f,D_\epsilon) < \epsilon
+		\end{align}
+		Po rozepsání z definic získáme (ne)rovnosti:
+		\begin{align} 
+			s(f, D_\epsilon) \le \sup s(f,D_\epsilon) &=\\
+			= \underline{\int_a^b} f(x) \dx &\le \overline{\int_a^b} f(x) \dx =\\
+			&= \inf S(f,D_\epsilon) \le S(f, D_\epsilon) 
+		\end{align}
+		Z čehož je vidět, že:
+		\begin{align} 
+			0 \le \overline{\int_a^b} f(x) \dx -
+			\underline{\int_a^b} f(x) \dx < \epsilon
+		\end{align}
+		Pokud to však platí pro $\epsilon$ libovolně malé, pak:
+		\begin{align}
+			\overline{\int_a^b} f(x) \dx - \underline{\int_a^b} f(x) \dx = 0\\
+			\overline{\int_a^b} f(x) \dx = \underline{\int_a^b} f(x) \dx
+		\end{align} 
+		Funkce $f$ je tedy Riemannovsky integrovatelná.
+\end{enumerate}
+
+
+\subsection{Věta o monotónnii a Riemannovské integrovatelnosti}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Je-li $f$ omezená a monotónní na $[a,b]$, pak $f \in R([a,b])$.
+\paragraph{Důkaz}
+BÚNO předpokládejme, že $f$ je rostoucí a $M$ je suprémum (z omezenosti existuje):
+\begin{align}
+	M: \quad \forall x \in [a,b] \quad |f(x)| \le M
+\end{align}
+Mějme $D_n$ rovnoměrné dělení s krokem $\frac{a-b}{n}$. Potom:
+\begin{align}
+	S(f, D_n) - s(f, D_n) &= \sum_{j=1}^n \left[ f(x_j) - f(x_j-1) \right] \cdot
+	\frac{b-a}{n} \\
+	&= \frac{b-a}{n}\left( f(b) - f(a) \right)
+\end{align}
+Ověříme podmínky pro kritérium riemannovské integrovatelnosti: \\
+Pro každé $\epsilon$ zvolíme $n$:
+\begin{align}
+	\frac{b-a}{n} (f(b)-f(a)) < \epsilon
+\end{align}
+Podle Archimedovy vlastnosti takové existuje. Použijeme tedy dělení $D_n$ s právě
+takovým $n$. Potom platí:
+\begin{align}
+	S(f, D_n) - s(f, D_n) < \epsilon
+\end{align}
+A podle kritéria o riemannovské integrovatelnosti je funkce $f$ integrovatelná na
+$[a,b]$
+
+
+\subsection{Stejnoměrná spojitost}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Řekneme, že funkce $f$ je stejnoměrně spojitá na intervalu $I$ pokud:
+\begin{align*}
+	\forall \epsilon > 0 \quad \exists \delta > 0 \qquad \forall x,y \in I \quad
+	|x-y| < \delta \quad \Rightarrow \quad |f(x) - f(y)| < \epsilon
+\end{align*}
+
+
+\subsection{Věta o spojitosti a stejnoměrné spojistosti (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je spojitá na $[a,b]$, potom je $f$ stejnoměrně spojitá na $[a,b]$.
+(bez důkazu)
+
+\subsection{Věta o spojitosti a riemannovské integrovatelnosti}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je spojitá na $[a,b]$, pak $f \in R([a,b])$.
+\paragraph{Důkaz}
+Pro kritérium riemannovské integrovatelnosti chceme:
+\begin{align}
+	\forall \epsilon > 0 \quad \exists D \quad S(f,D) - s (f,D) < \epsilon
+\end{align}
+Mějme tedy $\epsilon > 0$, ze stejnoměrné spojistosti existuje $\delta > 0$.
+Vezměme dělení $D$: $\Nu(D) < \delta$ (třeba rovnoměrné):
+\begin{align}
+	S(f,D) - s(f,D) &= \sum_{j=1}^n |x_j - x_{j-1}| \cdot
+		\underbrace{(\sup f(t) - \inf f(t))}_{t \in [x_{j-1},x_j]}
+\end{align}
+Shora odhadneme:
+\begin{align}
+	\label{vosss-konst} \sum_{j=1}^n |x_j - x_{j-1}| &\le (b-a) \\
+	\label{vosss-maxepsilon} \sup f(t) - \inf f(t) &< \epsilon
+\end{align}
+Vidíme, že (\ref{vosss-konst}) je maximálně konstanta a dokážeme, že
+(\ref{vosss-maxepsilon}) se
+dá shora odhadnout jako $\epsilon$:\\
+Ze spojitosti a omezenosti plyne, že $f$ nabývá na $[x_{j-1},x_j]$ maxima v $M$ a minima v
+$m$. Pak tedy platí:
+\begin{align}
+	|m-M| \le |x_j - x_{j-1}| \le \Nu (D) < \delta
+\end{align}
+Což podle stejnoměrné spojitosti dokazuje (\ref{vosss-maxepsilon}) a postačuje pro
+kritérium existence riemannovského integrálu.
+
+\subsection{Vlastnosti riemannovského integrálu (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+\begin{enumerate}
+	\item Linearita na $[a,b]$ součtu a násobku $\alpha \in \R$: ($f,g \in R([a,b])$)
+		\begin{align*}
+			(R) \int_a^b f+g = (R) \int_a^b f \quad + \quad (R) \int_a^b g\\
+			(R) \int_a^b \alpha \cdot g = \alpha \cdot (R) \int_a^b g
+		\end{align*}
+	\item Uspořádání: ($f,g \in R([a,b])$)
+		\begin{align*}
+			f \le g \qquad \Rightarrow \qquad (R) \int_a^b f \le (R) \int_a^b g
+		\end{align*}
+	\item Aditivita vzhledem k intervalu: ($a<b<c$)
+		\begin{align*}
+			&(i) \qquad &f \in R([a,c]) \Leftrightarrow f \in R([a,b]) \land f
+			\in R([b,c])\\
+			&(ii) \qquad &(R) \int_a^c f = (R) \int_a^b f \quad + \quad (R) \int_b^c f
+		\end{align*}
+\end{enumerate}
+(bez důkazu)
+
+\subsection{Věta o derivace integrálu podle horní meze}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $J$ je neprázdný interval, $c \in J$ konstantní bod a $f$ je funkce pro niž platí:
+\begin{align*}
+	\forall \alpha, \beta \in J \quad f \in R([\alpha, \beta])
+\end{align*}
+F(x) přiřadíme:
+\begin{align*}
+	F(x) &:=  (R) \int_c^x f(t) \dt \qquad &(x > c) \\
+	F(x) &:= -  (R) \int_x^c f(t) \dt \qquad &(x < c)
+\end{align*}
+Potom:
+\begin{enumerate}
+	\item $F$ je spojitá na $J$
+	\item $f$ je spojitá v $x_0 \in J \Rightarrow F'(x_0) = f(x_0)$
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Ukážeme, že $\forall x_0 \in J$ je $F$ spojitá: 
+		\textbf{chceme} $\lim_{x\to x_{0+}} F(x) - F(x_0)=0$\\
+		Mějme tedy $c < x_0 < y \in J$. Potom $f \in R([c,y]) \Rightarrow f $ je omezená na $[c,y]
+		\Rightarrow \exists M \quad |f([c,y])| \le M $.\\
+		\begin{align}
+			\label{vodrhm-prvni} F(x) - F(x_0) = \int_{x_0}^x f(t) \dt & \le \int_{x_0}^x M \dt =
+			M(x-x_0)\\
+			&\ge \int_{x_0}^x - M \dt = -M (x - x_0)
+		\end{align}
+		Podle definice limity potřebujeme:
+		\begin{align}
+			\label{vodrhm-lim}\forall \epsilon > 0 \quad \exists \delta > 0 \quad \forall x,x_0
+			\in J \quad |x-x_0| < \delta \quad \Rightarrow  \quad |F(x) -
+			F(x_0)| < \epsilon
+		\end{align}
+		Podle (\ref{vodrhm-prvni}) a definice limity (\ref{vodrhm-lim}) však
+		víme:
+		\begin{align}
+			|F(x) - F(x_0)| \le M|x-x_0| \le M\delta = \epsilon
+		\end{align}
+		Zvolíme tedy $\delta := \frac{\epsilon}{M}$
+	\item Víme, že $f$ je spojitá v $x_0 \in J$. Rozpisem podle derivace
+		získáme:
+		\begin{align}
+			F'(x_0) = \lim_{x \to x_0 + } \frac{F(x) - F(x_0)}{x-x_0}
+		\end{align}
+		Podle věty o vlastnostech integrálu upravíme čitatele:
+		\begin{align}
+			= \lim_{x \to x_0} \frac{1}{x - x_0} \int_{x_0}^x f(t) \dt
+		\end{align}
+		Kde můžeme integrál odhadnout jako:
+		\begin{align}
+			 \int_{x_0}^x (f(x_0)-\epsilon) \dt
+			 \le \int_{x_0}^x f(t) \dt 
+			 \le \int_{x_0}^x (f(x_0)+\epsilon) \dt
+		\end{align}
+		Nyní je již vidět, že podle definice je limita rovna $f(x_0)$
+\end{enumerate}
+\paragraph{Důsledek}
+$f$ je spojitá na $(\alpha, \beta) \quad  \Rightarrow \quad \int_\alpha^\beta f(t) \dt =
+[F(t)]_\alpha^\beta$
+
+
+
+\subsection{Newtonův integrál}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Newtonův integrál funkce f na intervalu (a,b) je:
+\begin{align*}
+	(N) \int_a^b f(x) \dx = \lim_{x\to b-} F(x) - \lim_{x \to a+} F(x)
+\end{align*}
+kde F je primitivní funkce k f na (a,b) a limity jsou vlastní. Píšeme:
+\begin{align*}
+	(N) \int_a^b f(t) \dt = [ F(t) ]_a^b
+\end{align*}
+
+\subsection{Per-partes pro určitý integrál}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$, $f'$, $g$, $g'$ jsou spojité na $[a,b]$, potom:
+\begin{align*}
+	\int_a^b fg' = [fg]_a^b - \int_a^b f'g
+\end{align*}
+
+\paragraph{Důkaz}
+Nechť $H$ je primitivní funkce k $f'g$ na $(a,b)$, $K$ je primitivní funkce k
+$fg'$ na $(a,b)$. \\
+Víme, že: 
+\begin{align}
+	K(x) = f(x)g(x) - H(x)
+\end{align}
+Analogicky určitý integrál:
+\begin{align}
+	[K(x)]_a^b = [fg]_a^b - [H]_a^b
+\end{align}
+
+
+\subsection{Substituce pro určitý integrál (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+\begin{enumerate}[i.]
+	\item  Nechť $f$ je spojitá funkce na $[a,b]$. A funkce $\varphi$ je:
+	\begin{align*}
+		\varphi&: [\alpha,\beta] \to [a,b] \\
+		\varphi& \text{ spojitá na } [\alpha, \beta]
+	\end{align*}
+	Potom:
+	\begin{align*}
+		\int_\alpha^\beta f(\varphi(t)) \varphi'(t) \dt =
+		\int_{\varphi(\alpha)}^{\varphi(\beta)} f(x) \dx
+	\end{align*}
+	
+	\item  Nechť $f$ je spojitá funkce na $[a,b]$. A funkce $\varphi$ je:
+	\begin{align*}
+		\varphi&: [\alpha,\beta] \to [a,b] \\
+		\varphi& \text{ spojitá na } [\alpha, \beta]\\
+		\varphi&' \neq 0 
+	\end{align*}
+	Potom:
+	\begin{align*}
+		\int_a^b f(x) \dx = \int_{\varphi^{-1}(a)}^{\varphi^{-1}(b)}
+		f(\varphi(t)) \varphi'(t) \dt
+	\end{align*}
+\end{enumerate}
+(bez důkazu)
+
+
+\section{Aplikace určitého integrálu}
+\subsection{Obsah plochy pod křivkou}
+\paragraph{Definice}
+Nechť $f$ je nezáporná funkce spojitá na $[a,b]$. Pak obsahem plochy pod křivkou $S$ nazveme:
+\setcounter{equation}{0}
+\begin{align*}
+	S = \int_a^b f(x) \dx
+\end{align*}
+
+\subsection{Délka křivky}
+\paragraph{Definice}
+Nechť $f$ je spojitá funkce na $[a,b]$ a $D=(x_j)_{j=0}^n$ dělení intervalu
+$[a,b]$. Délkou lomené čáry podle dělení nazveme:
+\begin{align*}
+	L(f,D) = \sum_{k=1}^n \sqrt{(x_k - x_{k-1})^2 + (f(x_k) - f(x_{k-1}))^2}
+\end{align*}
+\paragraph{Definice}
+Délkou křivky nazveme:
+\begin{align*}
+	L(f([a,b])) = \sup \{ L(f,D), D \text{ dělení } [a,b]\}
+\end{align*}
+\paragraph{Věta}
+\setcounter{equation}{0}
+Nechť má funkce $f$ na intervalu $[a,b]$ spojitou první derivaci. Potom:
+\begin{align*}
+	L(f) = \int_\alpha^\beta \sqrt{1+(f'(x))^2} \dx
+\end{align*}
+\paragraph{Důkaz}
+Podle definice délky lomené čáry rozepíšeme:
+\begin{align}
+	L(f,D) &= \sum_{k=1}^n \sqrt{(x_k - x_{k-1})^2 + (f(x_k) - f(x_{k-1}))^2}\\
+		&= \sum_{k=1}^n (x_k - x_{k-1}) \sqrt{ 1 + 
+				\left( \frac{f(x_k) - f(x_{k-1})}{x_k - x_{k-1}} \right)^2
+			}
+\end{align}
+Na výraz v závorce lze uplatnit Lagrangeho větu o střední
+hodnotě a odhadnout pomocí derivace:
+\begin{align}
+	\frac{f(x_k) - f(x_{k-1})}{x_k - x_{k-1}} = f'(\xi_k) \qquad \xi_k \in
+	(x_{k-1}, x_k) \\
+	\inf\{f'(x), x \in (x_{k-1}, x_k)\}
+	\le f'(\xi)
+	\le \sup \{f'(x), x \in (x_{k-1}, x_k)\}
+\end{align}
+Tedy můžeme $L(f,D)$ považovat za integrální součty. Tedy:
+\begin{align}
+	s(\sqrt{1+(f'(x))^2}, D) \le L(f,D) \le S(\sqrt{1+(f'(x))^2}, D)
+\end{align}
+Stačí si tedy uvědomit, že $L(f)$ je definovaná jako supremum $L(f,D)$, tedy nutně musí
+platit:
+\begin{align}
+	\int_a^b( \sqrt{1+(f'(x))^2} ) \dx \le L(f)
+\end{align}
+(opačná nerovnost bez důkazu)
+
+\subsection{Délka křivky v $\R^n$ (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $\varphi: [a,b] \to \R^n$ je spojitá a má spojitou první derivaci. Potom délku
+křivky vypočteme:
+\begin{align*}
+	L(\varphi([a,b])) = \int_a^b \sqrt{ (\varphi_1'(x))^2 + ... +
+	(\varphi_n'(x))^2}\dx
+\end{align*}
+(bez důkazu)
+
+\subsection{Objem a povrch rotačního tělesa}
+\setcounter{equation}{0}
+Nechť $f$ je nezáporná funkce spojitá na $[a,b]$. Pak definujeme objem $V$ a
+povrch $P$
+rotačního tělesa vzniklého rotací křivky $f$ okolo osy $x$ jako:
+\begin{align*}
+	V &= \int_a^b \pi f^2(x) \dx \\
+	P &= \int_a^b 
+	\underbrace{2\pi f(x)}_{\text{kruh o } r = f(x)} 
+	\underbrace{\sqrt{1+(f'(x))^2}} _{\text{délka křivky}}
+	\dx
+\end{align*}
+
+\subsection{Odhad konečných součtů řad}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je nerostoucí funkce na intervalu $[a-1,b]$ (resp. $[a,b+1]$) a $c_k =
+f(k)$. Potom (pro nerostoucí):
+\begin{align*}
+	\sum_{k=a}^b c_k &\le \int_{a-1}^b f(x) \dx \\
+		&\ge \int_a^{b+1} f(x) \dx
+\end{align*}
+(pro neklesající platí obrácené nerovnsti)
+
+\paragraph{Důkaz}
+Nechť D rovnoměrné dělení s krokem 1 ( $D=(a-1,a,..., b)$ ), potom S(f,D) je
+jeden z integrálních součtů. Nutně tedy (z definice Riemannova integrálu) platí,
+že:
+\begin{align}
+	\int_a^b f(x) \dx \le \overline{\int_a^b} f(x) \dx = \sup \{ S(f,D), \forall D
+	\text{ dělení } [a,b] \}
+\end{align}
+(pro dolní součty analogicky)
+
+\subsection{Integrační kritérium konvergence řad}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f$ je nezáporná, nerostoucí a spojitá funkce na intervalu $[n_0 - 1, \infty]$ 
+pro nějaké $n_0 \in \N$. Nechť pro posloupnost $a_n$ platí: 
+\begin{align*}
+	\forall n \ge n_0 \quad a_n = f(n)
+\end{align*}
+Potom:
+\begin{align*}
+	(N) \int_{n_0}^\infty f(x) \dx < \infty \quad \Leftrightarrow \quad
+	\sum_{n=1}^\infty a_n \text{ konverguje }
+\end{align*}
+
+\paragraph{Důkaz}
+Triviální důsledek věty o odhadu součtů řad.
+
+
+\newpage
+\section{Funkce více proměnných}
+\setcounter{equation}{0}
+\subsection{Funkce více proměnných, okolí}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Funkce více proměnných je zobrazení $f: M \to \R, M \in \R^n$
+\paragraph{Definice}
+Nechť $a \in \R^n$, $a = (a_1, ..., a_n)$. Okolí a prstencové okolí definujeme
+jako:
+\begin{align*}
+	&U(a, \delta) = (a_1 - \delta, a_1 + \delta) \times ... \times (a_n - \delta,
+	a_n + \delta) \\
+	&P(a, \delta) = U(a, \delta) \setminus \{ a \}
+\end{align*}
+
+\subsection{Otevřená a uzavřená množina}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Množina $G$ je otevřená množina právě když platí:
+\begin{align*}
+	\forall x \in G \quad \exists \delta > 0 \quad U(x, \delta) \subsetq G
+\end{align*}
+\paragraph{Definice}
+Množina $F$ je uzavřená právě když $\R^n \setminus F$ je uzavařená množina
+
+\subsection{Limita funkce více proměnných}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $a \in \R^n$, $A \in \R^*$ a $f: M \to \R$. Potom definujeme limitu:
+\begin{align*}
+	\lim_{x\to a} f(x) = A \qquad
+	\Leftrightarrow  \qquad
+	\forall \epsilon > 0 \quad \exists \delta > 0 \quad \forall x \in P(a,
+	\delta) \quad f(x) \in U(A, \epsilon)
+\end{align*}
+
+\subsection{Parciální derivace}
+\setcounter{equation}{0}
+Nechť funkce $f$ je funkce n proměnných. Definujeme \textbf{parciální derivaci}
+funkce $f$ podle $x_i$ jako:
+\begin{align*}
+	\frac{\partial f}{\partial x_i} = \lim_{h \to 0} \frac{f(x_1, ..., x_i + h,
+	..., x_n) - f(x_1, ..., x_n)}{h}
+\end{align*}
+
+\subsection{Hessova matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť existují všechny druhé parciální derivace funkce $f$. Potom definujeme
+\textbf{Hessovu matici} předpisem:
+\begin{align*}
+	\left( \frac{\partial^2 f(a)}{\partial x_i \, \partial x_j} \right)_{i,j=1}^n
+\end{align*}
+
+
+\subsection{Postačující podmínka pro extrém (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť je funkce $f: G \to \R$, $G \subsetq \R^n$ otevřená množina a bod $a \in G$.
+Nechť jsou všechny první parciální derivace rovny nule nebo neexistují a všechny
+druhé derivace existují. Potom existenci extrému ověříme následovně: \\
+Matice $H_f(x)$ je:
+\begin{enumerate}[i.]
+	\item \textbf{pozitivně definitní} - v $a$ je lokální \textbf{minimum}
+	\item \textbf{negativně definitní} - v $a$ je lokální \textbf{maximum}
+	\item \textbf{indefinitní} - v $a$ není lokální extrém
+	\item \textbf{pozitivně/negativně semidefinitní} - nedává informaci
+\end{enumerate}
+(bez důkazu)
+
+\subsection{Spojitost funkce více proměnných}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Funkce $f: M \to \R$ je spojitá v bodě $a \in \R^n$ pokud $\lim_{x\to a} f(x) = f(a)$.
+
+\subsection{Nutná podmínka na extrém}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť je funkce $f: G\to \R$, $G \subsetq \R^n$ otevřená množina a bod $a \in G$.
+Nechť $f$ nabývá v bodě $a$ lokálního extrému. Potom:
+\begin{align*}
+	\forall i \quad \frac{\partial f(a)}{\partial x_i} = 0 \text{ nebo
+	neexistuje}
+\end{align*}
+\paragraph{Důkaz}
+Definujeme funkci jedné proměnné $g_i(h) = f(a_1, ..., a_i+h, ..., a_n)$. Pokud
+má $f$ v $a$ lokální extrém, potom $g_i$ nutně musí mít v $0$ také lokální extrém nebo
+neexistuje $\forall i$. Taktéž je vidět, že $g_i'(0) = \frac{\partial f(a)}{\partial x_i}$.
+
+\subsection{Totální diferenciál}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť je funkce $f: G \to \R$, $a \in G$ a funkce L definovaná:
+\begin{align*}
+	L: \R^n \to \R \text{ lineární funkce } L(h) = ch = c_1 h_1 + c_2 h_2 ...
+\end{align*}
+L je totální diferenciál pokud platí:
+\begin{align*}
+	\lim_{h\to(0,..)} \frac{f(a+h) - f(a) - L(h)}{h} = 0
+\end{align*}
+Značíme:
+\begin{align*}
+	L = Df(a) \\
+	L(h) = Df(a)(h)
+\end{align*}
+
+\subsection{Tvar totálního diferenciálu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+\begin{enumerate}[i.]
+	\item Pokud existuje totální diferenciál, existují všechny parciální derivace.
+	\item 
+	\begin{align*}
+		Df(a)(h) = \sum_{i=1}^n \frac{\partial f(a)}{\partial x_i} \cdot h_i =
+		\nabla f(a) \cdot h
+	\end{align*}	
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}[i.]
+	\item Triviálně podle ii. (protože obsahuje všechny parciální derivace,
+	které tímto musí existovat)
+	\item Víme, že:
+		\begin{align}
+			\lim_{h\to(0,..)} \frac{f(a+h) - f(a) - Df(a)(h)}{h} = 0
+		\end{align}
+		Nechť $h = t \cdot e_i$, tedy:
+		\begin{align}
+			\lim_{t\to0} \frac{f(a+te_i)-f(a)}{t} - \frac{c_i t}{t} = 0 \\
+			\Rightarrow c_i = \frac{\partial f}{\partial x_i}
+		\end{align}
+		Což platí pro každé i.
+\end{enumerate}
+
+\subsection{Věta o aritmetice totálního diferenciálu (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť jsou $a \in G \subsetq \R^n$, $f,g: G \to \R$, $G$ otevřená množina
+a nechť existují $Df(a)$ a $Dg(a)$. Potom:
+\begin{align*}
+	&D(f+g)(a) = Df(a) + Dg(a) \\
+	&D(c\cdot f)(a) = c \cdot Df(a) \\
+	&D(f \cdot g)(a) = f(a) \cdot Dg(a) + g(a) \cdot Df(a) \\
+	&D( \frac{f}{g})(a) = \frac{Df(a) \cdot g(a) - f(a) \cdot Dg(a)}{g^2(a)}
+\end{align*}
+(bez důkazu)
+
+\subsection{Diferenciál složeného zobrazení (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $a \in \R^s$, $b\in \R^n$, $f$ je funkce $n$ proměnných a $g_j$, $j = 1...
+n$ jsou funkce $s$ proměnných. Nechť:
+\begin{align*}
+	g_j (a) = b_j \text{ pro } j \in \{1, ..., n\} \\
+	\exists Df(b), Dg_1(a), ..., Dg_n(a).
+\end{align*}
+Definujeme funkci $H: \R^s \to \R$ předpisem:
+\begin{align*}
+	H(x) = f(g_1(x), ..., g_n(x))
+\end{align*}
+Pak $H$ má v bodě $a$ totální diferenciál a platí:
+\begin{align*}
+	DH(a)(h) = \sum_{i=1}^s \left( \sum_{j=1}^n \frac{\partial f}{\partial
+	y_j}(b) \frac{\partial g_j}{\partial x_i}(a) \right) h_i
+\end{align*}
+Pro všechny $h \in \R^s$, neboli v maticovém zápisu:
+\begin{align*}
+	DH(a)(h) = Df(g(a))Dg(a)h
+\end{align*}
+(bez důkazu)
+
+
+\subsection{Věta o existenci extrémů funkce více proměnných}
+\setcounter{equation}{0}
+\paragraph{Poznámka}
+Pro důkaz této věty je třeba teorie metrických prostorů uvedená ke konci
+poznámek. Důkaz je doporučen studovat až po metrických prostorech.
+\paragraph{Věta}
+Nechť $(P, \rho)$ je metrický prostor, $K \subsetq P$ je kompaktní a funkce
+$f:K\to \R$ je spojitá na $K$. Potom:
+\begin{enumerate}
+	\item $f$ nabývá na $K$ maxima a minima
+	\item $f$ je na $K$ omezená
+\end{enumerate}
+\paragraph{Důkaz} 
+\begin{enumerate}
+	\item pro maximum: \\
+	Mějme $s := \sup\{f(x), x \in K\}$. Z definice suprema víme:
+	\begin{align}
+		\forall n \quad \exists x_n\quad \lim_{n\to\infty} f(x_n) = s
+		\quad \Rightarrow \quad \lim_{k\to\infty} f(y_k \text{vybraná}) = s
+	\end{align}
+	$K$ je kompaktní, proto zároveň:
+	\begin{align}
+		\exists y_k \text{ v. p. z } x_n \quad \exists y \in K:
+		\lim_{k\to\infty} y_k = y
+	\end{align}
+	Z definice spojitosti v $y$ potom víme, že:
+	\begin{align}
+		\forall \epsilon > 0 \quad \exists \delta > 0 \quad \forall x \in B_\rho(y,
+		\delta) \quad f(x) \in (f(y) - \epsilon, f(y) + \epsilon)
+	\end{align}
+	Chceme aby $f(y) = s$. Sporem $f(y) \neq s$, tedy $f(y) < s$. \\
+	Zvolme $\epsilon := \frac{1}{2} |s - f(y)|$. 
+	Z konvergence ale víme:
+	\begin{align}
+		\exists k_0 \quad \forall k > k_0 \quad y_k \in B_\rho(y, \delta)
+		\quad \Rightarrow \quad |f(y_k) - f(y)| < \epsilon
+	\end{align}
+	Což je spor, protože $\lim f(y_k) = s$.
+\end{enumerate}
+
+
+\subsection{Množina funkcí se spojitými prvními derivacemi na množině}
+\setcounter{equation}{0}
+\paragraph{Definice}
+O funkci $f: G \to \R$ řekneme, že patří do $C^1(G)$ pokud $\forall i \quad
+\frac{\partial f}{\partial x_i}$ je spojitá funkce na $G$.
+
+
+
+\subsection{Lagrangeho věta o vázaných extrémech (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $G \subsetq \R^n$ je otevřená množina, $s < n$, $f, g_1, ..., g_s \in
+C^1(G)$ a množina $M = \{x \in \R^n: \quad g_1(x) = .... = g_s(x) = 0 \}$. \\
+\textbf{Pokud}:
+\begin{enumerate}
+	\item $a \in M$ je bodem lokálního extrému $f$ na $M$
+	\item vektory $\nabla g_1(a), ..., \nabla g_s(a)$ jsou lineárně nezávislé
+\end{enumerate}
+\textbf{Potom}:
+\begin{align*}
+	\exists \lambda_1, ..., \lambda_s \in \R: \nabla f(a) = \lambda_1 \nabla g_1
+	(a) + ... + \lambda_s \nabla g_s (a)
+\end{align*}
+
+
+\newpage
+\section{Metrické prostory}
+\setcounter{equation}{0}
+
+\subsection{Definice metrického prostoru}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Metrický prostor je $(P, \rho)$, kde $P$ je množina bodů a $\rho$ je funkce $P \times P
+\to \R_0^+$ splňující axiomy:
+\begin{enumerate}
+	\item $\forall x \in P \quad \rho(x,x) = 0$
+	\item $\forall x,y \in P \quad \rho(x,y) = \rho(y,x)$
+	\item $\forall x,y,z \in P \quad \rho(x,y) \le \rho(x,z) + \rho(z,y)$
+\end{enumerate}
+
+\subsection{Otevřená a uzavřená koule}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(P, \rho)$ je metrický prostor a $x \in P$, $r \in \R$, $r > 0$. Potom
+definujeme:
+\begin{description}
+	\item[otevřenou] kouli: 
+		$B(x, r) = \{ y \in P\quad \rho(x,y) < r\}$
+	\item[uzavřenou] kouli: 
+		$\overline{B(x, r)} = \{ y \in P\quad \rho(x,y) \le r\}$
+\end{description}
+
+
+\subsection{Otevřená a uzavřená množina}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(P, \rho)$ je metrický prostor. Potom definujeme:
+\begin{description}
+	\item[otevřenou množinu] $G$ pokud $\forall x \in G \quad \exists r > 0 \quad
+	B(x,r) \subsetq G$.
+	\item[uzavřenou množinu] $F$ pokud $P \setminus F$ je otevřená.
+\end{description}
+
+\subsection{Vlastnosti otevřených množin}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(P, \rho)$ je metrický prostor. Potom platí:
+\begin{enumerate}
+	\item $\emptyset$ a $P$ jsou otevřené množiny
+	\item $G_1, ..., G_n \subsetq P$ jsou otevřené množiny, potom $G_1 \cap ... \cap
+	G_n$ 	je otevřená
+	\item $G_\alpha (\alpha \in A)$ jsou otevřené množiny, potom $\bigcup_{\alpha \in
+	A} G_\alpha$ je otevřená
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item $\emptyset$ $\forall x \in \emptyset$ platí cokoliv \\
+		$P$ triviální
+	\item Mějme $G = G_1 \cap ... \cap G_n$, potom z předpokladů víme:
+		\begin{align}
+			\forall x \in G \quad \forall i \quad \exists r_i > 0 \quad B(x,
+			r_i) \subsetq G_i
+		\end{align}
+		Mějme tedy $r = \min \{ r_1, ..., r_n \} > 0$:
+		\begin{align}
+			B(x, r) \subsetq G_i \forall i \quad \Rightarrow \quad  B(x,r) \subsetq G
+		\end{align}
+	\item Mějme $\bigcup_{\alpha \in A} G_\alpha$, podle předpokladů víme:
+		\begin{align}
+			\forall x \in G \quad \exists \alpha \in A : x \in G_\alpha \quad 
+			\Rightarrow \quad  \exists r > 0 \quad B(x,r) \in G_\alpha \subsetq G
+		\end{align}
+\end{enumerate}
+
+
+\subsection{Vlastnosti uzavřených množin}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(P, \rho)$ je metrický prostor. Potom:
+\begin{enumerate}
+	\item $\emptyset$, $P$ jsou uzavřené množiny
+	\item $F_1, ..., F_n$ jsou uzavřené množiny, potom $F_1 \cup ... \cup F_n$
+	je uzavřená
+	\item $F_\alpha$ ($\alpha \in A$) jsou uzavřené množiny, 
+		 potom $\bigcap_{\alpha \in A} F_\alpha$ je uzavřená
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item triviálně: $P \setminus P$, $P \setminus\emptyset$ jsou otevřené
+		množiny
+	\item $F_1,... ,F_n$ uzavřené množiny, potom $\forall i \quad  G_i = P
+		\setminus F_i$ otevřené množiny. Tedy $G_1 \cap ... \cap G_n$ je
+		otevřená množina, $P \setminus ( G_1 \cap ... \cap G_n )$ je uzavřená
+		množina. Stačí tedy nahlédnout, že $G_1 \cap ... \cap G_n = F_1 \cup ...
+		\cup F_n$
+\end{enumerate}
+
+\subsection{Ekvivalence metrik}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Metriky $\rho, \sigma$ na $P$ jsou ekvivalentní právě když:
+\begin{align*}
+	\exists c_1, c_2 > 0 \quad \forall x, y \in P\quad c_1 \sigma(x,y) \le
+	\rho(x,y) \le c_2 \sigma(x,y)
+\end{align*}
+\paragraph{Fakt}
+Metriky $\rho_1$, $\rho_2$, $\rho_\infty$ na $\R^n$ jsou ekvivalentní.
+
+\subsection{Konvergentní posloupnost}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(P, \rho)$ je metrický prostor, $(x_n)_{n=1}^\infty$ posloupnost prvků
+$P$. Řekneme, že $(x_n)_{n=1}^\infty$ konverguje k $x$ ($\lim_{n\to\infty} x_n =
+x)$) pokud:
+\begin{align*}
+	\lim_{n\to\infty} \rho(x_n, x) = 0 \\
+	\forall \epsilon > 0 \quad \exists n_0 \in \N \quad \forall n > n_0 \quad
+	&\underbrace{|\rho(x_n,x) - 0|}_{} < \epsilon\\
+	&\rho(x_n,x) < \epsilon\\
+	&x_n \in B(x,\epsilon)
+\end{align*}
+
+\subsection{Vlastnosti konvergence}
+\setcounter{equation}{0}
+\paragraph{Věta}
+\begin{enumerate}
+	\item Nechť $(x_n)_{n=1}^\infty$ splňuje, že $\exists n_0 \quad \forall n >
+	n_0 \quad x_n = x$ \\
+	potom $\lim_{n\to\infty} x_n = x$
+	\item Nechť $\lim_{n\to\infty} x_n = x$ a $\lim_{n\to\infty} x_n = y$, potom $x = y$
+	\item Nechť $\lim_{n\to\infty} x_n = x$ a $(x_{n_s})_{s=1}^\infty$ je vybraná
+	posloupnost z $(x_n)_{n=1}^\infty$, potom $\lim_{s\to\infty} x_{n_s} =
+	\lim_{n\to\infty} x_n$
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item triviální z definice
+	\item Mějme $\epsilon = \frac{1}{2} \rho(x,y)$. Z předpokladů také víme, že:
+		\begin{align}
+			\exists n_0 \quad \forall n \ge n_0 \quad \rho(x_n, x) < \epsilon\\
+			\exists n_1 \quad \forall n \ge n_0 \quad \rho(x_n, y) < \epsilon
+		\end{align}
+		Vezměme $n = \max\{n_0, n_1 \}$, potom:
+		\begin{align}
+			\rho(x_n, x) < \epsilon \\
+			\rho(x_n, y) < \epsilon 
+		\end{align}
+		Z trojúhelníkové nerovnosti:
+		\begin{align}
+			\rho(x,y) &\lt \rho(x,x_n) + \rho(x_n, y) \\
+			& < 2 \epsilon = \rho(x,y)
+		\end{align}
+		Což je spor.
+	\item Víme podle věty o vybrané posloupnosti pro $\R$:
+		\begin{align}
+			\lim_{n\to\infty} \rho(x_n, x) = 0 \quad \Rightarrow \quad
+			\lim_{k\to\infty} \rho(x_{n_k}, x) = 0 \quad \Rightarrow \quad
+			\lim_{k\to\infty} x_{n_k} = x
+		\end{align}
+\end{enumerate}
+
+\subsection{Charakterizace uzavřených množin}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(P, \rho)$ je metrický prostor, $F \subset P$. Potom:
+\begin{align*}
+	F \text{ uzavřená }\quad \Leftrightarrow \quad \forall (x_n)_{n=1}^\infty \quad x_n \to x: \quad
+	x_n \in F \Rightarrow x \in F
+\end{align*}
+\paragraph{Důkaz}
+\begin{description}
+	\item[$\Rightarrow$] $F$ je uzavřená\\% $(x_n)_{n=1}^\infty \quad x_n \in F$\\
+	Sporem: $x_n\to x \quad \land \quad  x \nin F$:
+	\begin{align}
+		x \nin F \Rightarrow
+		x \in P \setminus F
+	\end{align}
+	Tj. $x$ je v otevřené množině. Potom z definice otevřené množiny:
+	\begin{align}
+		\label{charuzm-2} \exists r> 0 \quad B(x,r) \subsetq P \setminus F
+	\end{align}
+	Podle definice limity však platí (pro $\epsilon = r$):
+	\begin{align}
+		\exists n_0 \quad \forall n \ge n_0 \quad \rho(x_n, x) < r
+		\quad \Leftrightarrow \quad x_n \in B(x,r)
+	\end{align}
+	Tedy $x_{n_0} \in B(x,r)$, což je spor s
+	(\ref{charuzm-2}) a předpoklady, že $\forall n \quad x_n \in F$.
+
+	\item[$\Leftarrow$]
+	Nechť pro spor $F$ není uzavřená množina. Tedy $P \setminus F$ není otevřená
+	množina. Proto platí:
+	\begin{align}
+		\exists x \in P\setminus F \quad \forall r > 0 \quad B(x,r) \cap F \neq
+		\emptyset
+	\end{align}
+	Vezmeme tedy takové $x$ a sestavíme posloupnost $(x_n)$ z tohoto průniku:
+	\begin{align}
+		x_i &\in B(x,\frac{1}{i}) \cap F
+	\end{align}
+	Je vidět,  že tato posloupnost je konvergentní k $x$ a taktéž, že $\forall n
+	\quad x_n \in F$. Zároveň však $x \in P\setminus F$, což je spor s
+	předpokladem.
+\end{description}
+
+
+\subsection{Kompaktní množina}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(P, \rho)$ je metrický prostor. Řekneme, že množina $K \subset P$ je
+\textbf{kompaktní} pokud:
+\begin{align*}
+	\forall (x_n)_{n=1}^\infty \quad x_n \in \K \quad \exists \text{ v.p. }
+	(x_{n_s})_{s=1}^\infty \land \exists x \in \K \text{ t.ž. } x_{n_k}\to x
+\end{align*}
+Tj. pro každou posloupnost existuje konvergentní vybraná podposloupnost.
+
+\subsection{Vlastnosti kompaktních množin (důkaz 2. neúplný!)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(P, \rho)$ je metrický prostor, $K \subsetq P$ kompaktní množina. Potom:
+\begin{enumerate}
+	\item $K$ je uzavřená množina
+	\item $K$ je omezená množina
+	\item $F \subsetq K$, $F$ uzavřená množina $\Rightarrow$ $F$ je kompaktní množina
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Aby K byla uzavřená množina musí platit:
+		\begin{align}
+			\forall (x_n)_{n=1}^\infty \quad x_n \in K \quad  x_n \to x \quad
+			\Rightarrow x \in K
+		\end{align}
+		K je kompaktní, víme tedy:
+		\begin{align}
+			\exists x' \in K \quad \exists x_{n_k} \quad x_{n_k} \to x'
+		\end{align}
+		Zvolme tedy $x:=x'$, což splňuje podmínku podle definice.
+	\item Sporem - nechť K není omezená: Mějme tedy $a \in P$ libovolné, tedy:
+	\begin{align}
+		\forall n \quad K \nsubseteq B(a,n) \quad \Leftrightarrow \quad \exists
+		x_n \in K:
+		x_n \nin B(a,n)
+	\end{align}
+	(tedy $\rho(x_n, a) > n$) \\
+	Protože K je kompaktní, platí:
+	\begin{align}
+		\exists (x_{n_k})_{k=1}^\infty \quad \exists x\in K \quad x_{n_k} \to x
+	\end{align}
+	Tedy podle definice limity 
+	\begin{align}
+		\forall \epsilon > 0 \quad \rho(x_{n_k}, x) < \epsilon
+	\end{align}
+	Zvolme $\epsilon := n_{k_0}$. Speciálně tedy musí platit:
+	\begin{align}
+		\rho(x_{n_{k_0}}, x) < n_{k_0}
+	\end{align}
+	Což je spor pro $n_k = n_{k_0}$ \par
+	pozn: v důkazu se na konci využívalo trojúhelníkové nerovnosti mezi body $a$, $x$ a $x_n$
+	\item Pro každou posloupnost $x_n \in F \subsetq K$ platí, že konverguje
+	v $K$. Potom podle věty o charakterizaci uzavřených množin pokud $(x_{n_k})
+	\to x$, tak $x \in F$, tudíž splňuje podmínky z definice kompaktní množiny.
+\end{enumerate}
+
+\subsection{Charakterizace kompaktních množin v $\R^n$}
+\setcounter{equation}{0}
+\paragraph{Věta}
+$K \subsetq \R^n$ je kompaktní množina právě když je \textbf{uzavřená a omezená}.
+\paragraph{Důkaz}
+\begin{description}
+	\item[$\Rightarrow$] triviálně podle věty o vlastnostech kompaktních množin
+	\item[$\Leftarrow$] pro $\rho_\infty = \max_i |x_i - y_i|$ \\
+	Nechť $x(1), x(2), ...$ je posloupnost v $\R^n$, K je omezená a uzavřená.
+	Potom:
+	\begin{align}
+		\exists c \in \R \quad K \subsetq [-c,c]^n
+	\end{align}
+	Ukážeme, že $[-c,c]^n$ je kompaktní, potom je $K$ kompakt triviálně podle části 3 věty o
+	vlastnostech kompaktních množin. Chceme tedy:
+	\begin{align}
+		\forall (x_n) \quad x_n \in [-c,c]^d \quad \exists\text{ kg.
+		podposloupnost}
+	\end{align}
+	Označme $x_n = (x_n^1, ..., x_n^d) \quad ... \quad \forall n \forall i \quad
+	x_n^i\in[-c,c]^n$. Matematickou indukcí podle souřadnice:
+	\begin{enumerate}[1.]
+		\item $(x_n^1)_{n=1}^\infty$ - posloupnost v $\R$, má vybranou konvergentní
+			posloupnost podle \textit{Bolzano-Weistrassovy} věty pro $\R$
+			\begin{align}
+				\lim_{k\to\infty} (y_k^1) = y^1 
+				(y_k^1) =	(x_{n_k}^1)
+			\end{align}
+			Mějme tedy $(x_{n_k}^1) := (y_k^1)$.
+		\item 	analogicky k 1. $\exists (x_{n_k}^2)$
+	\end{enumerate}
+	\begin{enumerate}[d.]
+		\item analogicky k 1. $\exists (x_{n_k}^d)$
+	\end{enumerate}
+	Víme tedy, že 
+	\begin{align}
+		\forall j = 1...d \quad \lim_{i\to\infty} y_i^j = y^j
+	\end{align}
+	Chceme $\lim_{i\to\infty} \rho_\infty (y_i, y) = 0$. Tedy:
+	\begin{align}
+		\forall \epsilon>0 \quad ?\exists n_0: \\
+		\exists n_1 &... \forall i \ge n_1 \quad |y_i^1 - y^1| < \epsilon \\
+		&\vdots \\
+		\exists n_d &... \forall i \ge n_d \quad |y_i^d - y^d| < \epsilon
+	\end{align}
+	Mějme tedy $n_0 = \max \{ n_1 ... n_d \}$. Potom:
+	\begin{align}
+		\forall \epsilon > 0 \quad \forall i \ge n_0 \quad \rho_\infty (y_i, y)
+		< \epsilon
+	\end{align}
+	Což splňuje požadovanou limitu.
+\end{description}
+
+\subsection{Spojitost vzhledem k množině}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(P, \rho)$, $(Q, \sigma)$ jsou metrické prostory. $M \subsetq P$ a funkce $f: M\to
+Q$, $x_0 \in M$. Řeknem, že $f$ je \textbf{spojitá} v $x_0$ \textbf{vzhledem k $M$}
+právě když:
+\begin{align*}
+	\forall \epsilon > 0 \quad \exists \delta > 0 \quad \forall \epsilon
+	B_\rho(x_0, \delta) \cap M: \quad f(x) \in B_\sigma(x_0, \epsilon)
+\end{align*}
+\paragraph{Definice}
+Funkce $f$ je spojitá na $M$ právě když je spojitá v každém jejím bodě vzhledem
+k $M$.
+
+\subsection{Limita vzhledem k množině}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $\forall \delta > 0 \quad B_\rho(x_0, \delta \setminus \{x_0\} \cap M \neq
+0$, $y \in Q$. Potom definujeme limitu vzhledem k $M$ jako:
+\begin{align*}
+	\lim_{x \xrightarrow{\text{vz. k M}} x_0} f(x) = y \quad \Leftrightarrow \quad 
+	\forall \epsilon> 0 \quad \exists \delta >0 \quad \forall x \in B_\rho(x_0,
+	\delta) \cap M \setminus \{x_0\}: \quad f(x) \in B_\sigma(y, \epsilon)
+\end{align*}
+
+\subsection{Charakterizace spojitých zobrazení (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(P, \rho)$, $(Q, \sigma)$ jsou metrické prostory a zobrazení $f:P\to Q$.
+Pak následující tvrzení jsou ekvivalentní:
+\begin{enumerate}
+	\item f je spojité zobrazení na P
+	\item $\forall G$ otevřená množina v $(Q, \sigma)$ je $f^{-1}(G)$ otevřená
+	množina v $(P, \rho)$
+	\item $\forall F$ uzavřená množina v $(Q, \sigma)$ je $f^{-1}(F)$ uzavřená
+	množina v $(P, \rho)$
+\end{enumerate}
+(bez důkazu)
+\end{document}

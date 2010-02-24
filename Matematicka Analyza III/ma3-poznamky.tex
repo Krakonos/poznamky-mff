@@ -1,0 +1,1461 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage[czech]{babel}
+%\usepackage{bbm}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage{math}
+\usepackage{enumerate}
+
+\newcommand{\Nu}{\nu}
+
+\title{Matematická analýza III}
+\author{Ladislav Láska}
+
+\begin{document}
+\maketitle
+Učební text k předmětu \texttt{Matematická analýza III} pro informatiky. Je
+vytvořen na základě látky z přesnášek Martina Klazara a cvičeních a volně navazuje na předmět
+\texttt{Matematická analýza II}. Text je povětšinou výtahem z
+přednášek uspořádaným do srozumitelných krátkých celků zaměřený na definice,
+věty a probrané důkazy. Některé věty jsou pouze minimálně upraveny a přepsány z
+oficiálních poznámek z přednášek, jiné jsou úplně přepracovány tak, aby byly co
+nejsrozumitelnější. Seznam všech definic, vět a důkazů potrebných ke 
+zkoušce je uveden na konci textu
+(zkopírovaný z webu přednášky, pro úplnost). \\
+
+Pokud najdete chybu, nepřesnost nebo máte lepší (hezčí, kratší) důkaz než já, neváhejte mě kontaktovat (třeba na email ladislav.laska@gmail.com)
+
+\ \\
+
+Poděkování patří Martinu Pelikánovi za mnoho oprav chyb a vylepšení důkazů.
+
+\ \\
+
+\textbf{Upozornění}: Tyto poznámky jsou bez jakékoliv záruky. Nemusí být kompletní a mohou
+obsahovat chyby.
+\newpage
+\newpage
+
+% Titlepage is not numbered, but this is required for page compatibility in pdf
+% form
+% \setcounter{page}{2}
+
+\tableofcontents
+\newpage
+
+\section{Metrické prostory}
+\paragraph{Poznámka}
+Obsah této kapitoly byl z části pokryt na přednáškách předmětu
+\texttt{Matematická analýza II}, proto zde uvedu jenom základní přehled a
+všechny důkazy naleznete v odkazovaných poznámkách. Protože tyto přednášky vedl
+jiný přednášející, bude se lišit některé značení - nenechte se tedy zmást.
+
+\subsection{Metrický prostor}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Metrický prostor je dvojice $(M, d)$ (kde funkci $d$ se říká metrika) splňující axiomy:
+\begin{enumerate}
+	\item $\forall x,y \in M \quad d(x,y)\gt 0 \quad d(x,y) = 0 \Leftrightarrow x = y$
+	\item $\forall x,y \in M \quad d(x,y)=d(y,x)$
+	\item $\forall x,y,z \in M \quad d(x,y)+d(y,z)\gt d(x,y)$
+\end{enumerate}
+
+\subsection{Izometrie}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Metrické prostory $(M_1, d_1), (M_2, d_2)$ jsou izometrické, právě když existuje
+bijekce $f:M_1 \to M_2$, že $\forall x,y \in M_1 \quad d_1(x,y)=d_2(f(x),f(y))$
+
+\subsection{Příklady metrických prostorů}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item Euklidovský ($\R^n$)
+	\item Množina omezených funkcí $M = f:x\to\R$, supremová metrika $d(f,g) =
+	\sup_{x\in X} |f(x)-g(x)|$.
+	Pokud jsou na požadovaném intervalu spojité, můžeme psát i $\max$
+	\item Množina spojitých funkcí $M = C[a,b]$, metrika pro $p \in \R$, $p \gt
+	1$:
+	\begin{align*}
+		d_p(f,g) = \left( \int_a^b|f(t)-g(t)|^p \dt \right)^{\frac{1}{p}}
+	\end{align*}
+	\item $G = (V,E)$ souvislý, $M = V$, $d(u,v) = |P_{min} (u,v)|$ (počet
+	vrcholů na cestě)
+	\item Hammingova metrika: $A$ je abeceda, slova délky $n \in \N$. Množina $M
+	= \{u = u_1, ..., u_n | u_i \in A\}$. Metrikou potom bude $d(u,v) = \{\#i | u_i
+	\neq v_i \}$
+	\item Sférická metrika $S=\{(x,y,z)\in\R^3| x^2 + y^2 + z^2 = 1 \}$, $d(x,y)
+	= $ délka nejkratšího oblouku z $x$ do $y$.
+	\item $p$-adická metrika 
+	\begin{align*}
+		&p = 3, M = \Z, z \in \Z \\
+		&v(z) := \max n \in \N \quad p^n \backslash z \qquad v(0) := \infty \\
+		&d(z_1, z_2) = 2^{-v(z_1-z_2)}
+	\end{align*}
+\end{enumerate}
+
+\subsection{Ultrametrika}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Ultrametrika (také nearchimedovská metrika) je metrika splňující:
+\begin{align*}
+	d(x,y) \le \max \{ d(x,z); d(y,z) \}
+\end{align*}
+
+\subsection{Otevřená a uzavřená koule}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M, d)$ je metrický prostor a $x \in M$, $r \in \R$, $r > 0$. Potom
+definujeme:
+\begin{description}
+	\item[otevřenou] kouli: 
+		$B(x, r) = \{ y \in M \quad d(x,y) < r\}$
+	\item[uzavřenou] kouli: 
+		$\overline{B(x, r)} = \{ y \in M \quad d(x,y) \le r\}$
+\end{description}
+
+
+\subsection{Otevřená a uzavřená množina}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M, d)$ je metrický prostor. Potom definujeme:
+\begin{description}
+	\item[otevřenou množinu] $G$ pokud $\forall x \in G \quad \exists r > 0 \quad
+	B(x,r) \subsetq G$.
+	\item[uzavřenou množinu] $F$ pokud $P \setminus F$ je otevřená.
+\end{description}
+
+\subsection{Vlastnosti otevřených a uzavřených množin}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(M, d)$ je metrický prostor. Potom platí:
+\begin{enumerate}
+	\item $\emptyset, M$ jsou otevřené i uzavřené množiny
+	\item $X_1, ..., X_n$ otevřené množiny, potom $X_1 \cap X_2 \cap ... \cap X_k$ je
+	otevřená množina
+	\item $X_1, ..., X_n$ uzavřené množiny, potom $\bigcup X_i$ je uzavřená
+	množina
+	\item $X_i, i \in I$ uzavřené množiny, potom $\bigcap_{i\in I} X_i$ je
+	uzavřená množina
+\end{enumerate}
+(důkaz v zimním semestru)
+
+\subsection{Cauchyovská posloupnost}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M, d)$ je metrický prostor a $a_1, a_2, ... \subset M$ posloupnost.
+Tuto posloupnost nazveme \textbf{Cauchyovskou} právě když
+\begin{align*}
+	\forall \epsilon > 0 \quad \exists N \in \N : \quad m,n > N \quad
+	\Rightarrow \quad d(a_m, a_n) < \epsilon
+\end{align*}
+
+\subsection{Charakterizace uzavřených množin}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(M, d)$ je metrický prostor. 
+\begin{align*}
+	X \subset M \text{je uzavřená} \Leftrightarrow \left(\forall \text{kg. posl.}
+	(a_n): \quad \lim a_n = a \Leftrightarrow a \in X\right)
+\end{align*}
+(důkaz v zimním semestru)
+
+% to je dobrý, to tu nech :-)
+\subsection{Izolovaný a limitní body}
+\paragraph{Definice} 
+Nechť $U(a)$ značí nějaké okolí bodu $a$.
+\begin{description}
+	\item[limitní bod] $\forall U(a)$ je $U(a) \cap X$ nekonečný
+	\item[izolovaný bod] $\exists U(a) \cap X = a$
+\end{description}
+
+
+
+\subsection{Uzávěr množiny}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M,d)$ je metrický prostor a $X \subset M$. Potom definujeme uzávěr
+množiny:
+\begin{align*}
+	\overline{X} = X \cup \{ \text{limitní body X} \}
+\end{align*}
+
+
+\subsection{Ekvivalence metriky}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M, d_1)$ a $(M, d_2)$ jsou metrické prostory. Řekneme, že metriky $d_1,
+d_2$ jsou ekvivalentní, právě když:
+\begin{align*}
+	&\forall a \in M \quad \forall r > 0 \quad \exists s > 0: \quad B_1(a,r)
+	\supset B_2(a,s) \\
+	\land \qquad &\forall a \in M \quad \forall r > 0 \quad \exists s > 0: \quad B_1(a,r)
+	\subset B_2(a,s)
+\end{align*}
+
+\subsection{Podprostor metriky}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M, d)$ je metrický prostor a $X \subset M$. Potom $(X,d)$ nazveme
+podprostorem $(M, d)$.
+
+
+\subsection{Spojitost zobrazení metrického prostoru}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M_1, d_1)$ a $(M_2, d_2)$ jsou metrické prostory. Řekneme, že $f: M_1 \to M_2$ je
+spojité v $a \in M_x$ právě když:
+\begin{align*}
+	\forall \epsilon > 0 \quad \exists \delta > 0: \quad f(B_1(a, \delta))
+	\subset B_2(f(a), \epsilon)
+\end{align*}
+
+
+\subsection{Věta o spojitosti zobrazení}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(M_1, d_1)$ a $(M_2, d_2)$ jsou metrické prostory. Zobrazení $f: M_1 \to
+M_2$ je spojité, právě když:
+\begin{align*}
+	\forall Y \subset M_2 \quad Y \text{otevřenou je } f^{-1}(Y) \subset M_1
+	\text{otevřená}
+\end{align*}
+tj. do otevřené množiny se mohla zobrazit pouze množina otevřená (poznámka:
+otevřená množina se však stále může zobrazit do množiny uzavřené)
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item $\Rightarrow$
+		triviální z definice spojitého zobrazení
+	\item $\Leftarrow$
+		Mějme libovolné $a \in M_1, \quad \epsilon > 0$. Podle předpokladu
+		platí:
+		\begin{align}
+			B_2(f(a), \epsilon) \text{ otevřená } \Rightarrow V := f^{-1}(B_2(f(a),
+			\epsilon)) \text{ otevřená }
+		\end{align}
+		Protože $V \subset M_1$ a $a \in M_1$:
+		\begin{align}
+			\exists \delta > 0: \quad B_1(a, \delta) \subset f^{-1}(B_2(f(a),
+			\epsilon))
+		\end{align}
+		Po zobrazení obou množin $f$ platí:
+		\begin{align}
+			f(B_1(a, \delta)) \subset B_2(f(a), \epsilon)
+		\end{align}
+		Tedy $f$ je spojité zobrazení (podle definice).
+\end{enumerate}
+
+
+\subsection{Homeomorfismus}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Bijektivní zobrazení $f$ je \textbf{homeomorfní} právě když jsou $f$ i $f^{-1}$
+spojitá zobrazení.
+
+
+\subsection{Kompaktní prostor a kompaktní množina}
+\setcounter{equation}{0}
+\paragraph{Definice} 
+Metrický prostor $(M,d)$ je kompaktní, právě když má každá posloupnost $(a_n)
+\subset M$ konvergentní podposloupnost. (navíc $\lim a_{n_k} \in M$, protože, jak uvidíme,
+je kompaktní množina vždy uzavřená)
+\paragraph{Definice}
+Nechť $(M,d)$ je metrický prostor. Množina $X \subset M$ je kompaktní, právě když
+metrický prostor $(X, d)$ je kompaktní. 
+\paragraph{Definice}
+Množina $K$ je kompaktní právě tehdy, pokud existuje pro každou posloupnost vybraná
+konvergentní podposloupnost a má vlastní limitu v množině $K$.
+
+
+\subsection{Nabývání maxima a minima na kompaktní množině}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(M, d)$ je metrický prostor a $Z \subset M$ je kompaktní množina. Potom
+spojitá funkce $f: Z \to \R$ nabývá na $Z$ maxima i minima.\\
+(důkaz v dřívějších poznámkách)
+
+
+\subsection{Věta o zachování kompaktnosti}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Kompaktnost se zachovává:
+\begin{enumerate}
+	\item Přechodem k uzavřenému podprostoru
+	\item Obrazem spojitým zobrazením
+	\item Kartézským součinem
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Nechť $(M, d)$ je metrický prostor a $X \subset M$ je uzavřená
+	množina. Mějme libovolnou posloupnost $(a_n) \subset X$. Její konvergentní
+	podposloupnost existuje a má limitu $A \in X$ (z uzavřenosti $X$), tedy
+	podle definice je i prostor $(X, d)$ uzavřený.
+	\item Nechť $f: M_1 \to M_2$ je spojité zobrazení. Z předpokladu je $M_1$ kompaktní. 
+	Vezmeme libovolnou posloupnost $(b_n) \subset f(M_1)$ a $\forall n$ zvolíme $a_n \in M_1$ tak, že $f(a_n) =
+	b_n$. Protože $(a_n) \subset M_1$ a $M_1$ je kompaktní, existuje
+	konvergentní podposloupnost $(a_{k_n})$ s limitou $a \in M_1$. Podle Heineho
+	definice spojitosti zobrazení víme, že $b_{k_n} = f(a_{k_n})$, tedy $f(a) =
+	b$ a $b$ je limitou $b_{k_n}$ v $f(M_1)$ $\Rightarrow$ $f(M_1)$ je
+	kompaktní.
+	\item $M = M_1 \times M_2, d( (x_1, y_1), (x_2, y_2) ) = \sqrt{d_1(x_1, x_2)^2 + d_2(y_1, y_2)^2}$
+	Potom tedy posloupnost (dvojic) $(x_n, y_n)$ konverguje k $(\alpha, \beta)$, právě, když 
+	$x_n \rightarrow \alpha \text{v} (M_1, d_1)$ a zároveň $y_n \rightarrow \beta \text{v} (M_2, d_2)$
+	\textit{...to se do toho nebudu zamotávat... (M. Klazar)}
+\end{enumerate}
+
+
+\subsection{Kompaktní množina je omezená a uzavřená}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Každá kompaktní množina je omezená a uzavřená.
+\paragraph{Důkaz}
+\begin{enumerate}
+\item Mějme množinu, která není omezená. V takovéto množině existuje posloupnost
+s limitou v~nekonečnu, tedy nemá konvergentní podposloupnost a podle definice
+není kompaktní.
+\item Mějme množinu $X$, která není uzavřená. Potom existuje konvergentní
+posloupnost $(a_n) \subset X$, ale $\lim a_n = a \nin X$. Takováto posloupnost
+však nemá konvergentní posloupnost v X, tudíž podle definice není kompaktní.
+\end{enumerate}
+
+\subsection{Uzavřená a omezená podmnožina $\R^n$ je kompaktní}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Množina $X\subset \R^n$ (euklidovského prostoru) je kompaktní, právě když je omezená a uzavřená.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Každá kompaktní množina je uzavřená a omezená. (podle předchozí věty)
+	\item Množina $X$ je omezená a uzavřená. Vezměme $n$-dimenzionální krychli
+	$K^n$ tak velkou, aby platilo $X \subset K^n$ (to můžeme, protože $X$ je
+	omezená). $K^n$ je určitě kompaktní (podle Bolzano-Weierstrassovy věty pro
+	n-dimenzí). Kompaktnost se však přenáší na uzavřenou podmnožinu, tudíž i $X$
+	je kompaktní.
+\end{enumerate}
+
+
+
+\subsection{Věta o spojitém zobrazení na kompaktu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f: M_1 \to M_2$ je spojité zobrazení a $M_1$ je kompaktní množina. Potom:
+\begin{enumerate}
+	\item pro $M_2 = \R$ nabývá $f$ na $M_1$ maxima i minima
+	\item $f$ je stejnoměrně spojité zobrazení
+	\item pokud $f$ je navíc bijekce, potom i $f^{-1}$ je spojité
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Protože spojité zobrazení zachovává kompaktnost, $f(M_1)$ je
+	kompaktní, v $\R$ tedy má supremum a infimum a tedy (protože na $\R$) minimum a maximum.
+	\item (důkaz jako cvičení)
+	\item Mějme zobrazení $f^{-1}: M_2 \to M_1$ inverzní k $f$. Nechť $Y \subset
+	M_1$ je uzavřená množina - ověříme, zda i vzor je uzavřený.
+	\begin{align}
+		(f^{-1})^{-1} (Y) = f(Y)
+	\end{align}
+	Protože ale $f$ je spojité a $Y$ uzavřená, i $f(Y)$ je uzavřená.
+\end{enumerate}
+
+\subsection{Otevřené pokrytí}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M, d)$ je metrický prostor a $P = \{X_i | i \in \I\}$ jsou otevřené
+množiny. \\ $P$ je otevřené pokrytí, právě když:
+\begin{align}
+	\bigcup_{i \in \I} X_i = M
+\end{align}
+
+\subsection{Kompaktnost a otevřené pokrytí}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Metrický prostor $(M,d)$ je kompaktní právě tehdy, když otevřené
+pokrytí $P = \{X_i | i \in \I\}$ prostoru M má konečné podpokrytí:
+\begin{align*}
+	\exists J \subset \I: \quad \bigcup_{i \in J} X_i = M
+\end{align*}
+\paragraph{Důkaz}
+(neznám)
+
+
+
+\subsection{Cauchyovská posloupnost}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Posloupnost $(a_n)$ je v metrickém prostoru $(M, d)$ Cauchyovská, právě když:
+\begin{align*}
+	\forall \epsilon > 0 \quad \exists n_0 \in \N: \quad \forall m > n > n_0
+	\quad d(a_m, a_n) < \epsilon
+\end{align*}
+
+
+\subsection{Úplný metrický prostor}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Metrický prostor je úplný, právě když je každá Cauchyovská posloupnost také konvergentní.
+
+\subsection{Kompaktní prostor je úplný}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Každý kompaktní prostor $(M,d)$ je také úplný.
+\paragraph{Důkaz}
+Nechť $(a_n) \subset M$ je Cauchyovská posloupnost. Potom (z kompaktnosti)
+existuje konvergentní podposloupnost $(a_{k_n})$ s limitou v $a$. Tedy zároveň
+platí:
+\begin{align}
+	&\forall \epsilon > 0 \quad \exists n_1 \in \N: \quad \forall m > n > n_1
+	\quad &d(a_m, a_n) < \epsilon \\
+	&\forall \epsilon > 0 \quad \exists n_2 \in \N: \quad \forall k_n > n_2 \quad
+	&d(a_{k_n}, a) < \epsilon
+\end{align}
+Zvolme tedy $n := \max\{ n_1, n_2 \}$, potom i pro $m := {k_n}$ nerovnosti
+platí. Tedy:
+\begin{align}
+	\forall \epsilon > 0 \quad \exists n_0 \in \N: \quad \forall n > n_0 \quad
+	d(a_{k_n}, a_n) + d(a_{k_n}, a) < \epsilon 
+\end{align}
+Pokud uplatníme trojúhelníkovou nerovnost, platí $(a_n)$ je podle definice
+konvergentní.
+
+
+\subsection{Zachování úplnosti}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Nechť $(M, d)$, $(M', d')$ jsou úplné metrické prostory. Potom platí:
+\begin{enumerate}
+	\item $X \subset M$ uzavřená $\Rightarrow$ $(X, d)$ úplný
+	\item Kartézský součin prostorů $M \times M'$ je také úplný
+\end{enumerate}
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+\subsection{Kontrakce a pevný bod}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $(M, d)$ je metrický prostor. Zobrazení $f: M \to M$ je \textbf{kontrakce} pokud:
+\begin{align*}
+	\exists q \in (0,1): \qquad 
+	\forall x, y \in M: \quad d(f(x), f(y)) \lt q \cdot d(x, y)
+\end{align*}
+\paragraph{Definice}
+Nechť $f: X \to X$ je kontrakce. Bod $a \in X$ nazveme \textbf{pevným bodem}, pokud $f(a)
+= a$.
+
+
+\subsection{Banachova věta o pevném bodě}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $(M, d)$ je úplný metrický prostor a $f: M \to M$ je kontrakce. Potom má
+$f$ právě jeden pevný bod $a \in M$.
+\paragraph{Důkaz}
+
+Mějme posloupnost prvků $(x_n)$ definovanou jako:
+\begin{align*}
+	x_0 \in M \qquad
+	\forall n > 0 \quad x_n = f(x_{n-1})
+\end{align*}
+Protože $f$ je kontrakce, můžeme odhadnout členy následovně:
+\begin{align}
+	\label{banach-odhad}	d(x_{n+2}, x_{n+1}) \le q \cdot d(x_{n+1}, x_n) \le ... \le q^n \cdot d(x_2,
+	x_1)
+\end{align}
+\begin{enumerate}
+\item
+Ověříme, že taková posloupnost je Cauchyovská: mějme tedy z definice $m > n >
+n_0$, odhadmene trojúhelníkovou nerovností:
+\begin{align}
+	d(x_m, x_n) \le d(x_m, x_{m-1}) + d(x_{m-1}, x_{m-2}) + ... + d(x_n+1, x_n)
+\end{align}
+Takovýto člen odhadneme podle (\ref{banach-odhad}) a sečteme geometrickou řadu v
+závorce:
+\begin{align}
+	d(x_m, x_n) \le d(x_1, x_0)( q^{m-1} + ... + q^n ) = d(x_1, x_0) \cdot
+	\frac{q^n}{q-q}
+\end{align}
+Protože $q < 1$, součet řady konverguje k $0$ a tudíž posloupnost má limitu a je
+Cauchyovská. Nechť tedy $a := \lim x_n$ (z úplnost existuje) \textit{je pevný
+bod}.
+\item Nechť tedy $a \neq b$ jsou pevné body. Potom nutně se zobrazují samy na
+sebe a tedy platí:
+\begin{align}
+	d(a,b) = d(f(a), f(b))
+\end{align}
+A podle definice kontrahujícího zobrazení:
+\begin{align}
+	d(f(a), f(b)) \le q \cdot d(a, b)
+\end{align}
+Což (protože $0 \lt q$) vynucuje $d(a,b) = 0$ a tudíž $a = b$ (spor s
+předpokladem $a \neq b$).
+\end{enumerate}
+
+\subsection{Picardova věta}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f: \R^2 \to \R$ je spojitá funkce a existuje konstanta $M > 0$ taková,
+že:
+\begin{align*}
+	\forall u,v,w \in \R: \quad |f(u,v) - f(u,w)| \le M|v-w|
+\end{align*}
+Pak každý bod $a \in \R$ má okolí $I = (a - \delta, a + \delta)$ na něm má
+rovnice (\ref{dif-rov}) jednoznačné řešení:
+\begin{align}
+	\label{dif-rov} y(a) &= b \\
+	y'(x) &= f(x, y(x)) \notag
+\end{align}
+(důkaz není požadován ke zkoušce, bude doplněn později)
+
+
+
+
+
+
+
+
+\section{Posloupnosti a řady funkcí}
+\setcounter{equation}{0}
+\subsection{Bodová, stejnoměrná a lokálně stejnoměrná konvergence}
+\setcounter{equation}{0}
+Nechť $M \subset \R$ je množina a $f_n: M \to \R$ je posloupnost funkcí. Potom
+definujeme:
+\paragraph{Definice}
+Posloupnost funkcí $f_n$ je \textbf{bodově konvergentní} ($f_n
+\to f$), pokud:
+\begin{align*}
+	\forall \alpha \in M \quad \lim f_n(\alpha) = f(\alpha)
+\end{align*}
+\paragraph{Definice}
+Posloupnost funkcí $f_n$ je \textbf{stejnoměrně konvergentní} ($f_n \sto f$), pokud:
+\begin{align*}
+	\forall \epsilon > 0 \quad \exists n_0 \in \N \quad \forall n > n_0 \quad \forall
+	\alpha \in M: \quad |f_n(\alpha) - f(\alpha)| < \epsilon
+\end{align*}
+\paragraph{Definice}
+Posloupnost funkcí $f_n$ je \textbf{lokálně stejnoměrně konvergentní} ($f_n
+\stol f$), pokud:
+\begin{align*}
+	\forall \alpha \in M \quad \exists \delta > 0: \quad f_n \sto f \text{ na }
+	(\alpha-\delta, \alpha+\delta) \cap M
+\end{align*}
+
+
+
+\subsection{Bolzano-Cauchyho podmínka}
+\label{bc-podminka}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť je množina $M \subset \R$ a $f_n$ posloupnost funkcí $f: M \to \R$, potom:
+\begin{align*}
+	\exists f: M \to \R \qquad f_n \sto f \text{ na } M
+\end{align*}
+právě když
+\begin{align*}
+	\forall \epsilon > 0 \quad \exists n_0: \quad \forall m > n > n_0 \quad
+	\forall x \in M \Rightarrow |f_m(x) - f_n(x)| < \epsilon
+\end{align*}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item $\Rightarrow$ $f_n \sto f$ na M, platí tedy:
+	\begin{align}
+		\forall \epsilon > 0 \quad \exists n_0: \quad \forall n > n_0 \quad
+		\forall x \in M: \qquad |f_n(x) - f(x)| < \epsilon
+	\end{align}
+	Podle trojúhelníkové nerovnosti odhadneme:
+	\begin{align}
+		|f_m(x) - f_n(x)| \le |f_m(x) - f(x)| + |f_n(x) - f(x)| < 2\epsilon
+	\end{align}
+	Což splňuje podmínku.
+	\item $\Leftarrow$ Z předpokladu víme, že posloupnost je Cauchyovská, tedy
+	existuje $\lim f_n(x) = f(x)$ (podle věty pro posloupnosti reálných čísel).
+	Z předpokladů vezmeme $n > n_0$ a $N$ libovolné, a odhadneme požadovaný
+	rozdíl trojúhelníkovou nerovností:
+	\begin{align}
+		|f_n(x) - f(x) | \le |f_N(x) - f(x)| + |f_N(x) - f_n(x)|
+	\end{align}
+	Což platí pro každé $N$. Zvolme tedy $N > n_0$ a podmínka platí.
+	\begin{align}
+		|f_N(x) - f(x)| < 2\epsilon
+	\end{align}
+\end{enumerate}
+
+
+
+\subsection{Tvrzení o lokální stejnoměrné konvergenci a kompaktní podmnožině}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Nechť $[c,d] \subset (a,b)$ a $f_n \stol f$ na $(a,b)$. Pak $f_n \sto f$ na
+$[c,d]$
+\paragraph{Důkaz}
+(bez důkazu)
+\subsection{Diniho věta}
+\setcounter{equation}{0}
+Nechť $f_n \to f$ na kompaktním intervalu $I$ a funkce $f_n$ i $f$ jsou spojité
+a posloupnost je na daném intervalu monotónní. Pak $f_n \sto f$ na $I$.
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+\subsection{Mooreova-Osgoodova věta o záměně pořadí limit}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť jsou funkce $f_n$ a $f$ definované na nějakém prstencovém okolí $M = P(x_0,
+\delta)$ bodu $x_0 \in \R$, který může být i nevlastní, existují vlastní limity
+\begin{align*}
+	a_n = \lim_{x \to x_0} f_n(x) \text{ a dále } f_n \sto f \text{ na } P(x_0,
+	\delta)
+\end{align*}
+Potom existují vlastní limity $\lim_{n\to\infty} a_n$ a $\lim_{x\to x_0} f(x)$ a
+rovnají se.
+\paragraph{Důkaz}
+Protože $f_n \sto f$ na $M$, splňuje $f_n$ Bolzano-Cauchyho podmínku:
+\begin{align}
+	\forall \epsilon > 0 \quad \exists n_0 \quad \forall m > n > n_0 \forall x
+	\in M \qquad |f_m(x) - f_n(x)| < \epsilon
+\end{align}
+Pro pevné indexy $m,n> n_0$ a limitní přechod $x\to x_0$ (limity existují z
+předpokladu) máme nerovnost:
+\begin{align}
+	|a_m - a_n| \le \epsilon
+\end{align}
+Tedy posloupnost čísel $(a_n)$ je cauchyovská a podle věty o posloupnostech
+reálných čísel má vlastní limitu $A \in \R$:
+\begin{align}
+	\lim_{n\to\infty} a_n = A
+\end{align}
+Nyní ukážeme, že $\lim_{x\to x_0} f(x) = A$. Odhadneme tedy trojúhelníkovou
+nerovností:
+\begin{align}
+	| f(x) - A | \le \underbrace{|f(x) - f_n(x)|}_{V_1 < \epsilon} + \underbrace{|f_n(x) -
+	a_n |}_{V_2 < \epsilon} + \underbrace{|a_n - A|}_{V_3 < \epsilon}
+\end{align}
+Nyní ukážeme, že pravá strana je $< \epsilon$: $V_1$ a $V_3$ "platí" z předpokladů
+pro nějaké $n > n_1$ a $ n > n_3$. Vezměme tedy $n_0 > \max \{ n_1, n_3 \}$. Pro
+takové $n_0$ navíc existuje $\delta_0$ takové, aby pro $x \in P(x_0, \delta_0)$
+"platí" i $V_2$ a tedy platí i rovnost $\lim_{x\to x_0} f(x) = A$, což jsme
+chtěli dokázat.
+
+
+\subsection{Věta o záměně limity a integrování}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f_n, f: [a,b] \to \R$ jsou riemannovsky integrovatelné funkce na
+intervalu $[a,b]$ a $f_n \to f$ na $[a,b]$. Potom $f$ je riemannovsky
+integrovatelná na $[a,b]$ a platí:
+\begin{align*}
+	\lim_{n \to \infty} \int_a^b f_n = \int_a^b \lim_{n \to \infty} f_n =
+	\int_a^b f
+\end{align*}
+\paragraph{Důkaz} (důkaz je technický a opsaný ze skript)
+Nejdříve si připravíme několik nerovností. Mějme $\epsilon > 0$. Ze stejnoměrné 
+konvergence existuje $n_0$, že $\forall n > n_0 \land \forall x \in [a,b]$:
+\begin{align}
+f_n(x) - \epsilon < f(x) < f_n(x) + \epsilon
+\end{align}
+Nechť $D = (a_0, a_1, ..., a_k)$ kde $a = a_0 < a_1 < ... < a_k = b$ je libovolné
+dělení intervalu $[a,b]$ a $n > n_0$ je pevné. Potom na intervalech $I_i = [a_i,
+a_i+1]$ platí nerovnosti:
+\begin{align}
+	\label{rov-minmax-int} m_i - \epsilon = \inf_{I_i} f_n - \epsilon \le \inf_{I_i} f \\
+	\sup_{I_i} f \le \sup_{I_i} f_n + \epsilon = M_i + \epsilon
+\end{align}
+Nyní dokážeme, že platí nerovnosti:
+\begin{align}
+	\label{souc-rov-int} s(f_n, D) - \epsilon < s(f, D) \le S(f, D) < S(f_n, D) + \epsilon
+\end{align}
+Pro dolní součty odhadneme podle (\ref{rov-minmax-int}) (pro horní součty
+analogicky):
+\begin{align}
+	s(f, D) - \epsilon(b-a) = \sum_{i=0}^{k-1} |I_i| m_i - \epsilon(b-a) =
+	\sum_{i=0}^{k-1} |I_i| (m_i - \epsilon ) \\
+	\le \sum_{i=0}^{k-1} |I_i| \inf_{I_i} f = s(f, D)
+\end{align}
+Tedy (\ref{souc-rov-int}) platí $\forall \epsilon > 0$. \\
+Nyní již ukážeme, že $f \in \ri[a,b]$. Nechť je dáno $\epsilon > 0$ a $n > n_0$
+je libovolné, ale pevné. Protože $f_n \in \ri[a,b]$, můžeme vzít dělení $D_0$
+takové, že $0 \le S(f_n, D_0) - s(f_n, D_0) < \epsilon$. Takové dělení
+aplikujeme na funkci $f$ (používáme navíc nerovnosti
+(\ref{souc-rov-int})):
+\begin{align}
+	\label{int-rov-int} 0 \le S(f, D_0) - s(f, D_0) \le S(f_n, D_0) + \epsilon - (s(f_n, D_0) -
+	\epsilon) < 3 \epsilon
+\end{align}
+Tedy podle kritéria integrovatelnosti (věta z MA2) má i funkce $f$ integrál na
+$[a,b]$. Zbývá tedy dokázat, že jsou si rovny. Nahlédneme, že samotný integrál
+je omezen dolním a horním součtem, tedy:
+\begin{align}
+	\int_a^b f \in  [s(f,D_0), S(f, D_0)] \\
+	\int_a^b f_n \in [s(f_n, D_0), S(f, D_0)]
+\end{align}
+A oba intervaly jsou obsaženy v intervalu $[s(f_n, D_0) - \epsilon, S(f_n, D_) +
+\epsilon]$, jehož velikost je $<3\epsilon$ podle (\ref{int-rov-int}). Tedy:
+\begin{align}
+	\left| \int_a^b f - \int_a^b f_n \right | < \epsilon
+\end{align}
+Což platí pro každé $\epsilon > 0$ a $n > n_0$, podle definice tedy platí
+rovnost:
+\begin{align}
+	\int_a^b f = \lim_{n\to\infty} \int_a^b f_n
+\end{align}
+
+
+\subsection{Věta o záměně pořadí limity  a derivace}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f_n : (a,b) \to \R$ je posloupnost funkcí definovaná na omezeném
+otevřeném intervalu a:
+\begin{enumerate}
+	\item každá funkce $f_n$ má na $(a,b)$ vlastní derivaci
+	\item $f_n' \stol g$ na $(a,b)$
+	\item posloupnost čísel $(f_n(x_0))$ konverguje pro alespoň jeden bod 
+		$x_0	\in (a,b)$
+\end{enumerate}
+Potom $f_n \stol f$ na $(a,b)$ pro nějakou funkci $f: (a,b) \to \R$ a $f' = g$ na
+$(a,b)$.
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+\subsection{Věta o záměně pořadí sumace a limity v bodě}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť pro nějaké $\delta > 0$ platí:
+\begin{align*}
+	f_n : P(x_0, \delta) \to \R \quad \forall n \in \N \\
+	\forall n \in \N \exists \lim_{x\to x_0} f_n(x) \text{ vlastní}\\
+	\sum_{n=1}^\infty f_n \sto f \text{ na } P(x_0, \delta)
+\end{align*}
+Pak:
+\begin{align*}
+	\sum_{n=1}^\infty \left( \lim_{x\to x_0} f_n(x) \right) = \lim_{x\to x_0} 
+	\left( \sum_{n=1}^\infty f_n(x) \right)
+\end{align*}
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+
+\subsection{Věta o záměně pořadí sumace a integrování}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $\forall n \in \N$ platí, že $f_n \in\ri[a,b]$ a 
+$\sum_{n=1}^\infty f_n \sto$ na $[a,b]$. Potom:
+\begin{align*}
+	\sum_{n=1}^\infty \left( \int_a^b f_n \right) = \int_a^b \left(
+	\sum_{n=1}^\infty f_n \right)
+\end{align*}
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+\subsection{Věta o záměně pořadí sumance a derivování}
+\setcounter{equation}{0}
+Nechť $f_n : (a,b) \to \R$ je posloupnost funkcí definovaná na omezeném
+otevřeném intervalu a:
+\begin{enumerate}
+	\item každá funkce $f_n$ má na $(a,b)$ vlastní derivaci
+	\item $\sum_{n=1}^\infty f_n' \stol g$ na $(a,b)$
+	\item řada čísel $\sum_{n=1}^\infty f_n(x_0)$ konverguje pro alespoň jeden bod 
+		$x_0	\in (a,b)$
+\end{enumerate}
+Potom $\sum_{n=1}^\infty f_n \stol f$ na $(a,b)$ pro nějakou funkci $f:(a,b) \to
+\R$ a $f' = g$ na $(a,b)$.
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+
+\subsection{Weierstrassovo kritérium stejnoměrné konvergence řad}
+\label{weierstrassovo-kriterium}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f_n : M \to \R$ jsou takové funkce, že řada:
+\begin{align*}
+	\sum_{n=1}^\infty ||f_n||_\infty = \sum_{n=1}^\infty \sup_{x\in M} |f_n(x)|
+\end{align*}
+konverguje. Potom $\sum f_n$ stejnoměrně konverguje na $M$.
+\paragraph{Důkaz}
+Protože řada $\sum ||f||_\infty$ konverguje, splňuje Cauchyho podmínku pro
+číselné řady a existuje $n_0$ takové, že $\forall n \ge m > n_0$ platí:
+\begin{align}
+	\sum_{i=m+1}^n \sup_{x\in M} |f_i(x)| < \epsilon
+\end{align}
+Odhadneme tedy částečný součet původní řady:
+\begin{align}
+	\left| \sum_{i=m+1}^n f_i(x)  \right| \le \sum_{i=m+1}^n |f_i(x)| \le
+	\sum_{i=m+1}^N \sup_{x \in M} |f_i(x)| < \epsilon
+\end{align}
+Takže původní řada splňuje B-C podmínku (\ref{bc-podminka}) a tedy stejnoměrně konverguje.
+
+
+\subsection{Abel-Dirichletovo kritérium stejnoměrné konvergence}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f_n, g_n: M \to \R$ jsou posloupnosti funkcí. Řada $\sum f_n g_n$
+stejnoměrně konverguje na $M$ když je splněna podmínka (A) nebo (D)
+	a $\forall x \in M$ je posloupnost $(g_n(x))$ monotónní.
+\begin{description}
+	\item[(A)] $\sum f_n \sto$ a existuje konstanta $c > 0$ taková, že 
+	\begin{align*}
+		\forall	n \in \N \quad \forall x \in M: \quad |g_n(x)| < c
+	\end{align*}
+	\item[(D)] existuje konstanta $c > 0$ taková, že:
+	\begin{align*}
+		&\forall n \in \N \quad \forall x \in M: \quad |f_1(x) + ... + f_n(x)| <
+		c \\
+		\land &g_n \sto 0 \text{ na } M
+	\end{align*}
+\end{description}
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+
+\section{Mocninné řady funkcí}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Mocninná řada s \emph{koeficienty} $a_n \in \R$ a \emph{středem} $x_0$ je nekonečná řada funkcí:
+\begin{align*}
+	\sum_{n = 0}^\infty  a_n (x - x_0)^n
+\end{align*}
+Pro jednoduchost v této kapitole uvažujeme řady se středem v 0, tj. ve tvaru $\sum a_n x^n$.
+
+
+\subsection{Poloměr konvergence}
+\label{polomer-konvergence}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $\sum a_n x^n$ je mocninná řada a $R \in [0, +\infty) \cup \{+\infty\}$ je
+definováno vztahem:
+\begin{align*}
+	R = \frac{1}{\limsup_{n \to \infty} |a_n|^{\frac{1}{n}}}
+\end{align*}
+Potom pro každé $x \in \R$, když $|x| < R$ mocninná řada absolutně konverguje a
+když $|x| > R$ mocninná řada diverguje.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Nechť $0 < R < +\infty$. Použijeme Cauchyho odmocninové kritérium
+	(věta z MA1) a pro každé $x \in \R$ máme:
+	\begin{align}
+		\limsup_{n \to \infty} |a_n x^n|^{\frac{1}{n}} = |x|
+		\limsup_{n\to\infty} |a_n|^{\frac{1}{n}} = \frac{|x|}{R}
+	\end{align}
+	Tedy pro $|x| < R$ řada absolutně konverguje a pro $|x| > R$ diverguje.
+	\item Pokud $R = +\infty$, máme $\forall x \in \R$:
+	\begin{align}
+		\limsup_{n \to \infty} |a_n|^{\frac{1}{n}}
+	\end{align}
+	a mocninná řada tedy na celém $\R$ konverguje.
+	\item Analogicky pro $R = 0$, mocninná řada absolutně konverguje pro $x \in
+	\R \setminus \{0\}$.
+\end{enumerate}
+
+
+\subsection{Lokálně stejnoměrná konvergence mocninné řady}
+\label{lokalne-stejnomerna-konvergence-mr}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $\sum a_n x^n$ má poloměr konvergence $R > 0$. Potom:
+\begin{align*}
+	\sum_{n=0}^\infty a_n x^n \stol \text{ na } (-R, R)
+\end{align*}
+Neboli mocinná řada stejnoměrně konverguje na každém kompaktním podintervalu
+konvergence.
+\paragraph{Důkaz}
+Omezíme se na kompaktní podintervaly, tj. intervaly $[-S,S]$, kde $0 < S < R$.
+Na takovém intervalu potom máme:
+\begin{align}
+	\sum ||a_n x^n||_\infty = \sum |a_n| S^n
+\end{align}
+Taková řada podle Cauchyho odmocninového kritéria opět konverguje, takže podle
+Weierstrassova kritéria (\ref{weierstrassovo-kriterium}) $\sum a_n x^n \sto$ na
+$[-S, S]$.
+
+
+
+\subsection{Abelova věta o mocinných řadách}
+\label{abelova-veta}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť má $\sum a_n x^n$ kladný a konečný poloměr konvergence $R$ a číselná řada
+$\sum a_n R^n$ konverguje, čili mocninná řada konverguje pro $x = R$. Potom:
+\begin{align*}
+	\sum_{n=0}^\infty a_n x^n \sto \text{ na } [0, R] \quad \text{ a } \quad 
+	\lim_{x\to R^-} \sum_{n=0}^\infty a_n x^n = \sum_{x=0}^\infty a_n R^n
+\end{align*}
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+\section{Fourierovy (trigonometrické) řady}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Fourierovou řadou budeme rozumět nekonečnou řadu funkcí tvaru:
+\begin{align*}
+	\frac{a_0}{2} + \sum_{n=1}^\infty( a_n \cos(nx) + b_n \sin(nx))
+\end{align*}
+kde $a_0, a_1, ...$ a $b_1, b_2, ...$ jsou pevně dané reálné koeficienty a
+proměnná $x$ probíhá $\R$.
+
+\subsection{Skoro-skalární součin}
+\setcounter{equation}{0}
+\paragraph{Definice}
+"Skoro-skalární součin" definujeme jako:
+\begin{align*}
+	\langle f, g \rangle  := \int_{-\pi}^\pi fg
+\end{align*}
+Má následující vlastnosti:
+\begin{enumerate}
+	\item (symetrie) $\langle f_1, f_2 \rangle  = \langle f_2, f_1 \rangle $
+	\item (bilinearita) $\langle a_1f_1 + a_2f_2, g \rangle  = a_1\langle f_1, g \rangle  + a_2\langle f_2, g \rangle $
+	\item (pozitivní semidefinitnost) $\langle g,g \rangle  \ge 0$
+\end{enumerate}
+
+
+\subsection{Ortogonální systém sinů a cosinů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Pro každá dvě čísla $m,n \in \N_0$ máme:
+\begin{align*}
+	\langle \sin(mx), \cos(nx)\rangle = 0	
+\end{align*}
+Pro každá dvě čísla $m,n \in \N_0$, pokud nejsou současně nulová, máme:
+\begin{align*}
+	\langle \sin(mx), \sin(nx) \rangle = \langle \cos(mx), \cos(nx) \rangle = 
+	\begin{cases}
+		\pi \text{ pro } m = n \\
+		0 \text{ pro } m \neq 0
+	\end{cases}
+\end{align*}
+Pro $m = n = 0$ pak zvlášť $\langle\sin(0), \sin(0)\rangle = 0$ a
+$\langle\cos(0), \cos(0)\rangle = 2\pi$.
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+
+
+
+\subsection{Besselova nerovnost a Riemann-Lebesgueovo lemma}
+\label{rl-lemma}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f \in \ri[-\pi,\pi]$ je funkce a čísla $a_0, a_1, ..., b_1, ...$ jsou
+Fourierovy koeficienty funkce $f$. Potom:
+\begin{enumerate}
+	\item Platí Besselova nerovnost:
+	\begin{align*}
+		\frac{a_0^2}{2} + \sum_{n=1}^\infty (a_n^2 + b_n^2) \lt \frac{\langle f,
+		f \rangle}{\pi} = \frac{1}{\pi} \int_{-\pi}^\pi f^2
+	\end{align*}
+	Speciálně tedy řada čtverců Fourierových koeficientů konverguje.
+	\item Platí Riemann-Lebesgueovo lemma: \\
+	Pro $n \to \infty$ platí, že $a_n \to 0$ a $b_n \to 0$, tedy:
+	\begin{align*}
+		\lim_{n\to\infty} \int_{-\pi}^\pi f(x)\cos(nx) \dx = \lim_{n\to\infty} \int_{-\pi}^\pi f(x)\sin(nx) \dx = 0
+	\end{align*}
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Pro $n \in \N$ označíme částečný součet $s_n = s_n(x)$ Fourierovy řady
+	funkce $f$:
+	\begin{align}
+		s_n = \frac{a_0}{2} + \sum_{k=1}^n(a_k \cos(kx) + b_k\sin(kx)) \\
+		\text{kde }\quad  a_k = \frac{\langle f, \cos(kx)\rangle}{\pi}, 
+		b_k = \frac{\langle f, \sin(kx)\rangle}{\pi}
+	\end{align}
+	Díky vlastnostem skalárního součinu snadno získáme nerovnost a
+	upravíme ji:
+	\begin{align}
+		&0 \le \langle f - s_n, f - s_n \rangle = \langle f, f \rangle - 2
+		\langle f, s_n \rangle + \langle s_n, s_n \rangle \\
+		\label{bess-neq}
+		&2 \langle f, s_n \rangle - \langle s_n, s_n \rangle \le \langle f, f
+		\rangle
+	\end{align}
+	Vyjádříme tedy $\langle f, s_n \rangle$ (dosadíme za $s_n$ a pomocí
+	bilinearity rozepíšeme, potom podle definice $a_k$ a $b_k$ dosadíme a vytkneme):
+	\begin{align}
+		\langle f, s_n \rangle &= \frac{a_0}{2} \langle f, \cos(0x) \rangle +
+		\sum_{k=1}^n (a_k \langle f, \cos(kx) \rangle + b_k \langle f,
+		\sin(kx)\rangle) \\
+		\label{bess-fs}
+		&= \pi \left( \frac{a_0^2}{2} + \sum_{k=1}^n(a_k^2 + b_k^2) \right)
+	\end{align}
+	Pro jednodušší značení si zavedeme $a_k'$ a $b_k'$, kde $a_0' = a_0 / 2$,
+	$b_0' = 0$ a pro $n > 0$ $a_n' = a_n$ a $b_n' = b_n$. 
+	Dále podle bilinearity (\ref{bess-lin}), předchozí věty o ortogonalitě
+	(\ref{bess-tvrz}) a dosazením $a_k$ a $b_k$ podle definice (\ref{bess-dos}):
+	\begin{align}
+		\langle s_n, s_n \rangle &= \left\langle
+			\sum_{k=0}^n(a_k' \cos(kx) + b_k' \sin(kx)),
+			\sum_{l=0}^n(a_l' \cos(lx) + b_l' \sin(lx))
+		\right\rangle \\
+		\label{bess-lin}
+		&= \sum_{k,l=0}^n(a_k'a_l' \langle\cos(kx), \cos(lx)\rangle +
+		2a_k'b_l'\langle\cos(kx),\sin(lx)\rangle +
+		b_k'b_l'\langle\sin(kx),\sin(lx)\rangle) \\
+		\label{bess-tvrz}
+		&= \sum_{k=0}^n\left((a_k')^2\langle\cos(kx),\cos(kx)\rangle +
+		(b_k')^2\langle\sin(kx),\sin(kx)\rangle\right) \\
+		\label{bess-dos}
+		&= \pi \left( \frac{a_0^2}{2} + \sum_{k=1}^n(a_k^2 + b_k^2) \right)
+	\end{align}
+	Nyní dosadíme výsledky (\ref{bess-fs}), (\ref{bess-dos}) do
+	(\ref{bess-neq}):
+	\begin{align}
+		\pi \left( \frac{a_0^2}{2} + \sum_{k=1}^n(a_k^2 + b_k^2) \right) \le
+		\langle f, f \rangle
+	\end{align}
+	Tedy číslo $\langle f, f\rangle / \pi$ je horním odhadem všech částečných
+	součtů, tedy řada nutně konverguje.
+	
+	\item Z konvergence řady čtverců je vidět, že nutně $\lim (a_n^2 + b_n^2) =
+	0$, tedy také $\lim a_n = \lim b_n = 0$.
+\end{enumerate}
+
+
+\subsection{Po částech hladká funkce}
+\label{po-castech-hladka-funkce}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Funkce $f:[a,b] \to \R$ je na intervalu $[a,b]$ po \textit{částech hladká}, když
+existuje konečná množina $A \supset [a,b]$ taková, že $f$ má na množině $[a,b]
+\setminus A$ spojitou první derivaci $f'$ a v každém bodu $a \in A$ má $f$ i
+její derivace $f'$ vlastní jednostranné limity. Ty budeme značit $f(a+0)$ a
+$f(a-0)$.
+Jinak řečeno: $f$ je na $[a,b]$ po částech hladká, když existuje dělení
+\begin{align}
+	a = a_0 < a_1 < ... < a_k = b
+\end{align}
+intervalu $[a,b]$ takové, že $f$ má na každém intervalu $(a_i, a_{i+1})$
+spojitou první derivaci (sama $f$ je tedy také spojitá) a v dělících bodech
+existují vlastní jednostranné limity funkce i derivace.
+
+
+\subsection{Dirichletova věta o bodové konvergenci Fourierovy řady}
+\label{dirichlet}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť funkce $f: \R \to \R$ je $2\pi$-periodická a její zúžení na interval
+$[-\pi,\pi]$ je po částech hladké. Její Fourierova řada pak na $\R$ bodově
+konverguje k funkci (pro představu -- aritmetický průměr):
+\begin{align*}
+	\frac{f(x+0) + f(x-0)}{2} \text{, kde~} f'(a_i \pm 0) = \lim_{x \to a_i^\pm} f'(x)
+\end{align*}
+V každém bodu spojitosti $x$ funkce $f$ její fourierova řada konverguje k číslu
+$f(x)$.
+\paragraph{Lemma}
+o Dirichletově jádře: Nechť $n \in \N$ a 
+\begin{align*}
+	J_n(x) := \frac{1}{2} + \cos(x) + \cos(2x) + ... + \cos(nx)
+\end{align*}
+Pak pro každé $x\in\R$, $x \neq 2k\pi$, kde $k \in \Z$:
+\begin{align*}
+	J_n(x) = \frac{\sin((n+\frac{1}{2})x)}{2\sin(
+	\frac{x}{2})}
+\end{align*}
+a také:
+\begin{align*}
+	\frac{1}{\pi} \int_{-\pi}^0 J_n(x) \dx = \frac{1}{\pi}\int_0^\pi J_n(x)\dx =
+	\frac{1}{2}
+\end{align*}
+\paragraph{Důkaz lemma}
+(bez důkazu)
+\paragraph{Důkaz věty}
+Nechť $x \in \R$ je pevné. Potom funkci $G: [-\pi, \pi] \to \R$ definujeme jako
+$G(0) = 0$ a jinak předpisem:
+\begin{align}
+	G(u) = \begin{cases}
+		\frac{f(x+u)-f(x-0)}{2\sin(\frac{u}{2})} \text{ pro } u \in [-\pi, 0) \\
+		\frac{f(x+u)-f(x+0)}{2\sin(\frac{u}{2})} \text{ pro } u \in (0, \pi]
+	\end{cases}
+\end{align}
+Podle l'Hospitalova pravidla spočítáme jednostranné limity:
+\begin{align}
+	\lim_{u \to 0^-} G(u) &= \lim_{u\to0^-} \frac{f'(x+u)}{\cos(\frac{u}{2})} =
+	f'(x-0) \\
+	\lim_{u \to 0^+} G(u) &=	f'(x+0)
+\end{align}
+Nyní ukážeme, že $G(u)$ je omezená funkce: na okolí nuly jsme spočítali vlastní
+limity, jinak se jmenovatel ($2\sin(u/2)$) nepřibližuje nule a čitatel je
+omezená funkce ($f$ je omezená). Navíc víme, že funkce $G(u)$ má konečně mnoho
+bodů nespojitosti (body přechodu z definice po částech hladké funkce, viz
+předpoklady, případně nula). Tedy $G(u)$ je podle Lebesgueova kritéria
+riemannovsky integrovatelná na intervalu $[a,b]$.\\
+Nechť $s_n = s_n(x)$ je $n$-tý částečný součet Fourierovy řady funkce $f$ v daném
+bodu $x$:
+\begin{align}
+	s_n = \frac{a_0}{2} + \sum_{k=1}^n (a_k \cos(kx) + b_k \sin(kx)) \\
+	\text{kde } \quad 
+		a_k = \frac{\langle f(t), \cos(kt)\rangle}{\pi}, \quad
+		b_k = \frac{\langle f(t), \sin(kt)\rangle}{\pi}
+\end{align}
+Rozdíl $s_n(x)$ a $(f(x+0)+f(x-0))/2$ vyjádříme pomocí funkce $G(u)$. Začneme
+vyjádřením $s_n(x)$. Do původního vzorce pro $s_n$ dosadíme $a_k$ a $b_k$ (i za
+$a_0$), pro zjednodušení všude vytkneme ($1/\pi$):
+\begin{align}
+	\frac{1}{\pi} \left( \frac{1}{2} \langle f(t), \cos(0t)\rangle +
+	\sum_{k=0}^n \langle \sin(kt) \sin(kx) + \cos(kt)\cos(kx), f(t) \rangle
+	\right)
+\end{align}
+Nyní podle $\langle u, v \rangle + \langle u, w \rangle = \langle u, v + w
+\rangle$ sečteme a zjednodušíme:
+\begin{align}
+	\frac{1}{\pi} \left\langle f(t), \frac{1}{2} + \sum_{k=1}^n ( \cos(kt) \cos(kx) + \sin(kt)
+	\sin(kx)) \right\rangle
+\end{align}
+Použijeme součtový vzorec $\cos(\alpha-\beta) = \cos\alpha \cos\beta +
+\sin\alpha\sin\beta$:
+\begin{align}
+	\frac{1}{\pi} \left \langle f(t), \frac{1}{2} \sum_{k=1}^n \cos(k(t-x))
+	\right\rangle
+\end{align}
+Dosadíme za $t := x + u$ - pozor, nyní se skalární součin integuje podle u!
+\begin{align}
+	\frac{1}{\pi} \left\langle f(x+u), \frac{1}{2} \sum_{k=1}^n \cos(ku)
+	\right\rangle
+\end{align}
+Kde ale pravá strana skalárního součinu je Dirichletovo integrační jádro, tedy
+dosadíme a popíšeme pomocí integrálů:
+\begin{align}
+	\frac{1}{\pi} \left\langle f(x+u), J_n(u)\right\rangle \\
+	= \frac{1}{\pi} \left( \int_{-\pi}^0 f(x+u) J_n(u) \du + \int_0^\pi f(x+u)
+	J_n(u)\du \right)
+\end{align}
+Nyní podle lemmatu přepíšeme: protože $x$ je konstantní, a integrál x
+Dirichletova jádra je $1/2$:
+\begin{align}
+	\frac{f(x-0)}{2} = \frac{1}{\pi} \int_{-\pi}^0 f(x-0) J_n(u) \du
+	\text{ a }
+	\frac{f(x+0)}{2} = \frac{1}{\pi} \int_{0}^\pi f(x+0) J_n(u) \du
+\end{align}
+A ukážeme, že rozdíl
+\begin{align}
+	s_n(x) - \frac{f(x+0)+f(x-0)}{2}
+\end{align}
+se blíží nule. Vyjádříme tedy pomocí předchozích výpočtů a sloučíme integrály:
+\begin{align}
+	= \frac{1}{\pi} \left (
+		\int_{-\pi}^0 (f(x+u) - f(x-0))J_n(u) \du + \int_0^\pi ( f(x+u) -
+		f(x+0))J_n(u) \du
+	\right)
+\end{align}
+Podle lemmatu dosadíme za $J_n$ a jmenovatel zapíšeme jako součást funkce $G(u)$
+podle definice:
+\begin{align}
+	&= \frac{1}{\pi}\left( \int_{-\pi}^0 G(u) \sin((n+1/2)u)\du +
+		\int_0^\pi G(u)\sin((n+1/2)u)\du \right) \\
+	&= \frac{1}{\pi} \int_{-\pi}^\pi G(u) \sin((n+1/2)u) \du
+\end{align}
+Což podle definice skalárního součinu:
+\begin{align}
+	s_n(x) - \frac{f(x+0) + f(x-0)}{2} = \frac{\langle G(u),
+	\sin((n+\frac{1}{2})u)\rangle}{\pi}	
+\end{align}
+Nyní už jenom skalární součin rozložíme podle součtového vzorce
+$\sin(\alpha+\beta) = \sin\alpha\cos\beta + \cos\alpha\sin\beta$:
+\begin{align}
+	= \frac{1}{\pi}\left( \langle G(u)\cos(u/2), \sin(nu)\rangle + 
+		\langle G(u) \sin(u/2), \cos(nu)\rangle \right)
+\end{align}
+Kde podle R-L lemmatu (\ref{rl-lemma}) oba skalární součiny konvergují k $0$ a
+věta je dokázána.
+
+
+
+
+\subsection{Věta o stejnoměrné konvergenci Fourierovy řady}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť funkce $f : \R \to \R$ je $2\pi$-periodická a její zúžení na interval
+$[\pi,-\pi]$ je po částech hladké. Nechť je navíc $f$ spojitá na $\R$. Pak je f
+na $\R$ stejnoměrným součtem své Fourierovy řady.
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+
+
+
+\section{Úvod do komplexní analýzy}
+\setcounter{equation}{0}
+
+\subsection{Tvrzení o rozkladu přirozených čísel na disjunktní množiny}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Množinu přirozených čísel nelze rozložit na alespoň 2 vzájemě disjunktní aritmetické
+posloupnosti s unikátními diferencemi.
+\paragraph{Důkaz}
+Budeme předpokládat, že máme rozložení na $k$ aritmetických poslupností a
+diference jsou různé. Nakonec odvodíme spor. Zaveďme si tedy jednotlivé
+posloupnosti $A_i = \{a_i + d_in | n \in \N \}$, kde $a_i$ a $d_i$ jsou první
+členy posloupnosti a diference. Vlastnost, že posloupnosti jsou disjunktní
+můžeme také vyjádřit pomocí geometrických řad, kde $z \in (-1, 1)$:
+\begin{align}
+	\sum_{n\in\N} z^n = \sum_{n\in A_1} z^n + ... + \sum_{n\in A_k} z^n
+\end{align}
+Takové řady jistě konvergují. Přepíšeme tedy pomocí indexů místo množin:
+\begin{align}
+	z\sum_{n=0}^\infty z^n = z^{a_1} \sum_{n=0}^\infty z^{nd_1} + ... + z^{a_k}
+	\sum_{n=0}^\infty z^{nd_k}
+\end{align}
+A podle vzorce pro součet geometrické řady můžeme sečíst:
+\begin{align}
+	\frac{z}{1-z} = \frac{z^{a_1}}{1-z^{d_1}} + ... + \frac{z^{a_k}}{1-z^{d_k}} 
+\end{align}
+Tyto rovnosti nyní převedem do oboru komplexních čísel. Je totiž zřejmé, že
+platí i pro libovolné $z  \in \C$, kde $|z| < 1$. Na pomoc si vezmeme také $d_k$-tou
+primitivní odmocninu z $1$:
+\begin{align}
+	\alpha = \cos(2\pi/d_k) + i\sin(2\pi/d_k)
+\end{align}
+A pro $n\to\infty$ zvolíme posloupnost $z_n$ tak, aby konvergovala k $\alpha$
+(což můžeme, protože $\alpha$ leží těsně na hranici kruhu $|z| < 1$) a položíme
+$z := z_n$. Jak vidíme, pro dostatečně velké $n$ jde poslední člen pravé rovnosti do nekonečna
+($1-\alpha^{d_k}$ se blíží 0 zprava). Upravíme si tedy rovnost pro spor:
+\begin{align}
+	\frac{z_n^{a_k}}{1-z_n^{d_k}} = \frac{z_n}{1-z_n} - \frac{z_n^{a_1}}{1-z_n^{d_1}} - ...
+	- \frac{z_n^{a_{k-1}}}{1-z_n^{d_{k-1}}}
+\end{align}
+Použijeme absolutní hodnotu a trojúhelníkovou nerovnost:
+\begin{align}
+	\left| \frac{z_n^{a_k}}{1-z_n^{d_k}} \right| \le
+	\left|\frac{z_n}{1-z_n}\right| + \sum_{i=1}^{k-1}
+	\left|\frac{z_n^{a_i}}{1-z_n^{d_i}}\right|
+\end{align}
+Je vidět, že pravá strana pro $n\to\infty$ konverguje ke konečné hodnotě.
+Zároveň však víme, že levá strana pro dostatečně velké $n$ konverguje k
+$\infty$, což je spor s platností nerovnosti.
+
+
+\subsection{Holomorfní funkce}
+\label{holomorfni-funkce}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $X \subset \C$ je otevřená množina, $z_0 \in X$ a $f: X \to \C$. Má-li $f$
+v $z_0$ derivaci řekneme, že je funkce $f$ \textbf{holomofní} v bodě $z_0$.
+Má-li $f$ derivaci v každém bodě množiny $X$, řekneme, že $f$ je holomorfní na množině $X$.
+Funkce je \textbf{celá celistvá}, pokud je holomorfní na celém $\C$
+
+
+\subsection{Komplexní exponenciála a její vlastnosti}
+\label{komplexni-exponenciala}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Komplexní exponenciála je definována jako řada:
+\begin{align*}
+	e^z = \exp(z) := \sum_{n=0}^\infty \frac{z^n}{n!}
+\end{align*}
+\paragraph{Věta} Funkce $\exp(z)$ má vlastnosti:
+\begin{enumerate}
+	\item $\forall z \in \C: \quad \exp(z)' = \exp(z)$
+	\item $\forall z_1, z_2 \in \C: \quad \exp(z_1 + z_2) = \exp(z_1)\exp(z_2)$
+	\item $\forall z \in \C: \quad \exp(z) \neq 0$
+	\item $\forall a \in \R: \quad \exp(ai) = \cis(a) = \cos(a) + i\sin(a)$
+	\item $\forall z \in \C: \quad |\exp(z)| = \exp(\Re(z))$
+	\item $\forall u \in \C, u \neq 0: \quad \exp(z) = u$ má nekonečně mnoho
+	řešení lišící se navzájem o násobky $2\pi i$.
+\end{enumerate}
+
+
+\subsection{Analytická funkce}
+\label{analyticka-funkce}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $z_0 \in X \subset \C$, kde $X$ je otevřená a $f: X \to \C$. Pokud
+existuje $r > 0$, že $D(z_0, r) \subset X$ a $f$ se dá na disku $D(z_0,r)$
+vyjádřit mocninnou řadou se středem v $z_o$ řekneme, že $f$ je \textbf{analytická v okolí
+bodu} $z_0$. Když je analytická v každém bodu množiny $X$, je analytická na
+množině $X$. Funkce je globálně analytická když je analytická v každém $z_0 \in
+X$ a pro každé $r > 0$.
+
+
+\subsection{Ekvivalence analytičnosti a holomorfismu}
+\label{ekvivalence-ah}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $X \subset \C$ je otevřená množina a $f: X \to \C$. Pak následující
+tvrzení jsou ekvivalentní:
+\begin{enumerate}
+	\item Funkce $f$ je na $X$ holomorfní.
+	\item Funkce $f$ je na $X$ analytická.
+	\item Funkce $f$ je na $X$ globálně analytická.
+\end{enumerate}
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+\subsection{Jednoznačnost koeficientů mocninné řady}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $M = \sum a_nz^n$ a $N = \sum b_n z^n$ jsou mocninné řady a $(z_n)$ prostá
+posloupnost komplexních čísel konvergující k 0, která leží v disku konvergence
+$M$ i $N$. Pokud $\forall n$: $M(z_n) = N(z_n)$, potom také $a_n = b_n$.
+\paragraph{Důkaz}
+Můžeme předpokládat, že $z_k \neq 0$. Začneme tedy s prvním členem v $0$:
+\begin{align}
+	a_0 = M(0) = \lim_{k\to\infty} M(z_k) = \lim_{k\to\infty} N(z_k) = N(0) =
+	b_0
+\end{align}
+Tedy $a_0 = b_0$ a dále dokážeme matematickou indukcí: Nechť jsme již dokázali
+rovnost všechn členů po $m-1$ (včetně). Vezmeme funkce:
+\begin{align}
+	A(z) = \frac{M(z) - \sum_{n=0}^{m-1} a_nz^n}{z^m} \\
+	B(z) = \frac{N(z) - \sum_{n=0}^{m-1} a_nz^n}{z^m}
+		= \frac{N(z) - \sum_{n=0}^{m-1} b_nz^n}{z^m}
+\end{align}
+Tyto funkce jsou obě definovány na prstencovém okolí $0$ a $A(z_k) = B(z_k)$ pro
+každé $k$. Dále se $A(z)$ na tomto okolí shoduje s funkcí danou mocninnou řadou
+$\sum_{n\ge 0} a_{m+n} z^n$, která je spojitá a v $0$ má hodnotu $a_m$.
+Analogicky $B(z)$ se shoduje s funkcí danou mocninnou řadou $\sum_{n\ge 0}
+b_{m+n} z^n$ a v $0$ má hodnotu $b_m$. Proto platí:
+\begin{align}
+	a_m = \lim_{z\to0} A(z) = \lim_{k\to\infty} A(z_k) = \lim_{k\to\infty}
+	B(z_k) = \lim_{z\to\infty} B(z) = b_m
+\end{align}
+A krok je dokázán.
+
+\subsection{Holomorfní rozšíření a singularity}
+\label{holomorf-roz-a-sing}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $X \subset Y \subset \C$ jsou dvě otevřené množiny a $f: X \to\C$, $g: Y
+\to\C$ holomorfní funkce splňující $f(x) = g(x)$ pro každé $x\in X$. 
+Potom je $g$ \textbf{holomorfní rozšíření funkce $f$ na množinu $Y$}.
+\paragraph{Definice}
+Nechť $f(z) = \sum_{n\ge 0} a_nz^n$ má poloměr konvergence $0 < R <
++\infty$, takže $f: D(0, R) \to \C$ je holomorfní funkce. Řekneme, že bod $u \in
+\C$ na konvergenční kružnici (tj. $|u| = R$) je \textbf{singularita funkce $f$},
+když neexistuje holomorfní rozšíření $f$ na žádném jeho okolí.
+
+
+
+\subsection{Věta o jednoznačnosti holomorfního rozšíření}
+\label{veta-o-holomorf-roz}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Holomorfní rozšíření na otevřenou a souvislou množinu je jednoznačné.
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+
+\subsection{Věta o singularitách}
+\label{veta-o-singularitach}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť mocninná řada $f(z) = \sum_{n\ge 0} a_nz^n$ má poloměr konvergence $R$
+splňující $0 < R < +\infty$.
+\begin{enumerate}
+	\item Alespoň jeden bod $u\in\C$ s $|u| = R$ je singularitou funkce $f$.
+	\item (Pringsheimova věta) Pokud jsou koeficienty $a_n$ reálné a nezáporné,
+	je bod $u = R$ singularitou funkce $f$.
+\end{enumerate}
+\paragraph{Důkaz}
+(bez důkazu)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Dodatek A: Požadavky ke zkoušce}
+\setcounter{equation}{0}
+Požadavky ke zkoušce u Martina Klazara ze zimního semestru roku 2009/2010.
+\subsection{Základní pojmy a definice}
+\setcounter{equation}{0}
+
+\begin{enumerate}
+\item Definujte metrický prostor, otevřené a uzavřené množiny, 
+hraniční bod množiny.
+\item Definujte limitní bod množiny, izolovaný bod množiny, uzávěr množiny. 
+\item Definujte spojité zobrazení mezi metrickými prostory a homeomorfismus. 
+\item Podejte obě definice kompaktního metrického prostoru, resp. kompaktní
+množiny v metrickém prostoru.
+\item Definujte úplný metrický prostor a kontrahující zobrazení mezi metrickými 
+prostory.
+\item Vysvětlete typy konvergence posloupností a řad funkcí.
+\item Definujte mocninnou řadu a poloměr konvergence (v reálném oboru). 
+\item Definujte trigonometrickou řadu, Fourierovy koeficienty funkce a Fourierovu 
+řadu funkce. 
+\item Vysvětlete pojem po částech hladké funkce (\ref{po-castech-hladka-funkce})
+\item Definujte holomorfní funkci a analytickou funkci (\ref{holomorfni-funkce},
+\ref{analyticka-funkce})
+\item Definujte pojem holomorfního rozšíření a singularity
+(\ref{holomorf-roz-a-sing})
+\end{enumerate}
+
+\subsection{Věty a důsledky bez důkazu}
+\setcounter{equation}{0}
+\begin{enumerate}
+\item Uveďte vlastnosti otevřených a uzavřených množin v metrickém prostoru 
+a topologickou charakterizaci spojitosti zobrazení mezi metrickými 
+prostory (T.1.1-T.1.3).
+\item Uveďte výsledky o  kompaktních množinách v metr. prostoru (T.1.4-V.1.8).
+\item Uveďte výsledky o  úplných metr. prostorech (T.1.9 a V.1.10).
+\item Uveďte kritéria stejnoměrné konvergence posloupností a řad funkcí 
+(T. 2.1-2.2, V. 2.7-2.8). 
+\item Uveďte věty o záměně pořadí operace limity s dalšími operacemi pro 
+posloupnosti a řady funkcí (V. 2.3-2.5 a jejich verze pro řady).
+\item Uveďte výsledky o mocninných řadách (\ref{polomer-konvergence},
+		\ref{lokalne-stejnomerna-konvergence-mr}, \ref{abelova-veta}) 
+		(orig: V. 2.9, T. 2.10, V. 2.11).
+\item Uveďte výsledky o Fourierových řadách (T. 2.12, V. 2.13-2.15).
+\item Uveďte vlastnosti komplexní exponenciály (\ref{komplexni-exponenciala})
+\item Uveďte hlavní výsledky o holomorfních funkcích (\ref{ekvivalence-ah}, 7 a 8).
+\end{enumerate}
+
+\subsection{Věty s důkazy}
+\setcounter{equation}{0}
+\begin{enumerate}
+\item Uveďte a dokažte výsledky o otevřených a uzavřených množinách v 
+metr. prostoru. (T.1.1 a T.1.2).
+\item Uveďte a dokažte topologickou charakterizaci spojitosti zobrazení 
+mezi metr. prostory (T.1.3).
+\item Dokažte, že kompaktní množiny v metr. prostoru jsou uzavřené a 
+omezené (T.1.5).
+\item Uveďte a dokažte vlastnosti spojitých funkcí na kompaktních 
+metr. prostorech (V.1.7).
+\item Uveďte a dokažte Banachovu větu o pevném bodu (V.1.10). 
+\item Dokažte Bolzanovu-Cauchyovu podmínku pro posloupnosti funkcí (T. 2.1).
+\item Dokažte Mooreovu-Osgoodovu větu (V 2.3). 
+\item Dokažte větu o záměně pořadí limity a integrování (V. 2.4).
+\item Dokažte Weierstrassovo kritérium stejnoměrné konvergence (1. část V. 2.7).
+\item Dokažte vzorec pro poloměr konvergence mocninné řady (V 2.9).  
+\item Dokažte, že mocninná řada konverguje na intervalu konvergence 
+lokálně stejnoměrně (T. 2.10).
+\item Dokažte Besselovu nerovnost a Riemannovo-Lebesgueovo lemma
+(\ref{rl-lemma}) 
+\item Dokažte větu o bodové konvergenci Fourierovy řady po částech hladké funkce 
+(\ref{dirichlet}, bez lemma). 
+\item Dokažte, že množina přirozených čísel není sjednocením alespoň dvou 
+disjunktních aritmetických posloupností s různými diferencemi (první Tvrzení
+bez čísla).
+\item Dokažte tvrzení o jednoznačnosti koeficientů mocninné řady (T. 6).
+\end{enumerate}
+
+\end{document}
