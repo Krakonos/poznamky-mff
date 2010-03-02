@@ -41,7 +41,7 @@ přípustným řešením optimalizační úlohy. Prvek $x_0 \in M$ nazveme optim
 	\begin{enumerate}
 		\item Lineární programování: \\
 			$\min_M cx$, $M = \{ x | A_x
-			\{=,\lt,\gt\}
+			\{=,\le,\ge\}
 			b\}$, kde $c \in \R^n$, $A \in \R^{m \times n}$, $b \in b^m$
 		\item Nelineární programování: \\
 			$\min_M f(x), M = \{ x | g_j(x) \lt 0 (j = 1, ..., m) \}, f, g_j:
@@ -110,6 +110,202 @@ Minimalizovat ceny za dopravu, maximalizovat zisky Z.
 \end{align}
 \subsubsection{Dynamické programování}
 Ceny závisí na rozhodnutí.
+
+
+\section{Volný extrém}
+\setcounter{equation}{0}
+Hledání $\min f(x)$.
+\subsection{Postačující podmínka}
+\setcounter{equation}{0}
+Jestliže má funkce $f(x)$ v $x_0 \in \R^n$ spojisté 2. parciální derivace,
+$\nabla f(x_0) = 0$, $\nabla^2 f(x_0)$ (Hessova matice) je pozitivně definitní,
+potom má reálná funkce $f(x)$ v $x_0$ ostré lokální minimum.
+\subsection{Penalizační metody}
+\setcounter{equation}{0}
+Máme úlohu
+\begin{align}
+	\min_M f(x), \quad M = \{ x | g_j(x) \le 0, j = 1, ..., n \}
+\end{align}
+Hledáme penalizační funkci $p(x)$ vyjadřující pokutu za to, že pracujeme s $x \in
+M$. $p(x)$ je vytvořená z podmínek $g_j$ a řešíme posloupnost úloh na volný
+extrém:
+\begin{align}
+	\min \{ f(x) + \alpha_k p(x) \}
+\end{align}
+Po p(x) požadujeme:
+\begin{align}
+	p(x) > 0: \quad x \nin M \\
+	p(x) = 0: \quad x \in M \\
+	p(x) \quad \text{spojitá}
+\end{align}
+Posloupnost takovýchto úloh za jistých okolností konverguje k optimálnímu řešení.
+\paragraph{Příklad}
+\begin{align}
+	\sum_{j=1}^n (g_j^+(x))^2, \quad g_j^+(x) = \max \{ g_j(x), 0 \}
+\end{align}
+\subsection{Bariérové metody}
+\setcounter{equation}{0}
+Hledáme bariérovou funkce $b(x)$, která nám zabrání vystoupit z množiny $M$.
+Řešíme tedy posloupnost úloh:
+\begin{align}
+	\min \{ f(x) + \frac{1}{\beta_k} b(x) \}, \quad \beta_k \to \infty
+\end{align}
+A po funkce b(x) požadujeme:
+\begin{align}
+	b(x) \le 0: \quad x \in M
+	\lim_{x \to \partial M} b(x) = \infty
+\end{align}
+kde $\partial M$ je hranice množiny.
+\paragraph{Příklad}
+\begin{align}
+	b(x) = - \sum_j \frac{1}{g_j(x)} \\
+	b(x) = - \sum_j \log (-g_j(x))
+\end{align}
+\subsection{Penalizačně-bariérové (SUMT)}
+\setcounter{equation}{0}
+Rozdělíme množinu \{1 ... m \} na $I_1$ disjunktní $I_2$. Řešíme posloupnost
+úloh:
+\begin{align}
+	\min \{ f(x) + \alpha_k \sum_{j\in I_1}  \varphi(g_j(x)) + \frac{1}{\beta_k}
+	\sum_{j\in I_2} \psi (g_j(x)) \}
+\end{align}
+
+\section{Metody hledání lokálního minima}
+\setcounter{equation}{0}
+\subsection{Gradientní}
+\setcounter{equation}{0}
+Podle věty o přírůstku funkce funkce roste nejvíce ve směru gradientu:
+\begin{align}
+	f(x) = f(x_0) + \nabla f(x_0 + \theta(x-x_0))^T(x-x_0)
+\end{align}
+Počítáme:
+\begin{align}
+	x_{k+1} = x_k - \zeta \nabla f(x_k), \text{ kde }\zeta\text{ je	řešením} \\
+	\min_{\zeta \le 0} f(x_k - \zeta \nabla f(x_k))
+\end{align}
+\subsection{Newtonova metoda}
+\setcounter{equation}{0}
+\begin{align}
+	f(x) \dot= f(x_k) + \nabla f(x_k)(x-x_k) + \frac{1}{2} (x-x_k) \nabla^2
+	f(x_k)(x-x_k) \\
+	\nabla f(x) = 0 \\
+	0 + \nabla f(x_k) + \nabla^2 f(x_k)(x-x_k) - 0 \\
+	x_{k+1} = x_k - \nabla f(x_k)(\nabla^2f(x_k))^2 \\
+	x_1 = 0
+\end{align}
+\subsection{Lemkeho metoda}
+\setcounter{equation}{0}
+Nápad: vezmeme výchozí řešení $x$ a vzdálenost $\rho$, metodou půlení přibližujeme.\\
+Požadavky: $\{ x | f(x) \le f(x_1) \}$ je omezená. \\
+Problém vhodně  zvolit $x_1$.
+\paragraph{Metoda} K $x_1$ sestavíme $x_1 + \rho e^i$ pro $\rho > 0$ a spočítáme funkční
+hodnoty $f(x_1 + \rho e_i)$ a porovnáme s funkční hodnotou v $x_1$. Pokud:
+\begin{enumerate}
+	\item $f((x_1 + \rho e_i) \ge f(x_1) \quad \forall i \quad \Rightarrow \quad
+	\rho = \frac{\rho}{2}$
+	\item $\exists j$: $y := f(x_1 + \rho e_j) < f(x_1) \quad \Rightarrow \quad$
+	opakujeme pro $y$
+\end{enumerate}
+
+
+\section{Lineární programování}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Úlohou pro lineární programování v rovnicovém tvaru rozumíme úlohu:
+\begin{align}
+	\min_M c^T x, \quad &M = \{ x | Ax = b, x \ge o \},\\ 
+	&\text{ kde } \quad A \in \R^{m \times
+	n }, b \in \R^m, c \in \R^n, \rank(A) = m, 1 \le m < n, b \ge 0
+\end{align}
+\paragraph{Definice}
+Úlohou lineárního programování normálním tvaru rozumíme
+\begin{align}
+	\min_M c^T x, &M = \{ x | Ax \le b, x \ge 0 \}, \\
+	&\text{ kde } \quad A \in \R^{m \times
+	n }, b \in \R^m, c \in \R^n, n,m \ge 1
+\end{align}
+\subsection{Podprostor}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Množina
+\begin{align}
+	R = \{ x \in \R^n | a^T x = b, a \neq 0 \}
+\end{align}
+představuje podprostor dimenze $n-1$ nazývaný \textbf{nadrovinou}.
+\paragraph{Důkaz}
+Protože $a \neq 0 \Rightarrow \exists a_1 \neq 0 \Rightarrow x_1 = \frac{b}{a_1}
+- \sum_{i=1}^n \frac{a_i}{a_1} x_i$. Tedy máme $n-1$ LN vektorů v $R$.
+\paragraph{Tvrzení} Množina $R^{n-\alpha} = \{ x \in \R^n | a_i^T x = b_i, i + 1
+... \alpha \}$ představuje podprostor $R^n$ dimenze $n - \alpha$.
+
+\subsection{Poloprostor}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Pro libovolnou nadrovinu $R = \{ x \in \R^n | a^T x = b, a \neq b \}$
+nazýváme:
+\begin{enumerate}
+	\item $H^+ = \{ x \in \R^n | a^T x \gt b \}$ otevřeným kladným (pravým)
+	poloprostorem $\R^n$ příslušným $R$.
+	\item $H^+ = \{ x \in \R^n | a^T x \lt b \}$ otevřeným záporným (levým)
+	poloprostorem $\R^n$ příslušným $R$.
+	\item $\overline{H^+} = \{ x \in \R^n | a^T x \ge b \}$ uzavřeným kladným (pravým)
+	poloprostorem $\R^n$ příslušným $R$.
+	\item $\overline{H^+} = \{ x \in \R^n | a^T x \le b \}$ uzavřeným záporným (levým)
+	poloprostorem $\R^n$ příslušným $R$.
+\end{enumerate}
+\paragraph{Tvrzení}
+Platí:
+\begin{enumerate}
+	\item $H^+ \cup H^- \cup R = \R^n$
+	\item $\overline{H^+} = H^+ \cup R$, $\overline{H^-} = H^- \cup R$
+	\item $H^+ \cap H^- = H^+ \cap R = H^- \cap R = \emptyset$
+\end{enumerate}
+\paragraph{Tvrzení}
+Platí:
+\begin{align}
+	\dim \mathcal{H}_i^+ = \dim &\overline{\mathcal{H}_i^+} = n \\
+	\text{kde } \mathcal{H}_i^+ &= \{ x \in \R^n | x_i > 0 \} \\
+	\overline{\mathcal{H}_i^+} &= \{ x \in \R^n | x_i \ge 0 \}
+\end{align}
+\paragraph{Důkaz}
+V každém takovém prostoru leží všechny jednotkové vektory.
+\paragraph{Tvrzení}
+Platí:
+\begin{align}
+	\dim \bigcap_{i=1}^n \overline{\mathcal{H}_i^+} = \dim \bigcap_{i=1}^n
+	\mathcal{H}_i^+ = n
+\end{align}
+\paragraph{Důsledek}
+Množina přípustných řešení lineárního programování:
+\begin{align}
+M = \{ x | Ax = b, x \ge 0 \}
+\end{align}
+kde $b(A) = m$, $a \le m < n$. \\
+Taktéž lze zapsat jako:
+\begin{align}
+	M = \R^n-m \cap	\bigcap_{i=1}^n \overline{\mathcal{H}_i^+}
+\end{align}
+\paragraph{Definice}
+Každou množinu $M \subset \R^n$, která se deá popsat jako průnik konečného počtu
+nadrovin a uzavřených poloprostorů nazýváme konvexním polyedrem.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
