@@ -32,11 +32,414 @@
 \begin{enumerate}
 	\item Nechť $x$, $y$ jsou prvky množiny, pak $(x \in y)$ a $(x = y)$ jsou
 	atomické formule.
-	\item Nechť výrazy $\varphi, \varpsi$ jsou formule, potom:
-			$\neg \varphi$, $\varphi \land \varpsi$, $\varphi \lor \vaprsi$,
-			$\varphi \Rightarrow \varpsi$, $\varphi \Leftrightarrow \varpsi$
+	\item Nechť výrazy $\varphi, \psi$ jsou formule, potom:
+			$\neg \varphi$, $\varphi \land \psi$, $\varphi \lor \psi$,
+			$\varphi \Rightarrow \psi$, $\varphi \Leftrightarrow \psi$
 			jsou formule.
 \end{enumerate}
+
+\ \\
+===============================================================\\
+Tedy toho hodne chybi\\
+===============================================================
+\section{Axiomy teorie množin}
+
+\subsection{Průnik a rozdíl množin}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Pro množiny a,b po řadě průnikem a rozdílem nazýváme množinu:
+\begin{align}
+	a \cup b = \{ x : x \in a \land x \in b \} \\
+	a \setminus b = \{ x : x \in a \land x \nin b \}
+\end{align}
+
+Existuje množina a (Axiom existence), podle vydělení pro formuli $x \neq x$
+existuje a podle extenziability je jediná množina $\{ x \in a : a \neq x \}$.
+
+
+\paragraph{Definice}
+$\emptyset$ je jediná množina y splňující:
+\begin{align}
+	(\forall x) (x \nin y)
+\end{align}
+A nazýváme jí \textbf{prázdná množina}.
+
+\subsection{Disjunkní množina}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Říkáme, že množina a,b jsou disjunkní, že  je-li $a \cup b = 0$.
+
+\paragraph{Lemma}
+\begin{enumerate}
+	\item $\neg (\exists y)(y \in \emptyset)$
+	\item $(\forall x) (\emptyset \subset x)$
+	\item $x \subset \emptyset \Leftrightarrow x = 0$
+\end{enumerate}
+\paragraph{Lemma}
+\begin{align}
+	(\forall a) a = \{ x : x \in a \land x = x \}
+\end{align}
+
+
+\subsection{Russelův paradox}
+\setcounter{equation}{0}
+\paragraph{Věta}
+\begin{align}
+	\neg ( \exists z) (\forall x) (x \in z)
+\end{align}
+\paragraph{Důkaz}
+Sporem: nechť $z$ je taková množina. Pak mějme formuli $\varphi(x) \quad x \neq
+x$. Potom podle axiomu vydělení pro tuto formuli máme $t = \{x \in z : x \nin x
+\}$, tedy $t$ je množina. Protože $t$ je množina a $z$ je množina všech množin.
+Protože $t \in z$, $t \in t \Leftrightarrow t \nin t$. Tedy neexistuje množina
+všech množin.
+
+\subsection{Axiom dvojce}
+\setcounter{equation}{0}
+\begin{align}
+	(\forall a) (\forall b) (\exists z) (\forall x) ( x \in z \Leftrightarrow (x
+	= a \lor x = b ))
+\end{align}
+\paragraph{Definice}
+Jsou-li $a, b$ množiny, pak množinu se stávající z prvků $a,b$ nazveme
+\textbf{neuspořádanou dvojcí} množin $a,b$ a značíme $\{a,b\}$. Pro $a\neq b$
+říkáme, že $\{a,b\}$ dvouprvková, jinak jednoprvková.
+
+\subsubsection{Rovnost množin}
+\setcounter{equation}{0}
+\paragraph{Lemma}
+\begin{enumerate}
+	\item $\{x\} = \{y\} \Leftrightarrow x = y$
+	\item $\{x\} = \{x,y\} \Leftrightarrow x = y$
+	\item $\{x,y\} = \{u,v\} \Leftrightarrow (x = u \land y = v) \lor (x = v
+	\land y = u)$
+\end{enumerate}
+
+\subsubsection{Uspořádaná dvojce, k-tice}
+\setcounter{equation}{0}
+\textbf{Uspořádaná dvojce} množin $a,b$ je množina, která má prvky $\{\{a\}, \{a,b\}\}$.
+Značíme jí $<a,b>$.
+\paragraph{Lemma}
+\begin{align}
+	<x,y> = <u,v> \Leftrightarrow (x = u \land y = v)
+\end{align}
+\paragraph{Definice}
+Jsou-li dány množiny $a_1, a_2, ..., a_k$, pak uspořádanou $k-tici$ definujeme
+jako:
+\begin{align}
+	&<a_1> = a_1, \text{ a dál indukcí } \\
+	&<a_1, a_2, ..., a_k > = <<a_1, ..., a_{k-1}>, a_k>
+\end{align}
+\paragraph{Lemma}
+\begin{align}
+	<a_1, ..., a_k> = <b_1, ..., b_k> \\
+	\Leftrightarrow \\
+	(a_1 = b_1) \land ... \land (a_k = b_k)
+\end{align}
+
+
+\subsection{Axiom sumy}
+\setcounter{equation}{0}
+\begin{align}
+	(\forall a) (\exists z) (\forall x) (x \in z \Leftrightarrow (\exists y)(x
+	\in y \land  y \in a))
+\end{align}
+\paragraph{Značení}
+\begin{align}
+	\bigcup a = \{ x : (\exists y) (y \in a \land x \in y) \}
+\end{align}
+\paragraph{Značení}
+Nechť $a = \{b,c\}$. Pak $\bigcup a = b \cup c$
+
+\subsubsection{Neuspořádané $k$-tice}
+\setcounter{equation}{0}
+\paragraph{Značení}
+Neuspořádaná $k$-tice je:
+\begin{align}
+	\{a,b,c\} = \{a,b\} \cup \{c\}
+\end{align}
+\subsubsection{Průnik}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Pro neprázdnou množinu $a$ lze analogicky definovat
+\begin{align}
+	\bigcap a = \{ x : (\forall y) (y \in a \Rightarrow x \in y) \}
+\end{align}
+Pro neprázdnou a existuje $\bigcap a$: 
+\begin{align}
+	a \neq 0 \quad &(\exists x) x \in a, \quad x = x_0 \\
+	a = 0 \quad &\bigcap a \text{ není definovaný }
+\end{align}
+
+
+\subsection{Schéma axiomu nahrazení}
+\setcounter{equation}{0}
+Je-li $\psi(u,v)$ formule, která neobsahuje volně proměnné $z,w$, potom formule:
+\begin{align}
+	\label{axiom-nahrazeni-predpoklad}
+	(\forall u)(\forall v)(\forall w) ( \psi(u,v) \land \psi(u,w) \Rightarrow
+	v=w) \Rightarrow \\
+	(\forall a) (\exists z) (\forall v) (v \in z \Leftrightarrow (\exists u)(u
+	\in a \land \psi(u,v)))
+\end{align}
+je axiom teorie množin.
+\paragraph{Pozorování}
+Pro jedno $u$, $\psi(u,v)$ platí pro nejvýše jedno $v$. To je analogie k funkci.
+\paragraph{Definice}
+Nechť $a,b$ jsou množiny. \textbf{Kartézský součin} $a \times b$ je množina:
+\begin{align}
+	a \times b = \left\{ <x,y> : x \in a \land y \in b \right\}
+\end{align}
+\paragraph{Důkaz}
+$a \times b$ je množina. Zvolme a zafixujme $y \in b$ a
+nechť $\psi(x,v)$ je formule $v = <x,y>$. Je-li:
+\begin{align}
+	\psi(x,v) \land \psi(x,w) \Rightarrow v = <x,y> \land w = <x,y> \Rightarrow
+	v = w
+\end{align}
+Tedy je splněn předpoklad axiomu nahrazení (\ref{axiom-nahrazeni-predpoklad})
+pro formuli $\psi$.
+\begin{align}
+	M_y = \{ <x,y> : x \in a\}
+\end{align}
+je množina podle nahrazení pro $\psi$ pro každé $y$. \\
+Nechť navíc $\overline{\psi}(y,v)$ je formule $v = M_y$. Je-li:
+\begin{align}
+	\overline{\psi}(y,v) \land \overline{\psi}(y,w) \Rightarrow v = M_y \land w = M_y
+	\Rightarrow v = w
+\end{align}
+Tedy je splněn předpoklad axiomu nahrazení (\ref{axiom-nahrazeni-predpoklad})
+pro formuli $\overline{\psi}$. Navíc tedy
+\begin{align}
+	&D = \{ M_y : y \in b \} \text{ je množina } \\
+	&\bigcup D = \{<x,y>: x \in a, y \in b \} = a \times b
+\end{align}
+
+
+\subsubsection{Binární relace}
+\setcounter{equation}{0}
+\paragraph{Definice}
+\textbf{Binární relace} je množina $R$, jejímiž prvky jsou uspořádané dvojce.
+\begin{align}
+	\dom(R) = \{ x : (\exists y) <x,y> \in R \} \text{ je definiční obork }
+	\rng(R) = \{ y : (\exists x) <x,y> \in R \} \text{ je obor hodnot }
+\end{align}
+Protože $R$ je množina, $\dom(R)$ i $\rng(R)$ jsou množiny.
+\paragraph{Definice}
+Je-li $R$ relace, definujeme:
+\begin{align}
+	R^{-1} = \{ <x,y>: <y,x> \in R \}
+\end{align}
+Pro každou relaci $R$, $R^{-1}$ je relace a $(R_{-1})^{-1} = R$.
+\paragraph{Definice}
+Jsou-li $R, S$ relace, pak
+\begin{align}
+R \circ S = \{ <x,z> : (\exists y) <x,y> \in R \land <y,z> \in S \}
+\end{align}
+\paragraph{Definice}
+Jsou-li $R, S, T$ relace, pak
+\begin{align}
+	(T \circ S) \circ R = T \circ (S \circ R)
+\end{align}
+
+\subsubsection{Funkce}
+\setcounter{equation}{0}
+Množina $f$ se nazývá \textbf{funkce}, pokud $f$ je relace a platí:
+\begin{align}
+	(\forall x \in \dom(f))((y \in \rng(f) \land y \in \rng(f) \land <x,y> \in f
+	\land <x,y'> \in f) \Rightarrow y = y')
+\end{align}
+\paragraph{Značení} $f: A \to B$ znamená: $f$ je funkce, $A = \dom(f)$, $B \supset
+\rng(f)$.
+
+
+Je-li $C \subsetq A$, pak $f \Gamma C = f \cap (C \times B)$ nazýváme $x$ zůžením funkce
+$f$ na množinu $C$.
+\begin{align}
+f'C = \rng(f \Gamma C) = \{ f(x): x \in C \}
+\end{align}
+\begin{description}
+\item Funkce $f: A \to B$ se nazývá \textbf{prostá}, pokud $f^{-1}$ je funkce.
+\item Funkce $f: A \to B$ se nazývá \textbf{surjektivní} ("na"), jestliže $B = \rng(f)$
+\item Funkce $f$ se nazývá \textbf{bijekce} je-li \textbf{surjektivní} a současně
+\textbf{prostá}.
+\end{description}
+
+
+\subsection{Uspořádání}
+\setcounter{equation}{0}
+\paragraph{Definice}
+\textbf{Ostře uspořádaná množina} je uspořádaná dvojce $<a, r>$, kde $a$ je
+množina a $r$ je relace, $r \subsetq a \times a $. Přičemž r splňuje:
+\begin{align}
+	&\forall x, y, z \in a : \quad <x,y> \in r \land <y,z> \in r \Rightarrow
+	<x,z> \in r \quad \text{tranzitivita} \\
+	&\forall x \in a: \quad \not <x,x> \in r \quad \text{antireflexivita}
+\end{align}
+Pro zjednodušení místo $<x,y> \in r$ píšeme $x r y$.
+\paragraph{Definice}
+Ostré uspořádání $r$ nazveme \textbf{lineárním}, pokud 
+\begin{align}
+	\forall x,y \in a: \quad x = y \lor x r y \lor y r x 
+\end{align}
+\paragraph{Definice}
+Jsou-li $R$, $S$ relace a $a$, $b$ množiny, pak řekneme, že $<a, R>$ je izomorfní
+s $<b, S>$, pokud existuje bijekce $f: a\to b$ taková, že
+\begin{align}
+	\forall x,y \in a: \quad <x,y> \in \R \Leftrightarrow <f(x), f(y)> \in S
+\end{align}
+a zobrazení $f$ se nazývá \textbf{izomorfismus}.
+\paragraph{Definice}
+Mějme uspořádanou množinu $<a,r>$. Je-li $m \subset a$, pak řekneme, že $x \in a$
+je \textbf{r-nejmenší} prvek množiny $m$, jestliže platí:
+\begin{align}
+	x \in m \land (\forall Y) (y \in m \Rightarrow (x r y \lor y = x))
+\end{align}
+Je-li $m \subsetq a$, $x \in a$, řekneme, že $x$ je \textbf{minimální} prvek
+množiny $m$,
+jestliže platí
+\begin{align}
+	x \in m \land (\forall y) ( y \in m \Rightarrow \not (y r x))
+\end{align}
+\paragraph{Definice}
+Řekneme, že uspořádání $r$ na množině a je \textbf{dobré} (množina $<a,r>$ je dobře
+uspořádaná) jesltiže $r$ je ostré uspořádání množiny $a$ a každá neprázdná
+podmnožina $a$ má r-nejmenší prvek.
+\paragraph{Pozorování}
+Je-li $<a,r>$ dobře uspořádaná, pak je $r$ lineární uspořádání.
+$x,y \in a \quad \{x,y\} \subsetq a$ a $\{x,y\}$ má r-nejmenší prvek. Je-li to
+$x$,
+pak $x r y \lor x = y$. Pokud je to $y$, pak $y r x \lor y = x$.
+\paragraph{Značení}
+Nechť $<a,r>$ je uspořádaná množina a $x \in a$. Označme $<(\leftarrow, x), r>$
+jako:
+\begin{align}
+	(\leftarrow, x) = \{ y \in a : y r x \}
+\end{align}
+\paragraph{Lemma 1}
+Je-li $<a,r>$ dobře uspořádaná množina, pak pro každé $x \in a \quad <a, r>$ není
+izomorfní s $<(\leftarrow, x), r>$
+\paragraph{Důkaz}
+Sporem: Předpokládejme, že existuje izomorfismus $f: <a,r> \to <(\leftarrow, x),
+r>$. Definujme $m = \{ y \in a: f(y) \neq y \}$. $x \neq (\leftarrow, x)$, tedy
+$f(x) \neq x\Rightarrow m \neq \emptyset$. $<a,r>$ je tedy dobře uspořádaná,
+tedy musí existovat $t$ r-nejmenší prvek množiny $m$. Máme pro všechna $z r t$,
+platí že $f(z) = z$.
+\begin{enumerate}
+	\item $f(t) r t$ ale $f(t) r t$ máme $f(t) \neq t$, $f(f(t)) = f(t)$,
+	\textbf{spor}: $f$ není prosté.
+	\item $t r f(t)$: kdykoliv $z r t \Rightarrow f(z) r t$, protože $f(z) = z$.
+	Navíc kdykoliv $t r z \Rightarrow f(t) r f(z)$ protože $f$ je izomorfismus.
+	Tedy $t r f(t)$ , $t \in (\leftarrow, x) \Rightarrow t \neq \rng(f)$, tedy
+	$f$ není zobrazení \textbf{na}, což je \textbf{spor}.
+\end{enumerate}
+\paragraph{Lemma 2}
+Jsou-li $<a,r>$, $<b,s>$ dvě dobře uspořádané množiny, které jsou izomorfní, pak
+mezi nimi existuje \textbf{jediný} izomorfismus.
+\paragraph{Důkaz}
+Sporem: Nechť $f, g: a \to b$ jsou dva různé izomorfismy. Tedy existuje nějaké 
+$x \in a: f(x) \neq g(x)$. Tedy množina $m = \{ t \in a: f(t) \neq g(t) \}$ je
+neprázdná (obsahuje $x$) a $<a,r>$ je dobře uspořádaná, tedy existuje nejmenší
+prvek $t$ množiny $m$. Zřejmě platí, že kdykoliv $y r t$, pak $f(y) = g(y)$.
+\begin{enumerate}
+	\item $f(t) s g(t)$. Pokud $t r z$, protože $g$ je izomorfismus, musí platit,
+	že $g(t) s g(z)$. Pokud $z r t$, pak $f(z) = g(z) \Rightarrow f(z) s f(t)
+	\Rightarrow g(z) s f(t) \Rightarrow g(t) \neq f(t)$. Tedy $f(t) \nin
+	\rng(g)$, tedy není \textbf{na}.
+	\item $g(t) s f(t)$ analogicky.
+\end{enumerate}
+\paragraph{Věta}
+Nechť $<a,R>$ a $<b,S>$ dvě dobře uspořádané množiny. Potom nastává právě jedna
+z následujícíh možností:
+\begin{enumerate}
+	\item $<a,R> \cong <b,S>$ (je izomorfní)
+	\item $\exists y \in b: \quad <a,R> \cong <(\leftarrow,y), S>$
+	\item $\exists x \in a: \quad <(\leftarrow, x), R> \cong <b,S>$
+\end{enumerate}
+\paragraph{Důkaz}
+Položme 
+\begin{align}
+f = \{ <v,w> : v \in a \land w \in b \land <(\leftarrow,v), R> \cong <(\leftarrow, w), S>\}
+\end{align}
+\begin{enumerate}
+\item
+$f$ je zobrazení: nechť $<v,w> \in f$, $<v,w_1> \in f$.
+Máme:
+\begin{align}
+	<(\leftarrow, w), S) \cong <(\leftarrow, v), R> \cong <(\leftarrow, w_1), S>
+\end{align}
+tedy 
+\begin{align}
+	<(\leftarrow, w), S> \cong <(\leftarrow, w_1), S>
+\end{align}
+a podle Lemma 1 $w = w_1$.
+\item
+$f$ je prosté:
+\begin{align}
+	<v,w> \in f, <v_1,w> \in f \\
+	<(\leftarrow, R> \cong <(\leftarrow, w),S> \cong <(\leftarrow, v), R>
+\end{align}
+a podle Lemma 1 $v = v_1$
+\item
+$f$ zachovává uspořádání:
+\begin{align}
+	<v,w> \in f, \quad <v_1, w_1> \in f
+\end{align}
+Nechť $v R v_1$. Máme $<(\leftarrow, v_1), R> \cong <(\leftarrow, w_1), S>$.
+Nechť $g: <(\leftarrow, v_1), R> \to <(\leftarrow, w_1),S>$ je izomorfismus. 
+Je $v R v_1$, $g(v)$ protože $g$ je izomorfismus:
+\begin{align}
+	<(\leftarrow,v), R> \cong <(\leftarrow, g(v)), S>
+\end{align}
+z definice $f$. Podle Lemma 2 existuje izomorfismus jediný, ktedy $w = g(v) S
+w_1$. \\
+Analogicky: pokud $w S w_1$, potom $v R v_1$. \\
+Zřejmě platí, že pokud $<v,w> \in f$, pak $f \Gamma (\leftarrow, v)$ je izomorfismus
+mezi $<(\leftarrow,v), R>$ a $<(\leftarrow,w), S>$.\\
+Položme: 
+\begin{align}
+	m = \{ v \in a : \forall w \in b \quad <v,w> \nin f \}
+	o = \{ w \in b : \forall v \in a \quad <v,w> \nin f \}
+\end{align}
+Můžou nastat případy:
+\begin{enumerate}
+	\item $m = o = \emptyset$.  Nastal případ, že $<a, R> \cong <b,S>$ podle $f$.
+	\item $m = \emptyset \neq o$. Množina $<b,S>$ je dobře uspořádaná, tedy
+	existuje $y \in b$, $y$ je S-nejmenší prvek množiny $o$. V tom případě $f$ je
+	izomorfismus mezi $<a,R>$ a $<(\la, y), S>$.
+	\item $m \neq \emptyset = o$. Existuje $x$ R-nejmenší prvek množiny $m$ a
+	$<(\la, x), R> \cong (b,S)$ a $f$ je hledaný izomorfismus.
+	\item $m \neq \emptyset \neq o$, což je ale ve sporu s definicemi $o$ a $m$.
+\end{enumerate}
+\end{enumerate}
+\subsection{Ordinály}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Množina $x$ se nazývá \textbf{tranzitivní}, pokud platí 
+\begin{align}
+	\forall y: y \in x \Rightarrow y \subsetq x
+\end{align}
+\paragraph{Definice}
+Množina $x$ je \textbf{ordinál}, pokud $x$ je tranzitivní a dobře uspořádaná
+relací~$\in$.
+\paragraph{Příklad}
+0  je ordinál \\
+\{ 0, \{0\}, \{\{0\}\}\} je tranzitivní, ale náležení neuspořádává - není
+ordinál. \\
+\{ 0, \{0\}, \{0, \{0\}, \{0, \{0 \} \} \} \} je ordinál, obvykle se značí 4.
+
+\subsection{Věta o ordinálech}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item Je-li $x$ ordinál, $y \in x$ a $y \in z$, pak $x \in z$.
+	\item Jsou-li $x, y$ ordinály, pak $x \cong y$ právě když $x = y$
+	\item Jsou-li $x, y$ ordinály, pak platí právě jedna z možností: $x = y$, $x
+	\in y$, $y \in x$.
+	\item Jsou-li $x,y, z$ ordinály, $x \in y \land y \in z \Rightarrow x \in z$.
+	\item Je-li C neprázdná množina ordinálů, potom $\exists x \in C: \forall y
+	\in C: y = x \lor x \in y$
+\end{enumerate}
+
 
 
 
