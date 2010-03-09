@@ -291,22 +291,176 @@ nadrovin a uzavřených poloprostorů nazýváme konvexním polyedrem.
 
 
 
+=====
+
+====
 
 
+\subsection{Rozklad konvexního polyedru}
+\setcounter{equation}{0}
+Označme:
+\begin{align}
+	R^{n-m} = \{ x \in \R^n | Ax = b \} \\
+	R_\alpha = \{ x \in \R^n | x_\alpha = 0 \} \\
+	\mathcal{H}_\alpha^+ = \{ x \in \R^n | x_\alpha > 0 \}
+	\overline{\mathcal{H}_\alpha^+} = \{ x \in \R^n | x_\alpha \ge 0 \}, \alpha
+	= 1, ..., n
+\end{align}
+Potom:
+\begin{align}
+M = R^{n-m} \cap \bigcap_{\alpha=1}^n \overline{\mathcal{H}_\alpha^+} =
+\R^{n-m} \bigcap_{\alpha=1}^n \mathcal{H}_\alpha^+ \cup R_\alpha = \\
+	= \left( R^{n-m} \cap \bigcap_{\alpha=1}^n \mathcal{H}_\alpha^+ \right) \cup
+	\left( R^{n-m} \cap R_1 \cap \bigcap_{\alpha=1}^n \mathcal{H}_\alpha^n
+	\right) \cup ... ??????????????????????
+\end{align}
+\paragraph{Definice}
+První člen rozkladu $(\R^n \cap \bigcap_{\alpha=1}^n \mathcal{H}_\alpha^+)$
+nazýváme \textbf{vnitřkem} konvexního polyedru $M$. Ostatní členy rokladu
+nazýváme hraniční, každý prvek hranice, tj. 
+\begin{align}
+	\left( \R^{n-m} \cap \bigcap_{\alpha \in I_1} \mathcal{H}_\alpha^n \cap
+	\bigcap_{\alpha \in I_2} R_\alpha \right), \qquad I_1 \cup I_2 = \{ 1, ...,
+	n\}, I_1 \cap I_2 = \emptyset
+\end{align}
+Pokud je $\neq 0$ a má dimenzi $d$, nazýváme stěnou $M$ dimenze $d$. speciálně stěnu
+dimenze $0$ nazýváme vrcholem $M$ a stěnu dimenze $1$ hranice $M$.
+\paragraph{Tvrzení}
+\begin{align}
+	\dim( \R^{n-m} \cap \bigcap_{\alpha=1}^n \mathcal{H}_\alpha^+ ) = n - m 
+\end{align}
+\begin{enumerate}
+	\item $0 \le \dim( \text{ stěny } ) \le n-m-1$
+	\item Stěn všech dimenzní je konečný počet.
+	\item Průnik libovolných 2 stěn $S_1 \cap S_1 = \emptyset$. 
+	\item Uzávěr každé stěny dimenze $d$ je konvexní polyedr dimenze $d$.
+\end{enumerate}
+\begin{align}
+	M = \{ x \in R^n | Ax = b, x \ge 0 \}
+\end{align}
+Protože $\rank(A) = m \Rightarrow \exists$ konečný počet $\rank(A_B) = m, A_B
+\in \R^{m\times m}$
+Označíme $A = (A_B A_N)$, kde $A_B$ je regulární. Analogicky rozdělíme x = $(X_B,
+X_N)$. Pak můžeme přepsat rovnici $Ax = b \to A_B X_B + A_N X_N = b$, 
+tedy 
+\begin{align}
+	X_B = A_B^{-1}b - A_B^{-1}A_N X_N
+\end{align}
+Položíme-li všechny $X_N = 0$, získáváme jednoznačně určené $X_B = A_B^{-1} b$
+\paragraph{Definice}
+Prvek $x = (X_b, X_n) \subset M$ s vlastností $X_B = A_B^{-1} b > 0, X_N = 0$
+nazveme nedegenerovaným přípustným bázickým řešením úlohy lineárního
+programování.
+\paragraph{Poznámka}
+Přípustné (nedegenerované) bázické řešení má $n-m$ souřadnic rovných 0.
+\paragraph{Definice}
+$B$ nazýváme \textbf{bází}, proměnné $x_\alpha, \alpha \in B$ nazýváme \textbf{bázickými}
+proměnnými a $x_\alpha, \alpha \in N$ \textbf{nebázickými} proměnnými.
+\paragraph{Tvrzení}
+Bází $B$ je konečný počet. $|B| = m, |N| = n-m, B \cup N = \{ 1, ..., n \}$
+\paragraph{Poznámka}
+Protože vrchol je množina 
+\begin{align}
+	\R^{n-m} \cap \bigcap_{\alpha \in I_1} R_\alpha \cap
+	\bigcap_{\alpha \in I_2} \mathcal{H}_\alpha^+
+\end{align}
+a protože $I_1 \cup I_2 = \{ 1, ..., n \}$ a $I_1 \cap I_2 = \emptyset$, potom
+jistě $I_1 = n-m$, protože $R_\alpha = \{ x \in \R^n | x_\alpha = 0 \}$.
+\paragraph{Tvrzení}
+Geometrickému pojmu \textbf{vrchol} odpovídá algebraický pojem \textbf{přípustné nedegenerované
+bázické řešení}.
+\paragraph{Tvrzení}
+Konvexní polyedr má alespoň jeden vrchol.
+\paragraph{Důkaz}
+Z rozkladu $M$ můžeme vybrat vždy $|I_1| = n-m$. $R_\alpha = \{x | x_\alpha = 0
+\}$, $\alpha\in \{1, ..., n \}$, tedy aby
+\begin{align}
+	\R^{n-m} \cap \bigcap_{\alpha \in I_1} R^\alpha \cap \bigcap_{\alpha \nin
+	I_1} \mathcal{H}_\alpha^+
+\end{align}
+měla dimenzi 0.
 
 
+\subsection{1. Základní věta lineárního programování}
+\setcounter{equation}{0}
+\paragraph{Lemma}
+Je-li $M \neq \emptyset$ omezený konvexní polyedr o vrcholech $\vx^i$, $i = \{ 1, ...,
+p \}$. Potom můžu psát 
+\begin{align}
+	M = \{ \vx | A\vx = \vb\} = \{ \vx \in \R^n | \vx = \sum_{i=1}^p x_i \vx^i, x_i \ge 0, \sum_1^p x_i = 1\}
+\end{align}
+\paragraph{Věta}
+Existuje-li řešení úlohy lineárního programování, pak je ho dosaženo alespoň v
+jednom vrcholu konvexního polyedru $M$.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Uvažujme, že $M$ je omezený. Potom podle lemmatu platí pro $x \in M$
+	zápis:
+	\begin{align}
+		\vx = \sum_{i=1}^p x_i \vx^i, x_i \ge 0, \sum_i x_i = 1
+	\end{align}
+	pro 
+	\begin{align}
+		\vc^T \vx = \vc^T \sum_i^p x_i \vx^i = \sum_{i=1}^p x_i \vc^T \vx^i
+	\end{align}
+	Označíme-li:
+	\begin{align}
+		\min_{i \in \{1, ..., p\}} \vc^T \vx^i = \vc^T \vx^i
+	\end{align}
+	Potom můžeme psát
+	\begin{align}
+		\vc^T \vx \ge \sum_{i=1}^p x_i \vc^T \vx^{i_0} = \vc^T \vx^{i_0}
+	\end{align}
+	\item Pokud je $M$ neomezený, zvolíme $k >> 0$ a definujme omezený konvexní
+	polyedr:
+	\begin{align}
+		M^* = M \cup \{ \vx \in \R^n | 1^T \vx \le k \}, 1^T = (1, ..., 1)
+	\end{align}
+	Pro $k$ musí platit (abychom neodřízli vrchol):
+	\begin{align}
+		k > \max_{i=\{1,...,k\}} \{ 1^T \vx^T \}
+	\end{align}
+	Nyní podle 1. části důkazu existuje alespoň jeden vrchol $M^*$, který dává
+	optimální řešení. Potom
+	\begin{enumerate}
+		\item Vrchol je v původní množině $M$, je tvrzení dokázáno.
+		\item Vrchol není v původní množina $M$, potom musí ležet na hraně
+		původního polyedru $M$ (protože jsme přidali jednu lineární rovnici).
+		Každá hrana omezeného konvexního polyedru $M^*$ vychází z nějakého
+		vrcholu $M$. Z vlastností, že $\vc^T \vx > \vc^T \vx_{opt}$ plyne, že
+		pro body této hrany $\{x | \vx^1 + t(\vx^{opt} - \vx^1) \}$ s vlastností $t
+		> 1$ platí, že $\vc^T \vx \to -\infty$ a neexistuje řešení dané úlohy.
+	\end{enumerate}
+\end{enumerate}
 
 
-
-
-
-
-
-
-
-
-
-
+\subsection{Simplexová tabulka}
+\setcounter{equation}{0}
+Známe-li libovolnou bázi B, přepíšeme množinu 
+\begin{align}
+M = \{ \vx | A \vx = \vb, \vx \ge
+0 \} = \{ (\vx_0, \vx_N) \in \R^n | \vx_B + A_B^{-1} A_N \vx_N = A_B^{-1} \vb,
+(\vx_B, \vx_N) \ge 0 \}
+\end{align}
+Přípustné bázické řešení je pak $\vx = (\vx_B, \vx_N) = (A_B^{-1} b, 0)$
+a simplexová tabulka zachycující množinu $M$ vypadá:
+\begin{table}{c|c|c|c|l}
+	          & $\vx_B$     & $\vx_N$        &              &     \\
+	\hline
+	$\vx_B$ & $E$         & $A_B^{-1} A_N$ & $A_B^{-1} b$ & $> 0$\\
+	        & $0, ..., 0$ & $\vc_N - \Z_N$ & $-\vc_0$     &
+\end{table}
+A cílová funkce:
+\begin{align}
+	\vc = (\vc_B, \vc_N) \\
+	\vc^T \vx = \vc_B^T \vx_B + \vc_N^T \vx_N = \vc_B^T( A_B^{-1} \vb -
+	A_B^{-1}A_N \vx_N) + \vc_N^T \vx_N
+\end{align}
+tedy
+\begin{align}
+	\forall x \in M \vc^T \vx = \vc_0 + (\vc - Z_N) \vx_N
+\end{align}
+kde $c_0 = \vc^T(A_B^{-1} b, 0)$
 
 
 
