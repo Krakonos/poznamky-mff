@@ -253,10 +253,10 @@ Množina $f$ se nazývá \textbf{funkce}, pokud $f$ je relace a platí:
 \rng(f)$.
 
 
-Je-li $C \subsetq A$, pak $f \Gamma C = f \cap (C \times B)$ nazýváme $x$ zůžením funkce
+Je-li $C \subsetq A$, pak $f \upharpoonright C = f \cap (C \times B)$ nazýváme $x$ zůžením funkce
 $f$ na množinu $C$.
 \begin{align}
-f'C = \rng(f \Gamma C) = \{ f(x): x \in C \}
+f'C = \rng(f \upharpoonright C) = \{ f(x): x \in C \}
 \end{align}
 \begin{description}
 \item Funkce $f: A \to B$ se nazývá \textbf{prostá}, pokud $f^{-1}$ je funkce.
@@ -394,7 +394,7 @@ Je $v R v_1$, $g(v)$ protože $g$ je izomorfismus:
 z definice $f$. Podle Lemma 2 existuje izomorfismus jediný, ktedy $w = g(v) S
 w_1$. \\
 Analogicky: pokud $w S w_1$, potom $v R v_1$. \\
-Zřejmě platí, že pokud $<v,w> \in f$, pak $f \Gamma (\leftarrow, v)$ je izomorfismus
+Zřejmě platí, že pokud $<v,w> \in f$, pak $f \upharpoonright (\leftarrow, v)$ je izomorfismus
 mezi $<(\leftarrow,v), R>$ a $<(\leftarrow,w), S>$.\\
 Položme: 
 \begin{align}
@@ -412,7 +412,9 @@ Můžou nastat případy:
 	\item $m \neq \emptyset \neq o$, což je ale ve sporu s definicemi $o$ a $m$.
 \end{enumerate}
 \end{enumerate}
-\subsection{Ordinály}
+
+
+\section{Ordinály}
 \setcounter{equation}{0}
 \paragraph{Definice}
 Množina $x$ se nazývá \textbf{tranzitivní}, pokud platí 
@@ -439,13 +441,493 @@ ordinál. \\
 	\item Je-li C neprázdná množina ordinálů, potom $\exists x \in C: \forall y
 	\in C: y = x \lor x \in y$
 \end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Je-li $x$ ordinál, $y \in x$ a $y \in z$, pak y je ordinál a $y =
+	<(\la, y), \in> \in x$. \\
+	Víme, že: $x$ je ordinál, $x$ je tranzitivní množina, $t \in y$, $y \in x$. Tedy
+	$t \in x$. $x$ je tranzitivní množina, $t \in x$, $u \in t$, tedy $u \in x$.
+	V množině $x$ máme $u, t, y \in x$, $x$ je uspořádané relací náležení a máme $u
+	\in t$, $t \in y$. Tedy $u \in y$. $y$ je tedy tranzitivní množina. \\
+	$y$ je relací náležení uspořádaná: Nechť $u, v, w \in y$, $ u \in v \land v
+	\in w$. $y \in x$, protože $x$ je tranzitivní množina, $u,v,w \in x$. Přitom
+	$u \in v \land v \in w$, $x$ je relací náležení uspořádaná, tedy $u \in w$.
+	$y$
+	je tedy relací náležení uspořádaná dobře. Nechť $m \subset y$ je neprázdná
+	množina, kdykoliv $t \in m$, pak $t \in y$, $x$ je tranzitivní, tedy $m
+	\subsetq x, m \neq \emptyset$. Protože $x$ je dobře uspořádaná, existuje $z
+	\in m$ nejmenší prvek množiny $m$ v $x$. Ale $m \subsetq y$, tedy $z$ je
+	nejmenší prvek i v $y$. \\
+	Zbývá dokázat, že $y = <(\la, y), \in>$ v $x$: $t \in y$, protože $y \in x$,
+	je $t \in x$ a $t \in y$. Tedy $t \in (\la, y)$. A naopak: $t \in (\la, y)$
+	v $x$. Množina $x$ je uspořádaná operací náležení, tedy $t \in y$.
+	Dostáváme, že $(\la, y) \subsetq y$.
+
+	\item Jsou-li $x, y$ ordinály, a platí $x \cong y$ pak $x = y$. Nechť $h: (x,
+	\in \to (y, \in)$ je izomorfismus. Položme $m = \{ z \in x: h(z) \neq z \}$.
+	Pokud $m = \emptyset$, jsme hotovi. Pro spor předokládejme, že $m \neq
+	\emptyset$. V tom případě existuje $t \in m$, t nejmenší prvek množiny m.
+	Protože h je izomorfismus, platí pro $c,d \in x$:
+	\begin{align}
+		c \in d \eq h(c) \in h(d)
+	\end{align}
+	Tedy speciálně
+	\begin{align}
+		z \in t \eq h(z) \in h(t)
+	\end{align}
+	Máme ($t$ nejmenší prvek množiny $m$)
+	\begin{align}
+		z \in t \eq z \in h(t)
+	\end{align}
+	$t = h(t)$, spor s předpokladem $t \in m$.
+
+	\item Jsou-li $x,y$ ordinály, pak platí právě jedna z následujících
+	možností: $x = y$, $x \in y$, $y \in x$. Podle věty o izomorfismu dobrých
+	uspořádání buď $x \cong y$ a ale podle 2. $\Rightarrow x = y$, nebo $x \cong
+	(\la, z)$ a $x \cong z \in y$, nebo $y \cong (\la, t)$, tedy $x \in y \in x$.
+
+
+	\item Jsou-li $x, y, z$ ordinály, $x \in y$ a $y \in z$, potom $x \in z$.
+	Protože $z$ je tranzitivní množina.
+	
+	\item Je-li C neprázdná množina ordinálů, pak existuje $x \in C$ tak, že
+	\begin{align}
+		(\forall y \in C) (x = y) \lor (x \in y)
+	\end{align}
+	$C \neq \emptyset$, tedy můžeme zvolit  $t \in C$. Pak $t$ je nejmenší prvek
+	množiny $C$ a jsme hotovi. V opačném případě existuje $y \in C$, že $y \in
+	t$. Tedy $D = \{ y \in C : y \in t \} \neq \emptyset$. $t$ je ordinál: $D \neq
+	\emptyset$, $D \subsetq t$, tedy existuje $x \in D$ nejmenší prvek množiny
+	$D$. Nechť tedy $y \in t$, tedy $x = y \lor x \in y$; nebo $y = t$, tedy $x
+	\in t$; nebo $t \in y$, pak $x \in t$, $t \in y$ dává $x \in y$. Tedy $x$ je nejmenší
+	prvek množiny $C$.
+\end{enumerate}
+
+
+\subsection{Neexistence množiny všech ordinálů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Neexistuje množina všech ordinálů:
+\begin{align}
+	\neg (\exists z) (\forall x) (x \text{ je ordinál } \Rightarrow x \in z)
+\end{align}
+Sporem: Nech množina $z$ existuje. Podle vydělení pro formuli "$x$ je ordinál"
+existuje $m = \{ x :  x$ je ordinál $ \}$. Podle věty o ordinálch je m:
+tranzitivní, ostře uspořádaná relací náležení a to uspořádání je dobré. Podle
+definice $m$ je ordinál, máme $m \in m$. Což je spor s bodem 3. věty o
+ordinálech.
+
+\subsection{Lemma o tranzitivitě a ordinalitě}
+\setcounter{equation}{0}
+\paragraph{Lemma}
+Je-li $a$ tranzitivní množina ordinálů, pak $a$ je ordinál.
+\paragraph{Důkaz}
+Stačí ukázat:
+\begin{enumerate}
+\item 
+ náležení je dobré uspořádání na množině $a$. Mějme $x ,y, z \in
+a$: $x \in y$, $y \in z$. Ale $x, y, z$ jsou ordinály: podle věty o ordinálech
+(bod 4.) $x \in z$.
+\item uspořádání je lineární (bod 3.)
+\item uspořádání je dobré (bod 5.)
+\end{enumerate}
+
+\subsection{}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Je-li $<A, R>$ dobře uspořádaná množina. Pak existuje právě jeden ordinál $c$
+tak, že $<A,R> \cong <c, \in>$.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Unicita: Nechť $<A, R> \cong <d, \in>$. Dostáváme, že $c \cong d$ a
+	podle věty o ordinálech $c = d$.
+	\item Existence: Položme $B = \{ a \in a : <(\la, R>\cong x> $ pro nějaký
+	ordinál x $\}$. Nechť navíc $f$ je funkce $dom(f) = B$ a splňuje 
+	\begin{align}
+		(\forall a \in B) f(a) \text{ je ordinál takový, že } < (\la, a), R>
+		\cong <f(a), \in>
+	\end{align}
+	Položme $c = \rng(f)$: $c$ je množina (nahrazení pro formuli "$<(\la, a,
+	R>\cong x$"). Podle předchozího lemmatu je $c$ ordinál. Tedy $f$ je
+	izomorfismus $B \to c$. Pokud $B = A$, jsme hotovi. Jinak existuje $b \in A
+	: B = (\la, b)$ a tedy $f$ je izomorfismus mezi $<B, R>$ a $<c, \in>$. Tedy
+	i $f(b)$ je definováno, ačkoli $b \nin B$, což je spor.
+\end{enumerate}
+
+
+
+\subsection{}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Je-li $<A, R>$ dobře uspořádaná množina, pak typ $<A, R>$ je jediný ordinál $c$, pro
+který $<A, R> \cong c$. 
+\paragraph{Příklad}
+$A = \{ \sqrt{2}, \pi, 6, 7\} \cong 4$
+\paragraph{Značení} Malá řecká písmena $\alpha, \beta, \gamma, ...$ je ordinál.
+Přičemž nahradíme:
+\begin{align}
+	\alpha < \beta \text{ za } \alpha \in \beta \\
+	\alpha \le \beta \text{ za } (\alpha \in \beta) \lor (\alpha = \beta)
+\end{align}
+\paragraph{Definice}
+Je-li $X$ množina ordinálů, označme:
+\begin{align}
+	\sup(X) = \bigcup X \\
+	\text{ pro } X \neq \emptyset \text{ označme } \min(X) = \bigcap X
+\end{align}
+\paragraph{Lemma}
+\begin{enumerate}
+	\item 
+	Pro ordinály $\alpha, \beta$ platí
+	\begin{align}
+		\alpha \le \beta \eq \alpha \subsetq \beta
+	\end{align}
+	\item 
+	Je-li $X$ množina ordinálů, prvek $\sup(X)$ je nejmenší ordinál, který je
+	větší nebo roven všem prvkům z $X$ pokud $X \neq \emptyset$. Prvek $\min(X)$
+	je nejmenší ordinál v množině X.
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item \ \\
+	\item Podle axiomu sumy $X$ je množina, tedy $\bigcup X$ je množina.
+	$\bigcup X$ je ordinál:
+	\begin{enumerate}
+		\item je-li $x \in \bigcup X$, $y \in x$, musí podle axiomu sumy
+		existovat $t \in X: x \in t$. Máme $x \in t$, $y \in x$, $t$ je ordinál:
+		$y \in t$. Znova podle axiomu sumy $y \in \bigcup X$. Tedy $\bigcup X$
+		je tranzitivní množina, je to množina ordinálů podle minulého lemmatu.
+		\item $\forall x \in X: \quad x \le \bigcup X$ \\
+		Nechť $x \in X$ libovolné, podle věty o ordinálech nastává právě
+		jedna z možností
+		\begin{align}
+			x \in \bigcup X, x = \bigcup X, \bigcup X \in x
+		\end{align}
+		Pokud
+			$\bigcup X \in x$, máme $x = X$, pak $x \in \bigcup X$, 
+				tedy $\bigcup x \bigcup X$, spor s ordinalitou $\bigcup X$.
+
+
+		\item $\bigcup X$ je nejmenší mez. Buď $t < \bigcup X$, tedy $t \in
+		\bigcup X$. Stačí ukázat, že t není horní mezí množiny X. Protože $t \in
+		\bigcup X$, existuje $y \in X$, že $t \in y$. Pro toto $y$  platí $t <
+		y$, tedy $t$
+		není horní mezí množiny $X$.
+	\end{enumerate}
+	Nechť $X \neq \emptyset$ máme dokázat, že $\min(X) = \bigcap X$ je ordinál a
+	je nejmenší ze všech ordinálů v $X$. $\bigcap X$ je množina je-li $t \in
+	\bigcap X$ a je-li $y \in t$, můžeme zvolit libovolné $x \in X$, je $t \in x$,$y
+	\in t$, $x$ ordinál, tedy $y \in x$. Tedy $\bigcap X$ je tranzitivní množina, podle
+	předchozího lemmatu je $\bigcap X$ ordinál. \\
+	Zbývá dokázat, že $\bigcap X \in X$. X je neprázdná množina ordinálů, podle
+	věty o ordinálech (bod 5) existuje nejmenší prvek množiny $x \in X$. Pro
+	takové x platí, že kdykoliv $y \in x$, pak $x = y$ nebo $x \in y$.
+	\begin{align}
+		x = \{t: t \in x \} \subsetq y \text{ pro každé } y \in X \\
+		x \le \bigcap X
+	\end{align}
+	Opačná rovnost $x \ge \bigcap X$ je zřejmá, nebo $\bigcap X \subsetq$ platí
+	pro všechna $y \in X$.
+\end{enumerate}
+
+\subsection{}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Pro ordinál $\alpha$ je jeho \textbf{ordinální následník} $s(\alpha) = \alpha
+\cup \{\alpha\}$.
+\paragraph{Lemma}
+Pro ordinál $\alpha$ je $s(\alpha)$ též ordinál, $\alpha < s(\alpha)$ a
+\begin{align}
+	(\forall \beta) (\beta \text{ ordinál } \Rightarrow ( \beta < s(\alpha)
+	\eq \beta \le \alpha))
+\end{align}
+\paragraph{Důkaz}
+Je-li $x \in s(\alpha)$, pak buď $x \in \alpha$ nebo $x \in \{\alpha\}$ z
+definice. Což je po řadě $x < \alpha$ a $x = \alpha$.
+\paragraph{Definice}
+Ordinál $\alpha$ se nazývá \textbf{izolovaný}, jestliže $\alpha = \emptyset$ nebo
+$\exists \beta$ ordinál a $\alpha = s(\beta)$.
+\paragraph{Definice}
+Ordinál $\alpha$ se nazývá \textbf{limitní}, jestliže $\alpha \neq \emptyset$ a není
+izolovaný.
+\paragraph{Definice}
+$1 = s(0), 2 = s(1), 3 = s(2), ...$
+\paragraph{Definice}
+Ordinál $\alpha$ je přirozené číslo, jestliže platí
+\begin{align}
+	(\forall \beta)(\beta \le \alpha \Rightarrow \beta \text{ je izolovaný
+	ordinál })
+\end{align}
+
+
+\subsection{Množina všech přirozených čísel}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Podle axiomu nekonečna:
+\begin{align}
+	(\exists x) ( \emptyset \in x \land (\forall y) ( y \in x \Rightarrow s(y)
+	\in x))
+\end{align}
+\paragraph{Pozorování}
+Množina $x$, zaručená axiomem nekonečna, obsahuje všechna přirozená čísla.
+\paragraph{Důkaz}
+Sporem: $\exists n$ přirozené číslo takové, že $n \nin x$. Určitě $n \neq 0$
+podle axiomu nekonečna. Tedy $\exists m: n = s(m)$. Je $m \in x$? Ne, kdyby bylo
+$m \in x$, pak i $n = s(m)$ splňuje $m \in x$, což je ve sporu s předpokladem. 
+$n$ je tedy přirozené číslo, tedy
+ordinál. Množina $x \setminus n$ je neprázdná, nebo $m \in x\setminus n$. 
+Protože $n$ je
+dobře uspořádaná a $x \setminus n$ je neprázdná, existuje nejmenší prvek $\tilde{n}
+\in x \setminus n$. 
+\begin{enumerate}
+\item $\tilde{n} = 0$ - spor s axiomem nekonečna.
+\item $\tilde{n} \neq 0$, $\exists \tilde{m} \quad \tilde{n} = s(\tilde{m})$.
+Protože $\tilde{n} > \tilde{m}$ musí být $\tilde{m} \in x$. Podle axiomu nekonečna
+$s(\tilde{m}) = \tilde{n} \in x$. Což je spor.
+\end{enumerate}
+\paragraph{Definice}
+$\omega$ je množina všech přirozených čísel. $\omega$ je ordinál (podle Lemma
+3). Všechny menší ordinály než $\omega$ jsou izolované, $\omega$ sama je limitní
+(a to dokonce nejmenší).
+\paragraph{Poznámka}
+Existuje, axiom nekonečna a vydělení pro formuli "n je přirozené číslo".
+\paragraph{Věta} (Peanovy axiomy)
+\begin{enumerate}
+	\item $0 \in \omega$
+	\item $(\forall n \in \omega )(s(n) \in \omega)$
+	\item $(\forall n,m \in \omega)(n \neq m \impl s(n) \neq s(m))$
+	\item (indukce) $\forall X \subsetq \omega$
+	\begin{align}
+		((0 \in X \land (\forall n \in X)(s(n) \in X))\impl X = \omega).
+	\end{align}
+\end{enumerate}
+\paragraph{Důkaz}
+Plyne z věty o ordinálech. Ve 4 předpokládeme ke sporu, že $X \neq \omega$, tedy
+$\omega \setminus X$ je neprázdná množina ordinálů. Tedy má nejmenší prvek $n$.
+Pokud $n = 0$ - spor, jinak $n \neq 0$, tedy $n = s(m), m \in X$ - spor.
+\paragraph{Definice}
+Nechť $\alpha$, $\beta$ jsou ordinály.
+\begin{align}
+	\alpha + \beta = typ<\alpha \times \{0\} \cup \beta \times \{1\}, R>
+\end{align}
+kde
+\begin{align}
+	R = \{ << \xi, 0>, <\ni,0>> : \xi < \ni < \alpha \} \cup \\
+	\{<<\xi, 1>,<\ni,1>> : \xi < \ni < \beta \} \cup \\
+	\{((\alpha\times\{0\}): (\beta\times\{1\})\}
+\end{align}
+\paragraph{Věta}
+Pro libovolné ordinály $\alpha, \beta, \gamma$
+\begin{enumerate}
+	\item $\alpha + (\beta + \gamma) = (\alpha + \beta) + \gamma$
+	\item $\alpha + 0 = \alpha$
+	\item $\alpha + 1 = s(\alpha)$
+	\item $\alpha + s(\beta) = s(\alpha + \beta)$
+	\item Je-li $\beta$ je limitní ordinál, pak $\alpha + \beta = \sup\{\alpha +
+	\xi : \xi < \beta \}$
+\end{enumerate}
+\paragraph{Důkaz}
+Triviální z definice.
+\paragraph{Poznámka}
+Pozor, ordinální sčítání není obecně komutativní.
+\paragraph{Definice}
+Pro ordinály $\alpha, \beta: \alpha \cdot \beta = typ < \beta \times \alpha,
+R>$, kde $R$ je lexikografické uspořádání součinu $\beta\times\alpha$, tedy:
+\begin{align}
+	<<\xi,\ni>, <\xi',\ni'>> \in R \eq (\xi < \xi') \lor (\xi = \xi' \land \ni <
+	\ni')
+\end{align}
+\paragraph{Věta}
+Pro libovolné ordinály $\alpha, \beta, \gamma$ platí:
+\begin{enumerate}
+	\item $\alpha\cdot(\beta\cdot \gamma) = (\alpha\cdot\beta)\cdot\gamma$
+	\item $\alpha \cdot 0 = 0$
+	\item $\alpha \cdot 1 = \alpha$
+	\item $\alpha\cdot s(\beta) = \alpha\cdot\beta + \alpha$
+	\item Je-li $\beta$ limitní ordinál, pak $\alpha\cdot\beta = \sup\{\alpha\cdot
+\xi : \xi < \beta \}$
+\item $\alpha\cdot(\beta+\gamma) = \alpha\cdot\beta + \alpha\cdot\gamma$
+\end{enumerate}
+\paragraph{Poznámka}
+Pozor: \begin{align}
+\omega\cdot 2 = \omega + \omega \\
+2\cdot\omega = \omega
+\end{align}
+
+
+\section{Kardinály}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $a,b$ jsou množiny. 
+\begin{enumerate}
+	\item Řekneme, že mohutnost množiny $a$ je \textbf{menší nebo rovna} mohutnosti množiny
+	$b$ (značíme $a \preceq b$), jestliže existuje zobrazení $f: a \to b$.
+	\item Řekneme, že mohutnost množiny $a$ je \textbf{rovna} mohutnosti množiny
+	$b$ (značíme $a \approx b$) pokud existuje bijekce $f:a\to b$.
+	\item Řekneme, že mohutnost množiny a je \textbf{ostře menší} mohutnosti množiny $b$
+	(značíme $a \prec b$)
+	právě když $a \preceq b \land \not(a \approx b)$.
+\end{enumerate}
+\paragraph{Věta}
+\begin{enumerate}
+	\item $x \approx x$
+	\item $x \approx y \impl y \approx x$
+	\item $(x \approx y \land y \approx z) \impl x \approx z$
+	\item $x \preceq x$
+	\item $(x \preceq y \land y \preceq z) \impl x \preceq z$
+\end{enumerate}
+\paragraph{Věta}(Kantor-Bernstein) Pro množiny $a,b$
+\begin{align}
+	(a \preceq b \land b \preceq a) \impl a \approx b
+\end{align}
+\paragraph{Značení}
+$g''b = g[b] = \{g(x) : x \in b\}$
+\paragraph{Důkaz}
+Mějme $f: a \to b$ prosté zobrazení a $g: b \to a$ prosté zobrazení. Pokud f
+nebo g bijekce, je věta dokázána - nadále tedy předpokládejme, že $f''a \neq b
+\land f''b \neq a$. \\
+(sem vlozit obrazek dvou funkci)\\
+Pro všechna přirozená čísla definujeme indukcí $a_0 = a$, $b_0 = b$. $a_{n+1} =
+g''b_n, b_{n+1} = f''a_n$. Tedy $a_1 = g''b_0 = g''b \subsetneq a = a_0 $.
+Analogicky $b_1 = f''a_0 = f''a \subsetneq b = b_0 $.\\
+Označme 
+\begin{align}
+a_\omega = \bigcap\{a_n: n \in \omega\}
+b_\omega = \bigcap\{b_n: n \in \omega\} 
+\end{align}
+Zobrazení $h: a \to b$ definujme předpisem 
+
+$h(x) = f(x)$ pro $x \in
+\bigcup_{n\in\omega} a_{2n} \setminus a_{2n+1} \cup a_\omega$ 
+$h(x) = t$, kde $t \in b$ a $g(t) = x$ pro 
+$x \in \bigcup_{n\in\omega} a_{2n+1} \setminus a_{2n+2}$
+
+$h: a \to b$ je hledaná bijekce. Je zřejmé, že h je funkce a $\dom(h) = a$.
+
+\begin{enumerate}
+
+\item $h$ je prosté: Nechť $x\neq y$, x,y in a. Pokud 
+\begin{align}
+x, y \in \bigcup_{n\in\omega} a_{2n} \setminus a_{2n+1} \cup a_\omega
+\end{align}
+mějme $h(x) = f(x)$ , $h(y) = f(y)$, a $f$ je prostá tedy $f(x) \neq f(y)$.
+
+Pokud $x,y \in \bigcup_{n\in\omega} a_{2n+1}\setminus a_{2n+2}$ \\
+$h(x) = g^{-1}(x)$, $h(y) = g^{-1}$, $g$ je zobrazení, tedy $h(x) \neq h(y)$.
+
+$x \in \bigcup_{n\in\omega} a_{2n} \setminus a_{2n+1}$, $y \in \bigcup{n\in\omega}
+a_{2n+1} \setminus a_{2n+2}$
+\begin{align}
+	\exists n \quad x \in a_{2n} \setminus a_{2n+1}: h(x) = b_{2n+1} \setminus
+		b_{2n+2} \\
+	\exists m \quad y \in a_{2m+1} \setminus a_{2m+2}: h(y) = b_{2m} \setminus
+		b_{2m+1} \\
+	\emptyset = (b_{2n+1} \setminus b_{2n+2}) \cap (b_{2m} \setminus b_{2m+1})
+	\\
+	x \in a_\omega \quad\lor\quad h(x) \in b_\omega
+\end{align}
+
+\item $h$ je surjektivní: $t \in b$. \\
+\begin{align}
+	t \in b_{2m} \setminus b_{2n+1}
+\end{align}
+Pak $g(t) \in a_{2n+1} \setminus a_{2n+2}$. Pro $x = g(t)$ máme $h(x) = t$.
+Nebo:
+\begin{align}
+	t \in b_{2n+1} \setminus b_{2n+2}
+\end{align}
+Pak $b_{2n+1} = f''a_{2n}$ a $\exists  x \in a_{2n} f(x) = t$, $h(x) = t)$.
+Nebo:
+\begin{align}
+	t \in b_\omega \subsetq b_0 = f''a
+\end{align}
+Existuje takové $x$, že $f(x) = t$. Pro toto $x$ je $x \in a_\omega$. $h(x) = t$.
+\paragraph{Definice}
+Nechť $A$ je množina. Pokud na $A$ existuje dobré uspořádání, pak položme $|A| =$
+nejmenší ordinál $\alpha$, pro který $A \approx \alpha$.
+\paragraph{Definice}
+Ordinál $\alpha$ se nazývá \textbf{kardinál} pokud $\alpha = |\alpha|$.
+Ekvidalentně ordinál $\alpha$ je kardinál, právě když 
+\begin{align}
+	(\forall \beta)(\beta < \alpha \impl \not (\beta \approx \alpha))
+\end{align}
+\paragraph{Pozorování}
+$\omega$ je kardinál. $\omega + k$ není kardinál (všechny jsou ostře větší než
+omega a mezi nima a omegou existuje bijekce).
+\paragraph{Lemma}
+ Je-li $|\alpha| \le \beta \le \alpha$, pak $|\beta| = |\alpha|$.
+\paragraph{Důkaz}
+$\beta\subsetq \alpha$, tedy existuje prosté zobrazení $\beta do \alpha$. Máme
+$\beta \preceq \alpha$. \\
+$\alpha \approx |\alpha|$, konečně $|\alpha| \subsetq \beta$, tedy $|\alpha| \preceq
+\beta$. Aplikuji Kantorovu větu.
+\paragraph{Lemma}
+Je-li n přirozený číslo, potom:
+\begin{enumerate}
+	\item $n \napprox n+1$
+	\item $(\forall \alpha)(\alpha \approx n \impl \alpha = n)$
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Indukcí: $0 \napprox 1$. Pokud existuje taková $n$, že $n\approx n+1$,
+	pak $n \neq 0$ a tedy pro nějaké $m$, $n = m+1$. Tedy:
+	\begin{align}
+		n = \{0, 1, 2, ..., n\} \\
+		n+1 = \{0, 1, 2, ..., m, m+1 \}
+	\end{align}
+	Je-li $b$ bijekce $b: n \to n+1$, pak existuje $i \in n: b(i) = m+1$.
+	Definujme $b': m \to m+1$: Pro $j < i: b'(j) = b(j)$, pro $j > i: b'(j) =
+	b(j-1)$. Tedy $b'$ je bijekce $m\to m+1$, což je spor s minimalitou n. (ten
+	předpis je asi špatně, chce to promakat)
+\end{enumerate}
+\paragraph{Důsledek}
+Všechna přirozená čísla jsou kardinály a $\omega$ je kardinál.
+\paragraph{Definice}
+Množina $A$ je \textbf{konečná} pokud $|A| \lt \omega$. Množina $A$ je
+\textbf{spočetná}, pokud $|A| \le \omega$. Množina $A$ se nazývá nespočetná, pokud
+není spočetná (tj. je velká, nebo jí nelze dobře uspořádat).
+\subsection{Sčítání a násobení}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Jsou-li $\kappa, \lambda$ kardinály, pak:
+\begin{enumerate}
+	\item $\kappa \oplus \lambda = |\kappa \times\{0\} \cup \lambda\times\{1\}|$
+	\item $\kappa \otimes \lambda = |\kappa \times \lambda|$
+\end{enumerate}
+\paragraph{Poznámka}
+Oproti ordinálnímu sčítání a násobení jsou kardinální operace komutativní.
+\paragraph{Lemma}
+Pro $n,m \in \omega$ :
+\begin{align}
+	n \oplus m = n + m < \omega
+	n \otimes m = n \cdot m < \omega
+\end{align}
+\paragraph{Důkaz}
+Stačí ukázat, že $n+m < \omega$ a že $n \cdot m < \omega$. Zbytek je aplikace
+posledního lemmatu. \\
+Indukcí pro sčítání:
+\begin{enumerate}
+	\item $n+0 = n < \omega$
+	\item $n + s(m) = s(\underbrace{n+m}_{<\omega}) < \omega$ 
+\end{enumerate}
+Stejnětak pro násobení:
+\begin{enumerate}
+	\item $n\times 0 = 0 < \omega$
+	\item $n \times s(m) = \underbrace{n \cdot m}_{<\omega} + n < \omega$
+\end{enumerate}
+\paragraph{Věta}
+Každý nekonečný kardinál je limitní ordinál.
+\paragraph{Důkaz}
+Sporem: buď $\kappa$ kardinál a $\kappa = \alpha + 1$. Jenomže $\alpha \ge
+\omega$, tedy $1 + \alpha = \alpha$. Tedy $\kappa = |\kappa| = |1+\alpha| =
+|\alpha| < \kappa$, což je spor.
 
 
 
 
 
 
-
+\end{enumerate}
 
 \end{document}
 
