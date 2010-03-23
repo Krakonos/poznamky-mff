@@ -438,18 +438,24 @@ jednom vrcholu konvexního polyedru $M$.
 \setcounter{equation}{0}
 Známe-li libovolnou bázi B, přepíšeme množinu 
 \begin{align}
-M = \{ \vx | A \vx = \vb, \vx \ge
-0 \} = \{ (\vx_0, \vx_N) \in \R^n | \vx_B + A_B^{-1} A_N \vx_N = A_B^{-1} \vb,
-(\vx_B, \vx_N) \ge 0 \}
+	M &= \{ \vx | A \vx = \vb, \vx \ge0 \} 
+	&= \{ (\vx_0, \vx_N) \in \R^n | \vx_B + A_B^{-1} A_N \vx_N = A_B^{-1} \vb,
+	(\vx_B, \vx_N) \ge 0 \}
 \end{align}
 Přípustné bázické řešení je pak $\vx = (\vx_B, \vx_N) = (A_B^{-1} b, 0)$
-a simplexová tabulka zachycující množinu $M$ vypadá:
-\begin{table}{c|c|c|c|l}
-	          & $\vx_B$     & $\vx_N$        &              &     \\
+a simplexová tabulka zachycující množinu $M$ vypadá: \\
+\begin{center}
+\begin{tabular}{|c||c|c|cl|}
+	\hline
+	        & $\vx_B$     & $\vx_N$        &              &     \\
+	\hline
 	\hline
 	$\vx_B$ & $E$         & $A_B^{-1} A_N$ & $A_B^{-1} b$ & $> 0$\\
-	        & $0, ..., 0$ & $\vc_N - \Z_N$ & $-\vc_0$     &
-\end{table}
+	\hline
+	        & $0, ..., 0$ & $\vc_N - \vz_N$ & $-\vc_0$     & \\
+	\hline
+\end{tabular} \\
+\end{center}
 A cílová funkce:
 \begin{align}
 	\vc = (\vc_B, \vc_N) \\
@@ -461,6 +467,366 @@ tedy
 	\forall x \in M \vc^T \vx = \vc_0 + (\vc - Z_N) \vx_N
 \end{align}
 kde $c_0 = \vc^T(A_B^{-1} b, 0)$
+
+
+\subsection{Simplexová metoda}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item $\min_M \vc^T \vx$
+	\item $M = \{ x \in \R^n | Ax = b, x \ge 0 \}, A \in \R^{m \times n}, h(A) =
+	m, 1 \le m < n, b \in \R^n, c \in \R^n$
+	\item $\vc^T\vx$ Předpokládejme, že při výpočtu simplexové metody nenastává
+	degenerace.
+	\item (obecný k-tý krok) Máme simplexovou tabulku. Předpokládejme, že
+	bázické řešení je 
+	\begin{align}
+		x^k = (x_B, x_N) = d_0, o)
+	\end{align}
+	Množinu $M$ a cílovou funkci přepíšeme:
+	\begin{align}
+		M = \{ x_0, x_N | x_B + Dx_N = d_0, x_B > 0, x_N \ge 0 \} \\
+		c^Tx = c_B^T x_B + c_N^Tx_N = c_0 + (c_N - z_N) x_N
+	\end{align}
+\end{enumerate}
+
+
+\subsection{1. věta Simplexové metody}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Platí-li v k-tém kroku simplexové metody
+\begin{align}
+	c_N - z_N \ge 0
+\end{align}
+v příslušné simplexové tabulce, potom je příslušné bázické řešení $x^k$
+optimální.
+\paragraph{Důkaz}
+\begin{align}
+	\forall x \in M : c_Tx = c_0 + (c_N - z_N) x_n \ge c_0 = c^Tx^k
+\end{align}
+
+\subsection{2. věta Simplexové metody}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Existuje-li v k-tém kroku simplexové metody v simplexové tabulce index $h \in N$
+tak, že $c_h - z_h < 0$ a příslušný h-tý sloupec matice D splňuje $d_h \le o$,
+potom je cílová funkce $c^Tx$ zdola neomezená na množině $M$ a tedy řešení
+neexistuje.
+\paragraph{Důkaz}
+Hrana $M$ vycházející z vrcholu $\vx^k$ má popis $\{ x | x_B = d_0 - td_h, x_j = 0,
+j \in N \setminus h, x_k = t \ge 0\}$
+\begin{align}
+	x\in h: c^Tx = c_0 \underbrace{(c_h-z_B)}_{<0} t \to -\infty
+\end{align}
+
+\subsection{3. věta Simplexové metody}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nejsou-li splněny předpoklady první ani druhé věty simplexové metody, potom
+definujeme (r je index v simplexové tabulce):
+\begin{align}
+	\min_j (c_j - z_j) = c_r - z_r
+\end{align}
+a hledáme
+\begin{align}
+	\label{simplex-minimum}
+	\min_{d_{ir} > 0} \left\{ \frac{d_{is}}{d_{ir}} \right\} = \frac{d_{so}}{d_{sr}}
+\end{align}
+a po transformaci tabulky s pivotem $d_{sr}$ získáme nové přípustné bázické řešení
+$x^{k+1}$ s vlastností $c^Tx^{k+1} < c^T x^k$
+\paragraph{Značení}
+$r$-tý sloupec nazýváme klíčovým sloupcem a $s$-tý řádek nazýváme klíčovým řádkem.
+\paragraph{Důkaz}
+Proměnná $x_s$ se stane nebázickou a nebázická proměnná $x_r$ se stane bázickou,
+tedy z $s$-té rovnice vypočítáme $x_r$ a dosadíme za něj do ostatních rovnic i
+cílové funkce. (Gaussova eliminace) \\
+Nová báze je $B' = (B \setminus \{s\}) \cup \{r\}$ a nebázické proměnné$B' = (B
+\setminus \{r\}) \cup \{s\}$ a nové přípustné bázické řešení (plyne z Gausse):
+\begin{align}
+	d_0': \quad&x_r^{k+1} = \frac{d_{s0}}{d_{sr}} > 0\\
+	i \in B \setminus \{s\}: \quad&X_i^{k+1} = d_{i0} - \frac{d_{ir}d_{s0}}{d_{sr}} \\
+	&x_s, x_j = 0, j \in N \setminus \{r\}
+\end{align}
+A ověříme přípustnost takovéhoto řešení:
+\begin{enumerate}
+	\item Pokud $d_{ir} \le 0 \Rightarrow x_i^{k+1} = d_{i0}' > 0$
+	\item Pokud $d_{ir} > 0$, potom ze (\ref{simplex-minimum})
+	$\frac{d_{s0}}{d_{sr}} < \frac{d_{i0}}{d_{ir}} \Rightarrow d_{i0}' > 0$ 
+\end{enumerate}
+A cílová funkce se transformuje:
+\begin{align}
+	c^Tx^{k+1} = c_0 + (c_r - z_r) \frac{d_{s0}}{d_{sr}}
+\end{align}
+
+
+\subsection{Konečnost simplexové metody}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Simplexová metoda se ukončí po konečném počtu kroků.
+\paragraph{Důkaz}
+Máme konečný počet bázických řešení a nelze se vracet (protože $\forall k: c^T
+x^{k+1} < c^T x^k$).
+\paragraph{Poznámka}
+V degenerovaném případě může nastat i rovnost a proto teoreticky může nastat
+cyklus.
+
+
+\subsection{Vznik degenerace}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item Zadáním - $\exists i : \quad b_i = 0$
+	\item Pokud klíčový řádek není určen jednoznačeně (je lineární závislý na
+	jiném)
+\end{enumerate}
+
+
+\subsection{Odstranění cyklů/degenerace}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item Odstranění cyklů - \textbf{Blandovo pravidlo}: Volíme minimum ze všech indexů j
+	nebázických, pro které je $c_j - z_j < 0$, $r := j$ (takovýto index je určen
+	jednoznačně). Také s zvolíme jednoznačně:
+	\begin{align}
+		s = \{ \min t | \min_{d_{ir} > 0} \{ \frac{d_{i0}}{d_{ir}} \} =
+		\frac{d_{t0}}{d_{tr}} \}
+	\end{align}
+
+	\item $\epsilon$-modifikace: řešíme novou úlohu pro $\epsilon > 0$.
+	\begin{align}
+		\min_{M+\epsilon} c^Tx\\
+		M+\epsilon= \{x_Bx_N | x_B + Dx_N = a_0 + (ED) \epsilon, x_Bx_N \ge 0 \}
+	\end{align}
+	kde $\epsilon = (\epsilon, \epsilon^2, ..., \epsilon^n)$.
+
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item (bez důkazu)
+	\item epsilonový vektor zaručuje, že jednotlivé složky nelze poměřit
+\end{enumerate}
+
+\subsection{Množina optimálních řešení}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Množinou všech optimálních řešení úlohy nazýváme:
+\begin{align}
+	M_{opt} = \{ x^i \in M | \min_M c^Tx = c^Tx_i \}
+\end{align}
+
+\paragraph{Věta}
+Je-li $x^0$ optimální řešení úlohy nalezené simplexovou metodou a $c_N - z_N,
+-c_0$ v posldním řádku poslední simplexové tabulky. Potom:
+\begin{align}
+	M_{opt} = \{ x \in M | x_j = 0, j \in J \}, \\
+	\text{ kde } J = \{j \in N | c_j - z_j > 0 \}
+\end{align}
+\paragraph{Důkaz}
+Máme optimální řešení a simplexovou tabulku z posledního kroku.
+$x^0 = (x_B, x_N) = (d_0, o)$.
+\begin{align}
+	\forall x \in M : \quad c^Tx = c_0 + (c_N - z_N) x_N = c_0 + \sum_{j \in J}
+	(c_j - z_j) x_j + \sum_{j \nin J} \underbrace{(c_j - z_j)}_{ = 0} x_j  = c_0
+\end{align}
+Když položíme rovnost $0$, tedy $x_j = 0$, $j \in J$.
+\paragraph{Poznámka}
+Změna hodnoty cílové funkce po jedné transformaci tabulky
+\begin{align}
+	-c_0' = -c_0 - \frac{c_r-z_r) \cdot d_{s0}}{d_{sr}}
+\end{align}
+
+
+\subsection{Výpočetní složitost simplexové metody}
+\setcounter{equation}{0}
+Mějme výpočet simplexovou metodou, kde n a m je počet rovnic a bazických
+proměnných.
+\begin{enumerate}
+	\item Nejhorší odhad počtu kroků je dán počtem bazí, tedy $\binom{n}{m}$.
+	\item Na pravděpodobnostních modelech byl ukázán odhad 
+	\begin{align}
+		P(n,m) \le
+		m^{\frac{1}{n-1}} \cdot (n+1)^n \cdot \frac{2}{5} \pi \left( 1 + \frac{e
+		\pi}{2}\right)
+	\end{align}
+	\item Výpočetní zkušenosti ($p$ = počet kroků)
+	\begin{enumerate}
+		\item Počet kroků nezávisí na $n$ a je mezi $2m-3m$
+		\item $p < \frac{3}{2} m$
+	\end{enumerate}
+\end{enumerate}
+
+
+\subsection{Jiné metody}
+\setcounter{equation}{0}
+\subsubsection{Elipsoidová-Chačijanova metoda (1979)}
+\setcounter{equation}{0}
+Je polynomiální v čase. Krok velmi nepraktický (zmenšují se elipsoidy).
+\subsubsection{Karmarkarova projekční metoda}
+\setcounter{equation}{0}
+Začíná se v libovolném prvku množiny $M$, najdu simplex, vepíšu kouli ve středu
+$x_0$, sestavím potenciálovoufunkci, hledám extrém nelineární úlohy.
+\subsubsection{Metody konvexního programování}
+\setcounter{equation}{0}
+Například gradientní metody, metoda vnitřního bodu,...
+
+
+
+\subsection{2. základní věty lineárního programování: princip duality}
+\setcounter{equation}{0}
+Nechť (P) značí úlohu: 
+\begin{align}
+	\max_{M_1} \vc^T \vx \qquad M_1 = \{\vx\in \R^n | A\vx \le \vb, \vx \ge 0
+	\}, \vc \in \R^n, \vb \in \R^m, A \in \R^{m\times n}
+\end{align}
+a (D) značí úlohu:
+\begin{align}
+	\min_{M_2} \vb^T \vy \qquad M_2 = \{ \vy\in\R^m | A^T \vy \ge \vc, \vy \ge 0
+	\}
+\end{align}
+\paragraph{Definice}
+Úlohu (P) nazýváme primární, a (D) duální úlohou lineárního programování v
+normálním tvaru. (dualita však platí i inverzně)
+\paragraph{Lemma} (slabá věta o dualitě)
+Je-li $M_1$ a $M_2$ neprázdné, potom platí, že
+\begin{align}
+	\vc^T \vx \le \vb^T\vy \quad \forall x \in M_1, y \in M_2
+\end{align}
+\paragraph{Důkaz}
+Pro libovolné $x \in M_1$ a $\vy \in M_2$ platí:
+\begin{align}
+	A\vx \le b & A\vy \ge c \\
+	x\ge 0 & y \ge 0
+\end{align}
+Po roznásobení:
+\begin{align}
+	\vy^T A \vx = \vx^T A^T \vy \le \vb^T \vy \\
+	\vx^T A^T \vy \ge \vc^T \vx
+\end{align}
+tedy $\vc^T\vx \le \vb^T \vy$ a Lemma je dokázáno.
+\paragraph{Lemma}
+Je-li $M_1, M_2 \neq \emptyset$, potom existuje konečné $\sup_{M_1} \vc^T\vx =
+M_1$ a konečné $\inf_{M_2} \vb^T \vy = m_2$.
+\paragraph{Důkaz}
+Zvolme $\vy^1 \in M_2$, potom z prvního lemmatu 
+\begin{align}
+	\vc^T \vx \le \vb^T \vy^1 \quad \forall x \in M_1 \Rightarrow \exists m_1
+\end{align}
+druhý případ analogicky.
+\paragraph{Lemma}
+Je-li $M_1$ neprázdné a existuje konečné supremum, potom
+\begin{align}
+	\exists \vy_0 \in M_2 \quad \vb^T\vy_0 \le m_1
+\end{align}
+Je-li $M_2$ neprázdné a existuje konečné infimum, potom
+\begin{align}
+	\exists \vx_0 \in M_1 \quad \vc^T\vx_0 \ge m_2
+\end{align}
+\paragraph{Důkaz} (bez důkazu)
+\paragraph{Věta}
+Je-li $M_1, M_2 \neq \emptyset$, potom:
+\begin{align}
+	\exists \max_{M_1} \vc^T \vx = \vc^T \vx^0 = \vb^T\vy^0 = \min_{M_2} \vb^T
+	\vy
+\end{align}
+\paragraph{Důkaz}
+$M_1 a M_2 \neq \emptyset$, tedy podle lemma 2 existuje konečné $m_1$, $m_2$ a podle
+lemma 3:
+\begin{align}
+	\exists \vy^0: \vb^T \vy^0 \le m_1
+	\exists \vx^0: \vc^T \vx^0 \ge m_2
+\end{align}
+Odtud podle důsledků a lemma 1:
+\begin{align}
+	\vc^T\vx^0 \ge m_2 \ge m_1 \ge \vb^T \vy^0 \ge \vc^T\vx^0
+\end{align}
+Tedy 
+\begin{align}
+	\vc^T\vx^0 = \max_{M_1} \vc^T\vx = \vb^T \vy^0 = \min_{M_2} \vb^T\vy
+\end{align}
+\subsection{Důsledky věty o dualitě}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item Má-li jedna z duálních úloh optimální řešení, pak ho má i druhá a
+	platí rovnost funkčních hodnot v optimálních bodech.
+	\item Rovnost funkčních hodnot platí právě v optimálních.
+	\paragraph{Důkaz}
+	Jestliže $x_1$ není optimální řešení $(P) \Rightarrow \exists \overline{\vx}
+	\in M_1, \vc^T \vx^1 < \vc^T \overline{\vx}$, což ale platí pro každé $\vy
+	\in M_2$.
+	\item Souvislost optimálního řešení duálních úloh. 
+	\paragraph{Tvrzení}
+	Nechť $x_0$ je optimální
+	řešení $(P)$ a $x_i^0 > 0$, $i \in I$, $\va_j^T \vx^0 < b_j$, $j \in J_1$.
+	Potom celá množina optimálních řešení úlohy duální:
+	\begin{align}
+		M^2_{opt} = \{ \vy^0 | \vb^T \vy^0 = \min_{M_2} \vb^T \vy \} = 
+			\{ y \in M_2 | \va^T_i \vy = \vc_i, i \in I, y_j = 0, j \in J_1 \}
+	\end{align}
+	\paragraph{Důkaz}
+	Z důsledku 2 a vzorce 
+	\begin{align}
+		\vc^T \vx \le \vx^T A^T \vy = \vy^T A \vx \le \vb^T \vy
+	\end{align}
+	Pro všechna optimální řešní $\vy$
+	\begin{align}
+		\underbrace{\vc^T \vx^0 = \vx^{0T} A^T \vy}_{(\ref{dualitad-jedna})}
+		= \underbrace{\vy^T A \vx^0 = \vb^T \vy}_{(\ref{dualitad-dva})} \\
+		\label{dualitad-jedna}
+		0 = (c-A^T\vy)^T \vx^0 = \sum_{i\in I_1} \underbrace{(\vc_i -
+		\va_i\vy)^T}_{\le 0} \underbrace{\vx_i^0}_{\ge 0} +
+		\underbrace{\sum_{i \nin I_1}(\vc_i - \va_i \vy)^T vx_i^0}_{ = 0}
+			\quad\Rightarrow\quad \vc_i = \va_i \vy \\
+		\label{dualitad-dva}
+		0 = \vy^T(Ax^0 - b) = \sum_{j\in J_1} \underbrace{(\va_j^T \vx^0 -
+		\vb_j)}_{<0} \underbrace{\vy_j}_{\ge 0} +
+		\underbrace{\sum_{j\nin J_1} (\va_j^T \vx^0 - \vb_j)}_{=0}
+			\quad\Rightarrow\quad \vy_j = 0
+	\end{align}
+	\paragraph{Tvrzení}
+	Je-li $\vy^0$ optimální řešení úlohy $(D)$ pro které platí $\vy_j^0 > 0, j \in
+	J_2, \va_i^T \vy^0 > \vc_i, i \in I_2$. Potom množina všech optimálních
+	řešení úlohy (P) má popis:
+	\begin{align}
+		M_1^{opt} = \{ \vx \in M_1 | x_i = 0, i \in I_2, \va_j^T \vx = b_j, j
+		\in J_2 \}
+	\end{align}
+	\paragraph{Důkaz}
+	Analogicky.
+
+\subsection{Různé typy úloh lineárního programování}
+\setcounter{equation}{0}
+\begin{enumerate}
+	\item $\min_{M_1} \vc^T \vx = - \max_{M_1} (-\vc^T\vx) \quad \Rightarrow
+	\quad$\\
+	$ (D) - \min_{M_1^*} \vb^T \vy, M_2^* \{ \vy \in \R^m | A^T\vy\ge -\vc,
+	\vy\ge 0\}$
+	\item $\max_{M_1'} \vc^T \vx M_1' = \{ \vx \in \R^n | A\vx \le \vb \}$ \\
+	Zavedeme $\vx^+ \max(\vx, 0) \ge 0$, $\vx^- = \max(-\vx, 0) \ge 0$.
+	Přepíšeme novou úlohu pomocí rovnosti $\vx= \vx^+ - \vx^-$ v prostoru
+	dvojnásobné dimenze. Ze dvou obrácených nerovností získáme rovnici.
+	\item $\max_{M_1''} \vc^T \vx, M_1'' = \{\vx | A\vx = \vb, \vx \ge 0 \}$. \\
+	Což můžeme přepsat jako úlohu s dvouma obrácenýma nerovnostma (pro teorii).
+\end{enumerate}
+
+
+\subsection{Duální simplexová metoda}
+\setcounter{equation}{0}
+Řešíme dvě úlohy naráz. Začneme řešením, kde jsou splněny všechny pomínky (jsou
+bázická) až na přípustnost (nezápornost proměnných) a platí: $\vc^T\vx^1 = \vb^T
+\vy^1$.
+Jediným krokem se dostaneme do přípustného řešení duální úlohy (v primární může
+stále být řešení nepřípustné). Následně již v duální úloze nesmíme opustit
+přípustná řešení a hledáme dvojce (kde se hodnoty rovnají), dokud i primární
+řešení není přípustné. Pokud jsou obě řešení přípustná, nalezli jsme minimum
+(podle věty o rovnosti).
+
+
+
+
+
+
+\end{enumerate}
+
+
+
 
 
 
