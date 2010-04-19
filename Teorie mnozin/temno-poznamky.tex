@@ -923,6 +923,163 @@ Sporem: buď $\kappa$ kardinál a $\kappa = \alpha + 1$. Jenomže $\alpha \ge
 |\alpha| < \kappa$, což je spor.
 
 
+=====================================================
+TADY NECO CHYBI
+=====================================================
+
+
+\paragraph{Definice}
+Buď $a$ je množina, $\le$ uspořádání na množině $a$. Množina $c \subsetq a$ se nazývá
+řetězcem, jestliže $(c, \le)$ je uspořádána lineárně.
+\paragraph{Definice}
+Buď $(a, \le)$ uspořádaná množina, $b \subsetq a$. Prvek $x \in a$ se nazývá horní
+mezí množiny $b$, jestliže 
+\begin{align}
+	(\foall y \in b) y \le x
+\end{align}
+a maximálním prvkem množiny b, jestliže
+\begin{align}
+	(x \in b) \land ((\forall y \in b) \neg y > x)
+\end{align}
+
+\subsection{Princip maximality}
+\setcounter{equation}{0}
+(také Zornovo lemma, Zorn-Kuratowského lemma)
+\paragraph{Věta}
+Nechť $(a, \le)$ je uspořádaná množina a nechť každý řetězec v a má horní mez.
+Pak:
+\begin{align}
+	\forall x \in a \exists m \in a: \quad m \text{ je maximálním prvkem } a
+	\land m \ge x
+\end{align}
+\paragraph{Důsledek}
+Nechť platí princip maximality. Jsou-li M a N libovolné množiny, pak buď $M
+\precsim N$
+nebo $N \subsim M$
+\paragraph{Důkaz důsledku}
+Uvážíme $a = \{ f: f$ je prosté zobrazení$, \dom f \subsetq M, \rng f \subsetq N
+\}$. Uspořádáme $(a, \subsetq)$. Je-li $c \subsetq a$ řetězec, potom $\bigcup c$
+je opět prostá funkce, přičemž je to horní mez řetězce $c$. Tedy existuje
+maximální prvek $g$ množiny $(a,\subsetq)$. Platí buď $\dom(g) = M$ nebo $\rng(g) =
+N$ (protože pokud existuje x \in M \setminus \dom(g) a současně y \in N \setminus
+\rng(g), potom g \cup <x,y> je prostá funkce a obsahuje g, což je spor s
+maximalitou). Je-li $\dom(g) = M$, pak $M \precsim N$, neboť g je prosté
+zobrazení $M \to N$. Pokud $\rng(g) = N$, potom $N \precsim M$, $g^{-1}: N \to
+M$ je prosté.
+
+
+\subsection{Princip dobrého uspořádání}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Pro každou množinu a existuje $R \subsetq a \times a$, takové, že $(a, R)$ je dobré uspořádání.
+
+\subsection{Ekvivalence axiomu výběru, p. maximality a dobrého uspořádání}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Následující výroky jsou ekvivalentní:
+\begin{enumerate}
+	\item axiom výběru
+	\item princip maximality
+	\item princip dobrého uspořádání
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item ($1. \impl 3.$) Nechť $a \neq 0$. Podle axiomu výběru na $g(a)
+	\setminus \{0\}$ existuje selektor výběru $f$. Trans. indukcí definujeme
+	zobrazení $g: Or \to a$ následujícím způsobem:
+	g(0) = f(a). Je-li $\alpha \in Or$ a $(\forall \beta < \alpha) g(\beta)$ je
+	definováno, definujeme \xi = a \setminus \{g(\beta) : \beta < \alpha }. Pokud je tato množina
+	neprázdná, definujeme g(\alpha) = f (\xi) a indukce končí. Pokud je prázdná,
+	pak $g: \alpha \to a$ je prosté zobrazení na a tedy definuje dobré uspořádání
+	a. Zbývá ukázat, že indukce skončí: pokud by se nezastavila, získáme prosté
+	zobrazení $g: Or \to a$, $\rng(g)$ jemnožina (protože a je množina). Ordinály
+	jsou vlastní třída - spor.
+	\item ($3. \impl 2.$) Máme (a, \le), každý řetězec v a má horní mez a $x \in
+	a$. Podle 3. existuje dobré uspořádání a. Nechť c \subset a je řetězec.
+	Budeme říkat, že c splňuje (*), jestliže:
+	\begin{align}
+		x \in c \land (\forall t \in c) t \ge x \\
+		\land (\forall y) (y \in c \land x < y), \text{ pak } y \\
+		\text{ je } \prec \text{ nejmenší horní mez rětězce } \{ t \in c: t < y
+		\}
+	\end{align}
+	Víme, že existuje alespoň jeden řetězec splňující (*), totiž řetězec
+	$\{x\}$. Položme b = \bigcup \{ c : c \subsetq a je řetězec splňující (*)
+	\}. \textbf{$b$ je řetězec}: pro spor předpokládejme, že existují $z,t \in c$ takové,
+	že nejsou porovnatelné. Tedy existuje $y_0 \in b$ je \prec-nejmenší prvek 
+	splňující $(\exists w \in b) y_0 a w$ jsou
+	\le-neporovnatelné. Existuje tedy $y_1 \in b$, že $y_1$ je $\prec-n$ejmenší prvek řetězce
+	b, že $y_0$ a $y_1$ jsou $\le$-neporovnatelné. Protože $y_0$ a $y_1 \in b$
+	existují řetězce $c_0$ a $c_1$, splňující (*), že $y_0 \in c_0$ a $y_1 \in
+	c_1$. Nechť $z \in c_1$, $z < y_1$. Pokud x < z, pak $z \prec y_1: c_1$
+	splňuje (*), z je \prec-nejmenší horní mez množiny \{t: t je horní mezí {v
+	\in c: x \le v \le z \}\}. Tvrdím, že $z < y_0$: z = y_0 není možné, oba jsou
+	v řetězci $c_1$ a tedy porovnatelné, ale y_0 a y_1 nejsou. Pokud by $z >
+	y_0$, pak y_0 < z < y, ale y_0 a y_1 jsou \le-neporovnatelné. Pokud z, y_0
+	jsou \le-neporovnatelné: z \prec y_1 (víme - z i y_1 jsou horními mezemi \{t
+	\in c_1: x \le t \le z \}), tedy ale z a y_0 musí být porovnatelné - spor.
+	Dostáváme: $\{ t: x \le t < y \} = \{ t: x \le t < y_0 \}$. Protože $y_0
+	\prec y_1$, c_1 nesplňuje (*), což je spor. Tedy $b$ je řetězec. \\
+	Podle předpokladu principu maximality existuje $m$ horní mez $b$. Musí
+	platit, že $m \in b$. Kdyby to neplatilo: vezmeme celé b a $M = \{ t: t je ostrá
+	horní mez b \}$, která je neprázdná (obsahuje alespoň m). Taková množina má
+	nejmenší prvek $z \in M$. b \cup \{z\} je opět řetězec splňující (*) a b
+	\cup \{z\} \subsetq b = \bigcup \{ c: c je řetězec splňující (*) \}, což je
+	spor (z \nin b). Tedy m je největší prvek b a kdykoliv $y \in a$ tak buď $y
+	\le m$ nebo jsou neporovnatelné.
+	\item ($2. \impl 1.$) Nechť m je množina, na které hledáme selektor. Nechť a
+	je množina \{ f: \dom(f) \to \cup m: \dom(f) \subsetq m, kdykoliv x \in
+	\dom(f), x \neq 0, pak f(x) \in x \}. Uspořádáme (a, \subsetq). Je-li c \subsetq a
+	řetězec. \bigcup c je funkce, \forall f \in c, f \subsetq \bigcup c. (a,
+	\subsetq) splňuje předpoklady principu maximality a podle 2. existuje v a
+	maximální prvek g. Tvrdím, že g je hledaný selektor: kdyby existovalo $x \in
+	m$, x \nin \dom(g), x \neq 0, zvolme: t \in x, g \cup <x,t> \neq g - spor s
+	maximalitou.
+\end{enumerate}
+\paragraph{Důsledky}
+\begin{enumerate}
+	\item (AC) \impl pro každou množinu a, |a| existuje. (plyne ihned z principu
+	dobrého uspořádání)
+	\item Pro každou nekonečnou množinu a, $A \approx A \times A \approx A \times
+	\{ 0, 1 \}$. 
+	\item Každou nekonečnou množinu lze rozdělit na nekonečně mnoho nekonečných
+	částí. Podle axiomu výběru víme, že $|A| = \kapp \ge \omega$ a $\kappa
+	\approx \kappa \times \kappa$.
+	\item Je-li $\kappa \ge \omega$ a pro každé $\alpha \in \kappa$ je
+	$X_\alpha$	množina, $|X_\alpha|\le \kappa$, pak
+	\begin{align}
+		\left|\bigcup_{\alpha\in\kapp} X_\alpha \right| \le \kappa
+	\end{align}
+	\item Jsou-li $X$, $Y$ množiny a existuje $f: X \to Y$ surjektivní
+	zobrazení, pak $|Y| \le |X|$. Dk: kartézský součin $X \times Y \supsetq {
+	<y,x> : y = f(x) } = r$. Je-li $g \subsetq r$ funkce, pak $\dom(g) = Y$, $g: Y
+	\to X$ prostě, protože $f$ je funkce.
+\end{enumerate}
+
+
+\subsection{}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Buďte A a B množiny. ^A B = \{f: f je funkce, f: A \to B \}
+\paragraph{Lemma}
+Jsou-li B, C disjunktní množiny a A množina, pak:
+\begin{align}
+	^{(B \cup C)} A \approx ^B A \time ^C A
+	^C ( ^B A ) \approx ^{C\times B} A
+\end{align}
+\paragraph{Důkaz}
+Máme-li $f: B \cup C \to A$. Definujme F(f) = < f \upharpoonleft B, f
+\upharpoonleft C > \\
+F je prosté zobrazení. G: ^B A \time ^C A \to ^{B\cupC} A \\
+G(<f_1, f_2>) = f_1 \cup f_2 \\
+G = F^{-1}
+
+Je-li f \in ^C(^B A), f je funkce, f : C \to ^B A. Tedy pro každé t \in c je
+f(t) funkce z B \to A, pro každé t \in C, v \in B f(t)(v) \in A. Položme F:
+^C(^B A) \to ^{C \times B} A pro funkce F(f) = g, kde g \in ^{C \times B} A a je
+definována předpisem g(<t, v>) = f(t)(v). F je bijekce.
+
+
 
 
 
