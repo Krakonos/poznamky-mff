@@ -1082,9 +1082,229 @@ definována předpisem g(<t, v>) = f(t)(v). F je bijekce.
 
 
 
+\subsection{}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Jsou-li \kappa a \lambda kardinály, potom \kappa^\lambda = \left| ^\lambda
+\kappa \right|.
 
+\paragraph{Lemma}
+Jsou-li \kappa a \lambda kardinály, $\kappa \ge 2$ a $\lambda \ge \omega$,
+$\kappa \le \lambda$ pak
+$2^\lambda = \kappa^\lambda = |\mathcal{P}(\lambda)|$
+\paragraph{Důkaz}
+\begin{align}
+	\Phi: ^\lambda 2 \to \mathcal{P}(\lambda)  & \Phi(f) = \{ \xi < \lambda :
+	f(\xi) = 1 \}\\
+	\Phi^{-1}  : \mathcal{P} \to ^\lambda 2 & \Phi^{-1}  ( x) = \chi x \quad \\
+	\chi_x(\xi) = \{ \xi \in x: 1, \xi \nin x: 0 \\
+\end{align}
+Zřejmě $\Phi$ je bijekce:
+\begin{align}
+	^\lambda 2 \approx \mathcal{P}(\lambda) \\
+	^\lambda 2 \subsetq ^\lambda \kappa \subsetq \subsetq \mathcal{P}(\lambda
+	\times \lambda \approx \mathcal{P} (\lambda) = ^\lambda 2
+\end{align}
 
+\paragraph{Lemma}
+Jsou-li \kappa, \lambda kardinály, pak 
+\begin{align}
+	\kappa^{\lambda \circplus \mi} = \kappa^\lambda \circtimes \kappa^\mi \\
+	(\kappa^\lambda)^\mi = \kappa^{\lambda \times \mi} 
+\end{align}
+(bez dukazu)
+
+\paragraph{Definice}
+Jsou-li $\alpha, \beta$ ordinály a $f: \alpha \to \beta$, řekneme, že f
+zobrazuje $\alpha$ do $\beta$ \textbf{kofinálně} je-li $\rng(f)$ neomezená
+množina v $\beta$.
+\paragraph{Definice}
+Kofinalita ordinálu $\beta$ je nejmenší ordinál $\alpha$ takový, že existuje
+konfinální zobrazení z $\alpha$ do $\beta$. Značíme $\alpha = cf(b)$
+\paragraph{Pozorování}
+Určitě víme, že 
+\begin{align}
+	cf(\beta) \le \beta
+\end{align}
+protože existuje identita. Také víme, že pokud $\beta$ je ordinální následník:
+$cf(\beta) = 1$. (kofinální zobrazení $f: 1 \to \alpha + 1$ je definované $f(0) =
+\alpha$
+
+\paragraph{Lemma}
+Pokud je $\beta$ limitní, pak existuje konfinální zobrazení f: cf(\beta) \to
+\beta, které je ostře rostoucí.
+\paragraph{Důkaz}
+Buď $g$ je kofinální zobrazení z $cf(\beta) \to \beta$. Definujme indukcí $f(0) =
+g(0)$ a je-li $\alpha < \beta$ a z náme $f(\gamma) \forall \gamma < \alpha$,
+položme $f(\alpha) = \sup\{g(\gamma) : \gamma \le \alpha \} \cup \{ f(\gamma:
+\gamma < \alpha \}$. Přímo z definice plyne, že $f$ je ostře rostoucí a přitom $f
+\ge g$ a tedy kofinální.
+\paragraph{Lemma}
+Je-li $\alpha$ limitní ordinál a $f : \alpha \to \beta$ ostře rostoucí kofinální
+zobrazení, potom $cf(\alpha) = cf(\beta)$.
+\paragraph{Důkaz}
+f: \alpha \to \beta je ostře rostoucí. h: cf(\alpha) \to \alpha zvolme kofinální
+a ostře rostoucí (podle předchozího lemma) a máme
+\begin{align}
+	g = f \circ h \qquad \qquad g: cf(\alpha) \to \beta
+\end{align}
+a přitom je kofinální: Je-li \gamma < \beta, určitě existuje \delta < \alpha, že
+f(\delta) \ge \gamma. Ale h je také kofinální: \exists \etha < cf(\alpha):
+h(\etha) \ge f(\delta) a f je ostře rostoucí: f(h(\etha) \ge \gamma. Potom
+\begin{align}
+	cf(\beta) \le cf(\alpha)
+\end{align}
+Nechť $g: cf(\beta) \to \beta$ je kofinální a ostře rostoucí zobrazení.
+Definujme $h: cf(\beta) \to \alpha$ předpisem h(\xi) = minimální \gamma \in
+\alpha takové, že f(\gamma) > g(\gamma). Všimněme si, že $f: cf(\beta) \to
+\gamma$ a protože f je ostře rostoucí, pak h je kofinální zobrazení. Tedy 
+\begin{align}
+	cf(\alpha) \le cf(\beta)
+\end{align}
+\paragraph{Poznámka}
+Kofinalita reální přímky je $\omega$, protože každý reálné číslo je menší než
+nějaké celé.
+\paragraph{Důsledek}
+Kofinalita ordinálu $cf(cf(\beta)) = cf(\beta)$.
+\paragraph{Definice}
+Ordinál $\beta$ je regulární pokud $\beta$ je limitní ordinál a $\beta =
+cf(\beta)$.
+\paragraph{Lemma}
+Je-li ordinál $\beta$ regulární, pak $\beta$ je kardinál.
+\paragraph{Důkaz} Sporem: Nechť \beta není kardinál. Tedy $|\beta| < \beta$.
+Avšak máme bijekci $b: |\beta| \to \beta$, což je kofinální zobrazení (z
+regularity). Tedy $cf(\beta) \le |\beta| < \beta$, což je ve sporu s regularitou
+$\beta$.
+\paragraph{Lemma}
+$\omega$ je regulární kardinál.
+\paragraph{Důkaz}
+(bez důkazu)
+\paragraph{Lemma}
+Je-li $\kappa$ kardinál, pak $\kappa^+$ je regulární.
+\paragraph{Důkaz}
+Sporem: Buď $\alpha < \kappa^+$, $f: \alpha \to \kappa^+$ kofinální zobrazení.
+Víme, že
+	$|\alpha| \le \kappa$.
+Kdykoliv $\xi < \alpha$, pak $f(\xi) < \kappa^+$, tedy $|f(\xi)| \le \kappa$.
+Tedy:
+\begin{align}
+	\kappa^+ = \bigcup \left\{f(\xi) : \xi < \alpha \right\} \\
+	|\cup \{f(\xi: \xi < \alpha \}| < \kappa \circplus\kappa = \kappa
+\end{align}
+což je spor.
+\paragraph{Lemma}
+Je-li $\alpha$ limitní ordinál, pak $cf(\omega_\alpha) = cf(\alpha)$.
+\paragraph{Důkaz}
+\begin{align}
+	\omega_\alpha = \sup\{\omega_\beta : \beta < \alpha \}
+\end{align}
+Ihned plyne z jednoho z předchozích lemmat.
+\paragraph{Lemma (Königovo)}
+Předpokládejme axiom výberu. Je-li $\kappa$ nekonečný kardinál a $cf(\kappa) \le
+\lambda$, $cf(\kappa) > 1$, pak $\kappa^\lambda > \kappa$.
+\paragraph{Důkaz}
+Stačí dokázat pro $\lambda = cf(\kappa)$. 
+Nechť $g : \kappa \to ^\lambda \kappa$. Máme ukázat, že $g$ není surjektivní.
+Zvolme kofinální zobrazení $f: \lambda \to \kappa$. Definujme h: \lambda \to
+\kappa takto: 
+\begin{align}
+	h(0) = 0 \\
+	\text{ pro } \alpha < \lambda h(\alpha) = \min \left( \kappa \setminus
+	\{g(\mi)(\alpha) : \mi < f(\alpha) \} \right)
+\end{align}
+Pro takto definovou funkci $h$, $h \nin \rng(g)$. Kdyby h = g(\mi) pro nějaké
+$\mi <\kappa$, pak existuje nějaké $\alpha <\lambda$, takže $f(\alpha) >\mi$.
+Tedy funkce $h(\alpha) \nin \{g(\mi)(\alpha) : \mi < f(\alpha)\}$.
+\paragraph{Důsledek}
+Předpokládáme axiom výběru. Je-li \lambda \ge \omega, pak $cf(2^\lambda) >
+\lambda$. Položme $\kappa = 2^\lambda$. Máme $\kappa^\lambda = (2^\lambda)^\lambda
+= 2^{\lambda \circtimes\lambda} = 2^ = \kappa$. Kdyby $cf(\kappa) \le \lambda$,
+podle Königova lemmatu by platilo, že $\kappa^\lambda > \kappa$.
+\paragraph{Definice}
+Zobecněná hypotéza kontinua (GCH) je tvrzení, že 
+\begin{align}
+	(\forall \alpha) 2^{\aleph_\alpha} = \aleph_{\alpha + 1}
+\end{align}
+Ekvivalentně pro každý nekonečný kardinál $\kappa$, $2^\kappa = \kappa^+$. \\
+Hypotéza kontinua (CH) je tvrzení, že $2^\omega = \omega_1$.
+\paragraph{Lemma}
+Předpokládejme zobecněnou hypotézu kontinua. Nechť \kappa, \lambda \ge 2 jsou
+kardinály a alespoň jeden z nich je nekonečný. Pak platí:
+\begin{enumerate}
+	\item $\kappa \le \lambda \impl \kappa^\lambda = \lambda^+ $
+	\item $\kappa > \lambda \ge cf(\kappa) \impl \kappa^\lambda = \kappa^+ $
+	\item $\lambda < cf(\kappa) \impl \kappa^\lambda = \kappa$
 \end{enumerate}
+\paragraph{Pozorování}
+$\kappa \le \lambda$ pak $2^\lambda \approx \kappa^\lambda \approx
+\mathcal{P}(\lambda)$.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Z pozorování a GCH: $\kappa \le \lambda \quad \kappa^\lambda =
+	2^\lambda =^{GCH} \lambda^+$
+	\item Nechť $\kappa > \lambda \ge cf(\kappa)$. Podle Königova lemmatu
+	$\kappa^\lambda > \kappa$. \\
+	$\kappa > \lambda \qquad \kappa^\lambda = 2^\kappa = \kappa^+$. Tedy pro
+	všechna $\lambda$, $cf(\kappa) \le \lambda \le \kappa$ platí $\kappa^\lambda =
+	\kappa^+.$
+	\item $\lambda < cf(\kappa)$: \\
+	$^\lambda \kappa = \cup \{\ ^\lambda \alpha: \lambda < \kappa \}$ protože
+	pro každou $f: \lambda \to \kappa$ existuje $\alpha < \kappa$ že $\rng(f)
+	\subsetq \alpha$. f nemůže být kofinální zobrazení. Kdykoliv \alpha <
+	\kappa, pak
+	\begin{align}
+		| ^\lambda\alpha| \le | \max\{alpha, \lambda\}, \max\{\alpha, \lambda\}
+		| \le^{GCH} \max\{\alpha, \lambda\}^+ \le \kappa
+	\end{align}
+	Tedy $\kappa \le | ^\lambda\kappa| \le \kappa \circtimes \kappa = \kappa$.
+\end{enumerate}
+\paragraph{Věta (Hausdorffova formule)}
+Předpokládáme axiom výběru. Jsou-li \kappa, \lambda nekonečné kardinály, potom
+$(\kappa^+)^\lambda = \kappa^+ \circtimes \kappa^\lambda$.
+\paragraph{Důkaz}
+Zřejmě $\kappa^+ \ctimes \kappa^\lambda \le (\kappa^+)^\lambda \ctimes
+\kappa^\lambda \le (\kappa^+)^\lambda \ctimes (\kappa^+)^\lambda =
+(\kappa^+)^\lambda$. Zbývá dokázat nerovnost $(\kappa^+)^\lambda \le \kappa^+
+\ctimes \kappa^\lambda$.
+\begin{enumerate}
+	\item  $\lambda \ge \kappa^+: (\kappa^+)^\lambda \le \kappa^\lambda =
+	2^\lambda = \kappa^\lambda = \kappa^\lambda \ctimes \kappa^=$
+	\item $\lambda < \kappa^+: $ protože $\kappa^+$ je regulární kardinál, potom
+	pro každou $f: \lambda \to \kappa^+$ existuje nějaké $\alpha < \kappa^+$, že
+	$\rng(f) \subsetq \alpha$. Tedy 
+	\begin{align}
+		(\kappa^+)^\lambda = | ^\lambda \kappa^+| = | \cup \{ ^\lambda \alpha :
+		\alpha < \kappa^+ \} | \\
+		\le \kappa^+ \ctimes | ^\lambda \kappa| = \kappa^+ \ctimes
+		\kappa^\lambda
+	\end{align}
+\end{enumerate}
+\paragraph{Definice}
+Předpokládejme axiom výběru. Nechť $I \neq \emptyset$ a $\forall i \in I$ buď
+$\kappa_i$ kardinální číslo. Definujme 
+\begin{align}
+	\sum_{i\in I} \kappa_i = \left| \bigcup \{\kappa_i x \{i\}: i \in I
+	\}\right| \\
+	\prod_{i\in I} \kappa_i = \left| \prod_{i \in I} \{\kappa_i: i \in I\} \right |
+\end{align}
+\paragraph{Věta (Königova nerovnost)}
+Předpokládejme axiom výběru. Je-li $I \neq \emptyset$, pro každé $i \in I
+\kappa_i$, $\lambda_i$ jsou kardinální čísla, přičemž $\kappa_i <\lambda_i$, pak 
+\begin{align}
+	\sum_{i\in I} \kappa_i < \prod_{i\in I} \lambda_i
+\end{align}
+\paragraph{Důkaz}
+Z lemmatu a obrázkem (dopsat!)
+%TODO: DOPSAT A DOMALOVAT OBRAZEK
+
+
+
+
+
+
+
+
+
 
 \end{document}
 
