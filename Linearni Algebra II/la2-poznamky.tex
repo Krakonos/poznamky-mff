@@ -1,0 +1,1524 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage[czech]{babel}
+%\usepackage{bbm}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage{math}
+\usepackage{enumerate}
+
+\title{Lineární algebra II}
+\author{Ladislav Láska}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Determinant}
+
+\paragraph{Definice}
+Nechť $A$ je čtvercová matice řádu $n$ nad $\K$, potom \textbf{determinant} matice
+$A$ ($\det(A)$) je zobrazení z $\K^{n \times n} \to \K$ dáno vztahem:
+\begin{align*}
+	\det(A) = \sum_{p \in S_n} \sgn (p) \prod_{i=1}^n A_{i,p(i)}
+\end{align*}
+
+\subsection{Vlastnosti determinantu}
+\setcounter{equation}{0}
+\paragraph{Pozorování}
+$\det(A^T) = det(A)$
+
+\paragraph{Důkaz (neformální)}
+Všimnene si, že determinant je součet podle permutací, které pokryjí právě
+všechny kombinace řádků a sloupců. Je tedy zřejmé, že přehozením řádků a sloupců
+(tj. transpozicí) se determinant nezmění. 
+
+\paragraph{Důkaz}
+Formálně podle definice determinantu (\ref{det-vl-1}), transpozice
+(\ref{det-vl-2}), a použitím inverzní permutace (\ref{det-vl-3}) ukážeme:
+\begin{align} 
+	\sum_{p \in S_n} &\sgn (p) \prod_{i=1}^n (A^T)_{i,p(i)} \label{det-vl-1} \\
+	= & \sum_{p \in S_n} \sgn (p) \prod_{i=1}^n A_{p(i),i} \label{det-vl-2}\\
+	= & \sum_{p \in S_n} \sgn (p^{-1}) \prod_{i=1}^n A_{i,p^{-1}(i)} \label{det-vl-3}
+\end{align}
+Což je ale $\det(A)$, protože součet je přes všechny permutace.
+
+\subsection{Úpravy matic a jejich vliv na determinant}
+\setcounter{equation}{0}
+
+\subsubsection{Přerovnání řádků/sloupců}
+\setcounter{equation}{0}
+\paragraph{Pozorování}
+Přerovnání sloupců (pro řádky analogicky) můžeme zapsat jako permutaci $q$. Při
+výpočtu determinantu to znamená, že budeme počítat se složením permutací -
+vzhledem k tomu, že determinant je součet přes všechny permutace, budou nás
+zajímat pouze znaménka.
+
+\paragraph{Tvrzení}
+Nechť $A$ je čtvercová matice a $B$ je matice odvozená od $A$ přerovnáním sloupců (s
+řádky analogicky) podle permutace $q$. Potom platí:
+\begin{align*} 
+	\det(B) = \sgn (q) \det (A)
+\end{align*}
+
+\paragraph{Důkaz}
+Podle definice determinantu (\ref{det-prerovnani-1}), přerovnáním permutací zpět
+na A (\ref{det-prerovnani-2}), přidáním identity (\ref{det-prerovnani-2}) a
+úpravou (\ref{det-prerovnani-3}, \ref{det-prerovnani-4}) získáme:
+\begin{align} 
+	\det(B) &= \sum_{p \in S_n} \sgn (p) \prod_{i=1}^n B_{i,p(i)}
+							\label{det-prerovnani-1}\\
+	&= \sum_{p \in S_n} \sgn (p) \prod_{i=1}^n A_{i,q^{-1}(p(i))}
+							\label{det-prerovnani-2} \\
+	&= \sum_{p \in S_n} \underbrace{\sgn (p) \sgn(q^{-1})}_{sgn(q^{-1} \circ p)} 
+		\sgn(q) \prod_{i=1}^n A_{i,q^{-1}(p(i))}
+							\label{det-prerovnani-3} \\
+	&= \sgn (q) \sum_{p \in S_n} \sgn (q^{-1} \circ p) \prod_{i=1}^n A_{i,
+	(q^{-1} \circ p)(i)} 
+							\label{det-prerovnani-4} 
+\end{align} 
+Což je podle definice determinantu $\sgn (q) \det (A)$.
+
+\paragraph{Důsledek}
+Záměna dvou řádků mění znaménko.
+
+\subsubsection{Linearita násobku řádku matice vůči determinantu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A'$ je odvozená matice od $A$ vynásobením $k$-tého řádku
+konstantou $t$, potom platí:
+\begin{align*} 
+	\det (A') = t \cdot \det (A)
+\end{align*} 
+
+\paragraph{Důkaz}
+Všimneme si, že každý součin si do každého řádku "šáhne" právě jednou. Můžeme
+tedy z každého takovéhou součinu vytknout konstantu před sumu.
+
+\subsubsection{Linearita součtu matice vůči determinantu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Mějme matici $A$ takovou, že platí (všechny řádky jsou stejné, jenom $i$-tý v
+$A$ je součtem $i$-tého v $B$ a $C$):
+\begin{align*}
+	\forall k \neq i \quad \forall j: \quad &B_{k,j} = C_{k,j} = A_{k,j}\\
+					  			 & A_{i,j} = B_{i,j} + C_{i,j}
+\end{align*}
+Potom platí:
+\begin{align*}
+	\det(A) = \det(B) + \det(C)
+\end{align*}
+
+
+\paragraph{Důkaz}
+Rozepíšeme podle definice determinant $A$ a $i$-tý řádek vyjádříme jako součet 
+$i$-tého řádku z $B$ a $C$:
+\begin{align} 
+	\det(A) = \sum_{p \in S_n} sgn(p) \cdot A_{1,p(1)} \cdot ... \cdot
+	(B_{i,p(i)} + C_{i, p(i)}) \cdot ... \cdot a_{n, p(n)}
+\end{align}
+Závorkou ale sumu můžeme roznásobit:
+\begin{align} 
+	&\sum_{p \in S_n} sgn(p) \cdot A_{1,p(1)} \cdot ... \cdot
+	B_{i,p(i)} \cdot ... \cdot a_{n, p(n)} \\
+	+&\sum_{p \in S_n} sgn(p) \cdot A_{1,p(1)} \cdot ... \cdot
+	C_{i, p(i)} \cdot ... \cdot a_{n, p(n)}
+\end{align}
+Což podle definice determinantu je:
+\begin{align}
+	\det(B) + \det(C) = \det(A)
+\end{align}	
+
+\paragraph{Důsledek}
+Přičtení $t$-násobku $i$-tého řádku k $j$-tému řádku determinant nemění: lze rozložit
+na dvě matice kde v jedné bude původní řádek, v druhé přičítaný $t$-násobek řádku.
+Druhá matice bude mít však nulový řádek, tj. nulový determinant.
+
+\subsection{Výpočet determinantu}
+\setcounter{equation}{0}
+
+\subsubsection{Determinant součinu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A$ a $B$ jsou čtvercové matice stejného řádu nad tělesem $\K$, potom
+platí:
+\begin{align*}
+	\det (A \cdot B) = \det (A) \cdot \det (B)
+\end{align*}
+
+
+\paragraph{Pozorování}
+Všimneme si, že pokud je $A$ nebo $B$ singulární, součin je také singulární, tj.
+nulový determinant.
+\paragraph{Pozorování}
+Je-li $A$ regulární, existuje $R$ regulární taková, že $R \cdot A = I_n$.
+
+\paragraph{Důkaz}
+$A$ si rozložíme na součin elementárních matic:
+\begin{align}
+	A = E_1 \cdot E_2 \cdot ...
+\end{align}
+Potom dosazením platí (\ref{det-soucin-1}) a z asociativity násobení matic
+(\ref{det-soucin-2}):
+\begin{align}
+	\det (A \cdot B) &= \det ( (E_1 \cdot E_2 \cdot ...) \cdot (B)) = 
+											\label{det-soucin-1}\\
+					 &= \det ( E_1 \cdot (E_2 \cdot ... \cdot (B)))
+					 						\label{det-soucin-2}
+\end{align}
+Protože však $E_i$ je elementární matice, můžeme rozlišit následující případy:
+\begin{enumerate}
+	\item $E_i$ odpovídá vynásobení $i$-tého řádku konstantou $t \neq 0$ 
+	$\Rightarrow$ determinant $t$-krát. Taková matice je jednotková matice s $t$
+	na místě $i,i$. Její determinant je $t$, násobením touto maticí se tedy
+	determinant $t$-krát zvýší.
+	\item $E_i$ odpovídá přičtení $j$-tého řádku k $i$-tému. Taková matice je
+	jednotková s $1$ (nebo $t$, pokud přičítáme násobek) nad nebo pod hlavní
+	diagonálou. Její determinant je $1$ (každá parmutace obsahující přidaný
+	prvek musí obsahovat i jednu nulu, tj. na $t$ nezáleží). Násobením touto
+	maticí se tedy determinant nezmění.
+\end{enumerate}
+Pokud víme, jak dané matice mění determinant, můžeme je postupně vytknout:
+\begin{align}
+		\det (E_1) \cdot \det ( E_2 \cdot ... \cdot (B)) 
+\end{align}
+Takto vytkneme všechny elementární matice. Nyní je však ale můžeme opět spojit
+pod jeden determinant:
+\begin{align}
+		\det (E_1) \cdot ... \cdot \det (E_n) \cdot (B) = 
+		\det (A) \cdot \det(B)
+\end{align}
+Což jsme chtěli dokázat.
+
+\paragraph{Důsledek}
+Matice je regulární právě když má nenulový determinant.
+\paragraph{Důsledek}
+Determinant matice a inverzní matice jsou si rovny.
+
+\subsubsection{Rozvoj determinantu podle i-tého řádku/sloupce}
+\setcounter{equation}{0}
+\paragraph{Značení} Maticí $A^{i,j}$ značíme matici vzniklou z $A$ vynecháním $i$-tého
+řádku a $j$-tého sloupce.
+
+\paragraph{Tvrzení}
+Pro libovolnou matici řádu $n \ge 2$ a libovolné $i$ od $1 .. n$ platí:
+\begin{align*}
+	\det (A) = \sum_{j=1}^n a_{i,j} (-1)^{i+j} \cdot \det (A^{i,j})
+\end{align*}
+
+\paragraph{Důkaz}
+Užijeme linearitu determinantu: Zapíšeme i-tý řádek jako vhodnou lineární
+kombinaci:
+\begin{align}
+	a_{i,1}  ... a_{i,n} = a_1 \cdot (1, 0, ... , 0 ) + a_{i,2} (0, 1, 0, ... , 0 ) +
+	... + a_{i,n} (0, ... , 0, 1)
+\end{align}
+Rozložíme matici podle i-tého řádku na jednotlivé elementární matice. Po
+vytknutí konstanty získáme jeden řádek s nulami a jedničkou na jednom místě:
+\begin{align}
+	\left( \begin{matrix}
+		 \\
+		\hline 0 & \cdots & 1 & \cdots & 0 \\
+		\hline  \\
+	\end{matrix} \right)
+\end{align}
+Takovouto jedničku přesuneme do prvního sloupce cyklem délky $i$, ten se dá
+složit z $i-1$ transpozic. Analogicky celý řádek prohodím na první:
+
+\begin{align}
+	(-1)^{i+j}
+	\left( \begin{array}{c|ccc}
+		1 & 0 & \cdots & 0 \\
+		\hline \vdots  \\
+		\vdots   \\
+	\end{array} \right)
+\end{align}
+Nyní je však zřejmé, že každá permutace, která použije $j$-tý sloupec $j\neq1$ bude
+nulová. Pokud $j=1$, jednička hodnotu nezmění. Můžeme tedy první řádek a sloupec
+vynechat.
+
+\subsection{Adjungovaná matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Pro čtvercovou matici $A$ definujeme \textbf{adjungovanou} matici $\adj(A)$
+předpisem:
+\begin{align*}
+	(\adj(A))_{i,j} = (-1)^{i+j} \cdot \det (A^{j,i})
+\end{align*}
+
+\subsection{Vztah adjungované matice a determinantu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Pro každou regulerní matici platí:
+\begin{align*}
+	A^{-1} = \frac{1}{\det(A)} \cdot \adj (A)
+\end{align*}
+\paragraph{Důkaz}
+Všimneme si, že pokud násobíme matici $A$ její adjungovanou matici, vznikne nám:
+\begin{align}
+	A \cdot \adj(A) = \left( \begin{matrix}
+		\det(A) &  & 0 \\
+		 & \ddots &  \\
+		0 &  & \det(A) 
+	\end{matrix}\right) = \det(A) \cdot I_n
+\end{align}
+Což je zřejmé, pokud si uvědomíme, že každý z determinantů ve výsledné matici
+vznikl podle rozvoje $i$-tého řádku (koeficienty v $A$, znaménka a subdeterminanty
+jsou v adjungované matici). \\
+Potom je již odvození triviální:
+\begin{align}
+	A \cdot \adj(A) \cdot \frac{1}{\det(A)} = I_n \\
+	A^{-1} = \adj(A) \cdot \frac{1}{\det(A)}
+\end{align}
+
+\paragraph{Důsledek}
+Pokud jsou $A$ a $A^{-1}$ celočíselné, $\det(A) = \pm 1$
+
+\subsection{Cramerovo pravidlo}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť matice $A$ je regulární matice soustavy. Potom řešení každé soustavy $Ax =
+b$ lze spočítat po složkách 
+\begin{align*}
+	x_i = \frac{\det(A_{i\to b})}{\det(A)}
+\end{align*}
+kde $A_{i\to b}$ je matice odvozená z $A$ nahrazením $i$-tého sloupce vektorem
+pravých stran $b$.
+\paragraph{Důkaz}
+Podíváme se na součin $A^{-1} \cdot A \cdot x$ a upravíme:
+\begin{align}
+	I x = A^{-1} \cdot A \cdot x = A^{-1} b = \frac{1}{\det(A)} \cdot \adj(A) \cdot b \\
+\end{align}
+Nyní můžeme vyjádřit $x_i$:
+\begin{align}
+	x_i = \frac{1}{\det(A)} \cdot (\adj(A) \cdot b)_i 
+\end{align}
+A rozložíme závorku jako maticový součin (matice, vektor):
+\begin{align}
+	\frac{1}{\det(A)} \cdot \sum_{j=1}^n \adj(A)_{i,j} b_j
+\end{align}
+Kde ale suma vyjadřuje rozvoj podle $i$-tého sloupce $A_{i\to b}$:
+\begin{align}
+	\frac{1}{\det(A)} \cdot \det(A_{i \to b})
+\end{align}
+
+\subsection{Objem rovnoběžnostěnu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $x_1, ..., x_n$ jsou vektory tvořící rovnoběžnostěn. Potom objem
+$V=|\det(A)|$.
+\paragraph{Důkaz}
+Malůvkou.
+
+\newpage
+\section{Polynomy}
+\setcounter{equation}{0}
+\subsection{Polynom}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Polynomem $P$ stupně $n$ proměnné $x$ nad tělesem $\K$ nazveme výraz:
+\begin{align*}
+	\sum_{i=0}^n a_i x^i \text{ , kde } a_n \in \K \quad \land \quad a_n \neq 0
+\end{align*}
+\paragraph{Definice}
+Na polynomu definujeme oprace:
+\begin{description}
+	\item[součet po složkách]
+		\begin{align*}
+			P(x)^n + Q(x)^m = \sum_{i=0}^{\max\{m,n\}} (p_i + q_i) x^i
+		\end{align*}
+	\item[násobení]
+		\begin{align*}
+			(p \cdot q)(x) = \sum_{i=0}^{m+n} c_i x^i \quad \text{ kde }  \quad
+			c_i = \sum_{j=\max\{0, i-m\}}^{\min\{i, n \}} a_j b_{i+j}
+		\end{align*}
+	\item[dělení se zbytkem]
+		\begin{align*}
+			\forall p, q \quad \exists r,t \in K(x): \quad \deg t \lt \deg q \quad 
+			\land \quad p = r \cdot q + t
+		\end{align*}
+\end{description}
+
+\subsection{Algebraicky uzavřené těleso, kořen polynomu}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Kořen polnomu je prvek $k$ pro který platí, že $P(k) = 0$.
+\paragraph{Definice}
+Těleso, kde všechny polynomy mají alespoň $1$ kořen, nazveme \textbf{algebraicky
+uzavřené}.
+
+\subsection{Základní věta algebry (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Každý polynom stupně alespoň $1$ má nad $\C$ kořen.
+(bez důkazu)
+\paragraph{Důsledek}
+Každý polynom stupně alespoň $1$ lze rozložit na součin kořenových součinitelů.
+
+\subsection{Reprezentace polynomu}
+\setcounter{equation}{0}
+Polynom stupně $n$ můžeme reprezentovat jako:
+\begin{description}
+	\item[koeficienty] $a_0, ..., a_n \in \K$
+	\item[kořeny a $a_0$] na algebraicky uzavřeném tělese
+	\item[hodnotami $P(x)$] v n+1 různých bodech
+\end{description}
+
+\subsection{Vandermondova matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $x_1, ..., x_n$ jsou body z tělesa $\K$. Potom \textbf{Vandrmondovou
+maticí} nazveme matici:
+\begin{align*}
+	\left(
+	\begin{matrix}
+		x_1^0 & x_1 & x^2_1 & \cdots & x^{n-1}_1 \\
+		x_2^0 & x_2 & x^2_2 & \cdots & x^{n-1}_2 \\
+		\vdots & \vdots & \vdots & \ddots & \vdots \\
+		x_n^0 & x_n & x^2_n & \cdots & x^{n-1}_n
+	\end{matrix}
+	\right)
+\end{align*}
+
+\subsection{Věta o regulárnosti Vandermondovy matice}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Vandermondova matice je regulární právě tehdy, pokud hodnoty $x_1, ..., x_{n+1}$
+jsou různé.
+\paragraph{Důkaz}
+Spočítáme determinant matice: odečteme první řádek od všech ostatních.
+\begin{align}
+	A = 
+	\left|
+	\begin{matrix}
+		x_1^0 & x_1 & x^2_1 & \cdots & x^{n-1}_1 \\
+		x_2^0 & x_2 & x^2_2 & \cdots & x^{n-1}_2 \\
+		\vdots & \vdots & \vdots & \ddots & \vdots \\
+		x_n^0 & x_n & x^2_n & \cdots & x^{n-1}_n
+	\end{matrix}
+	\right| =
+	\left|
+	\begin{matrix}
+		1 & x_1       & x^2_1        & \cdots & x^{n-1}_1 \\
+		0 & x_2 - x_1 & x^2_2 -x^2_1 & \cdots & x^{n-1}_2 -x^{n-1}_1\\
+		\vdots & \vdots & \vdots & \ddots & \vdots \\
+		0 & x_n - x_1 & x^2_n -x^2_1 & \cdots & x^{n-1}_n - x^{n-1}_1
+	\end{matrix}
+	\right|
+\end{align}
+Nyní je již vidět, že můžeme rekurentně spočítat jako rozvoj podle prvního
+sloupce. Tedy $\det(A)$ je roven součinu rozdílů každé dvojice $x_i$.
+
+
+\subsection{Lagrangeova interpolace (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $[x_i, y_i]$, $i = 1 ... n+1$ jsou body ve kterých známe funkční hodnotu.
+Nadefinujeme pomocnou funkci $P_i$:
+\begin{align*}
+	P_i(x) = \frac{(x-x_1)(x-x_2) ... (x-x_{i-1})(x-x_{i+1}) ...
+	(x-x_{n+1})}{(x_i - x_1)(x_i - x_2) ... (x_i - x_{i-1})(x_i - x_{i+1}) ...
+	(x_i - x_{n+1})}
+\end{align*}
+Je snadné vidět, že $P_i(x_i) = 1$, zatímco $P_i(x_j) = 0 \quad \forall j \neq
+i$. Lagrangeův polynom tedy vypočítáme pomocí vztahu:
+\begin{align*}
+	P_n(x) = \sum_{i=1}^{n+1} y_i P_i(x)
+\end{align*}
+(bez důkazu)
+
+
+\section{Vlastní čísla a vektory}
+\setcounter{equation}{0}
+\subsection{Vlastní číslo, vlastní vektor}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $V$ je vektorový prostor nad $\K$ a $f: V \to V$ je lineární zobrazení.
+Potom \textbf{vlastním číslem} zobrazení $f$ rozumíme takové $\lambda \in \K$,
+že $f(u) = \lambda \cdot u$, vlastní vektor vlastnímu číslu $\lambda$ je každý,
+pro který platí $u \in V \quad \Rightarrow \quad  f(u) = \lambda \cdot u$.
+\paragraph{Definice}
+Je-li vektorový prostor V konečně generovaný a $\dim(V) = n$, potom můžeme $f$
+reprezentovat maticí zobrazení $A=[f]_X$ a rozšířit definici na matice, tj.
+vlastní číslo matice A je libovolné $\lambda \in \K$, takové že $Ax = \lambda x$
+pro $x \in \K^n$, $x \neq 0$. Vlastní vektor příslušný $\lambda$ je takový $x$, že
+$Ax = \lambda x$
+
+\subsection{Spektrum matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Množina všech vlastních čísel matice se nazývá \textbf{Spektrum matice}.
+
+
+\subsection{Charakteristický polynom}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Charakteristickým polynomem matice $A$ nazveme polynom $P_A(t)$ určený výrazem
+$P_A(t) = \det(A - t \cdot I)$.
+
+\subsection{Věta o vlastním čísle a charakteristickém polynomu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Pro matici $A^{n\times n}$ platí, že $\lambda$ je vlastní číslo matice $A$ právě
+když je $\lambda$ kořen $P_A(t)$.
+\paragraph{Důkaz}
+Platí triviálně z definice:
+\begin{align}
+	Ax &= \lambda x  \\
+	(A - \lambda I) x &= 0 \qquad (x \neq 0 \Rightarrow)\\
+	A - \lambda I & \text{ singulární }
+\end{align}
+
+\subsection{Věta o zachování podobnosti součinů matic}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A$, $B$ jsou čtvercové matice, potom $A\cdot B$ a $B \cdot A$ mají stejná
+vlastní čísla.
+\paragraph{Poznámka}
+Pro násobení blokových matic platí:
+\begin{align*}
+	\left( \begin{matrix}
+		I & J \\ K & L
+	\end{matrix}\right)
+	\cdot
+	\left( \begin{matrix}
+		P & Q \\ R & S
+	\end{matrix}\right)
+	=
+	\left( \begin{matrix}
+		IP + JR & IQ +JS \\ KP + LR & KQ + LS
+	\end{matrix}\right)
+\end{align*}
+\paragraph{Důkaz}
+Mějme matice $C$, $R$, $D$ nadefinované a rozepsané podle součinu blokových matic:
+\begin{align}
+	\overbrace{
+	\left( \begin{matrix}
+		AB & 0 \\ B & 0
+	\end{matrix}\right)}^C
+	\cdot
+	\overbrace{
+	\left( \begin{matrix}
+		I & A \\ 0 & I
+	\end{matrix}\right)}^R
+	=
+	\left( \begin{matrix}
+		AB & ABA \\ B & BA
+	\end{matrix}\right)
+	=
+	\overbrace{
+	\left( \begin{matrix}
+		I & A \\ 0 & I
+	\end{matrix}\right)}^R
+	\cdot
+	\overbrace{
+	\left( \begin{matrix}
+		0 & 0 \\ B & BA
+	\end{matrix}\right)}^D
+\end{align}
+Po rozepsání determinantů matic $C$ a $D$ vidíme, že jsou to po řadě z definice
+$P_{AB}(t)$, $P_{BA}(t)$ - dokážeme tedy rovnost. Vyjádříme $C = R \cdot D \cdot R^{-1}$ a upravíme
+$P_C$:
+\begin{align}
+	P_C &= \det(C - tI) \\
+	&= \det( R \cdot D \cdot R^{-1} - tI) \\
+	&= \det( R \cdot D \cdot R^{-1} - R \cdot tI \cdot R^{-1} ) \\
+	&= \det( R\cdot (D - tI)\cdot R^{-1}) \\
+	&= \det(R) \det( D-tI) \det R^{-1} \\
+	&= P_D(t)
+\end{align}
+
+\subsection{Cayley-Hamilton}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $P_A(t)$ je charakteristický polynom matice $A$. Potom platí, že:
+\begin{align*}
+	P_A(A) = 0
+\end{align*}
+\paragraph{Důkaz}
+Nechť $M :=  A - tI$. Spočítáme $\adj(M)$ a uvědomíme si, že adjungovaná matice
+má v každé buňce polynom $t$ stupně nejvýše $n-1$. Rozložíme tedy a zavedeme
+$B_i$ koeficienty $t^i$:
+\begin{align}
+	adj(A - tI) = t^{n-1} B_{n-1} + ... + t^0 B_0
+\end{align}
+Nyní podle pravidel o adjungované matici ($I \cdot \det(A) = A \cdot \adj(A)$) můžeme zapsat $P_A(t)$ jako:
+\begin{align}
+	P_A(t) \cdot I = (A - tI)(t^{n-1} B_{n-1} + ... + t^0 B_0) = a_n \cdot t^n
+	\cdot I + ... + a_0 I
+\end{align}
+Nyní porovnáme koeficienty u $t^i$:
+\begin{align}
+	&t^n &-I \cdot B_{n-1} &= a_n I \\
+	&t^i &A \cdot B_i - I \cdot B_{i-1} &= a_i I \\
+	&t^0 &A \cdot B_0 &= a_0 I
+\end{align}
+Pokud vynásobíme $i$-tou rovnici $A^i$ zleva a soustavu sečteme, získáme:
+\begin{align}
+	&P = P_A(A) \\
+	&L = \underbrace{-A^n B_{n-1} + A^{n-1}(AB_{n-1}}_0 - \underbrace{B_{n-2}) +
+	... }_0 = 0
+\end{align}
+Tedy $P_A(A) = 0$.
+
+\subsection{Věta o nezávislosti vlastních vektorů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $x_1, ..., x_n$ jsou vlastní vektory přístlušící různým vlastním číslům
+$\lambda_1, ..., \lambda_n$ zobrazení $f$. Potom $x_1, ..., x_n$ jsou lineárně
+nezávislé.
+\paragraph{Důkaz}
+Sporem a indukcí: 
+\begin{align}
+	\exists a_1, ..., a_k \neq 0  \quad \sum_{i=1}^k a_i x_i = 0
+\end{align}
+Vyjádříme 0:
+\begin{align}
+	&0 = f(0) = f\left(\sum_{i=1}^k a_i x_i\right) = \sum_{i=1}^k a_i f(x_i) =
+	\sum_{i=1}^k a_i \lambda_i x_i \\
+	&0 = \lambda 0 = \lambda \sum_{i=1}^k a_i x_i = \sum_{i=1}^k a_i \lambda
+	x_i\\
+	&0 = 0 - 0 = \sum_{i=1}^k a_i \lambda_i x_i - \sum_{i=1}^k a_i \lambda_k x_i 
+	= \sum_{i=1}^{k-1} \underbrace{a_i x_i}_{\neq 0} \underbrace{( \lambda_i -
+	\lambda_k)}_{\neq 0}
+\end{align}
+Tedy existují dva lineárně závislé vektory.
+
+\subsection{Podobné matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Řekneme, že čtvercové matice $A$ a $B$ jsou podobné pokud existuje regulární matice
+$R$ taková, že $A = R \cdot B \cdot R^{-1}$.
+
+\subsection{Věta o vlastních číslech podobných matic}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A$ a $B$ jsou podobné matice a $\lambda, x$ jsou vlastní číslo a jeho vlastní
+vektor matice $A$. Potom $y = R \cdot x$ je vlastní vektor $B$ příslušící $\lambda$.
+\paragraph{Důkaz}
+Vyjádříme $B$:
+\begin{align}
+	A = R \cdot B \cdot R \quad \Rightarrow \quad B = R \cdot A \cdot R^{-1}
+\end{align}
+Rozepíšeme $B \cdot y$:
+\begin{align}
+	B \cdot y = (R \cdot A \cdot R^-1)(R \cdot x) = R\cdot A \cdot x = R \cdot
+	\lambda \cdot x = \lambda \cdot y
+\end{align}
+Tedy $y$ je vlastní vektor $B$ příslušící vlastnímu číslu $\lambda$.
+
+\subsection{Diagonalizovatelná matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Matice je \textbf{diagonalizovatelná}, pokud je podobná nějaké diagonální matici.
+
+\subsection{Věta o diagonalizovatelnosti matic a vlastních vektorech}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť je matice $A$ řádu $n$. Potom je diagonalizovatelná právě když má $n$ vlastních
+vektorů.
+\paragraph{Důkaz}
+Z definice diagonalizovatelnosti jasně plyne, že sloupce matice jednoznačně
+odpovídají vlastním vektorům.
+\paragraph{Důsledek}
+Pokud má matice řádu $n$ vlastních čísel, je diagonalizovatelná.
+\paragraph{Důsledek}
+Matice $A \in \C^{n \times n}$ má vlastní čísla $\lambda_1, ..., \lambda_n$ násobnosti
+$r_1, ..., r_k$ a navíc:
+\begin{align*}
+	\forall i \in \{1, ..., n\} \quad \rank(A - \lambda_i I) = n - r_i
+\end{align*}
+pak právě tehdy je A diagonalizovatelná.
+
+\subsection{Matice v Jordanově normálním tvaru}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Matice v Jordanově normálním tvaru je diagonálně bloková matice, kde každý blok má na hlavní
+diagonále stejné číslo a nad hlavní diagonálou $1$ nebo $0$.
+
+\subsection{Věta o podobnosti Jordanově matici (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Každá komplexní čtvercová matice je podobná matici v Jordanově normálním tvaru.
+(bez důkazu)
+
+\subsection{Věta o diagonalizaci symetrických matic}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Každá reálné symetrická matice je diagonalizovatelná.
+
+\subsection{Hermitovská matice, unitární matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Komplexní čtvercová matice A je \textbf{hermitovská} pokud platí:
+\begin{align*}
+	a_{i,j} = \overline{a_{j,i}}
+\end{align*}
+Hermitovská \textbf{transpozice} matice $A$ je $A^H$, kde $(A^H)_{i,j} =
+\overline{a_{j,i}}$.
+\paragraph{Definice}
+Komplexní čtvercová matice se nazývá unitární pokud $A^H A = I$
+\paragraph{Pozorování}
+Součin unitárních matic je unitární matice:
+\begin{align*}
+	A^H A = I, B^H B = I \quad \Rightarrow \quad (AB)^H \cdot AB = B^H A^H A B =
+	I
+\end{align*}
+
+
+\subsection{Reálnost vlastních čísel hermitovské matice}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Každá hermitovská matice má všechna vlastní čísla reálná a je
+diagonalizovatelná.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Nechť $v$ je vlastní vektor matice $A$ příslušící vlastnímu číslu
+	$\lambda$. Mějme výraz: $v^H A v$. Ten upravíme dvojím způsobem:
+	\begin{align}
+		\nonumber v^H A &v =\\
+		&= v^H (Av) = v^H (\lambda v) = \lambda (v^H v) \\
+		&= (v^H A)v = (v^HA^H) v = (vA)^H v = (\lambda v)^Hv
+	\end{align}
+	výrazy (1) a (2) se musí rovnat. Získáme tedy vztah:
+	\begin{align}
+		\lambda(v^H v) = (\lambda v)^Hv
+	\end{align}
+	Tedy $\lambda = \overline{\lambda} \Rightarrow \lambda \in \R$.
+	\item $A$ je hermitovská matice. Podle definice tedy musí platit $AR = RD$.
+	Ukážeme na obrázku:
+	\begin{align}
+	\left(
+		\begin{matrix}
+		A&& \\
+		&\ddots& \\
+		&&\ddots
+		\end{matrix}
+	\right)
+	\left(
+		\begin{matrix}
+			\vdots & \vdots & \vdots \\
+			x_1 & x_i & x_n \\
+			\vdots & \vdots & \vdots
+		\end{matrix}
+	\right) 
+	= 
+	\left(
+		\begin{matrix}
+			\vdots & \vdots & \vdots \\
+			x_1 & x_i & x_n \\
+			\vdots & \vdots & \vdots
+		\end{matrix}
+	\right) 
+	\left(
+		\begin{matrix}
+			\ddots & \cdots & 0 \\
+			\vdots & D & \vdots \\
+			0 & \cdots & \ddots 
+		\end{matrix}
+	\right)
+	\end{align}
+	\item $R$ je unitární: z předpokladů víme, že $A$ je hermitovská. Proto
+	platí $\forall i,j \quad a_{i,j} = \overline{ a_{i,j} }$, tedy $a_{i,j} \in
+	\R$. Pro unitárnost chcem, aby $R^H R = I$. 
+\end{enumerate}
+
+
+\subsection{Binet-Cauchyho věta (bez důkazu)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A$ a $B$ jsou obdélníkové matice řádu $m \times n$. Potom:
+\begin{align*}
+	|A^T \cdot B| = \sum_{I \in \binom{n}{m}} |A^T_I \cdot B_I|
+\end{align*}
+
+
+\subsection{Laplaceova matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $G = (V,E)$ je graf na $n$ vrcholech $v_1, ..., v_n$. Potom definujeme Laplaceovu matici
+$Q$ předpisem:
+\begin{align*}
+	&q_{i,i} = \deg(v_i) \\
+	&q_{i,j} =
+		\begin{cases}
+			-1 \quad \Leftrightarrow (v_i,v_j) \in E \\
+			0
+		\end{cases}
+\end{align*}
+
+\subsection{Počet koster grafu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $G$ je graf. Potom platí:
+\begin{align*}
+	\kappa(G) = \det(Q^{1,1})
+\end{align*}
+\paragraph{Důkaz}
+Zavedeme libovolnou orientaci grafu G a zaznamenáme do matice incidence $D$:
+\begin{align}
+	d_{i,j} = \begin{cases}
+		1 \Leftrightarrow e_j = (v_i, v) \\
+		-1 \Leftrightarrow e_j = (v, v_i) \\
+		0
+	\end{cases}
+\end{align}
+Všimneme si, že $D \cdot D^T = Q$. Potom rozepíšeme a podle B-C věty:
+\begin{align}
+	\det(Q^{1,1}) = \det(D^1 \cdot (D^1)^T) = \sum_{I=\binom{n}{n-1}} |D_I^1
+	{D_I^1}^T| = \sum_{I=\binom{n}{n-1}} |D_I^1|^2
+\end{align}
+Pokud tedy dokážeme, že $D_I^1 = \pm 1$ právě když $v_i:\ i \in I$ indukují
+strom, jinak 0, věta je dokázána.
+\paragraph{Lemma 1}
+Pokud hrany $\{e_i | i \in I\}$ indukují strom, potom $|D_I^1| = \pm 1$.
+\paragraph{Důkaz}
+Uspořádáme vrcholy $w_1, ..., w_k$ tak, aby $w_i$ byl list na vrcholech $w_{i+1},
+...$. Potom můžeme uspořádat sloupce v matici $D_I^1$ podle $i$. Vznikne nám:
+\begin{align}
+	\pm
+	\left|
+	\begin{matrix}
+		\pm 1 & 0 & \cdots & 0 \\
+		0 & \pm 1 & & \vdots \\
+		\vdots & & \ddots & 0 \\
+		0 & \cdots & & \pm 1 
+	\end{matrix}
+	\right| = \pm 1
+\end{align}
+\paragraph{Lemma 2} Pokud hrany $\{e_i | i \in I\}$ neindukují strom, potom
+$|D_I^1| = 0$.
+\paragraph{Důkaz}
+Pokud hrany neindukují strom, existuje cyklus $C$. Mějme tedy vrcholy $w_1, ...,
+w_c \in C$ takové, že $(w_i, w_{i+1 \mod c}) \in E_G$. Pokud přičteme řádky
+matice příslušící $w_1, ..., w_{c-1}$ k řádku $w_c$, 
+získáme nulový řádek - matice je tedy singulární.
+
+
+\newpage
+
+\section{Vektorové prostory se skalárním součinem}
+\setcounter{equation}{0}
+\subsection{Skalární součin}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $V$ je vektorový prostor nad $\C$. Zobrazení, které dvěma vektorům $u, v
+\in V$ přiřadí číslo $\left<u|v\right> \in \C$ se nazývá \textbf{skalární součin} pokud splňuje
+axiomy: \\\ \\
+\begin{tabular}{rl}
+	\textbf{(0)} & $\forall u \in V \quad \left<u|u\right> = 0 \quad \Leftrightarrow u = 0$ \\
+	\textbf{(LN)} & $\forall a \in \C \quad \forall u,v \in V \quad \left<au|v\right> = a\left<u|v\right>$ \\
+	\textbf{(LS)} & $\forall u,v,w \in V \quad \left<u+v|w\right> = \left<u|w\right> + \left<v|w\right>$ \\
+	\textbf{(KS)} & $\forall u,v \in V \quad \left<v|u\right> = \overline{\left<u|v\right>}$ \\
+	\textbf{(P)} & $\forall u \in V \quad \left<u|u\right> \ge 0$
+\end{tabular}
+\ \\
+\paragraph{Pozorování}
+$\left<u|av\right> = \overline{\left<av|u\right>} = \overline{a}\left<u|v\right>$
+\paragraph{Pozorování}
+Skalární součin lze vyjádřit regulární matici A: $\left<u|v\right> = u^T A^T A v$
+
+\subsection{Norma}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $V$ je vektorový prostor se skalárním součinem. Potom norma určená tímto
+součinem je zobrazení $V \to \R$ dané předpisem $||u|| = \sqrt{\left<u|u\right>}$.
+\paragraph{Poznámka}
+V $\R^n$ můžeme definovat úhel sevřený přímkami pomocí vztahu: $\left<u|v\right> = ||u||
+\cdot ||v|| \cdot \cos \varphi$
+\paragraph{Poznámka}
+Z předchozí vztahu je možné dokázat Kosinovou větu.
+
+\subsection{Cauchy-Schwarzova nerovnost}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $V$ je vektorový prostor se skalárním součinem a normou z něj odvozenou.
+Potom platí:
+\begin{align*}
+	\forall u,v \in V \quad |\left<u|v\right>| \le ||u|| \cdot ||v||
+\end{align*}
+\paragraph{Důkaz}
+(Pokud $u = 0 \lor v = 0$ platí triviálně.) \\
+Zaveďme parametr $a \in C$ a dokážeme $||u + av|| \ge 0$:
+\begin{align}
+	0 \le ||u+av||^2 &= \left<u + av|u+av\right> \\
+	&= \left<u|u\right> + a\left<v|u\right> + \overline{a}\left<u|v\right> +
+	a\overline{a}\left<v|v\right>
+\end{align}
+Zvolíme $a = - \frac{\left<u|v\right>}{\left<v|v\right>}$, dosadíme a získáme:
+\begin{align}
+	0 \le  \quad \left<u|u\right> - \frac{\overline{\left<u|v\right>}\left<u|v\right>}{\left<v|v\right>}
+\end{align}
+Což upravíme a odmocníme:
+\begin{align}
+	|\left<u|v\right>|^2  \quad &\le  \quad \left<u|u\right>\left<v|v\right> \\
+	|\left<u|v\right>| \quad  &\le \quad ||u|| \cdot ||v||
+\end{align}
+
+\paragraph{Důsledek}
+Norma odvozená ze skalárního součinu
+\paragraph{Důkaz} (trojúhelníková nerovnost)
+\begin{align}
+	||u+v|| &\le ||u|| + ||v|| \\
+	||u+v|| &= \sqrt{\left<u+v|u+v\right>}\\
+	&=\sqrt{\left<u|u\right> + \left<u|v\right> + \left<v|u\right> + \left<v|v\right>}
+\end{align}
+Protože $2 \R $e$(a) \le 2|a|$ můžeme upravit:
+\begin{align}
+	\le \sqrt{||u||^2 + ||v||^2 + 2|\left<u|v\right>|}
+\end{align}
+A podle C-S:
+\begin{align}
+	\le \sqrt{||u||^2 + 2||u|| \cdot ||v|| + ||v||^2} = ||u|| \cdot ||v||
+\end{align}
+
+
+\subsection{Norma prostoru zobrazení}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Norma prostoru zobrazení $V \to \R$ splňuje axiomy:
+\begin{enumerate}
+	\item $\forall u \in V \quad ||u|| \gt 0$
+	\item $\forall u \in v \quad ||u|| = 0 \Leftrightarrow u = 0$
+	\item $\forall u \in V \ \forall a \in \C \quad ||au|| = |a| ||u||$
+	\item $\forall u,v \in V \quad ||u+v|| \le ||u|| + ||v||$
+\end{enumerate}
+
+
+
+\subsection{Ortogonální vektory}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť V je vektorový prostor se skalárním součinem. Dva vektory $u, v \in V$
+jsou navzájem ortogonální pokud platí $\left<u|v\right> = 0$. Značíme $u\bot v$.
+\paragraph{Pozorování}
+Každý systém vzájemně ortogonálních vektorů je lineárně nezávislý.
+
+\subsection{Ortonormální báze}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $V$ je vektorový prostor se skalárním součinem a $Z$ je báze taková, že:
+\begin{enumerate}
+	\item $\forall v \in Z \quad ||v|| = 1$
+	\item $\forall v, w \in Z \quad v \neq w \Rightarrow v \bot w$
+\end{enumerate}
+
+\subsection{Fourierovy koeficienty}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Nechť $Z=(v_1, ..., v_n)$ je báze vektorový prostor se skalárním součinem $V$.
+Potom:
+vektor $u$ vyjádříme jako lineární kombinaci vektorů báze $Z$:
+\begin{align*}
+	\forall u \in V \quad u = \sum_{i=1}^n \left<u|v_i\right>v_i
+\end{align*}
+\paragraph{Důkaz}
+Vyjádříme lineární kombinaci a rozepíšeme:
+\begin{align}
+	u = \sum_{i=1}^n a_i v_i \qquad \text{chceme: } \  a_i = \left<u|v_i\right> \\
+	\left<u|v_i\right> = \left< \sum_{j=1}^n a_jv_j|v_i \right> = \sum_{j=1}^n a_j \left<v_j|v_i\right>
+\end{align}
+Vidíme, že $\left<v_j|v_i\right>$ je rovný $0$ pokud $i \neq j$, jinak $1$. Můžeme tedy
+upravit na:
+\begin{align}
+	= a_i \left<v_i|v_i\right> = a_i 
+\end{align}
+\paragraph{Definice}
+Koeficientům $\left<u|v_i\right>$ se říká Fourierovy koeficienty.
+
+\subsection{Parsevalova rovnost}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+Nechť $Z=(v_1, ..., v_n)$ je báze vektorového prostoru se skalárním součinem $V$.
+Potom:
+\begin{align*}
+	\forall u,v \in V \quad \left<u|w\right> = [w]_Z^H[u]_Z
+\end{align*}
+\paragraph{Důkaz}
+Vyjádříme pomocí Fourierových koeficientů:
+\begin{align}
+	\left<u|w\right> = \left< \sum_{i=1}^n\left<u|v_i\right> \Big| \sum_{j=1}^n \left<w|v_j\right>v_j \right>
+\end{align}
+A rozepíšeme:
+\begin{align}
+	\sum_{i=1}^n \sum_{j=1}^n
+	\left<u|v_i\right>\overline{\left<w|v_j\right>}\left<v_i|v_j\right> 
+	= \sum_{i=1}^n \left<u|w_i\right> \overline{\left<w|v_j\right>} =
+	[w]_Z^H[u]_Z
+\end{align}
+
+
+\subsection{Unitární zobrazení}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Lineární zobrazení $f:V \to W$ mezi vektorovými prostory se skalárním součinem
+se nazývá unitární, pokud zachovává skalární součin:
+\begin{align*}
+	\forall u, v \in V \quad \left<u|w\right> = \left< f(u) | f(w) \right >
+\end{align*}
+
+\subsection{Podmínka unitárního zobrazení}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Zobrazení $f: V \to W$ je unitární právě když pro normy odvozené ze skalárního
+součinu platí, že:
+\begin{align*}
+	\forall u \in V \quad ||u|| = ||f(u)||
+\end{align*}
+\paragraph{Důkaz}
+\begin{description}
+	\item[$\Rightarrow$] triviální
+	\item[$\Leftarrow$] Rozepíšeme podle definice lineárního zobrazení a normy
+	(podobně jako u C-S nerovnosti)
+		\begin{align}
+			||u+aw||^2      &=  ||u||^2 + a \left< w | u\right> +
+				\overline{a} \left<u | w \right> + a \overline{a} 	||w||^2 \\
+			||f(u + aw)||^2 &= 	||f(u)||^2 + a \left< f(w) | f(u)\right> +
+				\overline{a} \left< f(u) | f(w) \right> + a \overline{a} ||f(w)||^2
+		\end{align}
+		Levé strany se z předpokladu rovnají, porovnáme tedy pravé strany.
+		Můžeme přitom zanedbat členy zapsané jako norma, protože ty jsou z
+		definice taktéž rovny.
+		Zároveň zvolme $a = 1$ (\ref{puz-1}) a $a = i$ (\ref{puz-2}):
+		\begin{align}
+			\label{puz-1} 
+				\left< w | u \right> + \left< u | w \right> &= \left<
+				f(w)|f(u)\right> + \left< f(u)|f(w)\right> \\
+			\label{puz-2}
+				\left< w | u \right> - \left< u | w \right> &= \left<
+				f(w)|f(u)\right> - \left< f(u)|f(w)\right>
+		\end{align}
+		Rovnice sečteme a vydělíme $2$. Získáme tedy:
+		\begin{align}
+			\left< w | u \right> = \left< f(w) | f(u) \right>
+		\end{align}
+\end{description}
+
+
+\subsection{Isometrie}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Unitární izomorfismus prostoru se skalárním součinem se nazývá \textbf{isometrie}.
+
+
+\subsection{Matice zobrazení isometrie}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $V$ a $W$ jsou vektorové prostory s ortonormálními bázemi $X$ a $Y$ stejné konečné
+dimenze. Potom:
+\begin{align*}
+	f: V \to W \text{ je isometrie} \quad \Leftrightarrow \quad [f]_{XY} \text{ je
+	unitární}
+\end{align*}
+\paragraph{Důkaz}
+X je ortonormální, platí tedy:
+\begin{align}
+	\label{mzi-1}\left< u | w \right> = [w]_X^H[u]_X
+\end{align}
+Y je ortonormální, platí tedy:
+\begin{align}
+	\label{mzi-2}\left< f(u) | f(w) \right> = [f(w)]_Y^H[f(u)]_Y =
+	([f]_{XY}[w]_X)^H [f]_{XY} [u]_X = [w]_X^H \underbrace{[f]_{XY}^H[f]_{XY}}_A[u]_X
+\end{align}
+Rovnost (\ref{mzi-1}) = (\ref{mzi-2}) platí právě tehdy když $A = I_n$, tedy
+$[f]_{XY}$ je z definice unitární.
+
+\subsection{Ortogonální projekce}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $W$ je vektorový prostor se skalárním součinem, $V \subsetq W$ a $Z = (v_1,
+..., v_n)$ je ortonormální báze $V$. Potom zobrazení $p: W \to V$ definované
+předpisem:
+\begin{align*}
+	p(u) = \sum_{i=1}^n \left< u | v_i \right> v_i
+\end{align*}
+se nazývá \textbf{ortogonální projekcí} prostoru $W$ do $V$.
+
+\subsection{Lemma o ortogonální projekci}
+\setcounter{equation}{0}
+\paragraph{Lemma}
+Nechť $W$ je vektorový prostor se skalárním součinem, $V \subsetq W$ a $Z = (v_1,
+..., v_n)$ je ortonormální báze $V$. Nechť $p$ je ortogonální projekcí $W \to V$, potom 
+\begin{align*}
+	u - p(u) \bot v_i \quad \forall v_i \in Z
+\end{align*}
+\paragraph{Důkaz}
+Rozepíšeme a ověříme podle definice ortogonality:
+\begin{align}
+	\left< u - p(u) | v_i \right> = \left< u - \sum_{j=1}^n \left<u|v_j\right>
+	v_j \Big| v_i \right> = \left<u | v_i\right> - \sum_{j=1}^n
+	\left<u|v_j\right> \underbrace{\left<v_j | v_i \right>}_{=0 \text{ pro }
+	j\neq i} = 0
+\end{align}
+
+\subsection{Gram-schmidtova ortonormalizace}
+\setcounter{equation}{0}
+\paragraph{Algoritmus}
+\begin{description}
+	\item[vstup] báze $U$
+	\item[výstup] ortonormální báze $V$
+	\item[činnost]
+		$\forall i = 1 ... |U|:$
+		\begin{enumerate}
+			\item $w_i = u_i - \sum_{j=1}^{i-1}\left<u_i|v_i\right>v_i$
+			\item $v_i = \frac{w_i}{||w_i||}$
+		\end{enumerate}
+\end{description}
+\paragraph{Korektnost}
+\begin{enumerate}
+	\item $w_i \bot v_j \quad \forall j < i \quad \Rightarrow \quad v_i \bot
+	v_j$ platí podle lemma o ortogonální projekci
+	\item triviální
+	\item Lineární obal báze je stejný podle Lemma o výměně
+\end{enumerate}
+\paragraph{Důsledek}
+Pro každý vektorový prostor konečné dimenze existuje ortonormální báze.
+
+\subsection{Metoda nejmenších čtverců}
+\setcounter{equation}{0}
+\paragraph{Tvrzení}
+$p(u)$ je nejbližší bod k $u$ v prostoru $V$.
+\paragraph{Důkaz}
+Nechť $a = u - p(u)$, $b = w - p(u)$. Potom vypočítáme jejich rozdíl:
+\begin{align}
+	||a - b|| = \sqrt{\left<a-b|a-b\right>} = ... = \sqrt{\left<a|a\right> +
+	\left<b|b\right>} \gt ||a||
+\end{align}
+\paragraph{Aproximace nejmenšími čtverci}
+Použijeme kolmou projekci a aproximujeme tak řešení s minimální chybou.
+
+\subsection{Ortogonální doplněk}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť V je množina vektorů ve vektorovém prostoru W se skalárním součinem. Pak
+\textbf{ortogonální doplněk} množiny V je množina
+\begin{align*}
+	V^\bot := \{u \in W | u \bot v_i \quad \forall v_i \in V\}
+\end{align*}
+\paragraph{Pozorování}
+$U \subsetq V \Rightarrow U^\bot \ge V^\bot$
+\paragraph{Důkaz}
+Triviálně podle definice:
+$u \in V^\bot \Rightarrow u \bot v \quad \forall v \in V \Rightarrow u \bot v
+\forall v \in U \Leftrightarrow u \in U^T$
+
+
+\subsection{Vlastnosti ortogonálního doplňku}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $V$ je podprostor $W$ se skalárním součinem. Potom platí:
+\begin{enumerate}[a)]
+	\item $V^\bot$ je podprostor $W$
+	\item $V \cap V^\bot = \{ 0 \}$
+	\item $\dim(V) + \dim(V^\bot) = \dim(W)$
+	\item $(V^\bot)^\bot = V$
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}[a)]
+	\item Nechť $u, v \in V^\bot$. Potom $\forall w \in V$:
+		\begin{align}
+			\left< u + v | w \right> = \left< u | w \right> + \left< v | w
+			\right> = 0 \quad \Rightarrow \quad u+v \in V^\bot
+		\end{align}
+	\item Sporem: nechť $u \in V\cap V^\bot$, $u \neq 0$. Potom axiomu platí:
+		\begin{align}
+			0 < \left< u | u \right>
+		\end{align}
+		Zároveň však z definice ortogonálního doplňku $\forall u \in V \forall v \in V^\bot: u \bot v$,
+		potom také pro $u = v$ platí $u \bot u$. Neboli z definice ortogonality:
+		\begin{align}
+			\left< u | u \right> = 0
+		\end{align}
+		Což je spor.
+\end{enumerate}
+Pro body c a d budeme potřebovat následující Lemma:
+\paragraph{Lemma} Bázi X vektorového prostoru V lze doplnit na ortonormální bázi
+Z vektorového prostoru W. Tedy:
+\begin{align}
+	Y := Z \setminus X \qquad &X = \{x_1, ..., x_k\} \\
+		& Y = \{y_1, ..., y_l\}
+\end{align}
+Potom $V^\bot = L(Y)$.
+\paragraph{Důkaz lemmatu}
+\begin{enumerate}
+	\item $L(Y) \subsetq V^\bot$: \\
+		Dokážeme, že $Y \subsetq V^\bot$.
+		\begin{align}
+			\forall x_i \in X \quad \forall y_i, y_j \in Y \quad x_i \bot y_j
+			\quad \Rightarrow \quad y_j \bot \sum \alpha_i x_i \quad \Rightarrow
+			\quad Y \subsetq V^\bot
+		\end{align}
+		Ukážeme, že platí ortogonalita pro libovolné $w \in L(Y)$, $z \in V$.
+		Rozepsáním definice:
+		\begin{align}
+			\left< w | z \right> = \left < \sum \beta_i y_i \Big| \sum \alpha_i
+			x_i \right> = \sum \sum \beta_j \alpha_i \left< y_j | x_i\right> = 0
+		\end{align}
+		Tedy $L(Y) \subsetq V^\bot$.
+	\item Nechť $w \in V^\bot$. Potom je $w$ ortogonální k libovolnému $x_i$:
+		\begin{align}
+			\left< w | x_i \right> = 0
+		\end{align}
+		Vyjádříme $w$ jako lineární kombinaci $x_i$	a $y_i$
+		\begin{align}
+			w = \sum \underbrace{\alpha_i}_{=\left<w|x_i\right>} x_i + \sum \beta_i y_i
+		\end{align}
+		Zde je vidět, že první suma je nulová, tedy $w \in L(Y)$ a proto 
+		$V^\bot	\subsetq L(Y)$
+\end{enumerate}
+\begin{enumerate}[c)]
+	\item Podle lemma je již zřejmé, že $\dim(V) = |X|$ a $\dim(V^\bot) = |Y|$,
+	proto:
+	\begin{align}
+		|X| + |Y| = |W| = \dim(W)
+	\end{align}
+	\item $(V^\bot)^\bot = L(Z \setminus Y) = L(X) = V$
+\end{enumerate}
+
+\section{Pozitivně definitní matice}
+\setcounter{equation}{0}
+\subsection{Pozitivně definitní matice}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Hermitovská matice $A$ řádu $n$ se nazývá pozitivně definitní pokud 
+\begin{align*}
+	\forall x \in \C^n \setminus \{ 0 \} \quad x^H A x \gt 0
+	\end{align*}
+
+
+\subsection{Věta o matici skalárního součinu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $V$ je vektorový prostor se skalárním součinem a $X = (x_1, ..., x_n)$ je
+jeho báze. Potom pro matici $A$ definovanou:
+\begin{align*}
+	a_{i,j} = \left< x_i | x_j \right> 
+\end{align*}
+platí, že:
+\begin{align*}
+	\forall u,v \in V \quad \left< u|w \right> = [w]_X^H A [u]_X
+\end{align*}
+\paragraph{Důkaz}
+Vyjádříme jako lineární kombinaci vektorů báze:
+\begin{align}
+	[u]_X = (\alpha_1, ..., \alpha_n) \quad \to \quad u = \sum \alpha_i x_i \\
+	[w]_X = (\beta_1, ..., \beta_n) \quad \to \quad u = \sum \beta_i x_i
+\end{align}
+Ověříme rozpisem podle definice:
+\begin{align}
+	\left< u | w \right> \left< \sum \alpha_i x_i \Big| \sum \beta_i x_i \right>
+	= \sum \sum \alpha_i \overline{\beta_i} \left< x_i | x_j \right> = [w]_X^H A
+	[u]_X
+\end{align}
+Kde poslední krok si lze představit jako maticové násobení.
+\paragraph{Důsledek}
+Z vlastnosti skalárního součinu je taková matice hermitovská:
+$\left<x_j|x_i\right> = \overline{\left<x_i | x_j\right>}$
+
+\subsection{Ekvivalentní podmínky hermitovské matice}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A$ je hermitovská matice řádu $n$. Potom jsou následující podmínky
+ekvivalentní:
+\begin{enumerate}[a)]
+	\item $A$ je pozitivně definitní
+	\item $A$ má všechny vlastní čísla kladná
+	\item existuje regulární matice $U$ taková, že $A = U^H U$
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{description}
+	\item[$a \Rightarrow b)$] $A$ je z předpokladu hermitovská, má tedy vlastní
+	čísla reálná. Mějme tedy vlastní číslo $\lambda \in \R$ a k němu příslušný
+	vlastní vektor $x$. Potom z definice:
+	\begin{align}
+		0 < x^HAx = \lambda x^H x
+	\end{align}
+	Z maticového násobení je zřejmé, že $x^Hx > 0$, tedy také $\lambda > 0$.
+	\item[$b \Rightarrow c)$] $A$ je z předpokladu hermitovská, existuje tedy
+	unitární $R$: $A = R^H D R$, kde $D$ je diagonální. Zvolme tedy:
+	\begin{align}
+		D': d_{i,j}' = \sqrt{d_{i,j}}
+	\end{align}
+	Tedy platí, že $A =  R^{H} D'^H D' R$. Zvolme tedy $U=D'R$.
+	\item[$c \Rightarrow a)$] Podle definice pozitivně definitní matice ověříme:
+	\begin{align}
+		x^H A x = x^H U^H U x = (Ux)^H \cdot (Ux)
+	\end{align}
+	Kde je zřejmé, že daný součin bude kladný.
+\end{description}
+
+
+\subsection{Choleského rozklad}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Pro pozitivně definitní matici existuje jednoznačně určená trojúhelníková matice
+$U$ s kladnými prvky na diagonál taková, že $A = U^HU$.
+\paragraph{Algoritmus}
+\begin{description}
+	\item[Vstup] hermitovská matice A
+	\item[Výstup] trojúhelníková matice U nebo A není pozitivně definitní
+	\item[Postup] \ \\
+	Pro $i := 1, ..., n$
+	\begin{align}
+		u_{i,i} = \sqrt{ a_{i,i} - \sum_{k=1}^{i-1} \overline{u_{k,i}} u_{k,i}}
+	\end{align}
+	Pro $j := i+1, ..., n$
+	\begin{align}
+		u_{i,j} = \frac{1}{u_{i,i}} \left( a_{i,j} - \sum_{k=1}^{i-1}
+		\overline{u_{k,i}} u_{k,j} \right)
+	\end{align}
+\end{description}
+
+\subsection{Podmínka na pozitivně definitní matice podle determinantu}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A$ je bloková matice tvaru:
+\begin{align*}
+	A=\left(
+	\begin{matrix}
+	\alpha & \cdots & a^H & \cdots \\
+	\vdots & && \\
+	a & & \tilde{A} & \\
+	\vdots &&&
+	\end{matrix}
+	\right)
+\end{align*}
+Pak je matice $A$ pozitivně definitní právě když:
+\begin{align*}
+	\alpha > 0 \quad \land \quad a \left( \tilde{A} - \frac{1}{\alpha} a a^H
+	\right) \text{ je pozitivně definitní }
+\end{align*}
+\paragraph{Poznámka}
+Gaussovou eliminací můžeme matici $A$ upravit na tvar
+\begin{align*}
+	A=\left(
+	\begin{matrix}
+	\alpha & \cdots \quad a^H \quad  \cdots \\
+	\vdots & & \\
+	0 &  \tilde{A} - \frac{1}{\alpha} a a^H \\
+	\vdots &
+	\end{matrix}
+	\right)
+\end{align*}
+\paragraph{Důkaz}
+\begin{description}
+\item[$\Leftarrow$]
+Mějme libovolný vektor $x \in \C^n \neq 0$ zapsaný ve tvaru:
+\begin{align}
+	x = \left( \begin{matrix} x_1 \\ \tilde{x} \end{matrix}\right) \qquad \tilde{x} \in
+	\C^{n-1}, x_1 \in \C
+\end{align}
+Ověříme podmínku pro pozitivně definitní matici: (aplikujeme maticové násobení)
+\begin{align}
+	x^HAx &= \left(\overline{x_1}, \tilde{x}^H\right) \cdot \left( \begin{matrix} \alpha &
+	a^H \\ a & \tilde{A} \end{matrix} \right) \cdot \left( \begin{matrix} x_1 \\
+	\tilde{x} \end{matrix} \right) = \\
+	&=\left( \tilde{x}_1 \alpha + \tilde{x}^H a, \quad \overline{x}_1 a^H + \tilde{x}^H
+	\tilde{A}\right) \cdot \left( \begin{matrix} x_1 \\ \tilde{x} \end{matrix} \right)
+	 \\
+	&=\tilde{x}_1\alpha x_1 + \tilde{x}^H a x_1 + \overline{x}_1 a^H \tilde{x} +
+	\tilde{x}^H \tilde{A} \tilde{x} 
+\end{align}
+Přičteme $0$:
+\begin{align}
+	\tilde{x}_1\alpha x_1 + \tilde{x}^H a x_1 + \overline{x}_1 a^H \tilde{x} +
+	\tilde{x}^H \tilde{A} \tilde{x} +
+    \frac{1}{\alpha} \tilde{x}^H a a^H \tilde{x}
+	- \frac{1}{\alpha} \tilde{x}^H a a^H \tilde{x}
+\end{align}
+Povytýkáme:
+\begin{align}
+	\underbrace{\tilde{x}^H\left( \tilde{A} - \frac{1}{\alpha} a a^H \right)
+	\tilde{x}}_{\ge 0} +
+	\underbrace{\left( \sqrt{\alpha} \overline{x}_1 + \frac{1}{\sqrt{\alpha}} \tilde{x}^Ha
+	\right) \left(\sqrt{\alpha} x_1 + \frac{1}{\sqrt{\alpha}}
+	a^H\tilde{x} \right)}_{\text{komplexně sdružené} \Rightarrow \ge 0}
+\end{align}
+\item[$\Rightarrow$] \ \\
+\begin{enumerate}
+	\item $\alpha = e_1^H A e_1 > 0$ - platí
+	\item Pro libovolné $\tilde{x} \in \C^{n-1}$ zvolíme $x_1 := -
+	\frac{1}{\alpha}a^H \tilde{x}$ a položím $x = \left( x_1 \\ \tilde{x}
+	\right)^T$. Potom tedy z předpokladu ověříme:
+	\begin{align}
+		0 < x^H A x = \tilde{x}\left( \tilde{A} - \frac{1}{\alpha} a a^H \right)
+		+ 0
+	\end{align}
+	Kde díky volbě $x$  se nám zbytek členů odečte.
+\end{enumerate}
+\end{description}
+\paragraph{Důsledek}
+Pozitivně definitní matice lze rozeznat Gaussovo eliminací
+\paragraph{Důsledek}
+Jaccobiho podmínka: Hermitovská matice $A$ řádu n je pozitivně definitní právě
+tehdy, pokud mají matice $A_1, ..., A_n$ kladný determinant (kde $A_i$ vznikne z
+$A$ vymazáním posledních $i$ řádků a sloupců).
+\paragraph{Důkaz}
+Rekurentně aplikujeme větu na matici $A$ v odstupňovaném tvaru.
+
+
+\section{Kvadratické a bilineární formy}
+\setcounter{equation}{0}
+\subsection{Bilineární forma}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $V$ je vektorový prostor nad $\K$ a $f: V \times V \to \K$ zobrazení splňující:
+\begin{enumerate}
+	\item $\forall u,v,w \in V \quad f(u+v, w) = f(u, w) + f(v,w)$
+	\item $\forall u,v \in V \quad \forall \alpha \in \K \quad f(\alpha u, v) =
+	\alpha f(u,v)$
+	\item $\forall u,v,w \in V \quad f(u,v+ w) = f(u, v) + f(u,w)$
+	\item $\forall u,v \in V \quad \forall \alpha \in \K \quad f(u, \alpha v) =
+	\alpha f(u,v)$
+\end{enumerate}
+Potom $f$ se nazývá \textbf{bilineární formou} na $V$.
+\paragraph{Definice}
+Pokud navíc platí:
+\begin{align*}
+	\forall u,v \in V \quad f(u,v) = f(v, u)
+\end{align*}
+je bilineární forma \textbf{symetrická}.
+
+\subsection{Kvadratická forma}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Zobrazení $g: V \to \K$ se nazývá kvadratická forma pokud existuje bilineární
+forma $f$ taková, že:
+\begin{align*}
+	\forall u \in V g(u) = f(u, u)
+\end{align*}
+\paragraph{Pozorování}
+$g(\alpha u) = f(\alpha u, \alpha u) = \alpha^2 g(u)$
+
+
+\subsection{Matice lineární a kvadratická forma}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $V$ je vektorový prostor a $X=(v_1, ..., v_n)$ je jeho báze. Potom definujeme:
+\begin{description}
+	\item[Matici lineární formy] $f$ vůči bázi $X$ jako matici $B$ kde platí $b_{i,j}
+	= f(v_i, v_j)$
+	\item[Matici kvadratické formy] jako matici symetrické bilineární formy
+	která ji vytvořuje.
+\end{description}
+
+\subsection{Analytické vyjádření}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $f$ je bilineární formou nad $\K^n$ a $B$ je její matice. Její analytické vyjádření polynomem:
+\begin{align*}
+	f((x_1, ..., x_n)^T, (y_1, ..., y_n)^T) = \sum_{i=1}^n \sum_{j=1}^n x_i y_i
+	b_{i,j}
+\end{align*}
+
+\subsection{Matice formy a matice přechodu}
+\setcounter{equation}{0}
+\paragraph{Pozorování}
+Nechť $B$ je maticí formy $f$ vůdci bázi $Y$. Potom matice $[id]_{XY}^T B [id]_{XY}$
+je maticí téže formy vůči $X$.
+\paragraph{Důkaz}
+Rozepíšeme podle definice:
+\begin{align}
+	[u]_Y = [id]_{XY} [u]_X \\
+	f(u,v) = [u]_Y^T B[v]_Y = [u]_X \underbrace{[id]_{XY}^T B [id]_{XY}}_{B_X} [w]_X
+\end{align}
+
+\subsection{Silvestrův zákon setrvačnosti kvadratických forem}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $f: V \to \R$ je kvadratická forma. Potom existuje báze $X$ prostoru $V$ taková,
+že matice $f$ vůči $X$ je diagonálí a prvky na diagonále jsou nulové ($n_0$), kladné
+($n_+$), záporné ($n_-$) a \textbf{signatura formy} je trojce $(n_0, n_+, n_-)$.
+Silvestrův zákon setrvačnosti pak říká, že signatura formy je neměnná na volbě
+báze a je pro všechny vhodné báze stejná. Taková vhodná báze se nazývá \textbf{polární}.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Dokážeme, že taková vhodná báze existuje: Mějme libovolnou bázi $Y$,
+	poté sestavíme matici $B'$ formy $f$ vůči $Y$. Víme, že $B'$ je reálná
+	symetrická matice (z definice). Podle věty o diagonalizaci symetrických
+	matic existuje regulární matice $R$ taková, že $D$ je diagonální:
+	\begin{align}
+		R^{-1} \cdot B' \cdot R = D
+	\end{align}
+	Taktéž je vidět, jak vyjádříme matici $B$: ta je vůči bázi $X$, $B'$ vůči
+	$Y$. Použijeme matici přechodu, kde B bude diagonální.
+	\begin{align}
+		B = [id]_{XY}^T B' [id]_{YX}
+	\end{align}
+	Nyní si stačí uvědomit, že sloupce $[id]_{XY}$ jsou vektory hledané báze $X$
+	vůči $Y$.
+	\item
+	Nechť $V$ a $V'$ jsou vhodné báze, kde má forma $f$ diagonální matici $D$,
+	$D'$ uspořádanou tak, že $d_{i_0,i_0} \gt 0$ pro jisté $i_0$. Pro spor
+	předpokládejme, že $d'_{i_0,i_0} \le 0$ pro to samé $i_0$ (ostatní případy
+	podobně). Nechť tedy existuje $j_0 < i_0$ pro které platí $d'_{j_0,j_0} \le
+	0$ a
+	nechť $L(\{v_1, ..., v_{i_0}\})$ a $L(\{v'_{j_0}, ..., v'_n\})$ jsou podprostory.
+	Aby byly dimenze příslušných prostorů alespoň dimenze $L(V)$, požadujeme
+	netriviální průnik. Mějme tedy $w$:
+	\begin{align}
+		0 \neq w = (w_1, ..., w_k) = \sum_{i=0}^{i_0} a_i v_i = \sum_{j=j_0}^n a'_j v'_j
+	\end{align}
+	Potom ale z předpokladů víme, že (v analytickém vyjádření; také je třeba si
+	uvědomit, že matice d je diagonální a její prvky jsou pouze kladné/záporné)
+	\begin{align}
+		f(w) = \sum_i w_i^2 d_{i,i} \gt 0\\
+		f(w) = \sum_i w_i^2 d'_{i,i} \le 0
+	\end{align}
+	Což je spor.
+\end{enumerate}
+
+
+\subsection{O přímkách svírajících úhel v $\R^n$}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Ne více než $\binom{n+1}{2}$ přímek v $\R^n$ může svírat stejný úhel.
+\paragraph{Důkaz}
+Je dáno $n$ přímek svírající stejný úhel udané vektory $v_1, ..., v_n\in \R^d$, kde
+$||v_i||= 1$. Potom určíme úhel:
+\begin{align}
+	\left|\left< v_i | v_j \right>\right| = \begin{cases}
+		1 \Leftrightarrow i = j \\
+		\cos \alpha \Leftrightarrow i \neq j
+	\end{cases}
+\end{align}
+Uvažme:
+\begin{align}
+	a_1 v_1 v_1^T + ... + a_n v_n v_n^T = 0
+\end{align}
+Pro každé $j$ vynásobím $v_j^T$ zleva, $v_j$ zprava:
+\begin{align}
+	a_1 v_j^T v_1 v_1^T v_j + ... + a_n v_j^T v_n v_n^T v_j = \\
+	= \sum_{j=1}^n a_i \left< v_j | v_i \right>^2 = a_j + \sum_{i\neq j} a_i
+	\cdot
+	\cos^2 \varphi
+\end{align}
+Což můžeme maticově zapsat jako reálnou symetricou matici vynásobenou (zprava)
+sloupcovým vektorem $(a_i)$. Taková soustava má však trivální řešení, proto
+$v_1, ..., v_n$ jsou lineárně nezávislé a tudíž $n \le \binom{d+1}{2}$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
