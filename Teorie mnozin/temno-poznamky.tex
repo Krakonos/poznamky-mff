@@ -1148,9 +1148,9 @@ a ostře rostoucí (podle předchozího lemma) a máme
 \begin{align}
 	g = f \circ h \qquad \qquad g: cf(\alpha) \to \beta
 \end{align}
-a přitom je kofinální: Je-li \gamma < \beta, určitě existuje \delta < \alpha, že
-f(\delta) \ge \gamma. Ale h je také kofinální: \exists \etha < cf(\alpha):
-h(\etha) \ge f(\delta) a f je ostře rostoucí: f(h(\etha) \ge \gamma. Potom
+a přitom je kofinální: Je-li \gamma < \beta, určitě existuje \Delta < \alpha, že
+f(\Delta) \ge \gamma. Ale h je také kofinální: \exists \etha < cf(\alpha):
+h(\etha) \ge f(\Delta) a f je ostře rostoucí: f(h(\etha) \ge \gamma. Potom
 \begin{align}
 	cf(\beta) \le cf(\alpha)
 \end{align}
@@ -1296,6 +1296,208 @@ Předpokládejme axiom výběru. Je-li $I \neq \emptyset$, pro každé $i \in I
 \paragraph{Důkaz}
 Z lemmatu a obrázkem (dopsat!)
 %TODO: DOPSAT A DOMALOVAT OBRAZEK
+
+
+
+===================================================
+TADY ZASE NECO CHYBI
+===================================================
+
+\subsection{$\Delta$-systém}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Soubor \mathcal{A} množin se nazývá $\Delta$-systém, pokud existuje množina K (jádro
+systému), takže:
+\begin{align}
+	(\forall A \in \mathcal{A}) K \subsetq A \\
+	\{ A \setminus K : A \in \mathcal{A} \} \text{ je disjunktní systém }
+\end{align}
+\subsection{Věta o $\Delta$-systému}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $\kappa > \omega$ regulérní kardinál. Je-li $< A_\alpha : a \in \kappa>$
+systém konečných množin, pak existuje $I \subsetq \kappa$:
+$|I| = K$,  tak, že  $<A_\alpha : \alpha \in I>$ tvoří $\Delta$-systém.
+\paragraph{Důkaz}
+Protože všechny množiny $A_\alpha$ jsou konečné, a $\kappa$ nespočetný regulérní ,
+tak existuje n \in \omega ... (chybí)
+Indukcí podle \mathbf{n}.
+\begin{enumerate}
+	\item n = 1: $\forall \alpha \in I_0 \quad A_\alpha = \{x_\alpha\}$.
+	\begin{align}
+		\exists x \in \bigcup_{\alpha \in I_0} A_\alpha \text{ tak, že }
+		|\{\alpha \in I_0 : x = x_\alpha \}| = \kappa \\
+		I = \{ \alpha \in I_0 : x = x_\alpha \}
+	\end{align}
+	a $\{\{x_\alpha\}: x \in I\}$ tvoří $\Delta$-systém.
+	Druhá možnost: (chybí)
+	\item Indukční krok: předpokládejme platnost pro $|A_\alpha| = n$. Dokážeme
+	\begin{align}
+		\forall \alpha \in I_0 \quad |A_\alpha| = n + 1
+	\end{align}
+	Pro každé $\alpha \in I_0$ zvolme bod $x_0 \in A_\alpha$ a zvolíme $B_\alpha
+	= A_\alpha \setminus \{x_\alpha\}$  množinu menší mohutnosti. Podle
+	předpoklu indukce víme, že existuje $I_1 \subset I_0$, $|I_1| = \kappa$, tak,
+	že $\{B_\alpha : \alpha \in I_1\}$ tvoří $\Delta$-systém s jádrem K.
+	Zbávající body $x_\alpha : \alpha \in I_1$. \\
+	Dvě možnosti:
+	\begin{enumerate}
+		\item $\exists x \quad x_\alpha = x $ pro $\kappa$ indexů z množiny I.
+		Položíme $I = \{ \alpha \in I_1: x_\alpha = x\}$, v tomto případě
+		$<A_\alpha: \alpha \in I>$ tvoří $\Delta$-systém s jádrem $K\cup\{x\}.
+		\item I \subsetq I_1: |I_1| = \kappa$, tak pro $\alpha, \beta \in I,
+		\alpha \neq \beta$ je $x_\alpha \neq \alpha, \beta$. $<A_\alpha : \alpha \in
+		I>$ je $\Delta$-systém s jádrem K.
+	\end{enumerate}
+\end{enumerate}
+\paragraph{Důsledek}
+Uvažujme $\mathcal{F}$ = všechny funkce, které mají konečný definiční obor
+$\subsetq \omega_1$ a obor hodnot $\subsetq \omega$. Kdykoliv $M \subsetq
+\mathcal{F}$, $|M| = \omega_1$, pak existuje $\varphi, \psi \subsetq M$, pak
+$\varphi \cup \psi$ je opět funkce.
+\paragraph{Důkaz}
+$\{\dom(\varphi) : \varphi \in M\}$ jsou konečné podmnožiny a je jich
+$\omega_1$, tedy obsahují nespočetný $\Delta$-systém s jádrem K. Na takovéto
+množině je však pouze spočetně mnoho funkcí (protože obor hodnot jsou přirozená
+čísla) - tedy se některé funkce na jádře K shodují a můžeme je sjednotit.
+
+
+\section{Stacionární množiny}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $\delta$ je limitní ordinál.
+\begin{enumerate}
+	\item Říkáme, že množina $A \subsetq \delta$ je neomezená (v $\delta$), pokud
+	pro každé $\alpha < \delta$ existuje $\beta \in A: \alpha < \beta$.
+	\item Říkáme, že množina $A \subsetq \delta$ je uzavřená (v $\delta$),
+	jestliže pro každé limitní $\alpha < \delta$ platí, že $\sup A \cap \alpha =
+	\alpha \impl \alpha \in A$
+	\item Říkáme, že množina $A \subsetq \delta$ je uzavřená neomezená (v
+	$\delta$) je-li $A$ uzavřená a neomezená.
+\end{enumerate}
+
+
+\paragraph{Lemma}
+Nechť $\delta$  je limitní ordinál a $cf(\delta) > \omega$. Pak je-li \tau <
+cf(\delta) a \{ C_\xi: \xi \in \tau \} soubor uzavřených neomezených množin v
+\delta, pak 
+\begin{align}
+	\bigcap \{C_\xi: \xi < \tau \}
+\end{align}
+je uzavřené neomezené v $\delta$.
+\paragraph{Důkaz}
+Pložme 
+\begin{align}
+	C = \bigcap \{C_\xi: \xi < \tau \}
+\end{align}
+\begin{enumerate}
+	\item C je uzavřená v \delta: Nechť $\alpha < \delta$ je limitní ordinál, pro
+	který platí, že $\alpha = \sup(C \cap \alpha)$. Pro každé $\xi \in \tau:
+	C_\xi \supsetq C$. Tedy $C_\xi \cap \alpha \supsetq C \cap \alpha$ a tedy
+	$\sup(C_\xi \cap \alpha) = \alpha$. $C_xi$ je uzavřená. Proto $\alpha \in
+	C_\xi$.
+	Tedy $\alpha \in \bigcap_{\xi < \tau} C_\xi = C$.
+	\item C je neomezená: Zvolme libovolné $\alpha < \delta$. Položme $\alpha_0
+	= \alpha$. Pak
+	$\forall \xi < \tau: C_\xi$ neomezená, tedy existuje nějaké $\beta_\xi \in
+	C_\xi$, že $\beta_xi < \alpha_0$ a máme množinu $\{ \beta_xi : \xi < \tau
+	\}$,
+	což má horní mez $\alpha_1$, protože $cf(\delta) >$ jejich počet. Dál indukcí
+	známe $\alpha_0 < \alpha_1 < ... < \alpha_n$. $C_\xi$ neomezená v $\delta$,
+	existuje $\beta_\xi^n \in C_\xi$, $\alpha_n < \beta_\xi^n$. Ale $\{ \beta_\xi^n :
+	\xi < \tau \}$ není kofinální v $\delta$, tedy existuje $\alpha_{n+1} >
+	\beta_\xi^n$, protože \xi < \tau. \\
+	(a tady se to nějak okecá s obrázkem)
+\end{enumerate}
+
+\subsection{Stacionární množina}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $\delta$ je ordinál a $cf(\delta) > \omega$. $S \subsetq \delta$. Říkáme, že
+množina S je \textbf{stacionární} v \delta, jestliže pro každou uzavřenou,
+neomezenou množinu C je $S \cap C \neq 0$.
+\paragraph{Příklad}
+\begin{enumerate}
+	\item Všechny uzavřené a neomezené množiny jsou stacionární.
+	\item $\{\alpha < \omega_2: cf(\alpha) = \omega\}$ je stacionární množina v
+	$\omega_2$,	která není uzavřená.
+\end{enumerate}
+
+\paragraph{Definice}
+Nechť $\kappa$ je kardinál a $<A_\alpha : \alpha \in \kappa>$ je soubor podmnožin
+kardinálu $\kappa$. Následující množina 
+\begin{align}
+	\triangle_{\alpha \in \kappa} A_\alpha = \left\{ \gamma \in \kappa: (\forall
+	\alpha \in \gamma) \gamma \in A_\alpha \right\}
+\end{align}
+se nazývá \textbf{diagonálním průnikem} množin $A_\alpha \alpha \in \kappa$.
+\paragraph{Lemma}
+\begin{align}
+	\triangle A_\alpha = \bicap \{ A_\alpha \cap (\alpha+1): \alpha < \kappa \}
+\end{align}
+\paragraph{Důkaz}
+Buď $\gamma \in \triangle A_\alpha$. Kdykoliv $\alpha < \gamma$, pak $\gamma \in
+A_\alpha \subsetq A_\alpha \cup (\alpha + 1)$. Kdykoliv $\alpha \ge \gamma$, pak
+$\gamma \in \alpha+1 \subsetq A_\alpha \cup (\alpha+1)$. Tedy $\gamma \in
+\bigcap_{\alpha \in \kappa} A_\alpha (\alpha+1)$
+Buď $\gamma \in \bigcap A_\alpha \cap (\alpha+1)$.
+\begin{enumerate}
+	\item Je-li $\gamma \le \alpha$, pak $\gamma \in \alpha + 1$
+	\item Je-li $\gamma > \alpha$, pak $\gamma \in A_\alpha$ 
+\end{enumerate}
+Tedy $\gamma \in \triangle_{\alpha \in \kappa} A_\alpha$
+\paragraph{Lemma}
+Nechť $\kappa > \omega$ je regulární kardinál. $<A_\alpha: \alpha \in\kappa>$ je
+soubor uzavřených neomezených podmnožin. Pak $\triangle_{\alpha\in\kappa} A_\alpha$ je uzavřená
+neomezená.
+\paragraph{Důkaz}
+Položme
+\begin{align}
+	C = \triangle_{\alpha \in \kappa} A_\alpha
+\end{align}
+\begin{enumerate}
+	\item C je uzavřená: Buď $\gamma \in \kappa$, $\gamma$ limitní, $\gamma = \sup(C \cap
+	\gamma)$. Potom pro všechny $\alpha \in \kappa$ máme $\gamma = \sup((A_\alpha \cup
+	(\alpha+1)) \cap \gamma)$. $A_\alpha$ uzavřená a neomezená v $\kappa$. $A_\alpha
+	\cup (\alpha+1)$ je uzavřená a neomezená také. Tedy $\gamma \in A_\alpha \cup
+	(\alpha+1)$ pro všechna $\alpha \in \kappa$. Tedy $\gamma \in C$ a C je uzavřená.
+	\item C je neomezená: Buď $\xi_0 < \kappa$ libovolný ordinál.
+	\begin{align}
+		\bigcap_{\alpha \le \xi_0} A_\alpha \text{ je uzavřená neomezená
+		podmnožina} \kappa \text{ podle minulého lemma }
+	\end{align}
+	Tedy existuje $\xi_1 > \xi_0, \xi_1 \in \bigcap_{\alpha\le\xi_0} A_\alpha$.
+	Dál indukcí: známe $\xi_0 < \xi_1 < ... <\xi_n$. \\
+	$\xi_n < \kappa$ - podíváme na $\bigcap_{\alpha \le \xi_m}
+	A_\alpha$, tedy máme $\xi = \sup \{\xi_n : n \in \omega\} \in \kappa$.
+	Buď $\alpha < \xi$ libovolný ordinál. Pak určitě existuje nějaké $n \in
+	\omega$, kde $\alpha < \xi_n$. Z definice $\xi_{n+1}, \xi_{n+2}, ...$
+	dostáváme, že $\xi_{n+1}, \xi_{n+2}, ...  \in A_\alpha$. $A_\alpha$ je uzavřená.
+	Tedy $\{ \xi_i: n+1 \le i < \omega \} \subsetq A_\alpha$. $\xi \in A_\alpha$ pro
+	všechna $\alpha < \xi$. Tedy $\xi \in \triangle_{\alpha\in\kappa} A_\alpha$.
+\end{enumerate}
+
+
+\paragraph{Definice}
+Buď $A$ je množina ordinálních čísel a funkce $f: A \to Or$ se nazývá regresivní
+na množině $A$, jestliže 
+\begin{align}
+	(\forall \alpha \in A) (\alpha > 0 \impl f(\alpha) < \alpha)
+\end{align}
+
+\subsection{Fodorova věta (Pressing-down lemma)}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $\kappa > \omega$ je regulární kardinál. Nechť $E \subsetq \kappa$. Pak
+následující podmínky jsou ekvivalentní:
+\begin{enumerate}
+	\item $E$ je stacionární
+	\item Je-li $f: E \to \kappa$ regresivní, pak existuje $\alpha < \kappa$, že
+	$f^{-1}$ neomezená v $\kappa$.
+	\item Je-li $f: E \to \kappa$ regresivní, pak existuje $\alpha < \kappa$
+	tak, že $f^{-1} (\{\alpha\})$ je stacionární v $\kappa$.
+\end{enumerate}
+
 
 
 
