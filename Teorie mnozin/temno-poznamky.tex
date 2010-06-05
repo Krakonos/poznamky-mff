@@ -299,7 +299,7 @@ Je-li $m \subsetq a$, $x \in a$, řekneme, že $x$ je \textbf{minimální} prvek
 množiny $m$,
 jestliže platí
 \begin{align}
-	x \in m \land (\forall y) ( y \in m \Rightarrow \not (y r x))
+	x \in m \land (\forall y) ( y \in m \Rightarrow \neg (y r x))
 \end{align}
 \paragraph{Definice}
 Řekneme, že uspořádání $r$ na množině a je \textbf{dobré} (množina $<a,r>$ je dobře
@@ -842,6 +842,7 @@ Nebo:
 	t \in b_\omega \subsetq b_0 = f''a
 \end{align}
 Existuje takové $x$, že $f(x) = t$. Pro toto $x$ je $x \in a_\omega$. $h(x) = t$.
+\end{enumerate}
 \paragraph{Definice}
 Nechť $A$ je množina. Pokud na $A$ existuje dobré uspořádání, pak položme $|A| =$
 nejmenší ordinál $\alpha$, pro který $A \approx \alpha$.
@@ -935,7 +936,7 @@ Buď $a$ je množina, $\le$ uspořádání na množině $a$. Množina $c \subset
 Buď $(a, \le)$ uspořádaná množina, $b \subsetq a$. Prvek $x \in a$ se nazývá horní
 mezí množiny $b$, jestliže 
 \begin{align}
-	(\foall y \in b) y \le x
+	(\forall y \in b) y \le x
 \end{align}
 a maximálním prvkem množiny b, jestliže
 \begin{align}
@@ -955,15 +956,15 @@ Pak:
 \paragraph{Důsledek}
 Nechť platí princip maximality. Jsou-li M a N libovolné množiny, pak buď $M
 \precsim N$
-nebo $N \subsim M$
+%nebo $N \subsim M$
 \paragraph{Důkaz důsledku}
 Uvážíme $a = \{ f: f$ je prosté zobrazení$, \dom f \subsetq M, \rng f \subsetq N
 \}$. Uspořádáme $(a, \subsetq)$. Je-li $c \subsetq a$ řetězec, potom $\bigcup c$
 je opět prostá funkce, přičemž je to horní mez řetězce $c$. Tedy existuje
 maximální prvek $g$ množiny $(a,\subsetq)$. Platí buď $\dom(g) = M$ nebo $\rng(g) =
-N$ (protože pokud existuje x \in M \setminus \dom(g) a současně y \in N \setminus
-\rng(g), potom g \cup <x,y> je prostá funkce a obsahuje g, což je spor s
-maximalitou). Je-li $\dom(g) = M$, pak $M \precsim N$, neboť g je prosté
+N$ (protože pokud existuje $x \in M \setminus \dom(g)$ a současně $y \in N \setminus
+\rng(g)$, potom $g \cup <x,y>$ je prostá funkce a obsahuje $g$, což je spor s
+maximalitou). Je-li $\dom(g) = M$, pak $M \precsim N$, neboť $g$ je prosté
 zobrazení $M \to N$. Pokud $\rng(g) = N$, potom $N \precsim M$, $g^{-1}: N \to
 M$ je prosté.
 
@@ -988,15 +989,15 @@ Následující výroky jsou ekvivalentní:
 	\setminus \{0\}$ existuje selektor výběru $f$. Trans. indukcí definujeme
 	zobrazení $g: Or \to a$ následujícím způsobem:
 	g(0) = f(a). Je-li $\alpha \in Or$ a $(\forall \beta < \alpha) g(\beta)$ je
-	definováno, definujeme \xi = a \setminus \{g(\beta) : \beta < \alpha }. Pokud je tato množina
-	neprázdná, definujeme g(\alpha) = f (\xi) a indukce končí. Pokud je prázdná,
-	pak $g: \alpha \to a$ je prosté zobrazení na a tedy definuje dobré uspořádání
-	a. Zbývá ukázat, že indukce skončí: pokud by se nezastavila, získáme prosté
-	zobrazení $g: Or \to a$, $\rng(g)$ jemnožina (protože a je množina). Ordinály
-	jsou vlastní třída - spor.
-	\item ($3. \impl 2.$) Máme (a, \le), každý řetězec v a má horní mez a $x \in
-	a$. Podle 3. existuje dobré uspořádání a. Nechť c \subset a je řetězec.
-	Budeme říkat, že c splňuje (*), jestliže:
+	definováno, definujeme $\xi = a \setminus \{g(\beta) : \beta < \alpha \}$.
+	Pokud je tato množina neprázdná, definujeme $g(\alpha) = f (\xi)$ a indukce
+	končí. Pokud je prázdná, pak $g: \alpha \to a$ je prosté zobrazení na a
+	tedy definuje dobré uspořádání a. Zbývá ukázat, že indukce skončí: pokud by
+	se nezastavila, získáme prosté zobrazení $g: Or \to a$, $\rng(g)$ jemnožina
+	(protože a je množina). Ordinály jsou vlastní třída - spor.
+	\item ($3. \impl 2.$) Máme $(a, \le)$, každý řetězec v a má horní mez a $x \in
+	a$. Podle 3. existuje dobré uspořádání a. Nechť $c \subset a$ je řetězec.
+	Budeme říkat, že $c$ splňuje (*), jestliže:
 	\begin{align}
 		x \in c \land (\forall t \in c) t \ge x \\
 		\land (\forall y) (y \in c \land x < y), \text{ pak } y \\
@@ -1004,55 +1005,55 @@ Následující výroky jsou ekvivalentní:
 		\}
 	\end{align}
 	Víme, že existuje alespoň jeden řetězec splňující (*), totiž řetězec
-	$\{x\}$. Položme b = \bigcup \{ c : c \subsetq a je řetězec splňující (*)
+	$\{x\}$. Položme $b = \bigcup \{ c : c \subsetq$ a je řetězec splňující (*)
 	\}. \textbf{$b$ je řetězec}: pro spor předpokládejme, že existují $z,t \in c$ takové,
-	že nejsou porovnatelné. Tedy existuje $y_0 \in b$ je \prec-nejmenší prvek 
+	že nejsou porovnatelné. Tedy existuje $y_0 \in b$ je $\prec$-nejmenší prvek 
 	splňující $(\exists w \in b) y_0 a w$ jsou
-	\le-neporovnatelné. Existuje tedy $y_1 \in b$, že $y_1$ je $\prec-n$ejmenší prvek řetězce
+	$\le$-neporovnatelné. Existuje tedy $y_1 \in b$, že $y_1$ je $\prec-n$ejmenší prvek řetězce
 	b, že $y_0$ a $y_1$ jsou $\le$-neporovnatelné. Protože $y_0$ a $y_1 \in b$
 	existují řetězce $c_0$ a $c_1$, splňující (*), že $y_0 \in c_0$ a $y_1 \in
 	c_1$. Nechť $z \in c_1$, $z < y_1$. Pokud x < z, pak $z \prec y_1: c_1$
-	splňuje (*), z je \prec-nejmenší horní mez množiny \{t: t je horní mezí {v
-	\in c: x \le v \le z \}\}. Tvrdím, že $z < y_0$: z = y_0 není možné, oba jsou
-	v řetězci $c_1$ a tedy porovnatelné, ale y_0 a y_1 nejsou. Pokud by $z >
-	y_0$, pak y_0 < z < y, ale y_0 a y_1 jsou \le-neporovnatelné. Pokud z, y_0
-	jsou \le-neporovnatelné: z \prec y_1 (víme - z i y_1 jsou horními mezemi \{t
-	\in c_1: x \le t \le z \}), tedy ale z a y_0 musí být porovnatelné - spor.
+	splňuje (*), z je $\prec$-nejmenší horní mez množiny \{t: t je horní mezí $\{v
+	\in c: x \le v \le z \}$\}. Tvrdím, že $z < y_0$: z = $y_0$ není možné, oba jsou
+	v řetězci $c_1$ a tedy porovnatelné, ale $y_0$ a $y_1$ nejsou. Pokud by $z >
+	y_0$, pak $y_0 < z < y$, ale $y_0$ a $y_1$ jsou $\le$-neporovnatelné. Pokud z, $y_0$
+	jsou $\le$-neporovnatelné: $z \prec y_1$ (víme - z i $y_1$ jsou horními mezemi $\{t
+	\in c_1: x \le t \le z \}$), tedy ale z a $y_0$ musí být porovnatelné - spor.
 	Dostáváme: $\{ t: x \le t < y \} = \{ t: x \le t < y_0 \}$. Protože $y_0
-	\prec y_1$, c_1 nesplňuje (*), což je spor. Tedy $b$ je řetězec. \\
+	\prec y_1$, $c_1$ nesplňuje (*), což je spor. Tedy $b$ je řetězec. \\
 	Podle předpokladu principu maximality existuje $m$ horní mez $b$. Musí
-	platit, že $m \in b$. Kdyby to neplatilo: vezmeme celé b a $M = \{ t: t je ostrá
-	horní mez b \}$, která je neprázdná (obsahuje alespoň m). Taková množina má
-	nejmenší prvek $z \in M$. b \cup \{z\} je opět řetězec splňující (*) a b
-	\cup \{z\} \subsetq b = \bigcup \{ c: c je řetězec splňující (*) \}, což je
-	spor (z \nin b). Tedy m je největší prvek b a kdykoliv $y \in a$ tak buď $y
+	platit, že $m \in b$. Kdyby to neplatilo: vezmeme celé b a $M = \{ t: t \text{je ostrá
+	horní mez} b \}$, která je neprázdná (obsahuje alespoň $m$). Taková množina má
+	nejmenší prvek $z \in M$. $b \cup \{z\}$ je opět řetězec splňující (*) a $b
+	\cup \{z\} \subsetq b = \bigcup \{ c$: $c$ je řetězec splňující (*) \}, což je
+	spor ($z \nin b$). Tedy m je největší prvek b a kdykoliv $y \in a$ tak buď $y
 	\le m$ nebo jsou neporovnatelné.
-	\item ($2. \impl 1.$) Nechť m je množina, na které hledáme selektor. Nechť a
-	je množina \{ f: \dom(f) \to \cup m: \dom(f) \subsetq m, kdykoliv x \in
-	\dom(f), x \neq 0, pak f(x) \in x \}. Uspořádáme (a, \subsetq). Je-li c \subsetq a
-	řetězec. \bigcup c je funkce, \forall f \in c, f \subsetq \bigcup c. (a,
-	\subsetq) splňuje předpoklady principu maximality a podle 2. existuje v a
-	maximální prvek g. Tvrdím, že g je hledaný selektor: kdyby existovalo $x \in
-	m$, x \nin \dom(g), x \neq 0, zvolme: t \in x, g \cup <x,t> \neq g - spor s
+	\item ($2. \impl 1.$) Nechť $m$ je množina, na které hledáme selektor. Nechť a
+	je množina $\{ f: \dom(f) \to \cup m: \dom(f) \subsetq m, kdykoliv x \in
+	\dom(f), x \neq 0, pak f(x) \in x \}$. Uspořádáme $(a, \subsetq)$. Je-li $c \subsetq a$
+	řetězec. $\bigcup c$ je funkce, $\forall f \in c$, $f \subsetq \bigcup c$. $(a,
+	\subsetq)$ splňuje předpoklady principu maximality a podle 2. existuje v a
+	maximální prvek g. Tvrdím, že $g$ je hledaný selektor: kdyby existovalo $x \in
+	m$, $x \nin \dom(g)$, $x \neq 0$, zvolme: $t \in x$, $g \cup <x,t> \neq g$ - spor s
 	maximalitou.
 \end{enumerate}
 \paragraph{Důsledky}
 \begin{enumerate}
-	\item (AC) \impl pro každou množinu a, |a| existuje. (plyne ihned z principu
+	\item (AC) $\impl$ pro každou množinu $a$, |a| existuje. (plyne ihned z principu
 	dobrého uspořádání)
 	\item Pro každou nekonečnou množinu a, $A \approx A \times A \approx A \times
 	\{ 0, 1 \}$. 
 	\item Každou nekonečnou množinu lze rozdělit na nekonečně mnoho nekonečných
-	částí. Podle axiomu výběru víme, že $|A| = \kapp \ge \omega$ a $\kappa
+	částí. Podle axiomu výběru víme, že $|A| = \kappa \ge \omega$ a $\kappa
 	\approx \kappa \times \kappa$.
 	\item Je-li $\kappa \ge \omega$ a pro každé $\alpha \in \kappa$ je
 	$X_\alpha$	množina, $|X_\alpha|\le \kappa$, pak
 	\begin{align}
-		\left|\bigcup_{\alpha\in\kapp} X_\alpha \right| \le \kappa
+		\left|\bigcup_{\alpha\in\kappa} X_\alpha \right| \le \kappa
 	\end{align}
 	\item Jsou-li $X$, $Y$ množiny a existuje $f: X \to Y$ surjektivní
-	zobrazení, pak $|Y| \le |X|$. Dk: kartézský součin $X \times Y \supsetq {
-	<y,x> : y = f(x) } = r$. Je-li $g \subsetq r$ funkce, pak $\dom(g) = Y$, $g: Y
+	zobrazení, pak $|Y| \le |X|$. Dk: kartézský součin $X \times Y \subsetq \{
+	<y,x> : y = f(x) \} = r$. Je-li $g \subsetq r$ funkce, pak $\dom(g) = Y$, $g: Y
 	\to X$ prostě, protože $f$ je funkce.
 \end{enumerate}
 
@@ -1060,24 +1061,24 @@ Následující výroky jsou ekvivalentní:
 \subsection{}
 \setcounter{equation}{0}
 \paragraph{Definice}
-Buďte A a B množiny. ^A B = \{f: f je funkce, f: A \to B \}
+Buďte A a B množiny. $^A B = \{f: f \text{je funkce}, f: A \to B \}$
 \paragraph{Lemma}
 Jsou-li B, C disjunktní množiny a A množina, pak:
 \begin{align}
-	^{(B \cup C)} A \approx ^B A \time ^C A
-	^C ( ^B A ) \approx ^{C\times B} A
+	{}^{(B \cup C)} A \approx {}^B A \times {}^C A
+	{}^C ( {}^B A ) \approx {}^{C\times B} A
 \end{align}
 \paragraph{Důkaz}
-Máme-li $f: B \cup C \to A$. Definujme F(f) = < f \upharpoonleft B, f
-\upharpoonleft C > \\
-F je prosté zobrazení. G: ^B A \time ^C A \to ^{B\cupC} A \\
+Máme-li $f: B \cup C \to A$. Definujme $F(f) = < f \upharpoonleft B$, $f
+\upharpoonleft C >$ \\
+$F$ je prosté zobrazení. $G: {}^BA \times {}^CA \to {}^{B\cup C}A \\
 G(<f_1, f_2>) = f_1 \cup f_2 \\
-G = F^{-1}
+G = F^{-1}$
 
-Je-li f \in ^C(^B A), f je funkce, f : C \to ^B A. Tedy pro každé t \in c je
-f(t) funkce z B \to A, pro každé t \in C, v \in B f(t)(v) \in A. Položme F:
-^C(^B A) \to ^{C \times B} A pro funkce F(f) = g, kde g \in ^{C \times B} A a je
-definována předpisem g(<t, v>) = f(t)(v). F je bijekce.
+Je-li $f \in ^C(^B A)$, $f$ je funkce, $f : C \to ^B A$. Tedy pro každé $t \in c$ je
+$f(t)$ funkce z $B \to A$, pro každé $t \in C$, $v \in B f(t)(v) \in A$. Položme $F:
+^C(^B A) \to ^{C \times B} A$ pro funkce $F(f) = g$, kde $g \in ^{C \times B} A$ a je
+definována předpisem $g(<t, v>) = f(t)(v)$. $F$ je bijekce.
 
 
 
@@ -1085,11 +1086,11 @@ definována předpisem g(<t, v>) = f(t)(v). F je bijekce.
 \subsection{}
 \setcounter{equation}{0}
 \paragraph{Definice}
-Jsou-li \kappa a \lambda kardinály, potom \kappa^\lambda = \left| ^\lambda
-\kappa \right|.
+Jsou-li $\kappa$ a $\lambda$ kardinály, potom $\kappa^\lambda = \left| ^\lambda
+\kappa \right|$.
 
 \paragraph{Lemma}
-Jsou-li \kappa a \lambda kardinály, $\kappa \ge 2$ a $\lambda \ge \omega$,
+Jsou-li $\kappa$ a $\lambda$ kardinály, $\kappa \ge 2$ a $\lambda \ge \omega$,
 $\kappa \le \lambda$ pak
 $2^\lambda = \kappa^\lambda = |\mathcal{P}(\lambda)|$
 \paragraph{Důkaz}
@@ -1107,10 +1108,10 @@ Zřejmě $\Phi$ je bijekce:
 \end{align}
 
 \paragraph{Lemma}
-Jsou-li \kappa, \lambda kardinály, pak 
+Jsou-li $\kappa$, $\lambda$ kardinály, pak 
 \begin{align}
-	\kappa^{\lambda \circplus \mi} = \kappa^\lambda \circtimes \kappa^\mi \\
-	(\kappa^\lambda)^\mi = \kappa^{\lambda \times \mi} 
+	\kappa^{\lambda \oplus \mu} = \kappa^\lambda \otimes \kappa^\mu \\
+	(\kappa^\lambda)^\mu = \kappa^{\lambda \times \mu} 
 \end{align}
 (bez dukazu)
 
@@ -1131,8 +1132,8 @@ $cf(\beta) = 1$. (kofinální zobrazení $f: 1 \to \alpha + 1$ je definované $f
 \alpha$
 
 \paragraph{Lemma}
-Pokud je $\beta$ limitní, pak existuje konfinální zobrazení f: cf(\beta) \to
-\beta, které je ostře rostoucí.
+Pokud je $\beta$ limitní, pak existuje konfinální zobrazení $f: cf(\beta) \to
+\beta$, které je ostře rostoucí.
 \paragraph{Důkaz}
 Buď $g$ je kofinální zobrazení z $cf(\beta) \to \beta$. Definujme indukcí $f(0) =
 g(0)$ a je-li $\alpha < \beta$ a z náme $f(\gamma) \forall \gamma < \alpha$,
@@ -1143,21 +1144,21 @@ položme $f(\alpha) = \sup\{g(\gamma) : \gamma \le \alpha \} \cup \{ f(\gamma:
 Je-li $\alpha$ limitní ordinál a $f : \alpha \to \beta$ ostře rostoucí kofinální
 zobrazení, potom $cf(\alpha) = cf(\beta)$.
 \paragraph{Důkaz}
-f: \alpha \to \beta je ostře rostoucí. h: cf(\alpha) \to \alpha zvolme kofinální
+$f: \alpha \to \beta$ je ostře rostoucí. $h: cf(\alpha) \to \alpha$ zvolme kofinální
 a ostře rostoucí (podle předchozího lemma) a máme
 \begin{align}
 	g = f \circ h \qquad \qquad g: cf(\alpha) \to \beta
 \end{align}
-a přitom je kofinální: Je-li \gamma < \beta, určitě existuje \Delta < \alpha, že
-f(\Delta) \ge \gamma. Ale h je také kofinální: \exists \etha < cf(\alpha):
-h(\etha) \ge f(\Delta) a f je ostře rostoucí: f(h(\etha) \ge \gamma. Potom
+a přitom je kofinální: Je-li $\gamma < \beta$, určitě existuje $\Delta < \alpha$, že
+$f(\Delta) \ge \gamma$. Ale $h$ je také kofinální: $\exists \eta < cf(\alpha)$:
+$h(\eta) \ge f(\Delta)$ a $f$ je ostře rostoucí: $f(h(\eta) \ge \gamma$. Potom
 \begin{align}
 	cf(\beta) \le cf(\alpha)
 \end{align}
 Nechť $g: cf(\beta) \to \beta$ je kofinální a ostře rostoucí zobrazení.
-Definujme $h: cf(\beta) \to \alpha$ předpisem h(\xi) = minimální \gamma \in
-\alpha takové, že f(\gamma) > g(\gamma). Všimněme si, že $f: cf(\beta) \to
-\gamma$ a protože f je ostře rostoucí, pak h je kofinální zobrazení. Tedy 
+Definujme $h: cf(\beta) \to \alpha$ předpisem $h(\xi) =$ minimální $\gamma \in
+\alpha$ takové, že $f(\gamma) > g(\gamma)$. Všimněme si, že $f: cf(\beta) \to
+\gamma$ a protože $f$ je ostře rostoucí, pak $h$ je kofinální zobrazení. Tedy 
 \begin{align}
 	cf(\alpha) \le cf(\beta)
 \end{align}
@@ -1171,7 +1172,7 @@ Ordinál $\beta$ je regulární pokud $\beta$ je limitní ordinál a $\beta =
 cf(\beta)$.
 \paragraph{Lemma}
 Je-li ordinál $\beta$ regulární, pak $\beta$ je kardinál.
-\paragraph{Důkaz} Sporem: Nechť \beta není kardinál. Tedy $|\beta| < \beta$.
+\paragraph{Důkaz} Sporem: Nechť $\beta$ není kardinál. Tedy $|\beta| < \beta$.
 Avšak máme bijekci $b: |\beta| \to \beta$, což je kofinální zobrazení (z
 regularity). Tedy $cf(\beta) \le |\beta| < \beta$, což je ve sporu s regularitou
 $\beta$.
@@ -1189,7 +1190,7 @@ Kdykoliv $\xi < \alpha$, pak $f(\xi) < \kappa^+$, tedy $|f(\xi)| \le \kappa$.
 Tedy:
 \begin{align}
 	\kappa^+ = \bigcup \left\{f(\xi) : \xi < \alpha \right\} \\
-	|\cup \{f(\xi: \xi < \alpha \}| < \kappa \circplus\kappa = \kappa
+	|\cup \{f(\xi: \xi < \alpha \}| < \kappa \oplus\kappa = \kappa
 \end{align}
 což je spor.
 \paragraph{Lemma}
@@ -1205,20 +1206,20 @@ Předpokládejme axiom výberu. Je-li $\kappa$ nekonečný kardinál a $cf(\kapp
 \paragraph{Důkaz}
 Stačí dokázat pro $\lambda = cf(\kappa)$. 
 Nechť $g : \kappa \to ^\lambda \kappa$. Máme ukázat, že $g$ není surjektivní.
-Zvolme kofinální zobrazení $f: \lambda \to \kappa$. Definujme h: \lambda \to
-\kappa takto: 
+Zvolme kofinální zobrazení $f: \lambda \to \kappa$. Definujme h: $\lambda \to
+\kappa$ takto: 
 \begin{align}
 	h(0) = 0 \\
 	\text{ pro } \alpha < \lambda h(\alpha) = \min \left( \kappa \setminus
-	\{g(\mi)(\alpha) : \mi < f(\alpha) \} \right)
+	\{g(\mu)(\alpha) : \mu < f(\alpha) \} \right)
 \end{align}
-Pro takto definovou funkci $h$, $h \nin \rng(g)$. Kdyby h = g(\mi) pro nějaké
-$\mi <\kappa$, pak existuje nějaké $\alpha <\lambda$, takže $f(\alpha) >\mi$.
-Tedy funkce $h(\alpha) \nin \{g(\mi)(\alpha) : \mi < f(\alpha)\}$.
+Pro takto definovou funkci $h$, $h \nin \rng(g)$. Kdyby $h = g(\mu)$ pro nějaké
+$\mu <\kappa$, pak existuje nějaké $\alpha <\lambda$, takže $f(\alpha) >\mu$.
+Tedy funkce $h(\alpha) \nin \{g(\mu)(\alpha) : \mu < f(\alpha)\}$.
 \paragraph{Důsledek}
-Předpokládáme axiom výběru. Je-li \lambda \ge \omega, pak $cf(2^\lambda) >
+Předpokládáme axiom výběru. Je-li $\lambda \ge \omega$, pak $cf(2^\lambda) >
 \lambda$. Položme $\kappa = 2^\lambda$. Máme $\kappa^\lambda = (2^\lambda)^\lambda
-= 2^{\lambda \circtimes\lambda} = 2^ = \kappa$. Kdyby $cf(\kappa) \le \lambda$,
+= 2^{\lambda \otimes\lambda} = 2^ = \kappa$. Kdyby $cf(\kappa) \le \lambda$,
 podle Königova lemmatu by platilo, že $\kappa^\lambda > \kappa$.
 \paragraph{Definice}
 Zobecněná hypotéza kontinua (GCH) je tvrzení, že 
@@ -1228,7 +1229,7 @@ Zobecněná hypotéza kontinua (GCH) je tvrzení, že
 Ekvivalentně pro každý nekonečný kardinál $\kappa$, $2^\kappa = \kappa^+$. \\
 Hypotéza kontinua (CH) je tvrzení, že $2^\omega = \omega_1$.
 \paragraph{Lemma}
-Předpokládejme zobecněnou hypotézu kontinua. Nechť \kappa, \lambda \ge 2 jsou
+Předpokládejme zobecněnou hypotézu kontinua. Nechť $\kappa, \lambda \ge 2$ jsou
 kardinály a alespoň jeden z nich je nekonečný. Pak platí:
 \begin{enumerate}
 	\item $\kappa \le \lambda \impl \kappa^\lambda = \lambda^+ $
@@ -1250,32 +1251,32 @@ $\kappa \le \lambda$ pak $2^\lambda \approx \kappa^\lambda \approx
 	\item $\lambda < cf(\kappa)$: \\
 	$^\lambda \kappa = \cup \{\ ^\lambda \alpha: \lambda < \kappa \}$ protože
 	pro každou $f: \lambda \to \kappa$ existuje $\alpha < \kappa$ že $\rng(f)
-	\subsetq \alpha$. f nemůže být kofinální zobrazení. Kdykoliv \alpha <
-	\kappa, pak
+	\subsetq \alpha$. f nemůže být kofinální zobrazení. Kdykoliv $\alpha <
+	\kappa$, pak
 	\begin{align}
 		| ^\lambda\alpha| \le | \max\{alpha, \lambda\}, \max\{\alpha, \lambda\}
 		| \le^{GCH} \max\{\alpha, \lambda\}^+ \le \kappa
 	\end{align}
-	Tedy $\kappa \le | ^\lambda\kappa| \le \kappa \circtimes \kappa = \kappa$.
+	Tedy $\kappa \le | ^\lambda\kappa| \le \kappa \otimes \kappa = \kappa$.
 \end{enumerate}
 \paragraph{Věta (Hausdorffova formule)}
-Předpokládáme axiom výběru. Jsou-li \kappa, \lambda nekonečné kardinály, potom
-$(\kappa^+)^\lambda = \kappa^+ \circtimes \kappa^\lambda$.
+Předpokládáme axiom výběru. Jsou-li $\kappa, \lambda$ nekonečné kardinály, potom
+$(\kappa^+)^\lambda = \kappa^+ \otimes \kappa^\lambda$.
 \paragraph{Důkaz}
-Zřejmě $\kappa^+ \ctimes \kappa^\lambda \le (\kappa^+)^\lambda \ctimes
-\kappa^\lambda \le (\kappa^+)^\lambda \ctimes (\kappa^+)^\lambda =
+Zřejmě $\kappa^+ \otimes \kappa^\lambda \le (\kappa^+)^\lambda \otimes
+\kappa^\lambda \le (\kappa^+)^\lambda \otimes (\kappa^+)^\lambda =
 (\kappa^+)^\lambda$. Zbývá dokázat nerovnost $(\kappa^+)^\lambda \le \kappa^+
-\ctimes \kappa^\lambda$.
+\otimes \kappa^\lambda$.
 \begin{enumerate}
 	\item  $\lambda \ge \kappa^+: (\kappa^+)^\lambda \le \kappa^\lambda =
-	2^\lambda = \kappa^\lambda = \kappa^\lambda \ctimes \kappa^=$
+	2^\lambda = \kappa^\lambda = \kappa^\lambda \otimes \kappa^=$
 	\item $\lambda < \kappa^+: $ protože $\kappa^+$ je regulární kardinál, potom
 	pro každou $f: \lambda \to \kappa^+$ existuje nějaké $\alpha < \kappa^+$, že
 	$\rng(f) \subsetq \alpha$. Tedy 
 	\begin{align}
 		(\kappa^+)^\lambda = | ^\lambda \kappa^+| = | \cup \{ ^\lambda \alpha :
 		\alpha < \kappa^+ \} | \\
-		\le \kappa^+ \ctimes | ^\lambda \kappa| = \kappa^+ \ctimes
+		\le \kappa^+ \otimes | ^\lambda \kappa| = \kappa^+ \otimes
 		\kappa^\lambda
 	\end{align}
 \end{enumerate}
@@ -1306,7 +1307,7 @@ TADY ZASE NECO CHYBI
 \subsection{$\Delta$-systém}
 \setcounter{equation}{0}
 \paragraph{Definice}
-Soubor \mathcal{A} množin se nazývá $\Delta$-systém, pokud existuje množina K (jádro
+Soubor $\mathcal{A}$ množin se nazývá $\Delta$-systém, pokud existuje množina K (jádro
 systému), takže:
 \begin{align}
 	(\forall A \in \mathcal{A}) K \subsetq A \\
@@ -1320,8 +1321,8 @@ systém konečných množin, pak existuje $I \subsetq \kappa$:
 $|I| = K$,  tak, že  $<A_\alpha : \alpha \in I>$ tvoří $\Delta$-systém.
 \paragraph{Důkaz}
 Protože všechny množiny $A_\alpha$ jsou konečné, a $\kappa$ nespočetný regulérní ,
-tak existuje n \in \omega ... (chybí)
-Indukcí podle \mathbf{n}.
+tak existuje $n \in \omega$ ... (chybí)
+Indukcí podle $\mathbf{n}$.
 \begin{enumerate}
 	\item n = 1: $\forall \alpha \in I_0 \quad A_\alpha = \{x_\alpha\}$.
 	\begin{align}
@@ -1344,8 +1345,8 @@ Indukcí podle \mathbf{n}.
 	\begin{enumerate}
 		\item $\exists x \quad x_\alpha = x $ pro $\kappa$ indexů z množiny I.
 		Položíme $I = \{ \alpha \in I_1: x_\alpha = x\}$, v tomto případě
-		$<A_\alpha: \alpha \in I>$ tvoří $\Delta$-systém s jádrem $K\cup\{x\}.
-		\item I \subsetq I_1: |I_1| = \kappa$, tak pro $\alpha, \beta \in I,
+		$<A_\alpha: \alpha \in I>$ tvoří $\Delta$-systém s jádrem $K\cup\{x\}$.
+		\item $I \subsetq I_1: |I_1| = \kappa$, tak pro $\alpha, \beta \in I,
 		\alpha \neq \beta$ je $x_\alpha \neq \alpha, \beta$. $<A_\alpha : \alpha \in
 		I>$ je $\Delta$-systém s jádrem K.
 	\end{enumerate}
@@ -1378,9 +1379,9 @@ Nechť $\delta$ je limitní ordinál.
 
 
 \paragraph{Lemma}
-Nechť $\delta$  je limitní ordinál a $cf(\delta) > \omega$. Pak je-li \tau <
-cf(\delta) a \{ C_\xi: \xi \in \tau \} soubor uzavřených neomezených množin v
-\delta, pak 
+Nechť $\delta$  je limitní ordinál a $cf(\delta) > \omega$. Pak je-li $\tau <
+cf(\delta)$ a $\{ C_\xi: \xi \in \tau \}$ soubor uzavřených neomezených množin v
+$\delta$, pak 
 \begin{align}
 	\bigcap \{C_\xi: \xi < \tau \}
 \end{align}
@@ -1391,7 +1392,7 @@ Pložme
 	C = \bigcap \{C_\xi: \xi < \tau \}
 \end{align}
 \begin{enumerate}
-	\item C je uzavřená v \delta: Nechť $\alpha < \delta$ je limitní ordinál, pro
+	\item $C$ je uzavřená v $\delta$: Nechť $\alpha < \delta$ je limitní ordinál, pro
 	který platí, že $\alpha = \sup(C \cap \alpha)$. Pro každé $\xi \in \tau:
 	C_\xi \supsetq C$. Tedy $C_\xi \cap \alpha \supsetq C \cap \alpha$ a tedy
 	$\sup(C_\xi \cap \alpha) = \alpha$. $C_xi$ je uzavřená. Proto $\alpha \in
@@ -1406,7 +1407,7 @@ Pložme
 	známe $\alpha_0 < \alpha_1 < ... < \alpha_n$. $C_\xi$ neomezená v $\delta$,
 	existuje $\beta_\xi^n \in C_\xi$, $\alpha_n < \beta_\xi^n$. Ale $\{ \beta_\xi^n :
 	\xi < \tau \}$ není kofinální v $\delta$, tedy existuje $\alpha_{n+1} >
-	\beta_\xi^n$, protože \xi < \tau. \\
+	\beta_\xi^n$, protože $\xi < \tau$. \\
 	(a tady se to nějak okecá s obrázkem)
 \end{enumerate}
 
@@ -1414,8 +1415,8 @@ Pložme
 \setcounter{equation}{0}
 \paragraph{Definice}
 Nechť $\delta$ je ordinál a $cf(\delta) > \omega$. $S \subsetq \delta$. Říkáme, že
-množina S je \textbf{stacionární} v \delta, jestliže pro každou uzavřenou,
-neomezenou množinu C je $S \cap C \neq 0$.
+množina $S$ je \textbf{stacionární} v $\delta$, jestliže pro každou uzavřenou,
+neomezenou množinu $C$ je $S \cap C \neq 0$.
 \paragraph{Příklad}
 \begin{enumerate}
 	\item Všechny uzavřené a neomezené množiny jsou stacionární.
@@ -1433,7 +1434,7 @@ kardinálu $\kappa$. Následující množina
 se nazývá \textbf{diagonálním průnikem} množin $A_\alpha \alpha \in \kappa$.
 \paragraph{Lemma}
 \begin{align}
-	\triangle A_\alpha = \bicap \{ A_\alpha \cap (\alpha+1): \alpha < \kappa \}
+	\triangle A_\alpha = \bigcap \{ A_\alpha \cap (\alpha+1): \alpha < \kappa \}
 \end{align}
 \paragraph{Důkaz}
 Buď $\gamma \in \triangle A_\alpha$. Kdykoliv $\alpha < \gamma$, pak $\gamma \in
