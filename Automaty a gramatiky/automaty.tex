@@ -1,0 +1,472 @@
+\documentclass[a4paper,12pt,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage[czech]{babel}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage{math}
+
+\title{Automaty a gramatiky}
+\author{Ladislav Láska}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Konečné automaty}
+\setcounter{equation}{0}
+\subsection{Konečný automat, přechodová funkce}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Konečným automatem nazveme pětici 
+\begin{align}
+	A = (Q, X, \delta, q_0, F)
+\end{align}
+kde po řadě $(Q, X, \delta, q_0, F)$ jsou stavový prostor, vstupní abeceda,
+přechodová funkce, počáteční stav a množina přijímajících stavů.
+\paragraph{Definice}
+Rozšířená přechodová funkce $\delta^* Q\times X^* \to Q$ definujeme induktivně:
+\begin{align}
+	& \delta^*(q, \lambda) = q\\
+	&\delta^*(q, wx) = \delta(\delta^*(q, w), x), \quad x \in X, w \in X^*
+\end{align}
+\subsection{Přijímané slovo, jazyk}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Slovo $w$ je přijímáno automatem $A$ právě když
+\begin{align}
+	\delta^*(q_0, w) \in F
+\end{align}
+\paragraph{Definice}
+Jazyk přijímaný automatem $A$ definujeme jako množinu přijímaných slov:
+\begin{align}
+	L(A) = \{w | w \in X^* \land \delta^*(q_0, w) \in F \}
+\end{align}
+\subsection{Regulární jazyky}
+\setcounter{equation}{0}
+\paragraph{Definice}
+\textbf{Regulární} jazyky jsou právě ty jazyky, které jsou rozpoznatelné
+konečným automatem.
+\subsection{Kongruence}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $X$ je konečná abeceda a $\sim$ je relace ekvivalence na $X^*$. Potom
+$\sim$:
+\begin{enumerate}
+	\item je \textbf{pravá kongruence}, jestliže
+		\begin{align}
+			\forall u,v,w\in X^* \quad u\sim v \Rightarrow uw \sim vw
+		\end{align}
+	\item je \textbf{konečného indexu}, jestliže rozklad $X^*/\sim$ má konečný
+	počet tříd.
+\end{enumerate}
+\subsection{Nerodova věta}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $L$ je jazyk nad konečnou abecedou X. Potom následující tvrzení jsou
+ekvivalentní:
+\begin{enumerate}
+	\item $L$ je rozpoznatelný konečným automatem.
+	\item Existuje pravá kongruence $\sim$ konečného indexu na $X^*$ tak, že $L$
+	je sjednocením jistých tříd rozkladu $X^*/\sim$.
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item $\to$ 2. (máme automat, konstruujeme pravou kongruenci)\\
+		Definujeme relaci:
+		\begin{align}
+			u\sim v = \delta^*(q_0, u) = \delta^*(q_0, v)
+		\end{align}
+		Což je přímo z definice ekvivalence a je to pravá kongruence (díky
+		vlastnostem rozšířené předchodové funkce). Navíc protože má automat
+		konečně mnoho stavů, má také konečně mnoho tříd ekvivalence.
+	\item $\to$ 1. (máme pravou kongruenci konečného indexu, konstruujeme
+	automat)
+		Definujeme automat jako:
+			\begin{enumerate}
+				\item abeceda $X$ je již dána
+				\item stavy $Q$ nechť jsou třídy rozkladu
+				\item stav $q_0 = [\lambda]$
+				\item koncové stavy jsou třídy rozkladu definující jazyk:
+					$L= \bigcup_{i=1..n} c_i$, 
+					$F = \{c_1, ..., c_n\}$ 
+				\item přechodovou funkci $\delta([u],x) = [ux]$
+			\end{enumerate}
+\end{enumerate}
+\subsection{Pumping lemma}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $L$ je regulární jazyk. Potom existuje přirozené číslo $n$ takové, že
+libovolné slovo $z \in L$, kde $|z|\ge n$ lze psát ve tvaru $uvw$ a 
+\begin{align*}
+	|uv| \le n \quad \land \quad |v| \ge 1 \quad \land \quad \forall i \ge 0
+	\quad uv^iw \in L
+\end{align*}
+\paragraph{Důkaz}
+Jako $n$ vezměme počet stavů příslušného automatu. Pokud vezmeme slovo délky
+alespoň $n$, podle krabičkového principu se nutně musí nějaký stav opakovat.
+Vezměme tedy stav $p$ pravní takový. Nahlédněme:
+\begin{align}
+	\delta(q_0, u) = p \\
+	\delta(q_0, uv) = p
+\end{align}
+kde $u$ a $uv$ jsou slova, která nás dovedla do stavu $p$. Zřejmě tedy $|uv| \le
+n$, protože se opakoval pouze stav $p$ a $|v| \ge 1$, protože se $p$ opakoval.
+Smyčku $v$ tedy můžeme projít libovolně krát.
+\subsection{Ekvivalence automatů a homomorfismus}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Automaty $A$ a $B$ jsou \textbf{ekvivalentní}, právě když rozpoznávají stejný jazyk: $L(A) =
+L(B)$.
+\paragraph{Definice}
+Nechť $A_1$ a $A_2$ jsou konečné automaty a $h: Q_1 \to Q_2$ zobrazení. Řekneme, že 
+$h$ je \textbf{automatový homomorfismus}, právě když:
+\begin{enumerate}
+	\item $h(q_1) = q_2$
+	\item $h(\delta_1(q, x)) = \delta_2(h(q), x)$
+	\item $q\in F_1 \eq h(q) \in F_2$
+\end{enumerate}
+\paragraph{Definice}
+Homomorfismus nazveme \textbf{isomorfismus} právě když je prostý.
+\subsection{Věta o ekvivalenci automatů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A_1$ a $A_2$ jsou konečné automat a existuje homomorfismus $h: A_1 \to
+A_2$. Pak jsou $A_1$ a $A_2$ ekvivalentní.
+\paragraph{Důkaz}
+Konečnou iterací. Podle definice homomorfismu platí:
+\begin{align}
+	h(\delta_1(q, w)) = \delta_2(h(q), w) \qquad w \in X^*
+\end{align}
+Tedy
+\begin{align}
+	w \in L(A_1) \qquad & \eqs \delta_1(q_1, w) \in F_1 \\
+	& \eqs h(\delta_1(q_1, w)) \in F_2 \\
+	& \eqs \delta_2(h(q_1, w)) \in F_2 \\
+	& \eqs \delta_2(q_2, w) \in F_2 \qquad \qquad \eqs w \in L(A_2)
+\end{align}
+\subsection{Dosažitelné stavy}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $A$ je konečný automat. Řekneme, že stav $q \in Q$ je dosažitelný, právě když
+$\exists w \in X^* \quad \delta^*(q_0, w) = q$.
+\paragraph{Věta}
+Nechť $A$ je konečný automat a $P \subsetq Q$ jsou právě všechny dosažitelné stavy
+$A$.
+\paragraph{Důkaz} (triviální)
+\subsection{Hledání dosažitelných stavů}
+\setcounter{equation}{0}
+\paragraph{Algoritmus}
+Hledejme dosažitelné stavy po $i$ krocích:
+\begin{enumerate}
+	\item $M_0 = \{q_0\}$
+	\item Spočítej dosažitelné stavy pro $i+1$:
+	\begin{align}
+		M_{i+1} = M_i \cup \{ q | q \in Q \land \exists p \in M_i, x \in
+		X: \delta(p, x) = q \}
+	\end{align}
+	\item Pokud $M_{i+1} == M_i$, konči. Jinak opakuj 2. pro další $i$.
+\end{enumerate}
+\paragraph{Důkaz} (triviální)
+\subsection{Ekvivalentní stavy}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $A$ je konečný automat a $p, q \in Q$ jsou jeho stavy. Řekneme, že stavy
+$p$ a $q$ jsou ekvivalentní, právě když:
+\begin{align}
+	\forall w \in X^* \quad \delta^*(p, w) \in F \eq \delta^*(q,w) \in F
+\end{align}
+\subsection{Ekvivalence stavů po $i$ krocích}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $A$ je konečný automat a $p, q \in Q$ jsou jeho stavy. Řekneme, že stavy $p$
+a $q$ jsou ekvivalentní po $i$ krocích ($p \sim^i q$) právě když:
+\begin{align}
+\forall w \in X^*, |w| \le i: \quad \delta^*(p, w) \in F \eqs \delta^*(q,w) \in
+F
+\end{align}
+\paragraph{Tvrzení}
+Nechť $A$ je konečný automat a $p, q \in Q$ jsou jeho stavy. Potom:
+\begin{align}
+	p \sim q \eqs \forall i \quad p \sim^i q
+\end{align}
+\paragraph{Důkaz} (triviální)
+\paragraph{Algoritmus}
+Iterativní konstrukce ekvivalence po $i$-krocích:
+\begin{align}
+	p \sim^0 q \qqquad &p \in F \eq q \in F \\
+	p \sim^{i+1} q \qqquad &p \sim^i q \quad\land\quad \forall x \in X: \delta(p, x) \sim^i
+	\delta(q,x)
+\end{align}
+\paragraph{Důkaz} (triviální)
+\subsection{Vlastnosti ekvivalence po $i$ krocích}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť A je konečný automat a $\sim^i$ je relace ekvivalence po $i$ krocích.
+Potom:
+\begin{enumerate}
+	\item $\forall i \ge 0$ je $\sim^i$ ekvivalence na $Q$. Označme $\Rc =
+	Q/\sim^i$.
+	\item $\Rc_{i+1}$ zjemňuje $\Rc_i$
+	\item $\Rc_{i+1} = \Rc \impl \forall t > i \Rc_t = \Rc_i$
+	\item Nechť $|Q| = n$, potom $\exists k \le n-1: \Rc_{k+1} = \Rc_k$
+	\item $\Rc_{k+1} = \Rc_k \impl (p \sim q \eq p \sim^k q)$
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Triviálně z definice
+	\item Triviálně z definice
+	\item Triviálně z iteračního algoritmu (podmínky se proti minulé iteraci
+	nezměnily)
+	\item Triviálně z maximálního počtu rozkladových tříd (konečného)
+	\item Triviálně podle definice a 3.
+\end{enumerate}
+\subsection{Algoritmus hledání ekvivalence stavů}
+\setcounter{equation}{0}
+\paragraph{Algoritmus}
+Postupujeme iteračním algoritmem, dokud nenarazíme na dvě po sobě jdoucí stejné
+třídy ekvivalence. Stavy nacházející se ve stejné třídě ekvivalence na konci
+algoritu jsou si ekvivalentní.
+\paragraph{Důkaz} (triviální)
+\subsection{Automatová kongruence}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nechť $\equiv$ je relace ekvivalence na $Q$. Řekneme, že $\equiv$ je
+\textbf{automatovou kongruencí}, právě když:
+\begin{align*}
+	\forall p \equiv q \in Q \quad \impl \quad (p \in F \eq q \in F) \land \forall x
+	\in X: (\delta(p, x) \equiv \delta(q, x))
+\end{align*}
+\paragraph{Tvrzení}
+Ekvivalence stavů je automatovou kongruencí.
+\paragraph{Důkaz}
+(triviální z definice)
+\subsection{Podílový automat}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A = (Q, X, \delta, q_0, F)$ je konečný automat a $\equiv$ je automatová
+kongruence. Potom $A/\equiv \quad=\quad (Q/\equiv, X, \delta_\equiv, [q_0]_\equiv, \{
+[q]_\equiv | q \in F\}$, kde $\delta_\equiv([q], x) = [\delta(q,x)]_\equiv$, je
+konečný automat ekvivalentní s $A$. 
+\paragraph{Definice}
+Automat $A/\equiv$ nazýváme \textbf{podílový automat}.
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Podílový automat je konečný automat: množiny stavů a abeceda jsou z
+	definice konečné, přechodová funkce je definována korektně z vlastností
+	automatové kongruence.
+	\item Ekvivalence automatů: stačí nalézt homomorfismus, ten jsme však
+	dostali v podobě kongruence.
+\end{enumerate}
+\subsection{Podílový automat a ekvivalence stavů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Nechť $A$ je konečný automat a $\sim$ je ekvivalence stavů.
+Potom :
+\begin{enumerate}
+	\item $A/\sim$ je konečný automat ekvivalentní s $A$
+	\item žádné stavy v $A/\sim$ si nejsou ekvivalentní
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item Relace ekvivalence stavů je automatovou kongruencí, tedy automaty si
+	jsou ekvivalentní.
+	\item Triviálně z definice ekvivalence. (lze dokázat sporem)
+\end{enumerate}
+\subsection{Redukce automatu}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Konečný automat je \textbf{redukovaný} právě když nemá nedosažitelné stavy a
+žádné dva stavy nejsou ekvivalentní. Automat $B$ je \textbf{reduktem} automatu
+$A$ právě když je $B$ redukovaný a $A$ a $B$ jsou ekvivalentní.
+\paragraph{Věta}
+Ke každému konečnému automatu existuje nějaký jeho redukt.
+\paragraph{Důkaz}
+Konstruktivně vyřazením stavů a nalezením podílového automatu ekvivalencí stavů.
+\subsection{Věta o isomorfismu reduktů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Pro libovolné dva redukované konečné automaty jsou následující tvrzení
+ekvivalentní:
+\begin{enumerate}
+	\item automaty jsou ekvivalentní
+	\item automaty jsou isomorfní
+\end{enumerate}
+\paragraph{Důkaz}
+\begin{enumerate}
+	\item $\to$ 2. (hledáme isomorfismu z ekvivalentních reduktů) \\
+		Zkonstruujeme funkci $h: Q_1\to Q_2$. Pro stav $q \in Q_1$ (který je
+		dosažitelný) existuje slovo $u \in X^*$ vedoucí do $q$ a
+		v $h(q) = \delta_2(q_2, u)$. Což je funkce (protože jsou automaty
+		redukované) a je prostá a na.
+	\item $\to$ 1. (víme z definice)
+\end{enumerate}
+\paragraph{Poznámka}
+Pomocí redukce umíme řešit problémy:
+\begin{enumerate}
+	\item Zjištění ekvivalence automatů (zredukujeme, znormalizujeme a
+	porovnáme)
+	\item Zištění $L(A) = \emptyset$
+	\item Zištění $L(A) = X^*$
+\end{enumerate}
+\subsection{Normalizace automatu}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Normalizovaný tvar automatu vytvoříme tak, že:
+\begin{enumerate}
+	\item Zafixujeme pořadí písmen v abecedě
+	\item Počáteční stav označíme 1
+	\item Tabulku popisující automat vyplňujeme po řádcích zleva doprava a pokud
+	narazíme na nový stav, přiřadíme mu následující volné číslo.
+\end{enumerate}
+\subsection{Hledání nejkratšího slova}
+\setcounter{equation}{0}
+\paragraph{Pozorování}
+Nejkratší slovo nalezenem při redukci automatu - přes rozkladové třídy. První
+stavy, kde se liší, udávají začátek slova, pak přečteme všechny stavy až do
+počátku.
+
+
+\section{Nedeterministické konečné automaty}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Nedeterministickým konečným automatem nazveme pětici
+\begin{align}
+	A = (Q, X, \delta, S, F)
+\end{align}
+kde $Q$ je množina stavů, $X$ je vstupní abeceda, $\delta: Q \times X \to P(Q)$
+přechodová funkce a $S$, $F$ jsou množiny počátečních a koncových stavů.
+\subsection{Převod NKA na KA}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Je-li $A$ nedeterministický konečný automat, potom lze sestrojit konečný automat
+$B$ takový, že $L(A) = L(B)$.
+\paragraph{Důkaz}
+Podmnožinová konstrukce: budeme simulovat všechny možné cesty NKA a zapisovat je
+do KA. Protože těch může být pouze konečně mnoho, bude i výsledný automat
+konečný. Navíc bude rozpoznávat stejný jazyk.
+\subsection{$\lambda$-přechod}
+\setcounter{equation}{0}
+\paragraph{Definice}
+$\lambda$-přechod je hrana automatu, při které nedochází ke čtení vstupního
+symbolu.
+\section{Dvousměrné konečné automaty}
+\setcounter{equation}{0}
+Dvousměrným konečným automatem nazveme pětici
+\begin{align}
+	A = (Q, X, \delta, q_0, F)
+\end{align}
+kde $Q$ je množina stavů, $X$ je vstupní abeceda, $\delta: Q \times X \to
+Q\times\{-1, 0, +1\}$
+přechodová funkce, $q_0$ počáteční stav a $F$ je množina koncových stavů.
+\subsection{Věta o síle dvousměrných automatů}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Jazyky přijímané dvousměrnými konečnými automaty jsou právě jazyky přijímané
+konečnými automaty.
+\paragraph{Důkaz}
+Je zřejmé, že KA je 2KA posouvající hlavu stále doprava. Důkaz obrácené
+implikace můžeme provést například pomocí Nerodovy věty. K tomu si ale musíme
+připravit podklad: \\
+Zavedeme funkci $f_u$, která bude sledovat výpočet automatu nad slovem $u$.
+Mějme tedy slovo $uv$ a definume funkci $f$ následovně (a zavedeme stav $q'_0$
+jako vstupní stav a definujeme $\delta(q'_0) = \delta(q_0)$ - to nezmění výpočet
+a zajistí nám to potřebné rozlišení prvního vstupu do výpočtu):
+\begin{enumerate}
+	\item $f(q'_0) = p$ kde stav $p$ je stav, kdy poprvé přejdeme hlavou ze slova
+	$u$ do $v$ (nebo 0 pokud se tak nikdy nestane)
+	\item $f(p) = q$ kde stav $q$ je stav, kdy přejdeme hlavou ze slova $u$ do
+	$v$ pokud jsme vstoupili do slova $u$ z $v$ ve stavu $p$.
+\end{enumerate}
+Všimneme si, že takto defininovaná funkce pro každé slovo přesně udává postup
+výpočtu automatu. Zavedeme tedy ekvivalenci slov takto:
+\begin{align}
+	u \sim w \eq f_u = f_w
+\end{align}
+Tedy slova jsou ekvivalentní, pokud se nad nimi automat chová stejně. Nyní se
+podíváme na vlastnosti relace $\sim$:
+\begin{enumerate}
+	\item Podle definice jde o ekvivalenci.
+	\item Má konečný index (počet takových funkcí je omezený, protože je omezení
+	počet stavů).
+	\item Jde o pravou kongruenci: $u\sim w \impl uv \sim uw$ platí, protože
+	rozhraní slov $u|v$ a $u|w$ je stejné (definované přímo funkcí $f$) a nad
+	$v$ je výpočet automatu stejný.
+	\item L(A) je sjednocením jistých tříd rozkladu, protože $w \in L(A) \eq
+	f_w(q'_0) \in F$
+\end{enumerate}
+Tedy podle Nerodovy věty je L(A) regulární jazyk a může být přijímán konečným
+automatem.
+
+
+\section{Množinové operace nad jazyky}
+\setcounter{equation}{0}
+\subsection{Množinové operace nad regulárními jazyky}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Definujeme následující množinové operace nad jazyky:
+\begin{enumerate}
+	\item \textbf{Sjednocení} 
+		$L_1 \cup L_2 = \{ w | w \in L_1 \lor w \in L_2 \}$
+	\item \textbf{Průnik} 
+		$L_1 \cap L_2 = \{ w | w \in L_1 \land w \in L_2 \}$
+	\item \textbf{Rozdíl} 
+		$L_1 - L_2 = \{ w | w \in L_1 \land w \nin L_2 \}$
+	\item \textbf{Doplněk} 
+		$- L = \{ w | \nin L \} = X^* - L$
+\end{enumerate}
+\subsection{Uzavřenost množinových operací nad regulárními jazyky}
+\setcounter{equation}{0}
+\paragraph{Věta}
+Sjednocení, průnik, rozdíl i doplněk jsou uzavřeny nad regulárními jazyky.
+\paragraph{Důkaz}
+Zkonstruujeme automat přijímající daný jazyk (v případě průniku a rozdílu
+simulujeme běh dvou automatů, tedy musíme rozšířit množinu stavů na $Q =
+Q_1 \times Q_2$ a patřičně rozšířit přechodovou funkci):
+\begin{enumerate}
+	\item Sjednocení - použijeme nedeterminismus
+	\item Průnik - koncové stavy budou stavy $F = F_1 \times F_2$
+	\item Rozdíl - koncové stavy budou stavy $F = F_1 \times (Q_2 - F_2)$
+	\item Doplněk - prohodíme přijímající a nepřijímající stavy
+\end{enumerate}
+\subsection{Řetězcové operace nad regulárními jazyky}
+\setcounter{equation}{0}
+Definujeme následující řetězcové operace nad regulárními jazyky:
+\begin{enumerate}
+	\item \textbf{Zřetězení} $L_1 \cdot L_2 = \{ uv | u \in L_1 \land v \in L_2
+	\}$
+	\item \textbf{Mocniny jazyka} $L^{i+1} = L^i \cdot L$
+	\item \textbf{Pozitivní iterace} $L^+ = L^1 \cup L^2 \cup ...$
+	\item \textbf{Obecná iterace} $L^* = L^0 \cup L^+$
+	\item \textbf{Otočení jazyka} $L^R = \{ u^R | u \in L \}$
+	\item \textbf{Levý kvocient $L_1$ podle $L_2$} $ L_2 \setminus L_1 = \{ v |
+	uv \in L_1 \land u \in L_2 \}$
+	\item \textbf{Pravý kvocient $L_1$ podle $L_2$} $ L_1 / L_2 = \{ u | uv \in
+	L_1 \land v \in L_2 \}$
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
