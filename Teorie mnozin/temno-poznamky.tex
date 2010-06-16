@@ -54,7 +54,7 @@ Pro množiny a,b po řadě průnikem a rozdílem nazýváme množinu:
 \end{align}
 
 Existuje množina a (Axiom existence), podle vydělení pro formuli $x \neq x$
-existuje a podle extenziability je jediná množina $\{ x \in a : a \neq x \}$.
+existuje a podle extenzoinality je jediná množina $\{ x \in a : a \neq x \}$.
 
 
 \paragraph{Definice}
@@ -67,13 +67,13 @@ A nazýváme jí \textbf{prázdná množina}.
 \subsection{Disjunkní množina}
 \setcounter{equation}{0}
 \paragraph{Definice}
-Říkáme, že množina a,b jsou disjunkní, že  je-li $a \cup b = 0$.
+Říkáme, že množina a,b jsou disjunkní, že  je-li $a \cup b = \emptyset$.
 
 \paragraph{Lemma}
 \begin{enumerate}
 	\item $\neg (\exists y)(y \in \emptyset)$
 	\item $(\forall x) (\emptyset \subset x)$
-	\item $x \subset \emptyset \Leftrightarrow x = 0$
+	\item $x \subset \emptyset \Leftrightarrow x = \emptyset$
 \end{enumerate}
 \paragraph{Lemma}
 \begin{align}
@@ -94,7 +94,7 @@ x$. Potom podle axiomu vydělení pro tuto formuli máme $t = \{x \in z : x \nin
 Protože $t \in z$, $t \in t \Leftrightarrow t \nin t$. Tedy neexistuje množina
 všech množin.
 
-\subsection{Axiom dvojce}
+\subsection{Axiom dvojice}
 \setcounter{equation}{0}
 \begin{align}
 	(\forall a) (\forall b) (\exists z) (\forall x) ( x \in z \Leftrightarrow (x
@@ -167,8 +167,8 @@ Pro neprázdnou množinu $a$ lze analogicky definovat
 \end{align}
 Pro neprázdnou a existuje $\bigcap a$: 
 \begin{align}
-	a \neq 0 \quad &(\exists x) x \in a, \quad x = x_0 \\
-	a = 0 \quad &\bigcap a \text{ není definovaný }
+	a \neq \emptyset \quad &(\exists x) x \in a, \quad x = x_0 \\
+	a = \emptyset \quad &\bigcap a \text{ není definovaný }
 \end{align}
 
 
@@ -221,7 +221,7 @@ pro formuli $\overline{\psi}$. Navíc tedy
 \paragraph{Definice}
 \textbf{Binární relace} je množina $R$, jejímiž prvky jsou uspořádané dvojce.
 \begin{align}
-	\dom(R) = \{ x : (\exists y) <x,y> \in R \} \text{ je definiční obork }
+	\dom(R) = \{ x : (\exists y) <x,y> \in R \} \text{ je definiční obor } \\
 	\rng(R) = \{ y : (\exists x) <x,y> \in R \} \text{ je obor hodnot }
 \end{align}
 Protože $R$ je množina, $\dom(R)$ i $\rng(R)$ jsou množiny.
@@ -230,7 +230,7 @@ Je-li $R$ relace, definujeme:
 \begin{align}
 	R^{-1} = \{ <x,y>: <y,x> \in R \}
 \end{align}
-Pro každou relaci $R$, $R^{-1}$ je relace a $(R_{-1})^{-1} = R$.
+Pro každou relaci $R$, $R^{-1}$ je relace a $(R^{-1})^{-1} = R$.
 \paragraph{Definice}
 Jsou-li $R, S$ relace, pak
 \begin{align}
@@ -246,7 +246,7 @@ Jsou-li $R, S, T$ relace, pak
 \setcounter{equation}{0}
 Množina $f$ se nazývá \textbf{funkce}, pokud $f$ je relace a platí:
 \begin{align}
-	(\forall x \in \dom(f))((y \in \rng(f) \land y \in \rng(f) \land <x,y> \in f
+	(\forall x \in \dom(f))((y \in \rng(f) \land y' \in \rng(f) \land <x,y> \in f
 	\land <x,y'> \in f) \Rightarrow y = y')
 \end{align}
 \paragraph{Značení} $f: A \to B$ znamená: $f$ je funkce, $A = \dom(f)$, $B \supset
@@ -274,7 +274,7 @@ množina a $r$ je relace, $r \subsetq a \times a $. Přičemž r splňuje:
 \begin{align}
 	&\forall x, y, z \in a : \quad <x,y> \in r \land <y,z> \in r \Rightarrow
 	<x,z> \in r \quad \text{tranzitivita} \\
-	&\forall x \in a: \quad \not <x,x> \in r \quad \text{antireflexivita}
+	&\forall x \in a: \quad <x,x> \nin r \quad \text{antireflexivita}
 \end{align}
 Pro zjednodušení místo $<x,y> \in r$ píšeme $x r y$.
 \paragraph{Definice}
@@ -326,7 +326,7 @@ $f(x) \neq x\Rightarrow m \neq \emptyset$. $<a,r>$ je tedy dobře uspořádaná,
 tedy musí existovat $t$ r-nejmenší prvek množiny $m$. Máme pro všechna $z r t$,
 platí že $f(z) = z$.
 \begin{enumerate}
-	\item $f(t) r t$ ale $f(t) r t$ máme $f(t) \neq t$, $f(f(t)) = f(t)$,
+	\item $f(t) r t$: ale máme $f(t) \neq t$, $f(f(t)) = f(t)$,
 	\textbf{spor}: $f$ není prosté.
 	\item $t r f(t)$: kdykoliv $z r t \Rightarrow f(z) r t$, protože $f(z) = z$.
 	Navíc kdykoliv $t r z \Rightarrow f(t) r f(z)$ protože $f$ je izomorfismus.
@@ -377,7 +377,7 @@ a podle Lemma 1 $w = w_1$.
 $f$ je prosté:
 \begin{align}
 	<v,w> \in f, <v_1,w> \in f \\
-	<(\leftarrow, R> \cong <(\leftarrow, w),S> \cong <(\leftarrow, v), R>
+	<(\leftarrow, v) R> \cong <(\leftarrow, w),S> \cong <(\leftarrow, v_1), R>
 \end{align}
 a podle Lemma 1 $v = v_1$
 \item
@@ -391,15 +391,15 @@ Je $v R v_1$, $g(v)$ protože $g$ je izomorfismus:
 \begin{align}
 	<(\leftarrow,v), R> \cong <(\leftarrow, g(v)), S>
 \end{align}
-z definice $f$. Podle Lemma 2 existuje izomorfismus jediný, ktedy $w = g(v) S
+z definice $f$. Podle Lemma 2 existuje izomorfismus jediný, tedy $w = g(v) S
 w_1$. \\
 Analogicky: pokud $w S w_1$, potom $v R v_1$. \\
 Zřejmě platí, že pokud $<v,w> \in f$, pak $f \upharpoonright (\leftarrow, v)$ je izomorfismus
-mezi $<(\leftarrow,v), R>$ a $<(\leftarrow,w), S>$.\\
+mezi \\ $<(\leftarrow,v), R>$ a $<(\leftarrow,w), S>$.\\
 Položme: 
 \begin{align}
-	m = \{ v \in a : \forall w \in b \quad <v,w> \nin f \}
-	o = \{ w \in b : \forall v \in a \quad <v,w> \nin f \}
+	m = \{ v \in a : \forall w \in b \quad <v,w> \nin f \} \\
+	o = \{ w \in b : \forall v \in a \quad <v,w> \in f \}
 \end{align}
 Můžou nastat případy:
 \begin{enumerate}
@@ -433,7 +433,7 @@ ordinál. \\
 \subsection{Věta o ordinálech}
 \setcounter{equation}{0}
 \begin{enumerate}
-	\item Je-li $x$ ordinál, $y \in x$ a $y \in z$, pak $x \in z$.
+	\item Je-li $x$ ordinál a $y \in x$, pak y je ordinál a současně $y = <( \la, y), \in>$.
 	\item Jsou-li $x, y$ ordinály, pak $x \cong y$ právě když $x = y$
 	\item Jsou-li $x, y$ ordinály, pak platí právě jedna z možností: $x = y$, $x
 	\in y$, $y \in x$.
@@ -443,28 +443,29 @@ ordinál. \\
 \end{enumerate}
 \paragraph{Důkaz}
 \begin{enumerate}
-	\item Je-li $x$ ordinál, $y \in x$ a $y \in z$, pak y je ordinál a $y =
+	\item Je-li $x$ ordinála a $y \in x$, pak y je ordinál a $y =
 	<(\la, y), \in> \in x$. \\
+	$y$ je tranzitivní množina: zvolme $t \in y$, $u \in t$.
 	Víme, že: $x$ je ordinál, $x$ je tranzitivní množina, $t \in y$, $y \in x$. Tedy
 	$t \in x$. $x$ je tranzitivní množina, $t \in x$, $u \in t$, tedy $u \in x$.
 	V množině $x$ máme $u, t, y \in x$, $x$ je uspořádané relací náležení a máme $u
 	\in t$, $t \in y$. Tedy $u \in y$. $y$ je tedy tranzitivní množina. \\
+
 	$y$ je relací náležení uspořádaná: Nechť $u, v, w \in y$, $ u \in v \land v
 	\in w$. $y \in x$, protože $x$ je tranzitivní množina, $u,v,w \in x$. Přitom
 	$u \in v \land v \in w$, $x$ je relací náležení uspořádaná, tedy $u \in w$.
-	$y$
-	je tedy relací náležení uspořádaná dobře. Nechť $m \subset y$ je neprázdná
+	$y$ je tedy relací náležení uspořádaná dobře. Nechť $m \subset y$ je neprázdná
 	množina, kdykoliv $t \in m$, pak $t \in y$, $x$ je tranzitivní, tedy $m
 	\subsetq x, m \neq \emptyset$. Protože $x$ je dobře uspořádaná, existuje $z
 	\in m$ nejmenší prvek množiny $m$ v $x$. Ale $m \subsetq y$, tedy $z$ je
-	nejmenší prvek i v $y$. \\
+	nejmenší prvek i v $y$. Tedy $y$ je ordinál\\
 	Zbývá dokázat, že $y = <(\la, y), \in>$ v $x$: $t \in y$, protože $y \in x$,
 	je $t \in x$ a $t \in y$. Tedy $t \in (\la, y)$. A naopak: $t \in (\la, y)$
 	v $x$. Množina $x$ je uspořádaná operací náležení, tedy $t \in y$.
 	Dostáváme, že $(\la, y) \subsetq y$.
 
 	\item Jsou-li $x, y$ ordinály, a platí $x \cong y$ pak $x = y$. Nechť $h: (x,
-	\in \to (y, \in)$ je izomorfismus. Položme $m = \{ z \in x: h(z) \neq z \}$.
+	\in) \to (y, \in)$ je izomorfismus. Položme $m = \{ z \in x: h(z) \neq z \}$.
 	Pokud $m = \emptyset$, jsme hotovi. Pro spor předokládejme, že $m \neq
 	\emptyset$. V tom případě existuje $t \in m$, t nejmenší prvek množiny m.
 	Protože h je izomorfismus, platí pro $c,d \in x$:
@@ -494,9 +495,10 @@ ordinál. \\
 	\begin{align}
 		(\forall y \in C) (x = y) \lor (x \in y)
 	\end{align}
-	$C \neq \emptyset$, tedy můžeme zvolit  $t \in C$. Pak $t$ je nejmenší prvek
-	množiny $C$ a jsme hotovi. V opačném případě existuje $y \in C$, že $y \in
-	t$. Tedy $D = \{ y \in C : y \in t \} \neq \emptyset$. $t$ je ordinál: $D \neq
+	$C \neq \emptyset$, tedy můžeme zvolit  $t \in C$. Pokud $(\forall y \in C) t = y \lor t \in y$, 
+	pak $t$ je nejmenší prvek množiny $C$ a jsme hotovi.
+	V opačném případě existuje $y \in C$, že $y \in t$.
+	Tedy $D = \{ y \in C : y \in t \} \neq \emptyset$. $t$ je ordinál: $D \neq
 	\emptyset$, $D \subsetq t$, tedy existuje $x \in D$ nejmenší prvek množiny
 	$D$. Nechť tedy $y \in t$, tedy $x = y \lor x \in y$; nebo $y = t$, tedy $x
 	\in t$; nebo $t \in y$, pak $x \in t$, $t \in y$ dává $x \in y$. Tedy $x$ je nejmenší
@@ -541,7 +543,7 @@ tak, že $<A,R> \cong <c, \in>$.
 \begin{enumerate}
 	\item Unicita: Nechť $<A, R> \cong <d, \in>$. Dostáváme, že $c \cong d$ a
 	podle věty o ordinálech $c = d$.
-	\item Existence: Položme $B = \{ a \in a : <(\la, R>\cong x> $ pro nějaký
+	\item Existence: Položme $B = \{ a \in A : <(\la, R>\cong x> $ pro nějaký
 	ordinál x $\}$. Nechť navíc $f$ je funkce $dom(f) = B$ a splňuje 
 	\begin{align}
 		(\forall a \in B) f(a) \text{ je ordinál takový, že } < (\la, a), R>
@@ -712,8 +714,8 @@ Nechť $\alpha$, $\beta$ jsou ordinály.
 \end{align}
 kde
 \begin{align}
-	R = \{ << \xi, 0>, <\ni,0>> : \xi < \ni < \alpha \} \cup \\
-	\{<<\xi, 1>,<\ni,1>> : \xi < \ni < \beta \} \cup \\
+	R = \{ << \xi, 0>, <\nu,0>> : \xi < \nu < \alpha \} \cup \\
+	\{<<\xi, 1>,<\nu,1>> : \xi < \nu < \beta \} \cup \\
 	\{((\alpha\times\{0\}): (\beta\times\{1\})\}
 \end{align}
 \paragraph{Věta}
@@ -734,8 +736,8 @@ Pozor, ordinální sčítání není obecně komutativní.
 Pro ordinály $\alpha, \beta: \alpha \cdot \beta = typ < \beta \times \alpha,
 R>$, kde $R$ je lexikografické uspořádání součinu $\beta\times\alpha$, tedy:
 \begin{align}
-	<<\xi,\ni>, <\xi',\ni'>> \in R \eq (\xi < \xi') \lor (\xi = \xi' \land \ni <
-	\ni')
+	<<\xi,\nu>, <\xi',\nu'>> \in R \eq (\xi < \xi') \lor (\xi = \xi' \land \nu <
+	\nu')
 \end{align}
 \paragraph{Věta}
 Pro libovolné ordinály $\alpha, \beta, \gamma$ platí:
@@ -776,7 +778,7 @@ Nechť $a,b$ jsou množiny.
 	\item $x \preceq x$
 	\item $(x \preceq y \land y \preceq z) \impl x \preceq z$
 \end{enumerate}
-\paragraph{Věta}(Kantor-Bernstein) Pro množiny $a,b$
+\paragraph{Věta}(Cantor-Bernstein) Pro množiny $a,b$
 \begin{align}
 	(a \preceq b \land b \preceq a) \impl a \approx b
 \end{align}
@@ -854,16 +856,16 @@ Ekvidalentně ordinál $\alpha$ je kardinál, právě když
 \end{align}
 \paragraph{Pozorování}
 $\omega$ je kardinál. $\omega + k$ není kardinál (všechny jsou ostře větší než
-omega a mezi nima a omegou existuje bijekce).
+omega a mezi nimi a omegou existuje bijekce).
 \paragraph{Lemma}
  Je-li $|\alpha| \le \beta \le \alpha$, pak $|\beta| = |\alpha|$.
 \paragraph{Důkaz}
-$\beta\subsetq \alpha$, tedy existuje prosté zobrazení $\beta do \alpha$. Máme
+$\beta\subsetq \alpha$, tedy existuje prosté zobrazení $\beta$ do $\alpha$. Máme
 $\beta \preceq \alpha$. \\
 $\alpha \approx |\alpha|$, konečně $|\alpha| \subsetq \beta$, tedy $|\alpha| \preceq
-\beta$. Aplikuji Kantorovu větu.
+\beta$. Aplikuji Cantorovu větu.
 \paragraph{Lemma}
-Je-li n přirozený číslo, potom:
+Je-li n přirozené číslo, potom:
 \begin{enumerate}
 	\item $n \napprox n+1$
 	\item $(\forall \alpha)(\alpha \approx n \impl \alpha = n)$
@@ -923,10 +925,168 @@ Sporem: buď $\kappa$ kardinál a $\kappa = \alpha + 1$. Jenomže $\alpha \ge
 \omega$, tedy $1 + \alpha = \alpha$. Tedy $\kappa = |\kappa| = |1+\alpha| =
 |\alpha| < \kappa$, což je spor.
 
+\paragraph{Věta}
+je-li $\kappa$ nekonečný kardinál, pak $\kappa \otimes \kappa = \kappa$
+\paragraph{Důkaz}
+Dokažme pro $\kappa = \omega$. položme $f: \omega \to \omega \times \omega$, 
+$f(n) = <n, 0>$, $f$ je prosté, tedy $\omega \le \omega \times \omega$, položme 
+$g: \omega \times \omega \to \omega$, $g(n, k) = 2^n (2k + 1)$, $g$ prosté, tedy
+$\omega \times \omega \le \omega$, z Cantorovy-Bernsteinovy věty 
+$\omega \cong \omega \times \omega$. \\
+Předpokládejme, že kdykoliv $\lambda$ kardinál, takový, že $\omega \le \lambda < 
+\lambda$, pak $\lambda \otimes \lambda = \lambda$. Ukážeme, že potom $\kappa 
+\times \kappa \cong \kappa$. Definujme na $\kappa \times \kappa$ maximo-lexikografické
+uspořádání $<_{MLEX}$ předpisem $<\alpha, \beta> <_{MLEX} <\gamma, \delta>$ jestliže
+\begin{itemize}
+	\item $\max\{\alpha, \beta\} < \max\{\gamma, \delta\}$ \text{nebo}
+	\item $\max\{\alpha, \beta\} = \max\{\gamma, \delta\} \land \alpha < \gamma$ \text{nebo}
+	\item $\max\{\alpha, \beta\} = \max\{\gamma, \delta\} \land \beta < \delta$
+\end{itemize}
+$<_{MLEX}$ je dobré uspořádání $\kappa \times \kappa$. \\
+Ukážeme, že $typ (\kappa \times \kappa, <_{MLEX}) \le \kappa$. Ke sporu předpokládejeme,
+že $typ (\kappa \times \kappa, <_{MLEX}) > \kappa$, tedy existuje $<\alpha, \beta> 
+\in \kappa \times \kappa$ takové, že $\kappa \cong (\la, <\alpha, \beta>, <_{MLEX} )$.
+$\kappa$ kardinál, $\alpha, \beta < \kappa$, $|\alpha|, |\beta| < \kappa$.
+Nechť $\gamma = \max\{ \alpha, \beta \}$, $|\gamma| < \kappa$. Pak podle předpokladu 
+$|\gamma| \otimes |\gamma| < \kappa$, což je spor ???!!!. \\
+Nyní předpokládejme, že když $\kappa > \omega$ takový kardinál, že pro nějaký kardinál $\kappa$,
+$\omega \le \lambda < \kappa$ je $\lambda \otimes \lambda > \kappa$. Z věty o ordinálech (5)
+existuje taové $\lambda$ nejmenší, že kdykoliv $\lambda \ne \omega$, potom $\omega \cong 
+\omega \times \omega$ a $\lambda > \omega$ pro včechny kardinality $\nu$ takové, že  $\omega
+ \le \nu < \lambda$ platí $\nu \otimes \nu = \nu$. Potom stejně jako v předchozím důkazu
+$\kappa \otimes \kappa = \kappa$.
 
-=====================================================
-TADY NECO CHYBI
-=====================================================
+\paragraph{Důsledek} 
+Jestliže jsou $\kappa, \lambda$ nekonečné kardinály, pak 
+$$
+	\kappa \oplus \lambda = \kappa \otimes \lambda =  \max\{\kappa, \lambda\}
+$$
+
+\paragraph{Důkaz}
+Předpokládejme, že $\kappa > \lambda$, pak $\kappa \oplus \lambda = |\kappa \times \{0\} 
+\cup \lambda \times \{1\}|$, zřejmě 
+$$
+\kappa \times \{0\} \cup \lambda \times \{1\} 
+	\hookrightarrow \kappa \times \lambda \subset \kappa \times \kappa \\
+$$
+a proto
+$$
+	\kappa \times \kappa \le \kappa \le \kappa \times \{0\} \cup \lambda \times \{1\}
+		\le \kappa \times \kappa
+$$
+tedy platí $\cong$
+
+
+\subsection{Axiom potence}
+$$
+	(\forall a)(\exists z)(\forall x)(x \subset a \impl x \in z)
+$$
+
+\paragraph{Definice}
+Potenční množina množiny $a$ je 
+$$
+	\powset(a) = \{ x: x \subset a \}
+$$
+$\powset(a)/($ je množina (potence, vydělení)
+
+\paragraph{Věta}
+(Cantor) Pro každou množinu $x$ platí $x < \powset(x)$
+
+\paragraph{Důkaz}
+Definujme $f: x -> \powset(x)$ předpisem $f(t) = {t}$ pro $t \in x$, pak $f$ je prosté
+a plati $\le$. Dále ukážeme, že $ \neg (x \cong \powset(x))$. Mějme $g: x \to \powset(x)$ 
+prosté zobrazení, ukážeme že je surjektivní. Nechť $m = \{ t \in x, t \nin g(t) \}$, ukážeme
+$m \nin \rng{g}$. Buď $t \in x$. V případě, že $t \nin g(t)$, pak $t \in m $, tedy $m \ne g(t)$
+jinak $t \in g(t)$, pak $t \in m$ a $m \ne g(t)$. (Diagonální princip)
+
+\paragraph{Věta}
+$$
+(\forall \alpha)(\alpha \text{ ordinál} \impl (\exists \kappa)(\kappa > \alpha \land
+	\kappa \text{ je ordinál}))
+$$
+Je li $\alpha$ přirozené, $\kappa = \omega$,   
+je li $\alpha > \omega$, pak položme $W = \{R \in \powset(\alpha \times \alpha);
+R $ je dobré uspořádání $\alpha\}$. $W$ je množina (kart. součin, potence, vydělení).
+Buď $S = \{ typ( \alpha. R); R \in W \}$. $S$ je také množina podle axiomu nahrazení pro
+$\psi(R,\xi)$ "$\psi = typ(\alpha, R)$". $S$ je množina ordinálů, $\sup(S)$ je ordinál,
+$\sup(S) + 1$ je také ordinál. Nechť $|\sup(S) + 1| \le \alpha$. Existuje $R$ dobré
+uspořádání množiny $\alpha$, $typ(\alpha, R) = \sup(S) + 1 \nin S$ spor, tedy 
+$|\sup(S) + 1 | > \alpha$
+
+\paragraph{Definice}
+Buď $\alpha$ ordinál, \textbf{kardinální následník} ordinálu $\alpha$ je nejmenší
+kardinál, který je větší neř $\alpha$. Značí se $\alpha^+$.
+
+\section{Třídy a rekurze}
+
+Je-li $\phi$ formule základního jazyka teorie množin, $a$ množina, $z = \{ x \in a; \phi(x)\}$
+je množina. Ovšem $\{x; \phi(x)\}$ nemusí být množina, konkrétně $\{ x; x = x \}$ nebo
+$\{x; x $ je ordinál $\}$ nejsou množiny.
+
+Neformálně je-li $\phi$ formule jazyka teorie množin, pak každý soubor tvaru $\{ x; \phi(x) \}$
+budeme nazývat třídou. Vlastní třída je třída, která není množina.
+
+Formálně třídy neexistují a formule, ve kterých se vyskytují třídové termy považujeme pouze
+za zkrácený zápis formulí. Tedy například $On \subset V$ slouží jako zkratka za 
+$$
+	(\forall x)(x \text{ je ordinál } \impl x = x)
+$$
+
+Třídové termy lze vždy eliminovat. 
+
+Buďte $\phi$, $\chi$ formule jazyka množin, $X = \{x; \phi(x)\}$  $Y = \{y; \chi(y)\}$ třídní
+termy, pak je 
+\begin{itemize}
+	\item $X = Y$ zkratka za $(\forall x) (\phi(x) \leftrightarrow \chi(x))$
+	\item $z \in X$ zkratka za $\phi(z)$
+	\item $z = X$ zkratka za $(\forall t)( t \in z \leftrightarrow \phi(t))$
+	\item $X \in Y$ zkratka za $(\exists u)( u \in Y \land (\forall t)(t \in u \leftrightarrow
+		 \phi(t)))$
+	\item $X = Y$ zkratka za $(\exists u)( \psi(u) \land (\forall v)(v \in u \leftrightarrow
+		 \phi(v)))$
+\end{itemize}
+třídy nelze kvantifikovat. 
+
+Můžeme tedy pouužívat neormálně třídové termy, formálně není rozdíl mezi formulí a třídou, rozdíl 
+pouze v neformálním vyjadřování.
+
+
+\paragraph{Věta}
+(Transfinitní indukce na třídě $On$) Je-li $C \subset On$ a $C \ne \emptyset$, pak $C$ má nejmenší prvek.
+
+\paragraph{Důkaz} Stejně jako bod (5) věty o ordinálech, buď $\alpha \in C$, buďto je $\alpha$ 
+nejmenší prvek třídy $C$, pak jsme hotovi, nebo $\alpha$ není nejmenší, položme $c = C \cup \alpha$,
+$\alpha \cup C = \{ \beta \in \alpha; \phi(\beta) \}$ je množina a tedy podle věty o ordinálech existuje
+nejmenší prvek $\alpha_0$ množiny $c$, to je i nejmenší prvek $C$
+
+\paragraph{Použití}
+Důkaz transfinitní indukcí dokazuje věty typu $(\forall \alpha) \psi(\alpha)$ tím, že dokáže $\psi(0)$ 
+a pro všechna $\alpha$ 
+$$
+	((\forall \beta)( \beta < \alpha \impl \psi(\beta))) \impl \psi(\alpha)
+$$
+
+\paragraph{Věta}
+(O transfinitní rekurzi) Je-li $F: V \to V$ pak existuje jediné $G: On \to V$
+$$
+	(\forall \alpha)(G(\alpha) = F(G \upharpoonright\alpha))
+$$
+
+\paragraph{Důkaz}
+Unicita: Nechť $G_1, G_2$ obě splňují tvrzení. Ukážeme, že potom $(\forall \alpha)(G_1(\alpha) = g_2(\alpha))$.
+Pomocí věty o transfinitní indukci máme $G_1 \upharpoonright 0 = 0 = G_2 \upharpoonright 0$. $G_1(0) = F(G(
+\upharpoonright 0) = F(0) = F(G_2 \upharpoonright 0) = G_2(0)$. Předpokládejme $\alpha > 0$ ordinál a 
+$(\forall \beta)(\beta < \alpha \impl G_1(\beta) = G_2(\beta)$. Z formule pro $G_1, G_2$: $G_1(\alpha) = 
+F (G_1 \upharpoonright \alpha) = F(G_2 \upharpoonright \alpha) = G_1(\alpha)$. Podle věty o transfinitní
+indukci $(\forall \alpha)(G_1(\alpha) = g_2(\alpha))$
+
+=============== 
+
+
+TADY NECO CHYBI - konkretne prednaska 7.
+
+
+===============
 
 
 \paragraph{Definice}
@@ -955,7 +1115,7 @@ Pak:
 \end{align}
 \paragraph{Důsledek}
 Nechť platí princip maximality. Jsou-li M a N libovolné množiny, pak buď $M
-\precsim N$
+\precsim N$ nebo $N \precsim M$
 %nebo $N \subsim M$
 \paragraph{Důkaz důsledku}
 Uvážíme $a = \{ f: f$ je prosté zobrazení$, \dom f \subsetq M, \rng f \subsetq N
@@ -993,7 +1153,7 @@ Následující výroky jsou ekvivalentní:
 	Pokud je tato množina neprázdná, definujeme $g(\alpha) = f (\xi)$ a indukce
 	končí. Pokud je prázdná, pak $g: \alpha \to a$ je prosté zobrazení na a
 	tedy definuje dobré uspořádání a. Zbývá ukázat, že indukce skončí: pokud by
-	se nezastavila, získáme prosté zobrazení $g: Or \to a$, $\rng(g)$ jemnožina
+	se nezastavila, získáme prosté zobrazení $g: Or \to a$, $\rng(g)$ je množina
 	(protože a je množina). Ordinály jsou vlastní třída - spor.
 	\item ($3. \impl 2.$) Máme $(a, \le)$, každý řetězec v a má horní mez a $x \in
 	a$. Podle 3. existuje dobré uspořádání a. Nechť $c \subset a$ je řetězec.
@@ -1012,7 +1172,7 @@ Následující výroky jsou ekvivalentní:
 	$\le$-neporovnatelné. Existuje tedy $y_1 \in b$, že $y_1$ je $\prec-n$ejmenší prvek řetězce
 	b, že $y_0$ a $y_1$ jsou $\le$-neporovnatelné. Protože $y_0$ a $y_1 \in b$
 	existují řetězce $c_0$ a $c_1$, splňující (*), že $y_0 \in c_0$ a $y_1 \in
-	c_1$. Nechť $z \in c_1$, $z < y_1$. Pokud x < z, pak $z \prec y_1: c_1$
+	c_1$. Nechť $z \in c_1$, $z < y_1$. Pokud $x < z$, pak $z \prec y_1: c_1$
 	splňuje (*), z je $\prec$-nejmenší horní mez množiny \{t: t je horní mezí $\{v
 	\in c: x \le v \le z \}$\}. Tvrdím, že $z < y_0$: z = $y_0$ není možné, oba jsou
 	v řetězci $c_1$ a tedy porovnatelné, ale $y_0$ a $y_1$ nejsou. Pokud by $z >
@@ -1039,7 +1199,7 @@ Následující výroky jsou ekvivalentní:
 \end{enumerate}
 \paragraph{Důsledky}
 \begin{enumerate}
-	\item (AC) $\impl$ pro každou množinu $a$, |a| existuje. (plyne ihned z principu
+	\item (AC) $\impl$ pro každou množinu $a$, $|a|$ existuje. (plyne ihned z principu
 	dobrého uspořádání)
 	\item Pro každou nekonečnou množinu a, $A \approx A \times A \approx A \times
 	\{ 0, 1 \}$. 
@@ -1061,11 +1221,11 @@ Následující výroky jsou ekvivalentní:
 \subsection{}
 \setcounter{equation}{0}
 \paragraph{Definice}
-Buďte A a B množiny. $^A B = \{f: f \text{je funkce}, f: A \to B \}$
+Buďte A a B množiny. $^A B = \{f: f \text{ je funkce}, f: A \to B \}$
 \paragraph{Lemma}
 Jsou-li B, C disjunktní množiny a A množina, pak:
 \begin{align}
-	{}^{(B \cup C)} A \approx {}^B A \times {}^C A
+	{}^{(B \cup C)} A \approx {}^B A \times {}^C A \\
 	{}^C ( {}^B A ) \approx {}^{C\times B} A
 \end{align}
 \paragraph{Důkaz}
@@ -1219,7 +1379,7 @@ Tedy funkce $h(\alpha) \nin \{g(\mu)(\alpha) : \mu < f(\alpha)\}$.
 \paragraph{Důsledek}
 Předpokládáme axiom výběru. Je-li $\lambda \ge \omega$, pak $cf(2^\lambda) >
 \lambda$. Položme $\kappa = 2^\lambda$. Máme $\kappa^\lambda = (2^\lambda)^\lambda
-= 2^{\lambda \otimes\lambda} = 2^ = \kappa$. Kdyby $cf(\kappa) \le \lambda$,
+= 2^{\lambda \otimes\lambda} = 2^\kappa = \kappa$. Kdyby $cf(\kappa) \le \lambda$,
 podle Königova lemmatu by platilo, že $\kappa^\lambda > \kappa$.
 \paragraph{Definice}
 Zobecněná hypotéza kontinua (GCH) je tvrzení, že 
@@ -1284,12 +1444,12 @@ Zřejmě $\kappa^+ \otimes \kappa^\lambda \le (\kappa^+)^\lambda \otimes
 Předpokládejme axiom výběru. Nechť $I \neq \emptyset$ a $\forall i \in I$ buď
 $\kappa_i$ kardinální číslo. Definujme 
 \begin{align}
-	\sum_{i\in I} \kappa_i = \left| \bigcup \{\kappa_i x \{i\}: i \in I
+	\sum_{i\in I} \kappa_i = \left| \bigcup \{\kappa_i \times \{i\}: i \in I
 	\}\right| \\
 	\prod_{i\in I} \kappa_i = \left| \prod_{i \in I} \{\kappa_i: i \in I\} \right |
 \end{align}
 \paragraph{Věta (Königova nerovnost)}
-Předpokládejme axiom výběru. Je-li $I \neq \emptyset$, pro každé $i \in I
+Předpokládejme axiom výběru. Je-li $I \neq \emptyset$, pro každé $i \in I,
 \kappa_i$, $\lambda_i$ jsou kardinální čísla, přičemž $\kappa_i <\lambda_i$, pak 
 \begin{align}
 	\sum_{i\in I} \kappa_i < \prod_{i\in I} \lambda_i
@@ -1387,7 +1547,7 @@ $\delta$, pak
 \end{align}
 je uzavřené neomezené v $\delta$.
 \paragraph{Důkaz}
-Pložme 
+Položme 
 \begin{align}
 	C = \bigcap \{C_\xi: \xi < \tau \}
 \end{align}
