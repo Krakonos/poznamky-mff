@@ -5,6 +5,12 @@
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
 \usepackage{math}
 
+
+\newcommand{\EnumRoman}{
+\renewcommand{\theenumi}{(\roman{enumi})}
+\renewcommand{\labelenumi}{\theenumi}
+}
+
 \title{Teorie množin}
 \author{Ladislav Láska}
 
@@ -27,60 +33,147 @@
 	\item kvantifikátory $(\forall x)$, $(\exists x)$
 	\item pomocné symboly - závorky
 \end{enumerate}
-\subsection{Formule}
+\subsection{Formule a pravidla jejich vytváření}
 \setcounter{equation}{0}
+{
+\EnumRoman
 \begin{enumerate}
 	\item Nechť $x$, $y$ jsou prvky množiny, pak $(x \in y)$ a $(x = y)$ jsou
 	atomické formule.
 	\item Nechť výrazy $\varphi, \psi$ jsou formule, potom:
-			$\neg \varphi$, $\varphi \land \psi$, $\varphi \lor \psi$,
-			$\varphi \Rightarrow \psi$, $\varphi \Leftrightarrow \psi$
+			$(\neg \varphi$), $(\varphi \land \psi)$, $(\varphi \lor \psi)$,
+			$(\varphi \Rightarrow \psi)$, $(\varphi \Leftrightarrow \psi)$
 			jsou formule.
+	\item Je-li $x$ proměnná pro množiny a $\varphi$ je formule, pak výrazy
+	$(\exists x) \varphi$ a $(\forall x) \varphi$ jsou formule.
+	\item Každá formule vznikne konečným počtem užití pravidel (i), (ii), (iii).
 \end{enumerate}
-
-\ \\
-===============================================================\\
-Tedy toho hodne chybi\\
-===============================================================
-\section{Axiomy teorie množin}
-
-\subsection{Průnik a rozdíl množin}
+}
+\subsection{Vázané a volné proměnné}
 \setcounter{equation}{0}
 \paragraph{Definice}
-Pro množiny a,b po řadě průnikem a rozdílem nazýváme množinu:
-\begin{align}
-	a \cup b = \{ x : x \in a \land x \in b \} \\
-	a \setminus b = \{ x : x \in a \land x \nin b \}
-\end{align}
-
-Existuje množina a (Axiom existence), podle vydělení pro formuli $x \neq x$
-existuje a podle extenzoinality je jediná množina $\{ x \in a : a \neq x \}$.
-
-
+Říkáme, že \textit{výskyt} proměnné $x$ ve formuli $\varphi$ je \textbf{vázaný}, 
+je-li součástí nějaké podformule $\psi$ tvaru $(\exists x) \psi$ nebo $(\forall 
+x \psi)$. Není-li \textit{výskyt} proměnné $x$ vázaný, říkáme, že je 
+\textbf{volný}.  O proměnné $x$ řekneme, že je ve formuli $\varphi$ vázaná, 
+pokud má alespoň jeden vázaný výskyt - jinak je volná.
 \paragraph{Definice}
-$\emptyset$ je jediná množina y splňující:
+Formuli, která neobsahuje žádné volné roměnné nazýváme \textbf{uzavřená 
+formule}.
+\paragraph{Konvence}
+Je-li $\varphi$ formule a $x_1, x_2, ..., x_n$ proměnné, jež se v ní vyskytují 
+volně, píšeme $\varphi(x_1, x_2, ..., x_n)$.
+\section{Axiomy teorie množin}
+\setcounter{subsection}{-1}
+\label{axiom-existence}
+\subsection{Axiom existence množiny}
+\setcounter{equation}{0}
+\uv{Existuje alespoň jedna množina:}
+\begin{align}
+	(\exists x) (x = x)
+\end{align}
+\label{axiom-extenzionality}
+\subsection{Axiom extenzionality}
+\setcounter{equation}{0}
+\uv{Množiny, které mají tytéž prvky, se sobě rovnají:}
+\begin{align}
+	(\forall u) ( u \in x \eq u \in y) \impl x = y
+\end{align}
+\label{schema-axiomu-vydeleni}
+\subsection{Schéma axiomu vydělení}
+\setcounter{equation}{0}
+\uv{Z každé množiny lze vydělit množinu prvků, které splňují stejné vlastnosti:} 
+\\
+Nechť $\varphi(x)$ je formule, která neobsahuje volně proměnnou $z$. Potom 
+formule
+\begin{align}
+	(\forall a)(\exists z)(\forall x)(x \in z \eq x \in a \land \varphi(x))
+\end{align}
+je axiomem teorie množin - axiomem vydělení pro formuli $\varphi$.
+\label{axiom-dvojce}
+\subsection{Axiom dvojce}
+\setcounter{equation}{0}
+\uv{Libovolné dvě množiny určují dvouprvkovou množinu:}
+\begin{align}
+	(\forall a)(\forall b)(\exists z)(\forall x)( x \in z \eq ( x = a \lor x = 
+	b))
+\end{align}
+\label{axiom-sumy}
+\subsection{Axiom sumy}
+\setcounter{equation}{0}
+\uv{Ke každé množině existuje množina všech prvků, které náleží do nějakého 
+prvku dané množiny:}
+\begin{align}
+	(\forall a) (\exists z) (\forall x) (x \in z \eq (\exists y)(x \in y \land y 
+	\in a))
+\end{align}
+\label{axiom-potence}
+\subsection{Axiom potence}
+\setcounter{equation}{0}
+\uv{Ke každé množině existuje množina sestávající ze všech jejích podmnožin:}\\
+\begin{align}
+	(\forall a)(\exists z)(x \in z \eq x \subsetq a)
+\end{align}
+\label{schema-axiomu-nahrazeni}
+\subsection{Schéma axiomu nahrazení}
+\setcounter{equation}{0}
+\uv{Definovatelné zobrazení zobrazuje množinu na množinu:}\\
+Nechť $\psi(u,v)$ je formule, která neobsahuje volné proměnné $w$ a $z$. Potom 
+formule
+\begin{align}
+%	(\forall u)(\forall v)( \forall w((\psi(u,v) \land \psi(u,w)) \impl v = w) 
+%	\impl (\forall a) (\exists z)(\forall v) (v\in z \eq (\exists u) (u \in a 
+%	\land \psi(u,v))))
+	\label{axiom-nahrazeni-predpoklad}
+	(\forall u)(\forall v)(\forall w) ( \psi(u,v) \land \psi(u,w) \Rightarrow
+	v=w) \Rightarrow \\
+	(\forall a) (\exists z) (\forall v) (v \in z \Leftrightarrow (\exists u)(u
+	\in a \land \psi(u,v)))
+\end{align}
+je axiom teorie množin - axiom nahrazení pro formuli $\psi$.
+\label{axiom-nekonecna}
+\subsection{Axiom nekonečna}
+\setcounter{equation}{0}
+\uv{Existuje nekonečná množina:}
+\begin{align}
+	(\forall z)(\emptyset \in z \land (\forall x) (x \in z \impl x \cup \{x\}\in 
+	z))
+\end{align}
+\label{axiom-fundovanosti}
+\subsection{Axiom fundovanosti}
+\setcounter{equation}{0}
+\uv{Každá neprázdná množina má alespoň jeden prvek, který s ní má prázdný 
+průnik}
+\begin{align}
+	(\forall a) ( (a \ne \emptyset) \impl (\exists x) (x \in a \land x \cap a = 
+	\emptyset))
+\end{align}
+\section{Základní definice a tvrzení}
+\setcounter{equation}{0}
+\subsection{Podmnožiny, inkluze, průnik a rozdíl}
+\setcounter{equation}{0}
+\paragraph{Definice}
+Říkáme, že množina $x$ je \textbf{podmnožina} množiny $y$ (píšeme $x \subsetq 
+y$), pokud platí
+\begin{align}
+	(\forall t) (t \in x \impl t \in y)
+\end{align}
+pokud navíc $t \neq y$, říkáme že $x$ je \textbf{podmnožina vlastní} (značíme $x 
+\subset y$ nebo $x \subsetneqq y$).
+\paragraph{Definice}
+Pro množiny $a, b$ definujeme \textbf{průnik} a rozdíl jako množiny:
+\begin{align}
+	a \cap b = \{x : x \in a \land x \in b\}\\
+	a \setminus b = \{x : x \in a \land x \nin b\}
+\end{align}
+\subsection{Prádzná množina}
+\setcounter{equation}{0}
+\paragraph{Definice}
+$\emptyset$ je jediná množina $y$ splňující:
 \begin{align}
 	(\forall x) (x \nin y)
 \end{align}
 A nazýváme jí \textbf{prázdná množina}.
-
-\subsection{Disjunkní množina}
-\setcounter{equation}{0}
-\paragraph{Definice}
-Říkáme, že množina a,b jsou disjunkní, že  je-li $a \cup b = \emptyset$.
-
-\paragraph{Lemma}
-\begin{enumerate}
-	\item $\neg (\exists y)(y \in \emptyset)$
-	\item $(\forall x) (\emptyset \subset x)$
-	\item $x \subset \emptyset \Leftrightarrow x = \emptyset$
-\end{enumerate}
-\paragraph{Lemma}
-\begin{align}
-	(\forall a) a = \{ x : x \in a \land x = x \}
-\end{align}
-
-
 \subsection{Russelův paradox}
 \setcounter{equation}{0}
 \paragraph{Věta}
@@ -88,119 +181,87 @@ A nazýváme jí \textbf{prázdná množina}.
 	\neg ( \exists z) (\forall x) (x \in z)
 \end{align}
 \paragraph{Důkaz}
-Sporem: nechť $z$ je taková množina. Pak mějme formuli $\varphi(x) \quad x \neq
+Sporem: nechť $z$ je taková množina. Pak mějme formuli $\varphi(x) \quad x \nin
 x$. Potom podle axiomu vydělení pro tuto formuli máme $t = \{x \in z : x \nin x
-\}$, tedy $t$ je množina. Protože $t$ je množina a $z$ je množina všech množin.
-Protože $t \in z$, $t \in t \Leftrightarrow t \nin t$. Tedy neexistuje množina
-všech množin.
+\}$, tedy $t$ je množina. Protože $t$ je množina a $z$ je množina všech množin, 
+pak $t \in z$ a (podle formule $\varphi$) $t \in t \eq t \nin t$. Tedy 
+neexistuje množina všech množin.
 
-\subsection{Axiom dvojice}
+\subsection{Neuspořádaná a uspořádaná dvojce, uspořádaná $k$-tice}
 \setcounter{equation}{0}
-\begin{align}
-	(\forall a) (\forall b) (\exists z) (\forall x) ( x \in z \Leftrightarrow (x
-	= a \lor x = b ))
-\end{align}
 \paragraph{Definice}
 Jsou-li $a, b$ množiny, pak množinu se stávající z prvků $a,b$ nazveme
 \textbf{neuspořádanou dvojcí} množin $a,b$ a značíme $\{a,b\}$. Pro $a\neq b$
 říkáme, že $\{a,b\}$ dvouprvková, jinak jednoprvková.
-
-\subsubsection{Rovnost množin}
-\setcounter{equation}{0}
-\paragraph{Lemma}
-\begin{enumerate}
-	\item $\{x\} = \{y\} \Leftrightarrow x = y$
-	\item $\{x\} = \{x,y\} \Leftrightarrow x = y$
-	\item $\{x,y\} = \{u,v\} \Leftrightarrow (x = u \land y = v) \lor (x = v
-	\land y = u)$
-\end{enumerate}
-
-\subsubsection{Uspořádaná dvojce, k-tice}
-\setcounter{equation}{0}
-\textbf{Uspořádaná dvojce} množin $a,b$ je množina, která má prvky $\{\{a\}, \{a,b\}\}$.
-Značíme jí $<a,b>$.
-\paragraph{Lemma}
-\begin{align}
-	<x,y> = <u,v> \Leftrightarrow (x = u \land y = v)
-\end{align}
 \paragraph{Definice}
-Jsou-li dány množiny $a_1, a_2, ..., a_k$, pak uspořádanou $k-tici$ definujeme
+\textbf{Uspořádaná dvojce} množin $a,b$ je množina, která má prvky $\{\{a\}, 
+\{a,b\}\}$. Značíme jí $\la a,b \ra$.
+\paragraph{Lemma} o rovnosti uspořádaných dvojic
+\begin{align}
+	\la x,y\ra = \la u,v \ra  \Leftrightarrow (x = u \land y = v)
+\end{align}
+\paragraph{Důkaz} (triviální)
+\paragraph{Definice}
+Jsou-li dány množiny $a_1, a_2, ..., a_k$, pak uspořádanou $k$-tici definujeme
 jako:
 \begin{align}
-	&<a_1> = a_1, \text{ a dál indukcí } \\
-	&<a_1, a_2, ..., a_k > = <<a_1, ..., a_{k-1}>, a_k>
+	&\la a_1 \ra  = a_1, \text{ a dál indukcí } \\
+	&\la a_1, a_2, ..., a_k \ra = \la\la a_1, ..., a_{k-1}\ra, a_k\ra
 \end{align}
-\paragraph{Lemma}
+\paragraph{Lemma} o rovnosti uspořádaných $k$-tic
 \begin{align}
-	<a_1, ..., a_k> = <b_1, ..., b_k> \\
-	\Leftrightarrow \\
+	(\la a_1, ..., a_k\ra = \la b_1, ..., b_k\ra)
+	\quad \Leftrightarrow \quad
 	(a_1 = b_1) \land ... \land (a_k = b_k)
 \end{align}
-
-
-\subsection{Axiom sumy}
-\setcounter{equation}{0}
-\begin{align}
-	(\forall a) (\exists z) (\forall x) (x \in z \Leftrightarrow (\exists y)(x
-	\in y \land  y \in a))
-\end{align}
+\paragraph{Důkaz} (triviální)
+\subsection{Značení sumy, průniku}
 \paragraph{Značení}
+Podle axiomu sumy můžeme zavést sumu:
 \begin{align}
 	\bigcup a = \{ x : (\exists y) (y \in a \land x \in y) \}
 \end{align}
+tedy pokud $a = \{b,c\}$, pak $\bigcup a = b \cup c$.
 \paragraph{Značení}
-Nechť $a = \{b,c\}$. Pak $\bigcup a = b \cup c$
+Analogicky pro neprázdnou množinu $a$:
+\begin{align}
+	\bigcap a = \{ x : \underbrace{(\forall y) (y \in a \impl x \in 
+	y)}_\varphi\}
+\end{align}
+což je vydělení nějaké z nějaké množiny $x_0$ podle formule $\varphi$.
+\paragraph{Poznámka}
+Proč to nejde pro $a = \emptyset$? Protože takovou formuli pro $x$ by splnila 
+každá množina a tudíž by průnik byla množina všech množin, o které víme že 
+neexistuje.
 
-\subsubsection{Neuspořádané $k$-tice}
-\setcounter{equation}{0}
-\paragraph{Značení}
-Neuspořádaná $k$-tice je:
-\begin{align}
-	\{a,b,c\} = \{a,b\} \cup \{c\}
-\end{align}
-\subsubsection{Průnik}
-\setcounter{equation}{0}
-\paragraph{Definice}
-Pro neprázdnou množinu $a$ lze analogicky definovat
-\begin{align}
-	\bigcap a = \{ x : (\forall y) (y \in a \Rightarrow x \in y) \}
-\end{align}
-Pro neprázdnou a existuje $\bigcap a$: 
-\begin{align}
-	a \neq \emptyset \quad &(\exists x) x \in a, \quad x = x_0 \\
-	a = \emptyset \quad &\bigcap a \text{ není definovaný }
-\end{align}
+\ \\
+========================================\\
+MARK\\
+========================================
 
 
-\subsection{Schéma axiomu nahrazení}
+
+\subsection{Kartézský součin}
 \setcounter{equation}{0}
-Je-li $\psi(u,v)$ formule, která neobsahuje volně proměnné $z,w$, potom formule:
-\begin{align}
-	\label{axiom-nahrazeni-predpoklad}
-	(\forall u)(\forall v)(\forall w) ( \psi(u,v) \land \psi(u,w) \Rightarrow
-	v=w) \Rightarrow \\
-	(\forall a) (\exists z) (\forall v) (v \in z \Leftrightarrow (\exists u)(u
-	\in a \land \psi(u,v)))
-\end{align}
-je axiom teorie množin.
-\paragraph{Pozorování}
-Pro jedno $u$, $\psi(u,v)$ platí pro nejvýše jedno $v$. To je analogie k funkci.
 \paragraph{Definice}
 Nechť $a,b$ jsou množiny. \textbf{Kartézský součin} $a \times b$ je množina:
 \begin{align}
-	a \times b = \left\{ <x,y> : x \in a \land y \in b \right\}
+	a \times b = \left\{ \la x,y \ra : x \in a \land y \in b \right\}
 \end{align}
+\paragraph{Věta}
+Kartézký součin $a \times b$ množin $a,b$ je množina.
 \paragraph{Důkaz}
 $a \times b$ je množina. Zvolme a zafixujme $y \in b$ a
-nechť $\psi(x,v)$ je formule $v = <x,y>$. Je-li:
+nechť $\psi(x,v)$ je formule $v = \la x,y \ra$. Je-li:
 \begin{align}
-	\psi(x,v) \land \psi(x,w) \Rightarrow v = <x,y> \land w = <x,y> \Rightarrow
+	\psi(x,v) \land \psi(x,w) \Rightarrow v = \la x,y \ra \land w = \la x,y \ra 
+	\Rightarrow
 	v = w
 \end{align}
-Tedy je splněn předpoklad axiomu nahrazení (\ref{axiom-nahrazeni-predpoklad})
+Tedy je splněn předpoklad axiomu nahrazení (\ref{schema-axiomu-nahrazeni})
 pro formuli $\psi$.
 \begin{align}
-	M_y = \{ <x,y> : x \in a\}
+	M_y = \{ \la x,y\ra  : x \in a\}
 \end{align}
 je množina podle nahrazení pro $\psi$ pro každé $y$. \\
 Nechť navíc $\overline{\psi}(y,v)$ je formule $v = M_y$. Je-li:
@@ -212,7 +273,7 @@ Tedy je splněn předpoklad axiomu nahrazení (\ref{axiom-nahrazeni-predpoklad})
 pro formuli $\overline{\psi}$. Navíc tedy
 \begin{align}
 	&D = \{ M_y : y \in b \} \text{ je množina } \\
-	&\bigcup D = \{<x,y>: x \in a, y \in b \} = a \times b
+	&\bigcup D = \{\la x,y\ra : x \in a, y \in b \} = a \times b
 \end{align}
 
 
