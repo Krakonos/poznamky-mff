@@ -1,0 +1,409 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{a4wide}
+\usepackage[czech]{babel}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage[left=1.5cm, right=1.5cm, top=1.5cm, bottom=2.5cm]{geometry}
+\usepackage[small,compact]{titlesec}
+\hyphenation{vy-há-ze-ny}
+
+\title{OZD pro středně znalého matfyzáka}
+\author{Ladislav Láska}
+
+\begin{document}
+
+\maketitle
+\texttt{Organizace a Zpracování Dat I} je předmět, který je sice již pouze 
+povinně volitelný, ale i tak se ho někteří mohou pokusit vystudovat, třeba kvůli 
+krásným 5ti kreditům. Tento text provede středně znalého matfyzáka-informatika 
+velice rychle všemi potřebnými kapitolami pro složení zkoušky. Předpokládá se 
+účast na cvičeních a psychická přítomnost, protože většina algoritmů bude pouze 
+ve zkratce. Vhodná je také znalost datových struktur z přednášek Programování I 
+\& II a ADS I \& II.
+\newpage
+\tableofcontents
+\newpage
+
+\section{Úložná zařízení}
+\setcounter{equation}{0}
+\subsection{Značení}
+\setcounter{equation}{0}
+Na přednáškách, v příkladech a na slajdech je dost specifické značení.  
+Slovníček: \\
+\begin{tabular}{|l|l|l|}
+\hline
+ & Význam & Poznámka \\
+\hline
+\hline
+R & délka fyzického záznamu & \\
+\hline
+B & velikost bloku & \\
+\hline
+b & blokovací faktor B/R & říká, kolik záznamů se vejde do bloku \\
+\hline
+\end{tabular}
+
+\section{RAID}
+\setcounter{equation}{0}
+Redundant Array of Inexpensive Disks (RAID) je metoda, kdy se slučuje více disků 
+do jednoho virtuálního tak, aby se dosáhlo vyšší spolehlivosti, rychlosti, nebo 
+obojího.
+
+\paragraph{Poznámka} Sice se na přednášce dozvíme, že RAID 0 a 1 je podporován 
+levnými řadiči, ale ona to není úplně pravda. Levné řadiče (hlavně ty na desce) 
+většinou implementují "částečně hardwarový RAID", tj. jenom si pamatují 
+nastavení a umí říct ovladači, aby nastavil softwarový RAID. To se může 
+negativně projevit tak, že CPU bude zatíženo výpočty parit a nebude stíhat jiné 
+oprace (operace zápisu na RAID 5 je relativně náročná na výpočetní výkon). Proto 
+se pro každou solidní aplikaci vyplatí mít speciální řadič, který umí skutečně 
+plný hardwarový RAID (tedy operační systém už uvidí pole jako jeden disk).
+
+\subsection{RAID 0 - striping}
+\setcounter{equation}{0}
+Není redundantní, pouze rozkládá data na více disků. Data jsou rozkládána na 
+menší bloky a ty jsou střídavě ukládána na různé disky. Chyba jednoho disku může 
+vést ke ztrátě dat na všech!
+
+\subsection{RAID 1 - mirroring}
+\setcounter{equation}{0}
+Totožná data se zapisují na dva disky. Zápis je pomalý jako pomalejší z disků, 
+čtení může být až 2x rychlejší než u jednoho disku - data lze číst z obou disků.
+
+\subsection{RAID 3 a 4 - striping with parity}
+\setcounter{equation}{0}
+Prakticky RAID 0, ale má jeden disk na paritu. Umí tedy přeží výpadek až jednoho 
+disku.
+
+\subsection{RAID 5 - striping with distributed parity}
+\setcounter{equation}{0}
+Data jsou rozložena a stripována jako u RAIDu 0, ale proložena paritou (tj.  
+parity různých bloků můžou být na různých discích). Zápis na paritní disk tolik 
+nebrzdí (typicky se bude parita zapisovat na více disků naráz), je ale 
+náročnější na výpočet.
+
+\subsection{RAID 6}
+\setcounter{equation}{0}
+Jako RAID 5, ale paritní bloky jsou distribuované dva.
+
+\subsection{Vnořená pole RAID}
+\setcounter{equation}{0}
+Úrovně RAID se dají samozřejmě kombinovat do stromovitých struktur. Typicky se 
+zapisují jako například RAID 0+1. Pořadí čísel odpovídá vnoření úrovní od 
+pomyslného kořene stromu disků, druhé číslo jeho synům atp.
+
+
+\subsection{Magnetické pásky}
+\setcounter{equation}{0}
+Magnetické pásky jsou sice velmi stará technologie, nicméně pro svou 
+spolehlivost a cenu stále hojně používanou zejména pro zálohování. Pro představu 
+páska 1.6TB pro zařízení s přenosovou rychlostí 240MB/s stojí dnes cca 800kč (ke 
+dni 14. 1. 2011), což je vedle ostatních variant bezkonkurenční cena. Nevýhodou 
+samozřejmě je vysoká pořizovací cena mechaniky. Další nevýhodou je, že je 
+stavěná na sekvenční přístup a náhodný je velmi pomalý (převíjení).
+
+\subsection{Flash paměti a SSD disky}
+\setcounter{equation}{0}
+Flash paměti (SSD jsou flash) jsou nové, rychlé a drahé paměti. Jejich výhoda je 
+taková, že umožňují skutečně náhodný přístup k datům a velké přenosové 
+rychlosti. Nevýhoda je přecejenom nižší kapacita než u klasických disků a také 
+omezení zápisu: je omezen počet zápisů na disk a zápis vyžaduje cyklus 
+read-modify-write na celém vnitřním bloku (což je něco okolo 128kB).
+
+
+\section{Uložení dat na disku}
+\setcounter{equation}{0}
+Následující 4 odstavečky pojednávají o způsobech ukládání dat na disk. Je to 
+vzásadě formalita, protože uložení na disku budeme šít na míru danému algoritmu.  
+Nicméně je to u zkoušky požadováno...
+
+\subsection{Sekvenční soubor}
+\setcounter{equation}{0}
+Sekvenční soubor je nejjedndoušší, může být uspořádaný. Častý v dávkových 
+systémech, například pro zálohování, zpracování velkého množství dat (například 
+vygenerování měsíčního vyúčtování atp.).
+
+\subsection{Indexed Sequential Access Method (ISAM)}
+\setcounter{equation}{0}
+ISAM je způsob přístupu k datům, kdy jsou data uložena v sekvenčním souboru (v 
+nějakém pořadí, to se nedefinuje) a do něj ukazuje index.
+
+\subsection{Indexovaný soubor}
+\setcounter{equation}{0}
+Indexovaný soubor je podobný ISAMu, ve skutečnosti tyto pojmy splývají. Jde o 
+to, že jsou data uložena v primárním souboru a k tomu je jeden či několik 
+indexů, které do něj ukazují. Podle přednášky to vypadá, že se od ISAM liší 
+jenom tím, že se jinak jsmenuje a u ISAMu definujeme uspořádání.
+
+\textit{Poznámka autora: Ve skutečnosti je to celkem jedno, protože návrh 
+databáze, kterou bychom mohli chtít, bude diktovat nějakou datovou strukturu.  
+Každý už musí podle svého zvážení říct, co se mu vyplatí více. Nelze tedy určit 
+pravidlo, kdy může co být lepší.}
+
+\subsection{Datový soubor s přímým přístupem}
+\setcounter{equation}{0}
+\textit{Myslím si: je to soubor, kde jsou data a já na ně mohu přistupovat 
+přímo. Tedy nemá žádný index, například řeknu že chci položku $k$ a sáhnu na 
+odpovídající pozici.}
+
+
+\section{Datové struktury}
+\setcounter{equation}{0}
+\subsection{Perfektní hashování (Cormack)}
+\setcounter{equation}{0}
+Mějme primární hashovací funkci $h(k)$ a sadu sekundárních funkcí $h_i(k,r)$.  
+Zavedeme si dvě tabulky - primární a sekundární.  Primární tabulka se indexuje 
+pomocí primární hashovací funkce a jeden její řádek říká, kolik hodnot se 
+stejným primárním hashem je uloženo (sloupec \textbf{r}).  Sloupec \textbf{p} 
+určuje, kde začínají tyto konfliktní záznamy (tento úsek je vždy spojitý!) a 
+sloupec \textbf{i} říká, jakou hashovací funkcí $h_i$ lze záznamy rozlišit (tj.  
+udává pozici našeho záznamu v intervalu $(p,p+r-1)$).  Následující příklad 
+ukazuje 3 vložené hodnoty: jedna nekonfliktní A a dvě konfliktní BB a BC.
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+	& \textbf{p} & \textbf{i} & \textbf{r} \\
+\hline
+0   & 0 & - & 1 \\
+\hline
+1   &   &   &   \\
+\hline
+2   & 1 & 5 & 2 \\
+\hline
+3   &   &   &   \\
+\hline
+\end{tabular}\hspace{3cm}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{p} & \textbf{val} \\
+\hline
+0 & A \\
+\hline
+1 & BB \\
+\hline
+2 & BC \\
+\hline
+3 &  \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Vkládání} Při vkládání nalezneme nejdříve příslušný řádek v primární 
+tabulce a pokud je neobsazený, založíme jej (a hodnotu vložíme do sekundární 
+tabulky na první volné místo). Pokud je řádek v primární tabulce obsazený, 
+zvětšíme \textbf{r} a nalezneme takové \textbf{i}, že bude odlišovat všechny 
+záznamy (včetně těch, které již v tabulce jsou). Následně všechny prvky vložíme 
+do sekundární tabulky (ty co tam už jsou vložíme znovu a původní místa uvolníme) 
+setříděné podle hodnot jejich hashů.
+
+
+\subsection{Perfektní hashování (Larson \& Kajla)}
+\setcounter{equation}{0}
+Data budeme ukládat do $d$ přihrádek. Navíc každé přihrádce přiřadíme signaturu 
+velikosti $b$ bitů (kde $2^b$ je počet záznamů ve stránce), ta je na začátku 
+maximální možná.  Pořídíme si sadu hashovacích funkcí $H_i(k,d)$ a $S_i(k,b)$, 
+kde $H_i$ bude ukazovat na stránky a $S_i$ počítat signatury.
+\paragraph{Vkládání}
+Nejdříve nalezneme $i$ takové, aby $H_i$ ukazovala na stránku $p$, že $sep(p) > 
+S_i(k)$. Pokud v této přihrádce je volno, záznam vložíme a jsme hotovi. Pokud 
+volno není, stránku musíme štěpit - to uděláme tak, že ze stránky vyjmeme 
+záznamy s nejvyšší signaturou, separátor stránky snížíme na tuto signaturu a 
+všechny je vložíme znovu do databáze (záznam, který jsme vkládali původně, v 
+této stránce již zůstane - rozmyslete si, proč by do této stránky stejně spadnul 
+i "opakovaném" vkládání).
+
+\subsection{Rozšiřitelné hashování (Fagin)}
+\setcounter{equation}{0}
+Mějme hashovací funkci $h(k)$ vracející binární číslo a adresář velikosti $d$.
+Navíc předpokládejme, že $d = 2^i$ pro nějaké $i$. Stránky odkazované z adresáře 
+mají libovolnou kapacitu, minimálně však 1. Označme $b := \log_2 d$.  V adresáři 
+adresujeme prvními $b$-bity z $h(k)$.
+
+\paragraph{Vkládání}
+Při vkládání nejdříve nalezneme příslušnou stránku (triviálně zahashujeme klíč a 
+v adresáři najdeme pointer). Pokud se do stránky záznam vejde, vložíme ho. Pokud 
+je stránka plná, musíme stránku rozštěpit.
+
+\paragraph{Štěpení stránky}
+Nejprve se podíváme, kolikrát je stránka uložena v adresáři (rozmyslete si, že 
+odkazy na tuto stránku jsou všechny v souvislém bloku). Pokud se stránky 
+vyskytuje pouze jednou, musíme rozštěpit adresář (a tím zajistíme, že se bude 
+vyskytovat dvakrát).  Pokud vícenásobně, najdeme bit ve kterém se stránky 
+naposledy shodují a v něm rozštěpíme. Záznamy do dvou nových stránce
+přerozdělíme (aby byly na svém místě) a nový záznam přidáme.
+
+\paragraph{Štěpení adresáře}
+Adresář štěpíme tak, že zvětšíme jeho hloubku o jeden bit. Ukazatele na stránky 
+vždy zkopírujeme (rozštěpený řádek ukazuje na ty samé stránky).
+
+
+\subsection{Lineární hashování (Litwin)}
+\setcounter{equation}{0}
+Mějme hashovací funkci $h(k)$ vracející binární číslo o $d$ bitech. Mějme také 
+konstantu $L$, která značí, kolik vložení musíme vykonat mezi štěpeními. Začneme 
+s jednou stránkou a oblastí přetečení. Pro lepší pochopení si zaveďme pojem 
+\textbf{expanze} jako úseky, mezi kterými došlo ke zdvojnásobení počtu stránek.  
+Protože při štěpení se zvětší počet stránek o 1 je zřejmé, že po $k$-té expanzi 
+bude mít adresář $2^k$ stránek a také že další expanze nastane za $2^k$ štěpení.  
+Tedy štěpení v jedné fázi bude právě tolik, kolik máme stránek na začátku fáze 
+expanze. Tady je vidět, že stránky můžeme štěpit jednoduše podle pořadí s tím, 
+že novou stránku zařadíme za poslední.
+
+\paragraph{Vkládání}
+Při vkládání najdeme odpovídající stránku a pokusíme se vložit. Pokud je stránka 
+plná, vložíme záznam do oblasti přetečení. Pokud jsme udělali právě $L$-té 
+vložení od předchozího štěpení, rozštěpíme
+
+\paragraph{Štěpení}
+Štěpení probíhá tak, že stránku, která je na řadě, rozdělíme podle prvního zatím 
+nepoužitého bitu hashovací funkce (tj. zvětšíme rozlišení o jeden bit). Některé 
+záznamy budou "vyházeny" do nové stránky, kterou umístíme za poslední.
+
+
+\subsection{Skupinové štěpení stránek}
+\setcounter{equation}{0}
+\textit{Poznámka autora: Skupinové štěpení stránek je varianta Litwina (resp.  
+Litwin je speciální případ skupinového štěpení), kde se stránky navíc dělí do 
+skupin.  Ve slajdech to není popsané a vypadá to, že se to u zkoušek objevuje.  
+Pokud to někdo ovládá, rád to sem přidám, nicméně já o tom nevím prakticky nic.}
+
+
+\subsection{Částečná shoda}
+\setcounter{equation}{0}
+Při dotazech na částečnou shodu hledáme podle více atributů, ale nevyžadujeme, 
+abychom znali všechny (lze hledat například pouze zapomocí poloviny). Atributy 
+navíc umíme ohodnotit pravděpodobností, s jakou se podle nich bude hledat.  
+Implementujeme to tak, že rozdělíme celkovou délku klíče na segmenty různé 
+délky, kde každý atribut bude mít svůj segment. Při vyhledávání se pak budeme 
+řídit jenom částí adresy: to ale má jistou nevýhodu, protože možná budeme muset 
+prohledávat nespojitý adresní prostor.
+
+\paragraph{Určení počtu bitů z pravděpodobností}
+Pro každý atribut $A_i$ nechť máme pravděpodobnost $P_i$ a chceme vypočítat jemu 
+příslušící počet bitů $d_i$. Spočítejme hodnoty $d_i$:
+\begin{align}
+	d_i = \frac{ d - \sum_{j = 1}^n \log_2 P_j}{n} + \log_2 P_i
+\end{align}
+Pokud při výpočtu vyjde hodnota $d_i < 0$, příslušný atribut vyškrtneme a 
+výpočet zopakujeme. Pokud naopak nějaké $d_i > d$, výpočet zastavíme a jako klíč 
+použijeme pouze atribut $A_i$ (a tedy $d_i := d$).
+
+\paragraph{Určení ceny dotazu}
+\textit{Myslím si: Cena dotazu je, kolik stránek budu muset prohledat. Ta cena 
+může být absolutní pro daný prvek, nebo průměrná. Absolutní je jasná (počet 
+možných hodnot před a po známé části, průměrnou bych počítal jako průměr 
+absolutních cen pro každý prvek.}
+
+\subsection{Efektivní prohledávání stránek}
+\setcounter{equation}{0}
+Při dotazech na částečnou schodu se nám může snadno stát, že budeme muset 
+prohledávat relativně velký adresní prostor (který navíc nemusí být spojitý).  
+Ten můžeme zmenšit například použitím nějaké heuristiky (deskriptory stránek), 
+která nám řekne, které stránky nemáme prohledávat (ale neřekne nám, které 
+stránky přímo chceme - může nás tedy nechat něco prohledat zbytečně, ale určitě 
+nám nic nezatají), nebo se snažit prohledat stránky efektivněji (Grayovy kódy).
+\subsubsection{Deskriptory stránek}
+\setcounter{equation}{0}
+Každou stránku budeme charakterizovat $w$-bitovým číslem, tzv. deskriptorem.  
+Deskriptor složíme jako $OR$ všech "deskriptorů" záznamů ve stránce (nějaký 
+hash). Deskriptor se může skládat z hodnot v různých atributech, libovolně 
+rozdělených (například podle pravděpodobnosti jako ve vyhledávání na částečnou 
+shodu), ale je velice vhodné použít hashovací funkci, která má za výsledek spíše 
+méně 1 a více 0 (více dále).
+
+\paragraph{Vyhledávání}
+Nejdříve vypočteme masku dotazu - prostě z klíčů, které chceme najít spočítáme 
+stejný hash jako v deskriptoru (pro klíče, které nás nezajímají, vezmeme 0).  
+Pokud v příslušných bitech  nastane situace, že v masce dotazu je 1 a v 
+deskriptoru je 0, stránka určitě neobsahuje co chceme a můžeme ji přeskočit. Zde 
+je vidět, že pokud by byly deskriptory samé 1, nic se nedozvíme (a protože se 
+deskriptory vytvářejí $OR$-em, může se to stát snadno).
+
+
+\subsubsection{Grayovy kódy}
+\setcounter{equation}{0}
+Grayův kód je způsob zápisu čísla, velmi podobný binárnímu zápisu, kde se po 
+sobě jdoucí čísla liší právě v jedné pozici v binárním zápisu. Tedy například:
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+	dec & bin & Gray \\
+\hline
+	0	& 000 & 0000 \\
+\hline
+	1   & 001 & 0001 \\
+\hline
+	2   & 010 & 0011 \\
+\hline
+	3   & 011 & 0010 \\
+\hline
+\end{tabular}
+\end{center}
+Takovéto uspořádání má za následek, že pokud prohledáváme množinu stránek, 
+nebude tolik roztroušená (tedy budeme moci prohledávat spojitý adresní prostor).  
+To sice není zaručený efekt, ale v průměrném případě se vyplatí. Navíc platí, že 
+oproti binárnímu kódování si můžeme pouze pomoct (tj. v nejhorším případě je 
+shluk při Grayových kódech nejvíce takový, jako při použití binárního kódování).
+
+
+\subsection{B-strom}
+\setcounter{equation}{0}
+\paragraph{Definice}
+B-strom řádu $m$ je strom kde platí invarianty:
+\begin{enumerate}
+	\item Každý uzel má n synů, kde $m/2 \leq n \leq m$.
+	\item Hodnoty v uzlu jsou setříděny a rozdělují mezní hodnoty všech svých 
+	synů.
+	\item Cesta z každého listu do kořene je stejně dlouhá.
+\end{enumerate}
+
+Tedy jde o vyváženou datovou strukturu shlukující více dat v jednom uzlu. To má 
+za následek šetření IO operacemi při používání stromu (zejména při vkládání a 
+mazání), zejména pak pokud jsou data ve stromu uložena přímo (což si nejsem 
+vědom, že by bylo chytré dělat při větších než malých objemech).
+
+\paragraph{Operace}
+Operace hledání je triviální z definice. Vkládání a mazání již triviální není, 
+ale každý abosolvent předmětu Programování nebo ADS by ho měl zvládat.  
+Připomeňme tedy, že se vkládá do listů, maže se odkudkoliv a hlídá se 
+přetečení/podtečení uzlu. Pokud taková situace nastane, nejdříve se snažíme 
+převést vrchol sousedovi, nebo si od něj naopak půjčit. Pokud to nelze, uzel 
+štěpíme (rozdělíme na dva) a jeho středovou hodnotou oddělíme dva nové uzly v 
+jejich otci. Alternativně při mazání můžeme vrcholy slučovat tak, že si půjčíme 
+jejich společný oddělovač z otce.
+
+\paragraph{Zamykání}
+Zamykání v B-stromech lze řešit různě, nicméně nejefektivnější je zamykání s 
+preventivním štěpením: při každém průchodu uzlem zjistím, zda v něm lze provést 
+operaci vložení/mazání (podle toho, jakou právě chci udělat pod ním) a případně 
+ho preventivně rozštěpím/sloučím, aby udělat šla. Tím zajistím, že v danou 
+chvíli mi stačí mít uzamčené nejvýše dva uzly a zbytek stromu je přístupný 
+ostatním.
+
+\paragraph{Redundantní verze}
+Předchozí strom nazveme neredundantní, protože každý klíč v něm byl obsažen 
+právě jednou. Jednoduchou modifikací však můžeme získat redundantní verzi, kde 
+hodnoty v uzlech rozdělují své syny neostře - a tedy se můžou vyskytnout 
+vícekrát. To využijeme k tomu, že všechny skutečné hodnoty uložíme v listech a 
+hodnoty v uzlech budou jenom pro vyhledávání
+
+\subsection{B+-strom}
+\setcounter{equation}{0}
+B+-strom je jednoduchá variace na redundantní B-strom, kde navíc jsou listy 
+stromu spojeny ukazateli do spojového seznamu, aby  k nim byl možný rychlý 
+sekvenční přístup.
+
+\subsection{B*-strom}
+\setcounter{equation}{0}
+Při snaze většího průměrného naplnění byl vytvořen B*-strom, cože je varianta 
+B-stromu, kde je požadováno naplnění každého uzlu až 2/3. Aby se taková 
+struktura dala udržovat, je při vkládání a mazání nutno počítat se sousedními 
+uzly a sdílet s nimi prvky. Pokud nelze již sdílet, dochází ke slučování/štěpení 
+- a to tak, že se 3 uzly sloučí do 2 nebo naopak.
+
+\textit{Poznámka autora. B*-stromy se používají relativně zřídka (filesystémy 
+HFS a Reiser4) a většinou se říká prostě "B-stromy".}
+
+\end{document}
+
