@@ -1,0 +1,1272 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1.5cm]{geometry}
+\usepackage{graphics}
+\usepackage{wrapfig}
+\usepackage{float}
+
+\usepackage{../math}
+
+\title{Kombinatorika a Grafy II}
+\author{Ladislav Láska}
+
+\renewcommand{\paragraph}[1]{\ \\\smallskip\noindent\textbf{#1}\ }
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Perfektní párování}
+Perfektní párování (taktéž {\it 1-faktor}) grafu $G$ je $M \subset E_G$ takový, 
+že $\forall v \in V_g: \deg(v) = 1$.
+\subsection{Hallova věta}
+\subsection{Tutteho věta}
+\paragraph{Pozorování}
+Pokud v grafu, který má perfektní párování, vezmeme libovolnou množinu $S$, pak 
+nebude v grafu $G\setminus S$ více lichých komponent, než je vrcholů v $S$.  
+Proč? V perfektním párování totiž z každé liché komponenty musí vést párovací 
+hrana do $S$.
+\paragraph{Věta} (Tutte) Graf má perfektní párování \textbf{právě tehdy}, když 
+platí Tutteho podmínka:
+\begin{align}
+	q(G\setminus S) \leq |S|
+\end{align}
+kde $q(G)$ je počet lichých komponent $G$.
+\paragraph{Důkaz}
+Předpokládejme, že graf $G$ je maximální bez perfektního párování, splňující 
+Tutteho podmínku (zde maximální ve smyslu, že přidáním libovolné hrany již 
+perfektní párování mít bude). To můžeme, protože jestli $G$ vznikl z $G'$ 
+přidáváním hran a $G$ má špatnou množinu $S$ porušující Tutteho podmínku, je 
+tato množina špatná i pro $G'$ (přidáváním hran nezvyšujeme počet lichých 
+komponent).
+
+Nyní se podíváme, jak takový graf vypadá, pokud by obsahoval špatnou množinu 
+$S$:
+
+\bigskip
+
+\centerline{\it $(*)$ Všechny komponenty $G\setminus S$ jsou úplné a každý 
+vrchol z $S$ má hranu do každého vrcholu $G\setminus S$.}
+
+\bigskip
+
+Také si všimneme, že pokud taková množina $S$ existuje v grafu $G$ bez 
+perfektního párování, tak je buď špatná a nebo je špatná prázdná množina: pokud 
+by $S$ byla dobrá, můžeme spárovat všechny komponenty a párovací hrany vést do 
+$S$.  Protože ale $G$ nemá perfektní párování, musí být velikost $G$ lichá a 
+tedy $\emptyset$ je špatná množina porušující Tutteho podmínku.
+
+Nyní pro spor předpokládejme, že $G$ nemá perfektní porování a žádná množina $S$ 
+nemá vlastnost $(*)$. Vezměme tedy nějakou množinu $S$ největší mezi takovými, 
+že v ní každý vrchol má hranu do každého vrcholu $G\setminus S$. Protože 
+nesplňuje vlastnost $(*)$, existují v nějaké komponentě $G\setminus S$ vrcholy 
+$a,a'$ nespojené hranou. Označme $a,b,c$ první tři vrcholy na nejkratší cestě 
+mezi $a,a'$. Protože navíc $b \notin S$, existuje $d \in V_G$, že $bd\in E_G$ 
+(odpusťmě si triviální případ, kde $aa'$ byla jediná neobsažená hrana v 
+komponentě a komponenta byla jediná).
+
+Z maximality $G$ určitě $G+ac$ má párování $M_{ac}$ a $G+bd$ párování $M_{bd}$ 
+(navíc tato párování přidané hrany obsahují). Nyní si všimneme, že $M_{ac} 
+\oplus M_{bd}$ se sestává z sudých cyklů střídající hrany z obou párování.  
+Označme $C_{ac}$ a $C_{bd}$ cykly obsahující hrany $ac$ a $bd$. Rozlišme dva 
+příklady:
+
+\begin{enumerate}
+	\item $C_{ac} \neq C_{bd}$, pak prohozením párovacích a nepárovacích hran na 
+	cyklu $C_{ac}$ v párování $M_{ac}$ získáme perfektní párování, což je spor s 
+	tím, že ho $G$ nemá.
+	\item $C_{ac} = C_{bd}$, pak vytvořme nový cyklus $C'$ tak, že v něm uděláme 
+	zkratku z $a$ nebo $c$ přímo do $b$. Protože nová hrana neleží v párování 
+	$M_{bd}$, stenětak jako hrana $ac$. Potom prohodíme párovací a nepárovací 
+	hrany $C'$ v párování $M_{bd}$ a máme perfektní párování grafu $G$, což je 
+	opět spor.
+\end{enumerate}
+\qed
+
+\subsection{Petersenova věta}
+\paragraph{Věta} (Petersen)
+Každý 3-regulární graf bez mostů má perfektní párování.
+\paragraph{Důkaz}
+Ukážeme, že každá $S$ splňuje Tutteho podmínku. Mějme libovolnou množinu $S$ a 
+uvažujme $C$ lichou komponentu $G\setminus S$. Nahlédneme, že graf $G$ má sudý 
+součet stupňů, stejnětak jako komponenta $C$. Ale graf $C$ přispívá do $G$ 
+lichým součtem (lícho vrcholů, každý 3 hrany) -- musí tedy existovat lichý počet 
+$S-C$ hran. Protože je navíc graf bez mostů, musí být takové alespoň 3.
+Počet hran mezi $S$ a $G\setminus S$ je tedy alespoň $3q(G \setminus S)$.  
+Zároveň je ale omezen součtem stupňů vrcholů v $S$, tedy nejvíce $3|S|$. Tedy 
+$q(G\setminus S) \leq |S|$ a věta je dokázána.
+\qed
+
+\subsection{Maximální párování a vylepšující cesty}
+\paragraph{Definice} Vrchol je nespárovaný (volný) v párování $M$ právě tehdy 
+když není incidentní s žádnou hranou z $M$.
+\paragraph{Definice} Cesta se v párování $M$ nazývá střídavá, právě tehdy když 
+střídá hrany z párování $M$ a které nejsou.
+\paragraph{Pozorování} Existují tři druhy střídavých cest: cesta mezi dvěma 
+spárovanými vrcholy, mezi jedním nespárovaným a jedním spárovaným a mezi dvěma 
+nespárovanými. Také se můžeme setkat se střídavým cyklem (ten je vždy sudý).
+\paragraph{Definice} Vylepšující cesta je střídavá cesta mezi dvěma 
+nespárovanými vrcholy.
+\paragraph{Věta} Párování $M$ je maximální (co do počtu hran), právě tehdy když 
+neexistuje vylepšující cesta.
+\paragraph{Důkaz} Pokud je párování maximální, tak neexistuje vylepšující cesta 
+(jinak bychom cestu převrátili a měli větší párování, což by byl spor). Dokažme 
+tedy opačnou implikaci:
+
+Nechť $M$ je párování, které není maximální a $N$ je nějaké maximální párování.  
+Podívejme se na symetrickou diferenci $D = M \oplus N$. Protože $M$ i $N$ jsou 
+párování, každý vrchol v $D$ sousedí nanejvýš s jednou hranou v $M$ a jednou v 
+$N$. Všimneme si, že že $D$ skládá ze střídavých cest (střídají hrany z $M$ a 
+$N$) a sudých cyklů. Protože navíc $M$ není maximální, $|N| > |M|$. V grafu $D$ 
+nejsou hrany společné pro obě párování, to ale nerovnost nerozbije. Najdeme 
+komponentu v $D$ takovou, že má je v ní více hran z $N$ než $M$. Taková ze 
+zmíněné nerovnosti musí existovat. Nahlédneme ale, že sudý cyklus má hran 
+stejně, cesta z vrcholu párovaného v $M$ do vrcholu párovaného v $N$ také, cesta 
+z i do vrcholů párovaných v $M$ má hran z $N$ dokonce méně a tudíž musí jít o 
+cestu z a do vrcholů párovaných v $N$. Taková cesta je ale vylepšující cesta pro 
+$M$, což jsme chtěli dokázat.
+\qed
+
+Pomocí tohoto výsledku můžeme zkonstruovat jednoduchý algoritmus:
+
+\paragraph{Algoritmus} (Maximální párování)
+Začni s nějakým (třeba prázdným párováním M):
+\begin{enumerate}
+	\item Najdi vylepšující cestu, pokud existuje a převrať její hrany. Pokud 
+	jsi našel, opakuj 1 s novým párováním.
+	\item Vrať párování jako maximální.
+\end{enumerate}
+\paragraph{Důkaz} (přímo plyne z předchozí věty o maximálním párování a 
+vylepšující cesty)
+\qed
+
+Ukazuje se ale, že hledání vylepšujících cest není v obecném případně snadné, 
+protože když se do cesty vpletou liché cykly, přestane stačit jednoduché 
+prohledávání do šířky. Ukážeme si nyní vylepšený algoritmus, který toto řeší.
+
+\subsubsection{Edmondsův květinkový algoritmus}
+\paragraph{Definice} Květinkou rozumíme lichý cyklus, ze kterého vede alespoň 
+jedna hrana. Tu budeme nazývat stonek a budeme si přát, aby byl vždy spárovaný a 
+na ostatní hrany na květince tvořily střídavou cestu.
+\paragraph{Pozorování} Všimneme si, že pokud máme květinku a daný stonek, pak 
+každý vrchol je ze stonku dosažitelný lichou i sudou střídavou cestou.
+
+\begin{wrapfigure}{r}{0.2\textwidth}
+\centering
+\includegraphics{kvetinka.pdf}
+\caption{Květinka}
+\label{edmonds:kvetinka}
+\end{wrapfigure}
+
+\paragraph{Algoritmus} (Edmondsův květinkový)\\
+\indent Vstup: (G, M) - graf a nějaké párování na něm \\
+\indent Výstup: P vylepšující cesta (prázdná, pokud neexistuje)
+\begin{enumerate}
+	\item Pro každý nespárovaný vrchol vytvoř strom v $F$, sestávající se pouze 
+	z daného vrcholu.
+	\item Pro každý vrchol $v$ se sudou vzdáleností od kořene a pro jeho každou 
+	hranu $e = vw$ učiň jedno z (a už se do daného vrcholu a hrany nevracej):
+	\begin{enumerate}
+		\item Pokud $w$ není v $F$, přidej do stromu hrany $vw$ a $wx$, kde $x$ 
+		je vrchol spárovaný s $w$.
+		\item Pokud má $w$ lichou vzdálenost od kořene, nedělej nic.
+		\item Pokud vede hrana $e$ do jiného podstromu, ohlaš vylepšující cestu 
+		mezi kořeny těchto stromů přes $e$.
+		\item Jinak kontrahuj kytičku tvořenou hranou $e$ a cestou mezi $v,w$, 
+		zarekurzi se a vrať odpověď z rekurze.
+	\end{enumerate}
+	\item Odpověz prázdnou cestou.
+\end{enumerate}
+
+Jinými slovy: budujeme zakořeněný les z volných vrcholů takový, že z vrcholů na 
+lichých hladinách vždy vede párovací hrana a ze sudých nepárovací hrana.  
+
+\paragraph{Důkaz}
+Spojování stromů je celkem přímočaré, zbývá uvěřit, že kontrakcí kytiček 
+nezměníme existenci vylepšující cesty. Nyní předpokládejme, že vždy vylepšující 
+cesta vede přes stonek. Ukážeme, že existence takové vylepšující cesty je 
+ekvivalentní a také jak ji sestrojit.
+
+\begin{enumerate}
+	\item Pokud existuje v $G$ vylepšující cesta, existuje i v $G'$. Protože je 
+	stonek spárovaný, z hrana na vylepšující cestě opouštějící květinku nesmí 
+	být spárovaná.  Po kontrakci hrana bude sousedit přímo s vrcholem $v$ a 
+	tudíž přes květinku také povede vylepšující cesta (ačkoli kratší).
+	\item Pokud existuje v $'G$ vylepšující cesta, existuje i v $G$. Označme 
+	vrchol, kterému náleží hrana vedoucí z $v$ v $G'$ ve vylepšující cestě $u$.  
+	Podívejme se na tento vrchol v květince -- sousedí s právě jednou spárovanou 
+	hranou. Vydáme se po této hraně nejkratší cestou po květince do vrcholu $v$.  
+	Taková cesta nám ale dává vylepšující cestu vedoucí přes květinku v grafu 
+	$G$. Pokud bychom tuto operaci dělali vícekrát na jedné květince, stačí 
+	uvažovat, že ji pokaždé překořeníme do jiného vrcholu -- to ale vůbec 
+	nevadí.
+\end{enumerate}
+\paragraph{Složitost}
+Je zřejmé, že vnitřní cyklus vždy přidá vrchol do lesa, nalezne zlepšující 
+cestu, nebo zkontrahuje květinku. Tedy jedna iterace trvá nejvýše $\O(n^2)$.  
+Pokud budeme algoritmus iterovat pro nalezení maximálního párování, pustíme ho 
+maximálně $\O(m)$ (při každém vylepšení párování použijeme o hranu navíc).  
+Celková složitost je tedy $\O(n^2m)$
+\qed
+
+\paragraph{Pozorování}
+Kontrakce kytičky obecně existenci vylepšující cesty nezachovává, když cesta 
+neprochází stonkem (protipříklad: trojcyklus s vyčnívající hranou z každého 
+vrcholu).
+\subsection{Počet perfektních párování}
+\paragraph{Poznámka} V následujícím textu předpokládáme grafy s násobnými 
+hranami, ale bez smyček (ty nám kazí bipartitní grafy).
+\paragraph{Lemma} Nechť $G$ je bipartitní 3-regulární graf na 2n vrcholech 
+takový, že pro každou hranu $e \in E_G$ má $G$ alespoň $N$ perfektních párování 
+neobsahujících $e$. Pak má $G$ alespoň $3N/2$ perfektních párování.
+\paragraph{Důkaz} Nechť $v$ je vrchol $G$ a $e_1, e_2, e_3$ jeho hrany. Označme 
+$P_i$ množinu všech perfektních párování grafu $G$, které obsahují hranu $e_i$ a 
+nahlédněme, že $\sum |P_i|$ je počet všech perfektních párování grafu $G$. Dále 
+nahlédneme, že $|P_1| + |P_2|$ je počet perfektních párování neobsahujících 
+hranu $e_3$ a analogicky pro ostatní hrany. Po sečtení získáme $2(|P_1| + |P_2| 
++ |P_3|) \geq 3N$, což tvrzení dokazuje.
+\qed
+
+\paragraph{Věta} (Voorhoeve)
+Nechť $G$ je bipartitní 3-regulární graf na $2n$ vrcholech a $e$ je hrana $G$.  
+Pak má $G$ alespoň $N = \frac{3}{2} \left( \frac{4}{3} \right)^n$ perfektních 
+párování neobsahujících hranu $e$.
+\paragraph{Důkaz} Indukcí: pro $n=1$ se jedná o dva vrcholy s trojnásobnou 
+hranou a věta platí.
+Dále pro $n>1$:
+
+\begin{enumerate}
+	\item $G$ není souvislý: Označme $G_e$ komponentu souvislosti obsahující $e$ 
+	a $G' := G - G_e$. Z indukčního předpokladu plyne, že $G_e$ má alespoň 
+	$\frac{3}{2} \left( \frac{4}{3} \right)^{|V_{G_e}|/2}$ perfektních párování 
+	nebosahujících $e$. Pro libovolnou hranu $f$ z $G'$ analogicky, přičemž 
+	každá kombinace párování je platná. To nám tedy dává: 
+	$\frac{9}{4}\left(\frac{4}{3}\right)^{|V_{G_e}|/2 + |V_{G'}|/2} > N$, takže 
+	tvrzení platí.
+	\item $G$ je souvislý. Označme $e = uv$ a $u,w_1,w_2$ sousedy $v$. Jelikož 
+	je $G$ souvislý a má alespoň 4 vrcholy, můžeme předpokládat, že $w_2 \neq 
+	u$. Rozlišme několik případů:
+	\begin{enumerate}
+		\item $w_1 = u$: Označme pak $z$ souseda $u$ různého od $v$ a $H$ buď 
+		graf získaný z $G \setminus \{u,v\}$ přidáním hrany $e' = w_2z$, viz 
+		Obrázek \ref{parovani:paralelni}. Snadno nahlédneme, že výsledný graf je 
+		bipartitní a 3-regulární na $2(n-1)$ vrcholech, tedy podle indukčních 
+		předpokladů a Lemmatu má graf $H$ alespoň 
+		$\frac{9}{4}\left(\frac{4}{3}\right)^{n-1}$ perfektních párování. Navíc 
+		nahlédneme, že každé perfektní párování grafu $H$ odpovídá právě jednomu 
+		v grafu $G$, věta tedy platí.
+\begin{figure}[H]
+\centering
+\includegraphics{parovani-paralelni.pdf}
+\caption{Nahrazení paralelní hrany}
+\label{parovani:paralelni}
+\end{figure}
+		\item $w_1 \neq u \quad\&\quad w_1 = w_2$: Nechť $z$ je soused $w_1$ 
+		různý od $v$ a $H$ graf získaný z $G \setminus \{v,w_1\}$ přidáním hrany 
+		$e' = uz$, viz Obrázek \ref{parovani:sousedni}. Opět aplikujeme indukční 
+		předpoklad, ale tentokrát získáme pouze polovinu potřebných párování.  
+		Všimneme si ale, že na každé párování $H$ připadají dvě párování v $G$ 
+		(podle volby paralelní hrany).
+\begin{figure}[H]
+\centering
+\includegraphics{parovani-sousedni.pdf}
+\caption{Nahrazení hrany sousední s paralelní}
+\label{parovani:sousedni}
+\end{figure}
+		\item $u, w_1, w_2$ navzájem různé: Nejprve označme hrany $e_i$ jako 
+		hrany vedoucí z $w_j$ do $y_i$. Vytvořme grafy $H_i$ pro $i=1..4$ ($H_1$ 
+		na obrázku \ref{parovani:obecne}).
+\begin{figure}[H]
+\centering
+\includegraphics{parovani-obecne.pdf}
+\caption{Nahrazení hrany v obecném případě}
+\label{parovani:obecne}
+\end{figure}
+		smazáním vrcholů $w_1,v$ a přidáním hrany $e_i'=(u,y_i)$ a zbylé $y_i$ 
+		spojíme s $w_2$.  Zjevně $H_i$ mají každý z indukčního předpokladu 
+		alespoň $3N/4$ perfektních párování.  Označíme $P_i$ množinu všech 
+		párování grafu $G$, které neobsahují hranu $e$, ale obsahují hranu 
+		$e_i'$.  Nahlédneme, že jsou množiny $P_i$ disjunktní.  Podíváme se na 
+		párování $M$ v grafu $H_1$, které neobsahují hranu $e_1'$. Pokud takové 
+		párování obsahuje hranu $y_2w_2$, odpovídá párování $P_2$ (kvůli vrcholu 
+		$y_2$ a ekvivalentně pro ostatní $P_i$ a $H_i$. Stačí tedy sečíst 
+		následující soustavu:
+		\begin{align}
+			|P_2|+|P_3|+|P_4| \geq 3N/4\\
+			|P_1|+|P_3|+|P_4| \geq 3N/4\\
+			|P_1|+|P_2|+|P_4| \geq 3N/4\\
+			|P_1|+|P_2|+|P_3| \geq 3N/4\\
+			3(|P_1|+|P_2|+|P_3| + |P_4|) \geq 3N
+		\end{align}
+		Což je ale počet perfektních párování $G$ neobsahujících hranu $e$, což 
+		jsme chtěli dokázat.
+	\end{enumerate}
+\end{enumerate}
+\qed
+
+\section{Grafy na plochách}
+\subsection{Homeomorfismus, plocha}
+\paragraph{Definice} \textit{Homeomorfismus} je bijekce $f: A\to B$ taková, že 
+$f$ i $f^{-1}$ jsou spojité. Existuje-li homeomorfismus z plochy $A$ do $B$, 
+jsou homeomorfní.
+\paragraph{Příklady} Homeomorfismy jsou například posunutí, otočení, zrcadlení, 
+zmenšení, zvětšení, nebo složení dvou homeomorfismů.
+\paragraph{Pozorování} Homeomorfismus zachovává nakreslitelnost grafu: obraz 
+jednoduché spojité křivky je jednoduchá spojitá křivka, obraz nakreslení grafu 
+je nakreslení grafu.
+\paragraph{Konvence} Homeomorfní plochy budeme pro naše použití považovat za 
+stejné.
+\paragraph{Definice} \textit{Plocha} je kompaktní souvislá dvourozměrná varieta 
+bez hranice, tj. každý její bod je homeomorfní otevřenému disku a z každého 
+pokrytí otevřenými množinami lze vybrat konečné pokrytí.
+\paragraph{Pozorování} Podle kompaktnosti lze plochu rozstříhat na konečné 
+množství částí
+\subsection{Buňkové nakreslení, rod plochy}
+\paragraph{Definice} Nakreslení grafu $G$ na ploše je \textit{buňkové}, jestli 
+každá stěna homeomorfní otevřenému disku.
+\paragraph{Pozorování} Má-li graf $G$ buňkové nakreslení, pak je souvislý.
+\paragraph{Věta} Jsou-li grafy $G_1$ a $G_2$ nakreslené na stejné ploše, pak 
+$|E_{G_1}| - |V_{G_1}| - |F_{G_1}| = |E_{G_2}| - |V_{G_2}| - |F_{G_2}|$.
+\paragraph{Důkaz} (TODO)
+\paragraph{Lemma} Označme $t(G) = |E_G| - |V_G| - |F_G|$. Pak pro buňkově 
+nakreslené grafy $H \subseteq G$ platí $t(G) = t(H)$.
+\paragraph{Důkaz} Označme $G_f$ podgraf $G$ nakreslený v uzávěru nějaké stěny $f 
+\in F_H$ (TODO: Obrázek). Takový graf je souvislý a rovinný, proto platí 
+Eulerova formule: $|F_{G_f}| = |E_{G_f}| - |V_{G_f}| + 2$, pomocí které 
+vyjádříme počet stěn $G$ (1 odečítáme za vnější stěnu):
+\begin{align}
+	|F_G| = \sum_{f\in F_H} (|F_{G_f}| - 1) = \sum_{f\in F_H} (|E_{G_f}| - 
+	|V_{G_f}| + 1)
+\end{align}
+Dále si rozebereme jednotlivé části sumy. Uvědomíme si, že hrany z $G$ jsme 
+započítali každou jednou, až na hrany použité uzávěrem, které jsme započítali 
+každou dvakrát -- to jsou právě všechny hrany $H$. Proto:
+\begin{align}
+	\sum_{f\in F_H} |E_{G_f}| = |E_G| + |E_H|
+\end{align}
+Pro vrcholy je to podobně: započítali jsme každý vrchol z $G \setminus H$, 
+vrcholy v $H$ ale vícekrát -- tolikrát, kolik mají stěn, což je jejich stupeň a 
+tedy dvojnásobek hran v $H$.  Tedy:
+\begin{align}
+	\sum_{f\in F_H} |V_{G_f}| = |V_G| - |V_H| + \sum_{v\in V_G} \deg_H(v) = 
+	|V_G| - |V_H| + 2|E_H|
+\end{align}
+To nyní sečteme a získáme:
+\begin{align}
+	|F_G| = |E_G| + |E_H| - (|V_G| - |V_H| + 2|E_H|) + |F_H| = |E_G| - |V_G| - 
+	t(H)
+\end{align}
+Což po upravení dává žádanou rovnost $t(H) = t(G)$ a lemma je dokázáno.
+\qed
+
+\paragraph{Věta}
+Jsou-li grafy $G_1$ a $G_2$ buňkově nakreslené na stejné ploše, pak $t(G_1) = 
+t(G_2)$.
+\paragraph{Důkaz}
+Nejdříve si všimenem několika skutečností:
+\begin{enumerate}
+	\item Můžeme předpokládat, že grafy nemají smyčky (podrozdělením hrany 
+	přidáme jednu hranu a jeden vrchol, počet stěn nezměníme)
+	\item Můžeme předpokládat uzavřené buňkové nakreslení (přidáním vrcholu do 
+	stěny délky $k$ a spojením se všemi hranami přidáme $k$ hran a $k-1$ stěn, 
+	což se odečte)
+	\item Můžeme předpokládat, že se hrany nekříží (pokud by se křížily, 
+	podrozdělíme je tam a vytvoříme uzavřené nakreslení, čímž se z křížení stane 
+	identita).
+\end{enumerate}
+Pak již triviálně podle předchozího lemmatu $t(G_1) = t(G_1 \cup G_2) = t(G_2)$ 
+a věta je dokázána. \qed
+\paragraph{Definice} \textit{Rod} plochy $\Sigma$ je celé číslo $g$ takové, že 
+každý graf $G$ buňkově nakreslený na $\Sigma$ splňuje $|E_G| - |V_G| - |F_G| + 2 
+= g$
+\paragraph{Pozorování} Homeomorfismus zachovává nakreslení, tedy i rod.
+
+Jak ale určíme rod toru? Všimeneme si, že mnohoúhelníková reprezentace dává 
+buňkové nakreslení s jednou stěnou. Tedy například pro torus:
+\begin{align}
+	g = |E_G| - |V_G| - |F_G| + 2 = 2 -1 -1 +2 = 2
+\end{align}
+
+\paragraph{Definice} Plocha $\Sigma$ je \textit{orientovatelná}, jestliže každá 
+uzavřená křivka má okolí homeomorfní otevřenému válci, jinak je $\Sigma$ 
+\textit{neorientovatelná}.
+
+\paragraph{Věta}
+Mají-li dvě plochy stejný rod a orientovatelnost, pak jsou homeomorfní. Navíc 
+rod každé orientovatelné plochy je sudý a nezáporný a každé neorientovatelné 
+plochy je kladný.
+\paragraph{Důkaz} (bez důkazu)
+
+\paragraph{Lemma}
+Přidáním ucha se zvýší rod plochy o 2 a nezmění orientovanost. Přidáním křižítka 
+vznikne neorientovaná plocha s rodem o 1 vyšším.
+
+\paragraph{Pozorování}
+Každé nakreslení lze rozšířit na buňkové přidáním hran bez změny počtu stěn.  
+Platí tedy:
+\begin{align}
+	|E_G| \leq |V_G| + |F_G| + g - 2
+\end{align}
+
+\paragraph{Věta} (Zobecněná Eulerova formule)
+Jestliže $G$ je nakreslený na ploše rodu $g$, nemá smyčky ani násobné hrany a 
+$|V_G| \geq 3$, pak $|E_G| \leq 3|V_G| + 3g - 6$.
+\paragraph{Důkaz}
+Můžeme předpokládat, že $G$ nemá izolované vrcholy. Pak má každá stěna délku 
+alespoň $3$ a $2|E_G| \geq 3|F_G|$. Odvodíme z předešlého pozorování:
+\begin{align}
+	|E_G| \leq |V_G| + |F_G| + g - 2 \leq |V_G| + \frac{2}{3}|E_G| + g - 2
+\end{align}
+Což po upravení dává žádanou nerovnost. \qed
+
+\paragraph{Věta} Jestliže je graf $G$ nakreslený na ploše rodu $g$ a nemá smyčky 
+ani násobné hrany, pak je jeho průměrný stupeň nejvýše: \begin{align}6 + 
+\frac{6g-12}{|V_G|}\end{align}
+\paragraph{Důkaz}
+Použijeme zobecněnou eulerovu formuli k sečtení stupňů:
+\begin{align}
+	\sum_{v\in V_G} \deg(v) = 2|E_G| \leq 6|V_G| + 6g - 12
+\end{align}
+Což po vydělení počtem vrcholů dává žádanou rovnost.
+\paragraph{Důsledek}
+Jestliže je graf $G$ nakreslený n a ploše rodu $g$ a nemá smyčky ani násobné 
+hrany, pak
+\begin{align}
+	\delta(G) \leq 6 + \frac{6g-12}{|V_G|}
+\end{align}
+
+\section{Barevnost grafů}
+\subsection{Barevnost na plochách}
+\paragraph{Věta} (Headwoodova formule)
+Nechť $G$ je nakreslený na ploše rodu $g > 0$, pak:
+\begin{align}
+	\chi(G) \leq \left\lfloor \frac{7 + \sqrt{1 + 24g}}{2}\right\rfloor
+\end{align}
+\paragraph{Důkaz} Pro $\chi(G) \leq 6$ nerovnost platí vždy. Dokážeme pro 
+$\chi(G) \geq 7$: Nechť $G$ je nejmenší graf s $\chi(G) = c \leq 7$ nakreslený 
+na ploše rodu $g > 0$.  Protože $c - 7 \geq 0$ a $|V_G| \geq c$, vynásobíme a 
+získáme:
+\begin{align}
+	c(c-7) \leq (c-7)|V_G|
+\end{align}
+Navíc víme, že $\delta(G) \geq c-1$ (jinak odebereme vrchol s minimálním stupněm 
+a dostaneme menší graf stejné barevnosti, což by byl spor s minimalitou).  
+Aplikujeme tedy tento odhad dále a vyřešením kvadratické rovnice získáme:
+\begin{align}
+	(c-7)|V_G| = (c-1-6)|V_G| \leq (\delta(g)-6)|V_G| = 6g-12 \\
+	c(c-7) \leq 6g-12 \\
+	c^2 - 7c - 6g+12 \leq 0 \\
+	c \leq \frac{7+\sqrt{1+24g}}{2}
+\end{align}
+
+\paragraph{Věta} (Ringel, Youngs) Headwoodova formule je těsné pro všechny 
+plochy kromě Kleinovy láhve.
+\paragraph{Důkaz} (bez důkazu)
+
+\subsection{Vrcholová barevnost}
+\paragraph{Lemma 1}
+Je-li graf $G$ souvislý a ne všechny jeho vrcholy mají stejný stupeň, pak 
+$\chi(G) \leq \Delta(G)$.
+\paragraph{Důkaz}
+Zvolme kostru $T$ grafu a zakořeňme ji ve vrcholu stupně nejvýše $\Delta(G)-1$.  
+Kostru pak obarvíme od listů (v opačném pořadí DFS průchodu): všechny vrcholy 
+mimo kořene pak mají nejvýše $\deg(u) -1$ předbarvených sousedů a tak je lze 
+obarvit. Kořen jsme ale určili tak, aby měl nejvýše $\Delta(G)-1$ sousedů, takže 
+ho lze také obarvit. \qed
+
+\paragraph{Lemma 2}
+Je-li $G$ 3-souvislý a není úplný, pak $\chi(G) \leq \Delta(G)$.
+\paragraph{Důkaz}
+Zvolme $u,v,w$ takové, že $uv, vw\in E_G$, ale $uw \notin E_G$. Obarvíme $u$ a 
+$w$ stejnou barvou, zakořeníme kostru ve $v$ a opakujeme argument z předchozího 
+lemmatu.
+
+\paragraph{Věta} (Brooksova) Je-li $G$ souvislý a není ani úplný ani lichá 
+kružnice, pak $\chi(G) \leq \Delta(G)$.
+\paragraph{Důkaz} Bez újmy na obecnosti je graf $\Delta$-regulární a není 
+3-souvislý (oba případy umíme řešit podle předchozích lemmat). Také $\Delta > 
+3$, protože jinak by šlo o sudý cyklus nebo cestu a věta platí triviálně.
+
+Dokážeme indukcí podle počtu vrcholů (například pro $n=4$ umíme obarvit pomocí 
+Lemma 1).
+
+Protože $G$ není 3-souvislý, existuje v něm řez velikosti nanejvýš $2$. Mějme 
+řez $S$ nejmenší takový:
+\begin{enumerate}
+	\item $|S| = 1$, pak graf rozdělíme na dvě poloviny (vrchol z řezu necháme v 
+	obou) a jednotlivé podgrafy obarvíme. Následně přepermujeme obarvení tak, 
+	aby zdvojený vrchol mě v obou podgrafech stejné obarvení a graf slepíme 
+	zpátky.
+	\item $|S| = 2$, označme $\{u,v\} = S$. Rozdělíme graf opět na dvě části 
+	$G_1 + uv$ a $G_2 + uv$ a indukčně obarvíme pomocí lemmat, protože nejsou 
+	$\Delta$-regulární (pokud by byly, znamenalo by to, že jeden z vrcholů $u$, 
+	$v$ má svého jediného souseda $v'$ v jednom z grafů $G_1$ a $G_2$ -- v tom 
+	případě můžeme uvažovat řez $\{u,v'\}$).  Protože jsou vrcholy spojené 
+	hranou, nemají stejnou barvu a můžeme tedy barvy přepermutovat, aby měly $u$ 
+	a $v$ stejnou barvu.
+\end{enumerate}
+Na závěr si rozmyslíme, že pokud by se graf měl rozpadnout na více komponent, 
+tak to nevadí -- pouze obarvíme každou komponentu zvlášť a následně všechny 
+přepermutujeme.
+
+\subsection{Hranová barevnost}
+\paragraph{Poznámka} V této kapitole uvažujeme pouze grafy bez násobných hran.
+
+\paragraph{Konvence} Hranovou barevnost grafu $G$ značíme $\chi'(G)$ a myslíme 
+tím nejmenší počet barev, kterými umíme dobře obarvit hrany $G$ (tedy tak, aby 
+žádný vrchol nebyl incidentní s dvěmi hranami stejné barvy).
+
+\paragraph{Věta} (Vizingova) Nechť $G$ je graf bez smyček a násobných hran, pak 
+$\chi'(G) \leq \Delta(G)+1$.
+\paragraph{Důkaz} Dokážeme indukcí podle poču hran: nechť $e=xy$ hrana $G$.  
+Označme $\varphi$ dobré obarvení hran $G-e$ a pro každ vrchol $v$ barvy, které 
+jsou u něj použité $C(v)$ a nepoužité $N(v)$. Z předpokladů je zřejmé, že pro 
+každý vrchol máme alespoň jednu nepoužitou barvu. Pokud $N(x) \cap N(Y) \neq 
+\emptyset$, hranu můžeme obarvit a věta platí. Co když ale ne?
+
+\begin{enumerate}
+	\item Prvně se podíváme na sousedy vrcholu $y$, nechť to jsou $z_i$. Pokud 
+	pro nějakého z nich $N(y) \cap N(z_i) \neq \emptyset$ a daná hrana je 
+	obarvená barvou v $N(x)$, hranu $yz_i$ přebarvíme a získali jsme volnou 
+	barvu pro $xy$.
+	\item Pokud nalezneme vrchol $z_i$ takový, že má jednu volnou barvu stejnou 
+	jako $y$, můžeme přebarvit hranu $yz_i$, čímž si uvolníme jinou barvu v $y$.  
+	Takto postupujeme dokud neuvolníme barvu vhodnou pro obarvení $xy$.
+	\item Pokud takový vrchol není, najdeme všechny vrcholy $z_i$, které mají 
+	stejnou volou barvu jako $x$. Nechť $P$ je střídavá dvoubarevná cesta z hran 
+	$N(x)\cap N(z_i)$ a $N(y)$. Taková cesta buď končí v $x$, $y$, nebo někde 
+	jinde.  Pokud někde jinde, na cestě můžeme převrátit barvy a obarvit jako v 
+	případe 2.  Jinak:
+	\begin{enumerate}
+		\item $P$ končí v $x$. V tom případě můžeme převrátit barvy na cestě a 
+		obarvit hranu $xy$ nově uvolněnou barvou.
+		\item $P$ končí v $y$. V tom případě cestu také přebarvíme a hranu $xy$ 
+		obarvíme barvou volnou v $x$.
+	\end{enumerate}
+\end{enumerate}
+\begin{figure}[H]
+\centering
+\includegraphics{barevnost-vizing.pdf}
+\caption{Přebarvování cest (čárkovanou hranu chceme přebarvit, vrchol má barvu 
+jedné z volných barev)}
+\label{barevnost:vizing}
+\end{figure}
+
+
+
+\section{Zakázané minory a Kuratowského věta}
+V této kapitole ukážeme obdobu Kuratowského věty s minory a ekvivalenci s 
+klasickým zněním. Dříve než se k tomu dostaneme, zavedeme pojem minoru a 
+dokážeme několik pomocných vět.
+
+\paragraph{Definice} Graf $H$ je \textit{minorem} grafu $G$ právě tehdy, když ho 
+lze získat z grafu $G$ posloupností operací odebírání vrcholů, hran a 
+kontrakcemí. Pokud navíc byly všechny kontrakce topologické (tj. alespoň jeden 
+vrchol každé kontrahované hrany měl stupeň nanejvýš 2), mluvíme o 
+\textit{topologickém} minoru.
+
+\paragraph{Pozorování} V posloupnosti operací tvořících minor můžeme 
+předpokládat, že kontrakce byly poslední.
+
+\paragraph{Tvrzení} Graf obsahuje $K_{3,3}$ jako podrozdělení právě tehdy, když 
+obsahuje $K_{3,3}$ jako minor.
+\paragraph{Důkaz}
+Pokud $G$ obsahuje podrozdělení $K_{3,3}$, jistě ho obsahuje i jako minor.  
+Ukážeme tedy implikaci opačnou, tedy pokud obsahuje minor, obsahuje i 
+podrozdělení. Nechť $G'$ je graf vzniklý z $G$ po odebrání všech hran a vrcholů.  
+Protože podrozdělení je opak topologické kontrakce, pro spor předpokládejme, že 
+je potřeba udělat netopologickou kontrakci -- každou netopologickou kontrakcí 
+ale vznikne vrchol stupně alespoň 4, abychom ale získali $K_{3,3}$ jako minor, 
+museli bychom ještě jednu hranu odstranit -- to je ale ve sporu s tím, že jsme 
+mazání hran prováděli před kontrakcemi. \qed
+
+\begin{wrapfigure}{r}{0.2\textwidth}
+\centering
+\includegraphics{minor-k5.pdf}
+\caption{Minor $K_5$ před poslední kontrakcí}
+\label{minory:k5}
+\end{wrapfigure}
+\paragraph{Tvrzení} Graf obsahuje $K_5$ jako minor, pak obsahuje podrozdělení 
+$K_5$ nebo $K_{3,3}$.
+\paragraph{Důkaz}
+Podívejme se opět na posloupnost operací vedoucí ke $K_5$ minoru. Buď není 
+potřeba žádných netopologických kontrakcí a věta je dokázána, nebo jich potřeba 
+je. Předpokládejme tedy, že netopologická kontrakce je jako poslední a podívejme 
+se, jak vypadá -- bůno je to jako na obrázku \ref{minory:k5} (protože je to 
+skoro úplný graf, ostatní možnosti jsou k této izomorfní).Je zjevné, že 
+odstraněním čárkovaných hran získáme $K_{3,3}$ jako minor a tedy podle 
+předchozího tvrzení i jako podrozdělení.
+
+
+\paragraph{Věta} (Tutte) Nechť $G$ je 3-souvislý a není $K_4$, pak existuje 
+hrana $e\in E_G$, že $G/e$ je 3-souvislý.
+\paragraph{Důkaz}
+Dokážeme sporem. Nechť neexistuje hrana $e$, kterou lze kontrahovat, aby zůstal 
+graf 3-souvislý. Tedy pro každou hranu $xy\in G$ má $G/xy$ separátor velikosti 
+nanejvýš $2$. Protože je $G$ 3-souvislý, musí tento separátor být velikosti 
+právě dva a odpovídá mu nějaký separátor v $G$ a to takový obsahující hranu 
+$xy$. Nechť tedy $\{v_{xy},z\}$ je separátor v $G/xy$ odpovídající separátoru $
+T \{x,y,z\}$ v $G$. Protože žádná podmnožina $T$ neseparuje $G$, každý vrchol má 
+hranu do každé komponenty souvislosti C grafu $G\setminus T$. Zvolme hranu $xy$,
+vrchol $z$ a komponentu $C$ takové, aby byla $|C|$ nejmenší ze všech možných.  
+Označme $zv$ nějakou hranu do C. Z předpokladů víme, že $G/zv$ není 3-souvislá, 
+takže existuje $w$ takové, že $\{z,v,w\}$ separuje $G$ a opět každý vrchol z 
+této množiny sousedí se všemi komponentami grafu $G\setminus\{z,v,w\}$. Navíc 
+protože $xy$ spolu sousedí, existuje kompomenta $D$, která neobsahuje $xy$.  
+Navíc z komponenty $D$ vede hrana do $v$, ale protože $v$ bylo v $C$ a $z$ není 
+v $D$, musí být $D\subset D$, což je spor s volbou $C$.
+\qed
+\begin{figure}[H]
+\centering
+\includegraphics{minor-3souvislost.pdf}
+\caption{Množiny $C$ a $D$ a jejich separátory s vyznačeným sousedstvím}
+\label{minory:kontrakce}
+\end{figure}
+
+\paragraph{Věta} (Kuratowski, Wagner) Graf je rovinný právě tehdy, když 
+neobsahuje $K_5$ ani $K_{3,3}$ jako (topologický) minor.
+\paragraph{Důkaz}
+Postupujeme indukcí dle velikosti grafu. Pro $n=4$ věta platí, protože $K_4$ je 
+rovinný. Dále pro $n>4$:
+\begin{enumerate}
+	\item Graf je 1-souvislý, tedy obsahuje 1-řez: rozdělíme graf na dvě části v 
+	tomto řezu a aplikujeme indukci.
+	\item Graf je 2-souvislý, tedy obsahuje 2-řez: rozdělíme graf na dvě části, 
+	vrcholy řezu v obou částech spojíme hranou a aplikujeme indukci.
+	\item Graf je 3-souvislý. Pak použijeme Tutteho větu o 3-souvislých grafech 
+	a aplikujeme indukci. Zde si ale musíme dát pozor, protože kontrakce obecně 
+	nezachovává rovinnost. Ukážeme, že kdyby kontrakce rovinnost nezachovala, 
+	graf obsahuje minor $K_5$ nebo $K_{3,3}$: Zjevně nás zajímají pouze 
+	kontrakce, kde vrcholy mají 3 nebo 4 hrany (méně nemůže nastat, protože je 
+	graf 3-souvislý a pro více hran stačí uvažovat ty "špatné"). Pro 
+	zjednodušení si představme, že zbytek grafu se kontrahoval do kružnice 
+	(resp. dejme tomu, že je rovinný a díváme se jenom na stěnu, která sousedí 
+	se všemi vrcholy, do kterých chceme vést hrany). Není těžké si rozmyslet, že 
+	záleží právě na pořadí hran na kružnici a mohou nastat následující dva 
+	případy (tedy kromě toho, že je vše v pořádku), jako na obrázku 
+	\ref{minory:kontrakce}, kde je zřejmě $K_5$, resp. $K_{3,3}$ jako minor a 
+	tedy podle předchozích tvrzení také podrozdělení.
+\begin{figure}[H]
+\centering
+\includegraphics{minor-kontrakce.pdf}
+\caption{Minory $K_{3,3}$ a $K_{5}$ před kontrakcí}
+\label{minory:kontrakce}
+\end{figure}
+	\item Graf je více-souvislý. Vezměme tedy řez velikosti alespoň $4$ Ten nám 
+	rozdělí graf na alespoň $2$ komponenty souvislosti, my ale víme, že 
+	vypuštěním libovolného vrcholu z řezu by graf zůstal souvislý -- tedy každý 
+	z vrcholů má hranu do každé komponenty souvislosti. Zároveň obě komponenty 
+	mají dohromady alespoň $4$ vrcholy, nebo mají vrcholy v řezu mezi sebou 
+	hrany. V obou případech několika kontrakcemi získáme $K_5$ nebo $K_{3,3}$ 
+	jako minor.
+\end{enumerate}
+\qed
+
+\section{Perfektní grafy}
+\paragraph{Definice}
+Graf $G$ je \textit{perfektní}  právě tehdy, když každý jeho indukovaný podgraf 
+$H$ má $\chi(H) = \omega(H)$.
+
+\paragraph{Věta} (Silná věta o perfektních grafech) Graf $G$ je perfektní právě 
+tehdy, když $G$ ani $\overline{G}$ neobsahují lichý cyklus délky alespoň 5 jako 
+indukovaný podgraf.
+\paragraph{Důkaz} (bez důkazu)
+
+\paragraph{Věta} Graf $G$ je perfektní právě tehdy, když pro všechny indukované 
+podgrafy $H$ grafu $G$ platí:
+\begin{align}
+	\label{perfgr:slaba-nerovnost} |V_H| \leq \alpha(H) \cdot \omega(H)
+\end{align}
+\paragraph{Důkaz}
+Pokud je graf perfektní, nerovnost zjevně platí -- $\omega(H)$ je počet 
+barevnostních tříd. Každá třída je ale nezávislá množina a proto v jedné může 
+být nanejvýš $\alpha(H)$ prvků. Součin tedy vskutku dává horní odhad na počet 
+vrcholů.
+
+Stačí tedy dokázat, že platnost dané nerovnosti je postačující. Postupujme 
+indukcí podle velikosti grafu. Předpokládejme tedy, že všechny indukované 
+podgrafy $H$ grafu $G$ jsou perfektní, ale $G$ perfektní není. Rozlišme dva 
+případy:
+\begin{enumerate}
+	\item $\exists$ nezávislá množina $A \subseteq V_G: \omega(G\setminus A) < 
+	\omega(G)$. Odebráním nezávislé množiny ale snížíme barevnost nanejvýš o 1:
+	\begin{align}
+		\chi(G) \leq \chi(G\setminus A) + 1 = \omega(G \setminus A) + 1
+	\end{align}
+	Protože jsme ale vzali nezávislou množinu takovou, že zmenšila klikovost 
+	alespoň o jedna, určitě také platí:
+	\begin{align}
+		\omega(G \setminus A) \leq \omega(G) -1
+	\end{align}
+	Čímž získáme spolu s triviálním odhadem $\chi(G) \geq \omega(G)$, že $G$ je 
+	perfektní, což je spor:
+	\begin{align}
+		\omega(G) \leq \chi(G) \leq \omega(G \setminus A) + 1 \leq \omega(G) -1 
+		+ 1
+	\end{align}
+	\item $\forall$ nezávislou množinu $A \subseteq V_G: \omega(G\setminus A) = 
+	\omega(G)$, tedy $\forall A \exists K$ klika velikosti $\omega(G)$, že $A 
+	\cap K = \emptyset$. Označme si:
+	\begin{align}
+		A_0 = \{v_1, v_2, \dots, v_{\alpha(G)}\} \quad \dots \quad & 
+		\text{libovolnou nezávislou  množinu velikosti } \alpha(G)\\
+		A_1, A_2, \dots, A_{\omega(G)} \quad \dots \quad & \text{třídy obarvení 
+		} G-v_1 \\
+		A_{\omega(G) + 1}, A_{\omega(G) + 2}, \dots, A_{2\omega(G)} \quad \dots 
+		\quad & \text{třídy obarvení } G-v_2 \\
+		\vdots\qquad\qquad\qquad&\qquad\vdots \\
+		A_{\alpha(G)-1)\omega(G) + 1}, A_{(\alpha(G)-1)\omega(G)+2}, \dots, 
+		A_{\alpha(G)\omega(G)} \quad \dots \quad & \text{třídy obarvení } G- 
+		v_{\alpha(G)}
+	\end{align}
+	Dále podle předpokladů pro každou nezávislou množinu $A_i$ existuje klika 
+	$K_i$ velikosti $\omega(G)$, která je s ní disjunktní. Nahlédneme, že každý 
+	vrchol z $K_i$ patří do nějaké barevnostní třídy pro každý graf $G - v_j$, 
+	tedy až na jednu třídu z grafu $G - v$ pro nějaké $v \in K_i$. Máme tedy 
+	$\alpha(G)\omega(G)+1$ množin v $G$.
+
+	Nechť $A$ je matice řádu $(\alpha(G)\omega(G) + 1)\times n$ a její i-tý 
+	řádek nechť je chrakteristický vektor množiny $A_i$. Nechť $B$ je matice 
+	řádu $n \times (\alpha(G)\omega(G) + 1)$ a její i-tý sloupec nechť je 
+	charakteristický vektor $K_i$.
+
+	Protože ale jsme si množiny $A_i$ a $K_j$ nadefinovali tak, že mají prázdný 
+	průnik právě tehdy, když jsou $i=j$, tak matice $AB$ bude regulární. To 
+	speciálně zanmená, že matice $A$ je regulární (protože pro dvě matice $A$, 
+	$B$ platí $\rank(AB) \leq \min(\rank A, \rank B)$) a má rank 
+	$\alpha(G)\omega(G) + 1$.  To ale speciálně znamená, že $|V_G| \geq 
+	\alpha(G)\omega(G)+1$, což je ale spor s předpokladem 
+	(\ref{perfgr:slaba-nerovnost}).
+\end{enumerate}
+\qed
+
+
+\paragraph{Důsledek} (Slabá věta o perfektních grafech) Graf $G$ je perfektní, 
+právě tehdy když je jeho doplněk perfektní.
+\paragraph{Důkaz} Odvodíme z definice za vědomí, že $\omega(H) = 
+\alpha(\overline{H})$:
+\begin{align}
+	|V_H| \leq \alpha(H)\omega(H)\\
+	|V_H| \leq \omega(\overline H)\alpha(\overline H)
+\end{align}
+Což je ale to samé, jako bychom brali indukované podgrafy $\overline H$, čímž je 
+věta dokázána.
+\qed
+
+Nyní máme celkem dobrou charakteristiku perfektních grafů. Jaké grafy to ale 
+vlastně jsou?
+
+\subsection{Třídy perfektních grafů}
+Snadno můžeme nahlédnout, že \textit{bipartitní grafy} jsou perfektní (pokud 
+mají alespoň jednu hranu, mají největší kliku velikosti 2 -- jinak 1 a to 
+odpovídá jejich barevnost). Díky slabé větě také víme, že jejich doplněk je 
+prefektní.
+
+Také lze dokázat, že intervalové grafy jsou perfektní. My se ale podíváme na 
+jednu třídu grafů a tou jsou cografy.
+
+\paragraph{Definice} Graf $G$ je \textit{cograf} právě tehdy když:
+\begin{enumerate}
+	\item $G$ je izolovaný vrchol, nebo
+	\item $G$ je disjunktní sjednocení cografů, nebo
+	\item $G$ je úplné spojení cografů.
+\end{enumerate}
+\paragraph{Věta} Každý cograf $G$ je perfektní.
+\paragraph{Důkaz}
+Dokážeme indukcí podle počtu vrcholů: pro $G$ izolovaný vrchol platí triviálně.  
+Mějme tedy $G$ vytvořený z (BÚNO) dvou grafů $G_1$ a $G_2$. Rozeberme zvlášť oba 
+případy spojení:
+\begin{enumerate}
+	\item Disjunktní sjednocení -- pak výsledný graf není souvislý. Samozřejmě 
+	platí rovnosti: 
+	\begin{align}
+	\omega(G) &= \max\{\omega(G_1),\omega(G_2)\} \\
+	\chi(G) &= \max\{\chi(G_1),\chi(G_2)\}
+	\end{align}
+	Protože ale jsou ale $G_1$ i $G_2$ perfektní, platí rovnost pravých stran a 
+	tedy i levých, tudíž je graf $G$ perfektní. Je snadné si rozmyslet, že 
+	stejný vztah platí i pro libovolný podgraf.
+	\item Úplné spojení -- obdobně jako v předchozím případě, nicméně místo 
+	maxima bude součet.
+\end{enumerate}
+\qed
+
+\section{Tutteho polynom}
+V této kapitole nejdříve zavedeme pojem rankového polynomu a z něj odvodíme 
+Tutteho polynom. Ten následně zobecníme univerzálním polynomem, to vše za pomocí 
+jednoduchého předpisu pro rekurzivní výpočet.
+\subsection{Rankový polynom}
+\paragraph{Definice}
+Pro graf $G$ značíme:
+\begin{enumerate}
+	\item $k(G)$ počet komponent grafu
+	\item $r(G) = |V_G| - k(G)$ rank grafu
+	\item $n(G) = |E_G| - |V_G| + k(G)$
+\end{enumerate}
+\paragraph{Konvence} V následující kapitole budeme značně využívat podgrafy 
+vzniklé pouze odebíráním hran. Definujme tedy pro graf $G=(V,E)$ a $F\subseteq 
+E$ hranový podgraf jako $\langle F \rangle = (V, F)$ a pro zjednodušení pišme 
+počet komponent, rank a nulitu tohoto grafu jako $k\langle F\rangle$, $r\langle 
+F\rangle$, $n\langle F\rangle$.
+\paragraph{Definice} (Rankový polynom)
+Pro nějaký graf $G=(V,E)$ definujeme \textit{rankový polynom} S(G, x, y) 
+následovně:
+\begin{align}
+	S(G, x, y ) = \sum_{F \subset E} x^{r\langle E\rangle - r\langle F \rangle} 
+	y^{n\langle F\rangle} = \sum_{F \subset E} x^{k\langle F\rangle - k\langle E 
+	\rangle} y^{n\langle F\rangle}
+\end{align}
+
+Což není zrovna pohodlné pro výpočet. Podívejme se, jak to lze udělat 
+rekurzivně:
+
+\paragraph{Věta} Nechť $G=(V,E)$ je graf a $e\in E$ jeho hrana. Potom:
+\begin{align}
+	S(G, x, y) = \left\{ \begin{array}{ll}
+	(x+1) S(G - e, x, y) & e \text{ je most} \\
+	(y+1) S(G - e, x, y) & e \text{ je smyčka}\\
+	S(G-e, x, y) + S(G/e, x, y) & \text{jinak}
+	\end{array}
+	\right.
+\end{align}
+\paragraph{Důkaz}
+Důkaz provedeme pro případ, že $e$ je most -- ostatní případy jsou analogické.  
+Vycházejme ze vzorce s komponentami. Podívejme se na to, jak se změní suma podle 
+definice, pokud odebereme most -- rozdělíme na případy, kdy hrana patřila do 
+$F$a kdy ne:
+\begin{enumerate}
+	\item pro $e\in F$: počet komponent v $E$ se zvětšil o 1, stejnětak se o 1 
+	zvětšil počet komponent o $F$. Nulita zůstane nezměněná (zvýšil se počet 
+	komponent, ale zato snížil počet hran). Suma se tedy nezmění.
+	\item pro $e \notin F$: počet komponent v $E$ se zvětšil o 1, ale počet 
+	komponent v $F$ se nezměnil. Exponent $x$ se tedy snížil o 1. Nulita se 
+	nezmění, protože se hrana $e$ formule neúčastní.
+\end{enumerate}
+Následně složíme sumy a zjistíme, že věta platí. \qed
+
+\subsection{Tutteho polynom}
+\paragraph{Definice} (Tutteho polynom) Definujme \textit{Tutteho polynom}
+$T(G, x,y)$ roven $S(G, x-1, y-1)$
+\paragraph{Tvrzení} Nechť $G=(V,E)$ je graf a $e\in E$ jeho hrana. Potom:
+\begin{align}
+	T(G, x, y) = \left\{ \begin{array}{ll}
+	x T(G - e, x, y) & e \text{ je most} \\
+	y T(G - e, x, y) & e \text{ je smyčka}\\
+	T(G-e, x, y) + T(G/e, x, y) & \text{jinak}
+	\end{array}
+	\right.
+\end{align}
+\paragraph{Důkaz} Tvrzení plyne triviálně z vlastností rankového polynomu. \qed
+
+Celkem přirozené rozšíření by bylo přidat do rekurzivního vzorce vhodné 
+konstanty, podívejme se tedy na jedno takové rozšíření:
+
+\subsection{Univerzální polynom}
+\paragraph{Věta} (Univerzální polynom)
+Existuje právě jedna prostá funkce $U: G \to \Z[x,y,\alpha,\sigma,\tau]$ taková, 
+že (kde $E_n$ je prázdný graf na $n$ vrcholech a psaním $U(G)$ myslíme $U(G, x, 
+y, \alpha, \sigma, \tau)$):
+\begin{align}
+	\label{polynomy:univerzalni:prazdny-graf} &\forall n \geq 0 \quad U(E_n) = 
+	U(E_n, x, y, \alpha, \sigma, \tau) = \alpha^n \\
+	&U(G) = \left\{ \begin{array}{ll}
+	\alpha x U(G - e) & e \text{ je most} \\
+	\alpha y U(G - e) & e \text{ je smyčka}\\
+	\sigma U(G-e) + \tau U(G/e) & \text{jinak}
+	\end{array} \right.
+\end{align}
+a navíc:
+\begin{align}
+	\label{polynomy:univerzalni:tutte} U(G) = 
+	\alpha^{k(G)}\sigma^{n(G)}\tau^{r(G)} T\left(G, \frac{\alpha x}{\tau}, 
+	\frac{y}{\sigma}\right)
+\end{align}
+\paragraph{Důkaz} Jedinečnost je zřejmá z rekurzivní definice. Je však potřeba 
+dokázat potřebné vlastnosti. Nejprve dokážeme 
+(\ref{polynomy:univerzalni:prazdny-graf}). Pro prázdný graf zjevně platí: 
+$k(E_n) = n$ a $r(E_n) = n(E_n) = 0$. Podle (\ref{polynomy:univerzalni:tutte}) a 
+definice Tutteho polynomu pomocí rankového získáme:
+\begin{align}
+	U(E_n) = \alpha^n T\left(E_n, \frac{\alpha x}{\tau}, \frac{y}{\sigma}\right) 
+	= \alpha^n
+\end{align}
+Samotný vztah (\ref{polynomy:univerzalni:tutte}) bychom získali pomocí porovnání 
+rozhodovacích stromů rekurzivního výpočtu Tutteho a Univerzálního polynomu.  
+Důkaz je ale značně technický a proto ho necháme čtenáři na rozmyšlení (čti: 
+nechce se mi ho sepisovat, opravdu -- zájemci ho najdou v B. Bollobásovi, strana 
+340). \qed
+
+\paragraph{Pozorování}
+Je vidět, že $T(G, x, y) = U(G, x, y, 1, 1, 1)$.
+
+\subsection{Specializace grafových polynomů}
+\subsubsection{Počet koster}
+\paragraph{Definice}
+Označme $t(G)$ jako počet koster grafu $G$. Pak celkem přirozeně můžeme 
+definovat:
+\begin{align}
+	&t(E_n) = 1 \\
+	&t(G) = \left\{ \begin{array}{ll}
+	t(G - e) = t(G/e)& e \text{ je most (patří do všech koster)} \\
+	t(G - e) = t(G/e)& e \text{ je smyčka (nepatří do žádné kostry)}\\
+	t(G-e) + t(G/e) & \text{jinak (počet koster bez a s hranou $e$)}
+	\end{array}
+	\right.
+\end{align}
+\paragraph{Pozorování} Je vidět, že $t(G) = T(G, 1, 1)$
+
+
+\subsubsection{Chromatická funkce}
+\paragraph{Definice} Označme $c_G(k)$ počet obarvení $G$ pomocí $k$ barev. Pak 
+definujme:
+\begin{align}
+	&c_{E_n}(k) = k^n \\
+	&c(G) = \left\{ \begin{array}{ll}
+	c_{G-e}(k) \cdot\frac{k-1}{k}& e \text{ je most} \\
+	0 & e \text{ je smyčka}\\
+	c_{G-e}(k) - c_{G/e}(k) & \text{jinak}
+	\end{array}
+	\right.
+\end{align}
+Jinými slovy pokud je $e$ most, započítáme všechna obarvení grafu bez $e$, ale 
+$\frac{1}{k}$ z nich by musely přiřazovat oboum koncům mostu stejnou hranu -- ty 
+nepočítáme.  Pokud je $e$ smyčka, tak zjevně nemá graf žádné dobré obarvení a 
+ostatních případech spočítáme počet obarvení bez hrany a odečteme počet obarvení 
+s kontrahovanou hranou (tj. oba konce hrany dostaly stejnou barvu).
+
+\paragraph{Tvrzení} $c_G(k) = k^{k(G)} \cdot (-1)^{\chi(G)} \cdot T(G, 1-k, 0)$.
+\paragraph{Důkaz} Snadno ověříme dosazením z rekurentní formule do vztahu 
+(\ref{polynomy:univerzalni:tutte}). \qed
+
+\subsubsection{Počet acyklických orientací}
+\paragraph{Definice} Označme $a(G)$ počet acyklických orientací $G$. Pak 
+rekurzivně definujme:
+\begin{align}
+	&a(E_n) = 1 \\
+	&a(G) = \left\{ \begin{array}{ll}
+	2a(G-c) & e \text{ je most (lze zorientovat libovolně)} \\
+	0 & e \text{ je smyčka (nelze zorientovat)}\\
+	a(G-e) + a(G/e) & \text{jinak (pokud existuje a neexistuje jiná orineotvaná 
+	cesta směrem $e$)}
+	\end{array}
+	\right.
+\end{align}
+\paragraph{Pozorování} Opět je vidět, že $a(G) = T(G, 2, 0)$.
+
+\bigskip
+
+\noindent To je bohužel skoro vyčerpávající seznam užitečných věcí, které 
+Tutteno polynom počítá.
+
+\section{Hamiltonovské kružnice}
+\paragraph{Definice} Hamiltonovská kružnice grafu je uzavřená cesta procházející 
+každým vrcholem.
+
+Nyní ukážeme několik kritérií existence hamiltonovské kružnice v grafu, 
+konkrétně Direcovu a Oreho větu a obě dokážeme pomocí silnějšího tvrzení, 
+Chvátalova uzávěru.
+
+\paragraph{Věta} (Dirac) Nechť $G$ je graf, potom pokud $\delta(G) \geq 
+|V_G|/2$, tak $G$ má hamiltonovskou kružnici.
+
+\paragraph{Věta} (Ore) Nechť $G$ je graf a platí:
+\begin{align}
+	\forall u,v \in V_G: \quad uv\notin E_G \impl d(u) + d(v) \geq |V_G|
+\end{align}
+Pak má graf $G$ hamiltonovskou kružnici.
+
+\paragraph{Důkaz} (Dirac) Dokážeme použitím Oreho věty ($n/2 + n/2 \geq n$).  
+\qed
+
+\paragraph{Věta} (Chvátalův uzávěr) Nechť $G$ je graf a platí>
+\begin{align}
+	\forall u,v \in V_G: \quad uv\notin E_G \impl d(u) + d(v) \geq |V_G|
+\end{align}
+Potom má $G$ hamiltonovskou kružici právě tehdy, když $G+uv$ má hamiltonovskou 
+kružnici.
+
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+\centering
+\includegraphics{hamiltonovky-chvatal.pdf}
+\caption{Nahrazení hrany $uv$}
+\label{hamiltonovky:chvatal}
+\end{wrapfigure}
+
+\paragraph{Důkaz} (Ore) Protože má Oreho věta stejné předpoklady, jako Chvátalův 
+uzávěr, stačí nahlédnout, že budeme aplikovat ,,uzávěr``, dokud nezískáme úplný 
+graf, který určitě hamiltonovskou kružnici má. \qed
+
+\paragraph{Důkaz} (Chvátal) Pokud $G$ má hamiltonovskou kružnici, tak ji má 
+určitě i $G+uv$. Zbývá dokázat opačnou implikaci.  
+
+Nechť tedy $G+uv$ má hamiltonovskou kružnici a $G$ ji nemá. Označme si takovou 
+kružnici $C$. Ta určitě používá hranu $uv$, označme tedy $P=C-uv$, což je cesta 
+z $u,v$ přes všehchny vrcholy grafu. Protože $P$ má $n-2$ vnitřních vrcholů a 
+$u$ s $v$ mají dohromady alespoň $n$ vrcholů, musí mít z principu holubníku 
+alespoň dva společné sousedy. Stačí si rozmyslet, že díky tomu existují dva 
+sousedá $u'$ a $v'$ vrcholů $u$ a $v$ takoví, že $u'v'\in E$ a navíc 
+$P=u...v'u'...v$ (opět z principu holubníku a zdravé úvahy). Potom ale můžeme 
+vytvořit následující cyklus $C'=u...v'v...u'u$ a věta je dokázána. \qed
+
+\section{Vytvořující funkce}
+\paragraph{Definice} Pro posloupnost $a_n$ definujme vytvořující funkci 
+nekonečnou řadu $\sum_i a_ix^i$, kde $a_i$ jsou koeficienty posloupnosti a řada 
+konverguje pro nějaké $x$.
+
+\paragraph{Definice} Vytvořující funkce v exponencielním tvaru je:
+\begin{align}
+	f(x) = \sum_{n=0}^\infty \frac{a_n}{n!}x^n
+\end{align}
+
+\section{Pólyova enumerace a Burnsideovo lemma}
+\paragraph{Definice} Nechť $G$ je grupa působící na množinu $X$. Pak označme:
+\begin{align}
+	[x] &= \{y \in X: \exists \alpha \in G \quad \alpha x = y\} 
+	\quad&\quad\text{orbita $x$} \\
+	G(x,y) &= \{\alpha \in G: \alpha x = y \} & \text{množina prvků 
+	zobrazujících $x$ na $y$}\\
+	G(x) &= G(x,x)  \quad&\quad\text{stabilizátor $x$}\\
+	F(\alpha) &= \{x \in X: \alpha x = x \}  \quad&\quad\text{množina 
+	pevných bodů $\alpha$}
+\end{align}
+
+\paragraph{Věta} (Pólyova enumerace) Nechť $G$ je grupa působící na množinu $X$, 
+$A$ je libovolná Abelovská grupa a $w: X \to A$ je váhová funkce. A označme:
+\begin{align}
+	&O_1, \dots, O_l & \text{orbity $G$} \\
+	&w(O_i) = w_x, \quad x \in O_i & \text{váhy orbit}
+\end{align}
+Potom:
+\begin{align}
+	|G| \sum_{i=1}^l w(O_i) = \sum_{\alpha\in G} \sum_{x \in F(\alpha)} w(x)
+\end{align}
+\paragraph{Pozorování} (Bursideovo lemma) Zjednodušená verze pro $A=\Z$ a 
+$w(x)=1$ pak vypadá:
+\begin{align}
+	N(G) = \frac{1}{|G|} \sum_{\alpha \in G} \sum_{x \in F(\alpha)} 1 = 
+	\frac{1}{|F|} = \sum_{\alpha \in G} |F(\alpha)|
+\end{align}
+Což je známé Burnsideovo lemma.
+
+\paragraph{Důkaz}
+\begin{align}
+	\sum_{\alpha\in G} \sum_{x\in F(\alpha)} &= \sum_{x \in X} \sum_{\alpha \in 
+	G(x)} w(x) \\
+	&=\sum_{i=1}^l \sum_{x \in O_i} \sum_{\alpha \in G(x)} w(x) \\
+	&= \sum_{i=1}^l w(O_i) \sum_{x\in O_i} \sum_{\alpha \in G(x)} 1 \\
+	&= \sum_{i=1}^l w(O_i) |O_i| = |G| \sum_{i=1^l} w(O_i)
+\end{align}
+Podívejme se nejdříve počítané rovnost. Začneme s pravou stranou výrazu. Nejprve 
+si rozmyslíme, že pokud počítáme přes všechny permutace a jejich pevné body, je 
+to to samé jako počítat přes všechny prvky a jejich stabilizátory, z čehož plyne 
+první rovnost. Další rovnost je snadná -- můžeme počítat přes orbity a jejich 
+prvky, protože každý prvek je v orbitě. Následně vytkneme váhu prvku před sumu 
+jako váhu orbity (podle definice váhy orbity je stejná jako váha libovolného 
+prvku). Následně si všimneme, že zbylé sumy prostě posčítají všechny prvky 
+orbity a součet prvků orbit dá velikost celé grupy. \qed
+
+\section{Extrémální grafy}
+\subsection{Turánovy grafy}
+\paragraph{Definice}
+Označme číslo $\ex(n, H)$ jako maximální počet hran grafu na $n$ vrcholech, aby 
+neobsahoval $H$ jako podgraf.
+\paragraph{Definice}
+Turánův graf $T(n, r)$ je maximální $r$-partitní graf s partitami co 
+nejpodobnější velikosti (tj. po dvou se liší jejich velikost maximálně o 1).
+\paragraph{Pozorování} Zjevně $T(n,r)$ neobsahuje $K_{r+1}$ jako podgraf.
+\paragraph{Věta} (Turán) Nechť $r > 1$, pak:
+\begin{align}\ex(n, K_{r+1}) \leq \frac{r-1}{2r} n^2\end{align}
+Navíc to jsou právě Turánovy grafy.
+\paragraph{Důkaz} Nejdříve ukážeme, že Turánův graf má správný počet hran.  
+Rozmyslíme si, že maximálního počtu bude nabývat skutečně v případě, kdy se liší 
+jednotlivé partity maximálně o 1 (protože přesunutím vrcholu z větší partity do 
+menší získáme větší počet hran, pokud se ale liší pouze o 1, počet hran se 
+nezmění). Ideální případ bude nabývat, když jsou si všechny partity rovny. Z 
+každého vrcholu vede $n-n/r$ hran a každou hranu jsme započítali dvakrát. Tedy:
+\begin{align}
+	\frac{1}{2}
+	n \left(n-\frac{n}{r}\right) = \frac{1}{2} n \frac{n(r-1)}{r}
+\end{align}
+To nám dává ale kýženou rovnost (pilný čtenář si doplní dolní celé části a 
+odhadne i s nimi).
+
+Nyní stačí ukázat, že Turánovy grafy jsou právě ty největší. Zafixujme si $r$. 
+Pro spor předpokládejme, že existuje graf, který není turánovský a přitom je 
+alespoň stejně tak velký.  Vezměme si největší takový a nazvěme ho $G$. Protože 
+není $r$-partitní, není v něm relace ,,nebýt hranou`` ekvivalence, existuje tam 
+tedy trojice vrcholů $x,y_1,y_2$ taková, že $y_1y_2 \in E_G$, ale $xy_1, xy_2 
+\notin E_G$. Rozlišme dva případy:
+\begin{enumerate}
+	\item $\deg(y_1) > \deg(x)$, potom ale můžeme smazat vrchol $x$ a nahradit 
+	ho kopií $y_1$, čímž získám větší neturánovský graf a je to spor s 
+	maximalitou.
+	\item $\deg(y_1), \deg(y_2) \leq \deg(x)$, potom ale můžeme smazat vrcholy 
+	$y_1,y_2$ a nahradit je kopiemi $x$. Tím získáme určitě větší graf a pokud 
+	není Turánovský, tak je to opět spor s maximalitou. Pokud náhodou 
+	Turánovský, tak je to spor s volbou $G$ alespoň tak velkého jako příslušný 
+	Turánovský graf.
+\end{enumerate}
+\qed
+
+
+\paragraph{Věta} (Erdös, Stone) Pro každý graf $H$ s alespoň jednou hranou 
+platí:
+\begin{align}
+	\lim_{n\to \infty} = \frac{\ex(n, H)}{\binom{n}{2}} = \frac{\chi(H) 
+	-1}{\chi(H)-2}
+\end{align}
+\paragraph{Důkaz} (bez důkazu)
+
+\subsection{Stupeň grafu a degenerovanost}
+\paragraph{Definice} Nechť $G=(V,E)$, potom $\epsilon(G) = \frac{|E|}{|V|}$ je 
+\textit{průměrný stupeň} grafu.
+\paragraph{Věta}Každý graf s průměrným stupněm alespoň $2^{r-2}$ má $K_r$ minor.
+\paragraph{Důkaz} Dokážeme indukcí podle $r$. Pro $r=2$ platí, protože každý 
+graf průměrného $2^0$ má alespoň jednu hranu. Nechť tedy $r \geq 3$ a $G$ je 
+libovolný graf průměrného stupně alespoň $2^{r-2}$. Podívejme se na jeho 
+nejmenší minor $H$ takový, že $\epsilon(H) \geq 2^{r-3}$ a zvolme $x\in H$
+libovolný.
+Nyní si všimneme, že každý soused $y$ vrcholu $x$ má s $x$ alespoň $2^{r-3}$ 
+společných sousedů -- jinak bychom kontrakcí vhodné $xy$ získali menší minor s 
+dostatečným průměrným stupněm. Z toho víme, že podgraf indukovaný sousedy $x$ má 
+minimální stupeň alespň $2^{r-3}$ a tedy obsahuje $K_{r-1}$ jako minor. Přidáním 
+vrcholu $x$ k tomuto minoru již získáme kýžený $K_r$.
+
+\paragraph{Věta} (Kostochka) Existuje konstanta $c\in\R$ taková, že $\forall 
+r\in\N\forall G\quad \epsilon(G) \geq cr\sqrt{\log r}$ obsahuje $K_r$ jako 
+minor. Tato mez je navíc ostrá až na konstantu $c$.
+\paragraph{Důkaz} (bez důkazu)
+
+\subsection{Protínající se množiny a body v rovině}
+
+\paragraph{Věta} (Erdös, Ko, Rado) Nechť $2k \leq n$, potom každá množina 
+k-prvkových podmnožin n-prvkové množiny může mít maximálně $\binom{n-1}{k-1}$ 
+prvků, aby měly prvky po dvou neprázdný průnik.
+\paragraph{Důkaz} (G. Katona, 1972) Nechť $M=\{0, ..., n-1\}$ je naše množina.  
+Seřaďme ji do nějakého cyklického uspořádání, a to očíslujeme. Dále definujeme 
+intervaly $B_s$ jako k-prvkové množiny po sobě jdoucích prvků začínajících 
+prvkem $s$ a končících prvkem $s+k-1$ (a počítáme $\mod n$). Všimneme si, že ne 
+všechny intervaly mohou být ve společné množině, protože jsou disjunktní.  
+Označme si $S(\pi, s)$ jako dvojici označující permutaci prvků $M$ a $s$ nějaký 
+prvek takový, že:
+\begin{align}
+	\pi(B_s) := \{ \pi(s), \pi(s+1), \dots, \pi(s+k-1)\}
+\end{align}
+Označme číslo $L$ jako počet takových dvojic. Pro fixní $\pi$ může obsahovat 
+nanejvýš $k$ prvků z množiny, protože na fixním uspořádání množiny vzdálené víc 
+jak $k$ jsou disjunktní. Tedy $L \leq k n!$. Naopak $s$ můžeme zvolit $n$ 
+způsoby a pro každé takové existuje $k!(n-k)!$ možností, jak zvolit permutaci 
+$\pi$, tedy každých $nk!(n-k)!$ párů sestrojí stejnou množinu. Takže $L = 
+|\mathcal{F}| nk!(n-k)!$, kde $\mathcal{F}$ je kýžená množina. Zkombinujeme 
+odhady a získáme:
+\begin{align}
+	|\mathcal F| \leq \frac{kn!}{nk!(n-k)!} = \frac{k}{n}\binom{n}{k} = 
+	\binom{n-1}{k-1}
+\end{align}
+Čímž je věta dokázána. \qed
+
+\paragraph{Definice} Řekneme, že množina $X$ je $m$-hrnek, pokud z ní lze udělat 
+cestu dlouhou $m$ takovou, bude konvexní. Analogicky čepici je konkávní.
+\paragraph{Pozorování} Rozmyslíme si, že pokud hrnek a čepice sdílejí poslední 
+vrcholy, můžeme hrnek nebo čepici prodloužit (protože sdílenému vrcholu náleží 
+dvě hrany, ale součet úhlů na obou polovinách nemůže být větší než $2\pi$.
+\paragraph{Věta} (Erdös, Szekeres)
+Označme $f(n,m)$ nejmenší přirozené číslo takové, že každá množina o $f(n,m)$ 
+bodů v rovině v obecné poloze obsahuje buď $n$-čepici, nebo $m$-hrnek. Potom:
+\begin{align}
+	f(n,m) = \binom{n+m-4}{n-2} + 1
+\end{align}
+\paragraph{Důkaz} Dokážeme indukcí. Prvně si všimneme, že pro $m\leq 2$ nebo 
+$n\leq 2$ je věta triviální, protože alespoň dvouprvková čepice nebo šálek 
+existují vždy, pokud jsou v rovině alespoň dva body. Předpokládejme tedy, že 
+$m,n\geq 3$. My budeme postupovat podle $n$ a fixního $m$, opačný postup je 
+identický, jenom se zamění $m$ za $n$ a ověří, že to funguje. My se nebudeme 
+opakovat.
+
+Nechť tedy chceme dokázat větu pro nějaké $m$ a $n$ a z indukčního předpokladu 
+víme, že pro $m-1$ a $n$ věta platí. Předpokládejme nyní, že je věta splněna 
+tím, že existuje $m-1$ hrnek (pokud by platila čepicí, tak máme hotovo).
+
+Najděme tedy největší hrnek a odeberme mu nejlevější vrchol. Takto postupujeme, 
+dokud nám nezbyde pouze
+\begin{align}
+	\binom{n+(m-1)-4}{n-2} + 1
+\end{align}
+vrcholů. Vrcholy, které jsme odebrali nechť jsou v množině $R$. Podívejme se, 
+kolik jich je (používáme vzorec pro součet kombinačních čísel a symetrii):
+\begin{align}
+	|R| = \binom{n+m-4}{n-2} + 1 - \binom{n+m-5}{n-2} - 1 = \binom{n+m-5}{n-3} = 
+	\binom{n+m-5}{n-2}
+\end{align}
+Což je ale přesně tolik, kolik nám stačí na uplatnění indukce. Tedy víme, že 
+mezi odebranými vrcholy existuje buď $m-1$-hrnek,nebo $n$ čepice. Podívejme se 
+tedy na takovou čepici. Protože jsme oba její konce odebrali, tak určitě byly na 
+konci alespoň jednoho $m-1$ hrnku. To máme ale hrnek a čepici sdílející poslední 
+vrchol. Rozmyslíme si, že v tomto případě můžeme hrnek nebo čepici zvětšit a 
+větu jsme dokázali. \qed
+
+
+\section{Ramseyovské teorie}
+\paragraph{Věta} (Ramseyova) $\forall n \exists N$ takové, že obarvením $K_N$ 
+dvěma barvami dostaneme monochromatickou $K_n$ jako podgraf.
+\paragraph{Důkaz} (bez důkazu, dělá se v DM)
+\paragraph{Poznámka} Podobné věty mluví o obarvení více barvami a nebo jiných 
+rozšířeních.
+
+\paragraph{Věta} (Ramseyova nekonečná)
+Pokud obarvíme $t$-tice přirozených čísel (z $\N^t$) $k$ barvami, pak existuje 
+nekonečná množina $X$ taková, že všechny její prvky jsou stejné barvy.
+\paragraph{Důkaz} Všimneme si, že když rozdělíme nekonečnou množinu na dvě 
+poloviny (nebo více částí), alespoň jedna bude konečná. Pro obarvení 2mi-barvami 
+to zjevně platí. Dále postupujeme indukcí: Rozdělme vrcholy podle první barvy a 
+Označme množinu $C_1$ takovou největší -- odstraníme první barvu a aplikujeme 
+indukci na problém obarvení $k-1$ barvami. \qed
+
+\paragraph{Věta} (Ramseyova konečná) $\forall k \forall n \exists N$ takové, že 
+obarvíme-li dvojice čísel $1..N$ k barvami, pak existuje množina $X\subset 
+\{1,...,N\}$ taková, že všecny dvojice prvků z $X$ mají stejnou barvu, $|X| \geq 
+n$ a navíc $|X| \geq \min\{X: x\in X\}$.
+\paragraph{Důkaz} Sporem z nekonečné verze: Tvrdíme, že pro libovolně velké $N$ 
+existuje obarvení $K_N$ bez velké monochromatické kliky. Podívejme se ale na 
+dvojice čísel: pro každou dvojici čísel existuje nekonečně mnoho dvojic, které 
+jsou stejně obarvené (kdyby ne, máme spor okamžitě). Z nekonečné věty víme, že 
+existuje nekonečná monochromatická množina $Y$. Vezměme si tedy prvních $\max(n, 
+\min Y)$ prvků a podívejme se na ně. Všechny mají stejnou barvu, je jich alespoň 
+$n$ a navíc jich je alespoň tolik, kolik je velikost nejmenšího prvku v množině, 
+což je spor.
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
