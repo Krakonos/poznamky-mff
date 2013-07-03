@@ -1,0 +1,320 @@
+\documentclass[a4paper,12pt,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage[czech]{babel}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage[small,compact]{titlesec}
+\usepackage{anyfontsize}
+
+
+\newcommand{\shn}{\Theta}
+\newcommand{\lm}{\smallskip\noindent\bf Lemma\rm{} }
+\newcommand{\dk}{\smallskip\noindent\bf Důkaz\rm{} }
+\newcommand{\df}{\smallskip\noindent\bf Definice\rm{} }
+\newcommand{\vt}{\smallskip\noindent\bf Věta\rm{} }
+\newcommand{\F}{\mathcal{F}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\Fr}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\todo}[1]{\bf TODO: \rm#1}
+\renewcommand{\L}{\mathcal{L}}
+%\newcommand{\qed}{\hfill QED}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Tr}{Tr}
+\newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
+\newcommand\bigone{\makebox(0,0){\text{\huge1}}}
+
+\title{Linearní Algera v Kombinatorice}
+\author{Ladislav Láska}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{Lineární nezávislost}
+\df Vektory $v_i$ jsou lineárně nezávislé, pokud existuje netriviální řešení 
+rovnice $\sum_i \alpha_iv_i=0$.
+\subsection{Sudo-licho města}
+\df Nechť $|X|=n$ a $A_1, \dots, A_m \subseteq X$ jsou neprázdné podmnožiny.  
+Úloha A-B město se ptá, jak velké může být $m$, pokud $|A_i| \sim B$ a $|A_i\cap 
+A_j|\sim A$ (tedy pro sudo-licho město máme omezení na liché velikosti a sudé 
+průniky).
+
+\vt Pro úlohu sudo-licho město platí $m \leq n$.
+
+\dk Počítejme nad $GF(2)$. Matice $A$ nechť je charakteristická matice dimenze 
+$n \times m$. Podívejme se na součin $AA^T$, tedy na matici skalárních součinů:
+\begin{align}
+	AA^T = \left(\begin{matrix}A_1\\ A_2 \\ \vdots \\ A_m \end{matrix}\right) 
+	\cdot \left(\begin{matrix}A_1, A_2, \dots, A_m\end{matrix}\right) =
+	\left(\begin{matrix}
+	1 & &\bigzero & \\
+	& \ddots && \\
+	&\bigzero& \ddots & \\
+	&&  &1
+	\end{matrix}\right)
+\end{align}
+Tedy víme, že $\rank(AA^T) = m$ a $\rank(A) \leq n$. Z vlastností ranku již 
+snadno získáme nerovnost $m=\rank(AA^T) \leq \rank(A) \leq n$. \todo{důkaz 
+rankové nerovnosti obrázkem pomocí zobrazení} \qed
+
+\vt Nechť $|X|=n$ a $A_1, \dots, A_m \subseteq X$ že platí $|A_i \cap A_j| = 1 $ 
+a $A_i \neq A_j$. Potom $m \leq n$.
+\dk Podobně jako v předchozím příkladě vezměme matici charakteristických vektorů 
+$A$ a podívejme se na součit $AA^T$, tentokrát již nad $Q$:
+\begin{align}
+	AA^T = \left(\begin{matrix}
+	|A_1| & &\bigone & \\
+	& \ddots && \\
+	&\bigone& \ddots & \\
+	&&  &|A_m|
+	\end{matrix}\right)
+\end{align}
+Dále označme $a_i := |A_i|$. Můžeme předpokládat, že $a_1 \leq a_2 \leq \dots 
+\leq a_m$. Zřejmě také $a_2 > 1$ (jinak $A_1 = A_2$). Nyní bychom chtěli 
+dokázat, že je matice regulární -- proto se podíváme na determinant této matice:
+\begin{align}
+	|AA^T| = \left|\left(\begin{matrix}
+	a_1 & &\bigone & \\
+	& \ddots && \\
+	&\bigone& \ddots & \\
+	&&  &a_m
+	\end{matrix}\right)\right|
+	%= \left|\begin{matrix}\text{{\fontsize{120}{120}\selectfont 1}}\end{matrix}
+	= \left|\begin{matrix}\text{\bf\Huge 1}\end{matrix}
+	+\left(\begin{matrix}
+	a_1-1 & &\bigzero & \\
+	& \ddots && \\
+	&\bigzero& \ddots & \\
+	&&  &a_m-1
+	\end{matrix}\right)\right|
+\end{align}
+Zatímco matice jedniček je singulární \todo{Pochopit proč se to dá spočítat, ale 
+determinant vyjde kladně}.  \qed
+
+\subsection{Dvouvydálenostní množiny}
+
+\subsection{Fisherova nerovnost}
+
+\section{Skalární součin}
+\subsection{Ortogonální doplněk}
+\subsection{Dimenze}
+\subsection{Sudo-sudo města}
+\subsection{Dolní odhad na Ramseyovo číslo}
+
+\section{Shannonova kapacita a Lovászova $\vartheta$ funkce}
+\subsection{Shannonova kapacita}
+$$
+	\shn(G) = \sup_i(\alpha(G_i))^{1/i}
+$$
+
+\lm $\shn(G + \overline{G}) \geq \sqrt{2|G|}$
+
+\dk 
+\begin{align}
+	\alpha ((G+\overline G)^2) \geq 2|G| \\
+	V_{G+\overline G} = \{ V_1, ..., V_n, V_1', ..., V_n'\}
+\end{align}
+Lze vzít nezávislou množinu $A$:
+\begin{align}
+	A = (V_i, V_i'), (V_i', V_i)
+\end{align}
+\qed
+
+
+\subsection{Funkční reprezentace grafu}
+\df Nechť $G$ je graf, $\F$ je systém funkcí, $X$ množina reprezentantů. Pak pro vrchol $v$ mějme $f_v \in \F$, že $f_v X \to \F$ a :
+\begin{enumerate}
+	\item $f_v(c_v) \neq 0$
+	\item $uv \notin E_G \Rightarrow f_u(c_v) = 0$
+\end{enumerate}
+
+\df Dimenzi $\F$ definujeme jako $\dim\L(\{f_v\})$, tedy chápeme funkce jako vektorový prostor.
+
+
+\lm(L) G má reprezentaci $\F$, pak $\shn(G) \leq \dim \F$.
+
+\lm(A) G má reprezentaci $\F$, pak $\alpha(G) \leq \dim \F$.\par
+\dk Nechť $A$ je nezávislá v $G$. Vyhodnotím reprezentující funkci v bodech $A$.
+\begin{align}
+\left(
+	\begin{matrix}
+		f_1(c_1) & f_2(c_2) & \dots \\
+		f_2(c_1) & f_2(c_2) & \dots \\
+		\vdots &&\\
+	\end{matrix}\right)
+\end{align}
+Tedy všechny reprezentující funkce jsou lineárně nezávislé, tedy je lemma dokázáno.\qed
+
+\lm(B) Pokud $G_1$ má reprezentaci $\F_1$, $G_2$ reprezentaci $\F_2$ nad stejným tělesem, pak $G = G_1 \boxtimes G_2$ má reprezentaci $\F$ a $\dim\F \leq \dim\F_1 \cdot \dim\F_2$.
+
+\dk Definuji $X = X_1 \cup^.$, $c_(v_1,v_2) = (c_{v_1}, c_{v_2})$ a $f_(v_1, v_2) = f_{v_1}(x_1) \cdot f_{v_2}(x_2)$.
+Dále stačí ověřit, že platí axiomy a víme, že je to korektně definovaná reprezentace. Stačí omezit dimenzi, stačí ale nahlédnout, že nové funkce jsou lineární kombinací vektorů z nanejvýš dvou bazí, výše uvedená nerovnost tedy platí.\qed
+
+\dk(L) $\shn(G) = \sup_i \alpha(G^i)^{1/i} \leq^{LA} \sup_i(\dim f.r.(G^i))^{1/i} \leq^{LB} \sup_i\dim f.r. (G)^{1/i} = \dim f.r.(G)$
+
+\vt Existuje $G, H$, že $\shn(G+H) > \shn(G) + \shn(H)$.
+\dk Zvolím $G$ takový, že $V_G=\binom{S}{3}$, $S = \{1, ..., s\}$ a $E_G = \{ (A, B) | |A\cap B| = 1\}$. Reprezentaci vytvoříme nad tělesem $\Fr = \Z_2$, $C_A = char. vektor A$ a $f_A(x) = \sum_{a\in A} X_a$.
+
+Ověříme, že je o reprezentace. Navíc každá funkce, kterou máme, je nějaká kombinace tří funkcí $b_i(X) = x_i$, těch je $s$.
+
+Dále pro $\overline G$: $\Fr = \R$, $X = \R^s$, $c_A = char. vektor A$, $f_A(x) = \left(\sum_{a\in A} x_a\right) -1$. Nahlédneme stejně jako v předchozím případě, že jde o reprezentaci a dim $\leq s+1$.
+
+Nyní zvolíme $s$ takové, že $\sqrt{2\binom{s}{3}} > 2s + 1$ a věta platí \todo{rozmyslet}. \qed
+
+\df Obecná poloha vektorů množiny \v N v  $\R^d$ je taková, že libovolná podmnožina velikosti $\leq d$ je lineárně nezávislá.
+
+\df Lokálně obecná poloha vektorů reprezentace v $\R^d$ na grafu $G$ jsou takové vrcholy, že $\rho(\overline{N(v)})$ jsou lineárně nezávislé.
+
+\vt Pro $G$ s $|G| = n$ jsou ekvivalentní tyto tvrzení:
+\begin{enumerate}
+	\item $G$ má ortogonální reprezentaci v $\R^d$ v obecné poloze.
+	\item $G$ má ortogonální reprezentaci v $\R^d$ v lokálně obecné poloze.
+	\item $G$ je $(n-d)$-souvislý.
+\end{enumerate}
+
+
+\section{Vlastní čísla grafu}
+\subsection{Moorovy grafy}
+Motivací nechť jsou r-regulární grafy bez krátkých cyklů (troj- a 
+čtyř-úhelníků). Triviální konstrukce nám dává odhad na počet vrcholů:
+\todo{obrázek konstrukce}
+\begin{align}
+\label{moorova-podminka}
+	|V| \geq 1 + r + r(r-1) = r^2 +1
+\end{align}
+
+\df Moorův graf je takový $r$-regulární graf bez troj- a čtyř-úhelníků, kde 
+platí v (\ref{moorova-podminka}) rovnost.
+
+\vt Moorův graf existuje pro $r=1,2,3,7$, pro $r=57$ se neví a pro žádné další 
+$r$ neexistuje.
+
+\dk (Idea) Mějme graf $G$ Moorův a $A$ jeho matici sousednosti. Zapišme druhou 
+mocninu $A$ jako stupeň na diagonále a prohozené 0 a 1 jinde a upravme:
+\begin{align}
+	&A^2 = rE + {\bf0} + {\bf1}(J- A-E) \\
+	&A^2 = rE - J - A - E \\
+	\label{moorova-matice}&A^2 + A + (1-r)E = J
+\end{align}
+Dále pro nějaké $\lambda\in \Sp(A)$:
+\begin{align}
+	\label{moorova-mocnina}A^2 x = AAx = A\lambda x = \lambda A x = \lambda 
+	\lambda x = \lambda^2 x
+\end{align}
+A dosasíme (\ref{moorova-matice}) za $A$:
+\begin{align}
+	Jx = (A^2 + A + (1-r)E)x = (\lambda^2 + \lambda + (1-r))x
+\end{align}
+A tedy $(\lambda^2 + \lambda + 1 -r) \in \Sp(J)$. Vlastní čísla matice $J$ 
+(matice samých jedniček) ale známe, jsou to $\{0^{(n-1)}, n^{(1)}\}$. Zjevně pro 
+$\lambda = r$ vyjde vlastní číslo $n$, je tedy potřeba vyřešit kvadratickou 
+rovnici s parametrem $r$:
+\begin{align}
+	\lambda^2 + \lambda + 1 - r = 0
+\end{align}
+Jak na to půjdeme? Vyjádříme si $\lambda$ známým vzorečkem pro kořeny:
+\begin{align}
+	\lambda_{1,2} = \frac{-1\pm \sqrt{1-4(1-r)}}{2} = \frac{-1\pm\sqrt{4r-3}}{2}
+\end{align}
+Násobnost označíme $m_1, m_2$. Protože stopa matice je suma vlastních čísel 
+včetně násobností, platí dále rovnice (protože matice sousednosti $A$ má na 
+diagonále vždy nuly):
+\begin{align}
+	\Tr(A) = r+m_1\lambda_1 + m_2\lambda_2 = 0
+\end{align}
+Pro další úravy označme odmocninu z diskriminantu jako $\sqrt{\cdot}$. Nejdříve 
+upravíme do formy (násobení dvěma a přeskupení):
+\begin{align}
+	2r - r^2 + \sqrt{.}(m_1 - m_2) = 0
+\end{align}
+Všimneme si, že $r\in\N$, tedy máme dvě možnosti:
+\begin{enumerate}
+	\item $\sqrt{.} \in \Q$: potom $m_1 = m_2$ a tedy $r = 2$.
+	\item $\sqrt{.} = s^2 \in \Q$ a $s \in \N$. Po menších úpravách lze zjistit, 
+	že $s\in \{1, 3, 5, 15\}$, což dává $r\in\{1, 3,7,57\}$.
+\end{enumerate}
+\qed
+
+\subsection{Raileighův princip a proplétání}
+\vt (Raileighův princip) Nechť $A$ je matice s ortogonální bazí z vlastních 
+vektorů $x_i$ a vlastními čísly $\lambda_i \geq \lambda_k$. Potom $x \in\langle 
+x_1,\dots,x_k\rangle \Rightarrow x^TAx\geq x^T\lambda_kx$.
+
+\vt (Věta o proplétání) Nechť $A$ a $B$ jsou matice takové, že $B$ vznikla z $A$ 
+vymazáním nějakého řádku a sloupce. Potom pro vlastní čísla $\lambda_i,\mu_i$ 
+matic $A,B$ platí:
+\begin{align}
+	\lambda_1 \geq \mu_1 \geq \lambda_2 \geq \dots\geq \mu_{n-1} \geq \lambda_n
+\end{align}
+
+\dk Dokazujeme indukcí $\lambda_k \geq \mu_k \geq \lambda_{k+1}$. Označme $x_i$ 
+a $y_i$ vlastní vektory matic $A$ a $B$.  Zaveďme následující vektorové 
+podprostory $\C^n$ (ačkoli druhý z nich nemá dostatek složek, můžeme mu jednu 
+nulovou přidat a nic se nestane):
+\begin{align}
+S_1 := \L\{x_k, \dots, x_n\} \subseteq \C^n \\
+S_2 := \L\{y_1, \dots, y_k\} \subseteq \C^n
+\end{align}
+Zřejmě $\dim(S_1) + \dim(S_2) > n$, tedy $\exists x \in S_1\cap S_2$. Použijeme 
+Reileighův princip pro oba prostory a máme:
+\begin{align}
+	\mu_k \leq \frac{y^*By}{y^*y} = \frac{x^*Ax}{x^*x} \leq \lambda_k
+\end{align}
+Stačí ukázat, že $\mu_k \geq \lambda_{k+1}$ -- to je ale snadné, stačí vzít $-A$ 
+a $-B$, čímž se obrátí znaménka vlastních čísel a nerovnosti. \qed
+
+\vt (Věta o proplétání podobných matic) Nechť $A$ je symetrická čtvercová matice 
+s vlastními čísly a vektory $\lambda_i$ a $x_i$, $S$ reálná matice, že $S^TS=I$.  
+Definujeme $B := S^TAB$ a označíme vlastní čísla a vektory matice $B$ jako 
+$\mu_i$ a $y_i$. Potom $\mu_i$ proplétají $\lambda_i$ a pokud navíc $\mu_i = 
+\lambda_i$ pro nějaké $i$, tak $Sy_i$ je vlastní vektor $A$ příslušící vlastnímu 
+číslu $\lambda_i$.
+
+\dk Použijeme Raileighův princip podobně, jako v předchozím tvrzení. Všimneme 
+si, že:
+\begin{align}
+	x \in \L\{ S^Tx_k, \dots, S^Tx_{k-1}\}^\perp \Leftrightarrow
+	Sx \in \L\{ x_k, \dots, x_{k-1}\}^\perp
+\end{align}
+Stačí si opět vzít vhodný prvek $x$ z průniku:
+\begin{align}
+	x \in \L\{ S^Tx_k, \dots, S^Tx_{k-1}\}^\perp \cap \L\{y_1, \dots, y_k\}
+\end{align}
+A můžeme použít Reileighův princip:
+\begin{align}
+	\lambda_i \geq \frac{Sx^TASx}{Sx^TSx} = \frac{x^TBx}{x^Tx} \geq \mu_i \\
+\end{align}
+Na navíc platí pokud $\lambda_i = \mu_i$, potom:
+\begin{align}
+	\frac{x^TBx}{x^Tx} = \lambda_i \quad\Rightarrow\quad x^TBx=x^Tx\lambda_i 
+	\quad\Rightarrow\quad Bx = \lambda_i x
+\end{align}
+A $x$ je vlastní vektor příslušící $\lambda_i$, jak jsme chtěli dokázat.\qed
+
+
+
+\section{Náhodné procházky}
+\subsection{Markovovy řetězce}
+\subsection{Stabilní distribuce a konvergence}
+
+\section{Expandéry}
+\subsection{Mixing lemma}
+\subsection{Vzdálenostní mocniny a zig-zag součin}
+
+\section{Perfektní kódy}
+\subsection{?}
+\subsection{Lloydova věta}
+
+
+\end{document}
+
