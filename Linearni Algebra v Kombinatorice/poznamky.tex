@@ -12,6 +12,7 @@
 \newcommand{\dk}{\smallskip\noindent\bf Důkaz\rm{} }
 \newcommand{\df}{\smallskip\noindent\bf Definice\rm{} }
 \newcommand{\vt}{\smallskip\noindent\bf Věta\rm{} }
+\newcommand{\poz}{\smallskip\noindent\bf Pozorování\rm{} }
 \newcommand{\F}{\mathcal{F}}
 \renewcommand{\L}{\mathcal{L}}
 \newcommand{\Fr}{\mathbb{F}}
@@ -101,7 +102,75 @@ dokázat, že je matice regulární -- proto se podíváme na determinant této 
 Zatímco matice jedniček je singulární \todo{Pochopit proč se to dá spočítat, ale 
 determinant vyjde kladně}.  \qed
 
-\subsection{Dvouvydálenostní množiny}
+\subsection{Dvouvzdálenostní množiny}
+\vt $P_1, P_2, \dots, P_m$ jsou body v $\R^n$ a $\exists \alpha, \beta \in \R$ t. že $\|P_iP_j\| \in {\alpha, \beta}$. Pak $m(n) \leq {(n+1)(n+4)\over 2}$.
+
+\dk
+\begin{align}
+F(x,y) = (\|x,y\|^2-\alpha^2)(\|x,y\|)-\beta^2)&\qquad F: (\R^n \rightarrow \R) \\
+f_i(x) = F(x, P_i)&\qquad f_i: \R^n \rightarrow \R
+\end{align}
+
+Když jsou $f_1, f_2, \dots, f_m$ lineárně nezávislé, pak $m \leq \dim($prostor funkcí $\R^n \rightarrow \R)$. Lineární kombinace $\sum_{i=1}^m \gamma_if_i(x) = 0$.
+
+\begin{align}
+f_i(P_j) &= \alpha^2\beta^2&\qquad {\rm pro}\ i=j\\
+f_i(P_j) &= 0&\qquad {\rm pro}\ i\neq j
+\end{align}
+
+\begin{align}
+\forall j: \sum_{i=1}^m \gamma_if_i(P_j) = \alpha^2\beta^2\gamma_j = 0 \qquad\Rightarrow\qquad \forall j: \gamma_j = 0
+\end{align}
+
+Z toho plyne, že funkce $f_1, f_2, \dots f_m$ jsou lineárně nezávislé.
+
+\begin{align}
+f_i(x) &= ((x_1-p_1)^2+\dots+(x_n-p_n)^2-\alpha^2) ((x_1-p_1)^2+\dots+(x_n-p_n)^2-\beta^2) \\
+&= (x_1^2+\dots+x_n^2-2p_1x_1-\dots-2p_nx_n-\alpha^2) (x_1^2+\dots-2p_1x_1-\dots-\beta^2)
+\end{align}
+
+$p_i^2$ se ztratí do $\alpha$ a $\beta$. Následuje rozbor případů:
+
+\begin{align}
+	&(x_1^2+\dots+x_n^2)(x_1^2+\dots+x_n^2) &\qquad 1\\
+	&(x_1^2+\dots+x_n^2)x_i &\qquad n\\
+	&x_i^2 &\qquad n\\
+	&x_ix_j &\qquad {n \choose 2}\\
+	&x_i &\qquad n\\
+	&1 &\qquad 1\\
+\end{align}
+
+Případ $(x_1^2+\dots+x_n^2)$ není potřeba, vyjádříme ho jako kombinaci $x_i^2$. Velikost lineárního obalu:
+
+$${n(n-1) \over 2} + {6n\over 2} + {4\over 2} = {n^2-5nn+4 \over 2} = {(n+1)(n+4)\over 2}$$ \qed
+
+
+\vt Pro dvouvzdálenostní množinu na kouli platí: $${n(n+1)\over 2} \leq m_{sf}(n) \leq {n(n+3)\over 2}$$
+
+\dk
+
+{\bf Horní odhad} (ostatní řádky nepotřebujeme):
+\begin{align}
+	&x_i^2 &\qquad n\\
+	&x_ix_j &\qquad {n \choose 2}\\
+	&x_i &\qquad n\\
+\end{align}
+
+$${n(n-1)\over 2} + {4n\over 2} = {n^2+3n\over 2} = {n(n+3) \over 2}$$
+
+{\bf Dolní odhad} (konstrukce 2-vzdálenostní množiny v $\R^n$):
+
+Body budou všechny vektory délky $n$ s dvěma jedničkovými souřadnicemi. Vzdálenost dvou bodů s $1$ na různých souřadnicích je $2$, zatímco vzdálenost bodů které se v jedné souřadnici shodují je $\sqrt 2$.
+
+Uvažujme nyní body v $\R^{n+1}$ místo v $\R^n$. Takových je $n+1 \choose 2$. 
+
+\bigskip
+$\sum x_i^2 = 2 \Rightarrow$ všechny body leží na sféře\footnote{$x_i$ je $i$-tá souřadnice bodu $x$}\\
+\indent$\sum x_i = 2 \Rightarrow$ všechny body leží v nadrovině \\
+
+$$\left\{x | \sum x_i = 2 \right\} \cap \R^{n+1} \approx \R^n$$
+
+Tedy máme 2-vzdálenostní množinu $n+1 \choose 2$ bodů na kouli v $\R^n$.
 
 \subsection{Fisherova nerovnost}
 
