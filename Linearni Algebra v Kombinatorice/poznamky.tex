@@ -129,7 +129,7 @@ f_i(x) &= ((x_1-p_1)^2+\dots+(x_n-p_n)^2-\alpha^2) ((x_1-p_1)^2+\dots+(x_n-p_n)^
 &= (x_1^2+\dots+x_n^2-2p_1x_1-\dots-2p_nx_n-\alpha^2) (x_1^2+\dots-2p_1x_1-\dots-\beta^2)
 \end{align}
 
-$p_i^2$ se ztratí do $\alpha$ a $\beta$. Následuje rozbor případů:
+$p_i^2$ se ztratí do $\alpha$ a $\beta$. Následuj rozbor případů po roznásobení:
 
 \begin{align}
 	&(x_1^2+\dots+x_n^2)(x_1^2+\dots+x_n^2) &\qquad 1\\
@@ -142,21 +142,21 @@ $p_i^2$ se ztratí do $\alpha$ a $\beta$. Následuje rozbor případů:
 
 Případ $(x_1^2+\dots+x_n^2)$ není potřeba, vyjádříme ho jako kombinaci $x_i^2$. Velikost lineárního obalu:
 
-$${n(n-1) \over 2} + {6n\over 2} + {4\over 2} = {n^2-5nn+4 \over 2} = {(n+1)(n+4)\over 2}$$ \qed
+$${n\choose 2} + 3n + 2 = {n(n-1) \over 2} + {6n\over 2} + {4\over 2} = {n^2-5nn+4 \over 2} = {(n+1)(n+4)\over 2}$$ \qed
 
 
 \vt Pro dvouvzdálenostní množinu na kouli platí: $${n(n+1)\over 2} \leq m_{sf}(n) \leq {n(n+3)\over 2}$$
 
 \dk
 
-{\bf Horní odhad} (ostatní řádky nepotřebujeme):
+{\bf Horní odhad} (ostatní řádky nepotřebujeme, $(x_1^2 + \dots + x_n^2)$ se na kouli posčítá na konstantu):
 \begin{align}
 	&x_i^2 &\qquad n\\
 	&x_ix_j &\qquad {n \choose 2}\\
 	&x_i &\qquad n\\
 \end{align}
 
-$${n(n-1)\over 2} + {4n\over 2} = {n^2+3n\over 2} = {n(n+3) \over 2}$$
+$${n\choose 2} + 2n = {n(n-1)\over 2} + {4n\over 2} = {n^2+3n\over 2} = {n(n+3) \over 2}$$
 
 {\bf Dolní odhad} (konstrukce 2-vzdálenostní množiny v $\R^n$):
 
@@ -172,13 +172,29 @@ $$\left\{x | \sum x_i = 2 \right\} \cap \R^{n+1} \approx \R^n$$
 
 Tedy máme 2-vzdálenostní množinu $n+1 \choose 2$ bodů na kouli v $\R^n$.
 
+
+\subsection{Dolní odhad na Ramseyovo číslo}
+\vt (Ramsey) $\forall n\ \exists N\ \forall G$ na $\ge N$ vrcholech má $\omega(G) \ge n$ nebo $\alpha(G) \ge n$.
+
+Víme, že $R_2(n) = \min N \le {2n-2\choose n-1}$. Konstrukcí si ukážeme dolní odhad.
+
+\vt $R_2(n) \ge {n-1\choose 3}$
+
+\dk $|X| = n-1$. Zkonstruujeme $G=\left(V={X\choose 3}, E=\{ab: |a\cap b|=1, a,b\in V\}\right)$.
+
+Klika v $G$ je {\it skorodisjunktní systém podmnožin} $X$ $\Rightarrow$ $\omega(G) \le |X| = n-1$.
+
+Vrcholy jsou nezávislé, pokud $|a\cap b| \in \{0,2\}$ a velikost nezávislé množiny 
+v $G$ je tedy {\it sudo-licho město} $\Rightarrow$ $\alpha(G) \le |X| = n-1$.
+\qed
+
+
 \subsection{Fisherova nerovnost}
 
 \section{Skalární součin}
 \subsection{Ortogonální doplněk}
 \subsection{Dimenze}
 \subsection{Sudo-sudo města}
-\subsection{Dolní odhad na Ramseyovo číslo}
 
 \section{Shannonova kapacita a Lovászova $\vartheta$ funkce}
 \subsection{Shannonova kapacita}
