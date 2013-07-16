@@ -13,6 +13,8 @@
 \newcommand{\df}{\smallskip\noindent\bf Definice\rm{} }
 \newcommand{\vt}{\smallskip\noindent\bf Věta\rm{} }
 \newcommand{\poz}{\smallskip\noindent\bf Pozorování\rm{} }
+\newcommand{\dsl}{\smallskip\noindent\bf Důsledek\rm{} }
+\newcommand{\tvr}{\smallskip\noindent\bf Tvrzení\rm{} }
 \newcommand{\F}{\mathcal{F}}
 \renewcommand{\L}{\mathcal{L}}
 \newcommand{\Fr}{\mathbb{F}}
@@ -29,8 +31,9 @@
 \DeclareMathOperator{\Tr}{Tr}
 \newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
 \newcommand\bigone{\makebox(0,0){\text{\huge1}}}
+\newcommand{\sk}[1]{\langle #1\rangle}
 
-\title{Linearní Algera v Kombinatorice}
+\title{Linearní Algebra v Kombinatorice}
 \author{Ladislav Láska}
 
 \begin{document}
@@ -168,7 +171,7 @@ Uvažujme nyní body v $\R^{n+1}$ místo v $\R^n$. Takových je $n+1 \choose 2$.
 $\sum x_i^2 = 2 \Rightarrow$ všechny body leží na sféře\footnote{$x_i$ je $i$-tá souřadnice bodu $x$}\\
 \indent$\sum x_i = 2 \Rightarrow$ všechny body leží v nadrovině \\
 
-$$\left\{x | \sum x_i = 2 \right\} \cap \R^{n+1} \approx \R^n$$
+$$\left\{x | \sum x_i = 2 \right\} \cap \R^{n+1} \simeq \R^n$$
 
 Tedy máme 2-vzdálenostní množinu $n+1 \choose 2$ bodů na kouli v $\R^n$.
 
@@ -192,9 +195,55 @@ v $G$ je tedy {\it sudo-licho město} $\Rightarrow$ $\alpha(G) \le |X| = n-1$.
 \subsection{Fisherova nerovnost}
 
 \section{Skalární součin}
+
+Mějme vektorový prostor $V = T^n$.
+
+\df (Skalární součin) $\sk{x,y} = \sum x_iy_i$ \quad(= $\sum x_i\overline{y_i}$ nad $\C$)
+
 \subsection{Ortogonální doplněk}
-\subsection{Dimenze}
+
+\df $M \subseteq T^n$ \quad $M^\bot = \{x\ |\ \forall a\in M: \sk{x,a} = 0\}$ je ortogonální doplněk $M$.
+
+Zjevně platí $\dim M^\bot = n - \dim \sk M$
+
+\poz ${(M^\bot)}^\bot = \sk M$
+
+\dk přes dimenze\quad $n-(n-k) = k = \dim M$ \qed
+
+\df (Součet podprostorů) $\sk{M\cup N} = \sk M + \sk N$
+
+$$\dim\left(\sk M + \sk N\right) + \dim\left(\sk M \cap \sk N\right) = \dim \sk M + \dim \sk N$$
+
+\dsl Podprostory $M,N << T^n: \dim M + \dim N > n \Rightarrow \dim M \cap N \ge 1$ $\Rightarrow$ $\exists u \neq 0, u \in M\cap N$.
+Pro tělesa, ve kterých platí $\sk{x,x} \neq 0$ pro $x\neq 0$ platí:
+$$M << T^n \Rightarrow M\cap M^\bot = \{0\} \Rightarrow \dim(M+M^\bot) = n \Rightarrow M + M^\bot = T^n$$
+
 \subsection{Sudo-sudo města}
+
+\df $|X| = n$, $A_1, A_2, \dots A_k \subseteq X$, $|A_i| \equiv 0 \mod 2$, $|A_i\cap A_j| \equiv 0 \mod 2$. Jaké největší může být $k = k(n)$?
+
+\vt $k(n) \ge 2^{n\over 2}$
+
+\dk Utvoříme páry -- $2^{n\over 2}$ je počet podmnožin $n\over 2$ prvkové množiny. \qed
+
+\vt $k(n) \le {n\over 2}$
+
+\dk\footnote{$A_i$ budeme považovat za charakteristický vektor podmnožiny $A_i$
+v množině $X$.} $A_i \in GF(2^n)$. Nechť $M$ je maximální (co do inkluze)
+sudo-sudo město. Pak $M$ je vektorový prostor:
+\begin{align}
+	&\emptyset \in M \\
+	&\forall u \in M, \forall c\in GF(2): c\cdot u \in M \\
+	&\forall x,u,v\in M: \sk{x, u+v} = \sk{x,u} + \sk{x,v} = 0 + 0 = 0 \\
+	&\forall u,v \in M: \sk{u+v,u+v} = \sk{u,u} + 2\sk{u,v} + \sk{v,v} = 0 + 0 + 0 = 0
+\end{align}
+
+Když $M << GF(2)^n$ a $\dim M = k$, pak $|M| = 2^k$. Vektory mají sudé průniky {\it (sudo-sudo město)} nad $GF(2)$ a tedy platí $\forall x,y\in M: \sk{x,y} = 0$.
+
+$$\forall x\in M: x\in M^\bot \quad\Rightarrow\quad M\subseteq M^\bot \quad\Rightarrow\quad \dim M \le \dim M^\bot$$
+
+$$k = \dim M \le \dim M^\bot = n-k \quad\Rightarrow\quad 2k \le n \quad\Rightarrow\quad k \le {n\over 2}$$
+\qed
 
 \section{Shannonova kapacita a Lovászova $\vartheta$ funkce}
 \subsection{Shannonova kapacita}
