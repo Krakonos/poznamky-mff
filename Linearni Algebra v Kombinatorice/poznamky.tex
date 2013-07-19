@@ -34,7 +34,7 @@
 \newcommand{\sk}[1]{\langle #1\rangle}
 
 \title{Linearní Algebra v Kombinatorice}
-\author{Ladislav Láska}
+\author{Ladislav Láska\\ Jan Musílek}
 
 \begin{document}
 
@@ -244,6 +244,77 @@ $$\forall x\in M: x\in M^\bot \quad\Rightarrow\quad M\subseteq M^\bot \quad\Righ
 
 $$k = \dim M \le \dim M^\bot = n-k \quad\Rightarrow\quad 2k \le n \quad\Rightarrow\quad k \le {n\over 2}$$
 \qed
+
+\subsection{Eulerovské a úplné bipartitní podgrafy}
+
+$G = (V,E)$ je souvislý graf. $V_G = \{$ spanning\footnote{Česky též \uv{napnuté} -- podgrafy obsahující všechny vrcholy grafu $G$ (i kdyby některé z nich byly izolované).} podgrafy $G$ $\}$
+
+\tvr $V_G$ je vektorový prostor nad $GF(2)$ s operací symetrická diference. $V_H \in GF(2)^E$
+
+\bigskip
+\todo Obrázek se symetrickou diferencí podgrafů.
+\bigskip
+
+\df $\varepsilon_G = \{ $ eulerovské podgrafy $\equiv
+\forall $ stupně sudé $ \}$. Součtem dvou eulerovských podgrafů je eulerovský
+podgraf, tvoří tedy podprostor $V_G$.
+
+\lm $\dim \varepsilon_G = |E| - n + 1$
+
+\dk Vybereme si libovolnou kostru $T$ grafu $G$. Pro každou hranu, která není v
+kostře existuje právě jedna elementární kružnice $K_e$ určená touto hranou. $\{
+K_e\ |\ e \in E(G) - E(T) \}$ tvoří lineárně nezávislé vektory. Lze dokázat,
+že tvoří bázi $\varepsilon_G$.
+
+Z toho $\dim \varepsilon_G = |E| - n + 1$, což je počet hran mimo kostru. \qed
+
+\df $\beta_G = \{$ úplné bipartitní spanning podgrafy $G$ $\}$. $\beta_G$ je
+prostor všech řezů v $G$.
+
+\lm $\beta_G << V_G$, $\beta_G = \langle\{$ hvězdy $\}\rangle$
+
+\bigskip
+\todo Zmatený důkaz obrázkem.
+\bigskip
+
+
+\vt $\varepsilon_G^\bot = \beta_G$
+
+\dk $H \in \varepsilon_G, u \in V$. $H_u$ je hvězda z vrcholu $u$. $\sk{H,H_u} = \deg_H u$
+
+$H \in \varepsilon_G \Rightarrow \forall u: \sk{H,H_u} = 0 \Rightarrow \forall B\in \beta_G: \sk{H,B} = 0 \Rightarrow H \in \beta_G^\bot \Rightarrow \varepsilon_G \subseteq \beta_G^\bot$
+
+$H$: $\forall B\in \beta_G: \sk{H,B} = 0 \Rightarrow $H je kolmé na všechny hvězdy $\forall u: \sk{H,H_u} = 0$ \\ $\Rightarrow \forall u: \deg_H u \equiv 0 \mod 2 \Rightarrow H \in \varepsilon_G \Rightarrow \beta_G^\bot \subseteq \varepsilon_G$
+
+Tedy $\varepsilon_G = \beta_G^\bot$, protože $\varepsilon_B^\bot = {\left(\beta_G^\bot\right)}^\bot = \beta_G$.
+\qed
+
+$\dim \varepsilon_G = \dim \beta_G^\bot = |E| - n + 1$.
+
+
+\vt $M \subseteq GF(2)^n \quad\Rightarrow\quad (1,1,\dots,1) \in \sk M + M^\bot = \sk{M\cup M^\bot}$
+
+\dk $\sk M \cap M^\bot$
+\begin{enumerate}
+\item[(a)] $\dim(\sk M + M^\bot) = 0 \quad\Rightarrow\quad \dim(\sk M + M^\bot) = k+n-k = n \Rightarrow \sk M + M^\bot = GF(2)^n \Rightarrow (1,1,\dots,1)\in \sk M + M^\bot$
+\item[(b)] $\dim(\sk M + M^\bot) > 0 \quad\Rightarrow\quad \exists u\in \sk M \cap M^\bot$ \\ 
+$\forall u\in \sk M \cap M^\bot: \sk{u,u} = 0 \Rightarrow \sum u_i^2 \equiv 0 \mod 2 = \sum u_i = \sk{u, (1,1,\dots,1)}$ \\
+nad $GF(2)$ platí $u_i^2 = u_i$ \\
+$\Rightarrow (1,1,\dots,1) \in {(\sk M \cap M^\bot)}^\bot = {\sk M}^\bot + {(M^\bot)}^\bot = M^\bot + \sk M$
+\end{enumerate}
+\qed
+
+
+% zjistit znak pro disjunktní sjednocení
+\vt $\forall G \ \exists V_1,V_2,\ V_1\cup^\cdot V_2 = V(G)$ t. že $G[V_1]$ i $G[V_2]$ mají všechny stupně sudé.
+
+\dk $M = \varepsilon_G << V_G$
+
+$G = (1,1,\dots,1) \in \varepsilon_G + \varepsilon_G^\bot = \varepsilon_G + \beta_G$
+\qed
+
+Důsledkem je, že $\exists H \in \varepsilon_G\ \exists B\in \beta_G: G = H + B$ (tedy každý graf lze zapsat jako symetrickou diferenci eulerovského podgrafu a hranového řezu).
+
 
 \section{Shannonova kapacita a Lovászova $\vartheta$ funkce}
 \subsection{Shannonova kapacita}
