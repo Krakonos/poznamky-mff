@@ -16,6 +16,7 @@
 \newcommand{\dsl}{\smallskip\noindent\bf Důsledek\rm{} }
 \newcommand{\tvr}{\smallskip\noindent\bf Tvrzení\rm{} }
 \newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
 \renewcommand{\L}{\mathcal{L}}
 \newcommand{\Fr}{\mathbb{F}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -535,7 +536,18 @@ $\lambda_2$ ($q$-násobné).
 \qed
 
 
+\vt (Friendship theorem) $G$ má vlastnost $e = f = 1$. Pak $\exists u: \deg(u) = n-1$.
 
+Friendship theorem tvrdí, že takový silně regulární graf musí vypadat jako
+mlýn (hromádka trojúhelníků, které se stýkají v jednom centrálním vrcholu).
+
+\dk $(V(G), \{N(u), u\in V(G)\}) = \B$ množinový systém.
+
+$u \in N(w) \wedge v \in N(w) \Rightarrow \exists uw, \exists vw$ \\
+\indent $\forall u\neq v\ \exists!\ N(w) \ni u,v$ \\
+\indent $\forall u\neq v\ |N(u)\cap N(v)| = 1$
+
+Z výše uvedeného vyplývá, že $\B$ tvoří konečnou projektivní rovinu.
 
 \subsection{Raileighův princip a proplétání}
 \vt (Raileighův princip) Nechť $A$ je matice s ortogonální bazí z vlastních 
