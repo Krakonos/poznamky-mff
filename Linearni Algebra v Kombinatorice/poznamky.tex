@@ -25,6 +25,7 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\xttt}{{\chi_T^\bot}^T}
 \newcommand{\todo}[1]{\bf TODO: \rm#1}
 \renewcommand{\L}{\mathcal{L}}
 %\newcommand{\qed}{\hfill QED}
@@ -613,7 +614,79 @@ A $x$ je vlastní vektor příslušící $\lambda_i$, jak jsme chtěli dokázat.
 \subsection{Stabilní distribuce a konvergence}
 
 \section{Expandéry}
+
+\df
+\begin{itemize}
+	\item $E(S,T) = \{$ hrany mezi $S$ a $T$ $\}$
+	\item $e(S,T) = |E(S,T)|$
+	\item $e(S) = $ počet hran uvnitř $S$
+	\item vrcholová expanze $h_v(G) = \min\limits_{S\subseteq V, |S|\le {n\over 2}} {|N(S) \over |S|}$
+	\item hranová expanze $h(G) = \min\limits_{S\subseteq V, |S|\le {n\over 2}} {e(S,\bar S) \over |S|}$
+\end{itemize}
+
+\poz $h_v(G) \le h(G) \le d . h_v(G)$
+
+\df 
+\begin{itemize}
+	\item Rodina expanderů $\{G_i\}_\infty$\quad$2^i \ge |G_i| \ge i: h(G_i) \ge \varepsilon$, $G_i$ je $d$-regulární.
+	\item Spectral gap $= d - \max\{\lambda_2,-\lambda_n\}$
+	\item Spektrální expanze $= d - \lambda_2$
+	\item $\lambda = \max\{\lambda_2,-\lambda_n\}$
+\end{itemize}
+
+\vt ${1\over 2}(d-\lambda_2) \le h(G) \le \sqrt{d(d-\lambda_2)}$ (G je $d$-regulární graf).
+
+\dk (Jen první nerovnost, druhá je bez důkazu). Sporem: nechť $S$ je množina
+vrcholů s malou hranovou expanzí.
+
+Pro $x \bot (1,1,\dots,1)$ platí $\lambda_2 \ge {x^TAx\over x^Tx}$ (Raileighův
+princip). Zvolíme $x = (n-s)1_S - s1_{\bar S}$, kde $s = |S|$ a $1_S$ je
+charakteristický vektor množiny $S$.
+
+$$x^Tx = (n-s)^2s + s^2(n-s) = s(n-s)n$$
+$$x^TAx = \sum_{(a,b)\in E} 2x_ax_b = 2(n-s)^2e(S)-2s(n-s)e(S,\bar S) + 2s^2e(\bar S)$$
+
+Platí $ds = 2e(S) + e(S,\bar S)$, neboť $ds$ odpovídá počtu konců hran v $S$. Analogicky $d(n-s) = 2e(\bar S) + e(S,\bar S)$ pro $\bar S$. Z toho si vyjádříme $e(S)$ a $e(\bar S)$ a dosadíme do rovnice výše:
+
+$$x^TAx = -e(S,\bar S)n^2 + (n-s)ds(n-s+s) = (n-s)dsn - e(S,\bar S)n^2$$
+$$\lambda_2 \ge {(n-s)dsn - e(S,\bar S)n^2 \over s(n-s)n} = d - {n\over n-s}\cdot{e(S,\bar S)\over s}$$
+$$d-\lambda_2 \le {n\over n-s} \cdot {e(S,\bar S)\over s} \le 2\cdot{e(S,\bar S)\over s} = 2h(G)$$
+\qed
+
+\lm Pro náhodný d-regulární graf skoro jistě platí $\lambda \le 2\sqrt{d-1} + O(1)$. Bez důkazu.
+
 \subsection{Mixing lemma}
+\vt (Mixing lemma) $\forall G, \forall S,T \subseteq V, S\cap T = \emptyset: |e(S,T) - {d\cdot|S|\cdot|T|\over n}| \le \lambda\cdot\sqrt{|S|\cdot|T|}$
+
+\dk Buďte $\chi_S, \chi_T$ charakteristické vektory $S$ a $T$. $u = (1,1,\dots)$ je první vlastní vektor. $\chi_S^\bot$ značí vektor kolmý na $\chi_S$.
+
+$${\sk{\chi_S \cdot u} \over \|u\|^2} = {|S|\over n} \qquad\Rightarrow\qquad \chi_S = u\cdot {|S|\over n} + \chi_S^\bot \qquad\qquad \chi_T = u\cdot {|T|\over n} + \chi_T^\bot$$
+
+$$e(S,T) = \sum_{i\in S, j\in T} A_{ij} = \chi_T^TA\chi_S = \underbrace{{|S|\cdot |T| \over n^2} \underbrace{u^TAu}_{dn}}_{d\cdot |S|\cdot |T|\over n} + \xttt A\chi_s^\bot$$
+
+Zbývá dokázat, že $|\xttt A\chi_S^\bot| \le \lambda\cdot\sqrt{|S|\cdot |T|}$.
+
+$$|\xttt A\chi_S^\bot| \le \|\xttt \| \cdot \|A\chi_S^\bot\| \le \|\xttt\|\cdot\lambda\cdot\|\chi_S^\bot\|$$
+
+První nerovnost plyne z toho, že skalární součin dvou vektorů (tedy součin
+jejich délek a sinu úhlu, který svírají) je vždy nejvýš roven součinu jejich
+délek. Druhá nerovnost plyne z toho, že si $\chi_S^\bot$ můžu vyjádřit jako
+lineární kombinaci vlastních vektorů $A$:
+
+$$\chi_S^\bot = \sum_{i=2}^n y_i\alpha_i$$
+
+Pro každý vlastní vektor $y_i$ můžu nahradit matici $A$ vlastním číslem
+$\lambda_i$ (pak bude zachována rovnost) a tím spíš můžu nahradit matici $A$
+největším vlastním číslem, což je v našem případě $\lambda =
+\max\{\lambda_2,-\lambda_n\}$, abych zachoval nerovnost.
+
+$$\|\chi_S\|^2 = |S| \qquad\Rightarrow\qquad \|\xttt\| \le \sqrt S$$
+$$\|\chi_T\|^2 = |T| \qquad\Rightarrow\qquad \|\chi_S^\bot\| \le \sqrt T$$
+
+$$|\xttt A\chi_S^\bot| \le \lambda\cdot\sqrt{|S|\cdot |T|}$$
+\qed
+
+
 \subsection{Vzdálenostní mocniny a zig-zag součin}
 
 \section{Perfektní kódy}
