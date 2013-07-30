@@ -14,6 +14,7 @@
 \newcommand{\df}{\smallskip\noindent\bf Definice\rm{} }
 \newcommand{\vt}{\smallskip\noindent\bf Věta\rm{} }
 \newcommand{\poz}{\smallskip\noindent\bf Pozorování\rm{} }
+\newcommand{\pzn}{\smallskip\noindent\bf Poznámka\rm{} }
 \newcommand{\dsl}{\smallskip\noindent\bf Důsledek\rm{} }
 \newcommand{\tvr}{\smallskip\noindent\bf Tvrzení\rm{} }
 \newcommand{\F}{\mathcal{F}}
@@ -626,7 +627,53 @@ A $x$ je vlastní vektor příslušící $\lambda_i$, jak jsme chtěli dokázat.
 
 
 \section{Náhodné procházky}
-\subsection{Markovovy řetězce}
+\subsection{Markovovské řetězce}
+
+\df Markovovský řetězec je orientovaný graf s váženými hranami takový, že
+výstupní stupeň každého vrcholu je 1. Markovoský řetězec často reprezentujeme
+maticí přechodu $P$, kde $P_{ij}$ udává pravděpodobnost, že ze stavu $i$
+přejdeme do stavu $j$.
+
+\df Distribuce $\pi$ je vektor, jehož součet je 1 a kde $p_i$ určuje
+pravděpodobnost, že se nacházíme ve stavu $i$.
+
+\pzn Máme-li distribuci $\pi$ a provedeme jeden krok na Markovovském řetězci s
+maticí přechodu $P$, dostaneme novou distribuci $\pi\cdot P$.
+
+\df Markovovský řetězec je reversibilní, existuje-li distribuce $\pi$
+t. že $\pi_i\cdot P_{ij} = \pi_j\cdot P_{ji}$.
+
+\lm Markovovský řetězec je reversibilní $\Leftrightarrow$ je odvozen z váženého neorientovaného grafu.
+
+\dk 
+\begin{itemize}
+
+\item[\uv{$\Leftarrow$}]
+Zvolíme si $\pi$ následovně a ukážeme, že splňuje reversibilní podmínku:
+\begin{align*}
+& \pi_v = {\deg v\over \sum_{u\in V(G)} \deg u} & P_{ij} = {w_G(i,j)\over \deg i} \\ 
+\end{align*}
+\begin{align*}
+\pi_i P_{ij} &= \pi_i {w_G(i,j)\over \deg i} = {w_G(i,j)\over \sum_{u\in V(G)}\deg u} \\
+\pi_j P_{ji} &= \pi_j {w_G(j,i)\over \deg j} = {w_G(j,i)\over \sum_{u\in V(G)}\deg u}
+\end{align*}
+
+\item[\uv{$\Rightarrow$}]
+Zvolíme váhu $w(i,j) = P_{i,j}\pi_i = P_{j,i}\pi_j = w(j,i)$ a dostaneme vážený
+neorientovaný graf.
+\qed
+\end{itemize}
+
+\df $\pi$ je stabilní distribuce\footnote{Někdy též zvaná \uv{stacionární}.},
+je-li $\pi\cdot P = \pi$. Jinak řečeno, stabilní distribuce se po provedení
+kroku nezmění.
+
+\vt Pro $G$ neorientovaný souvislý platí: $\forall \rho$ počáteční distribuci $\{P_G^k\cdot \rho\}_k$ konverguje $\Leftrightarrow$ $G$ není bipartitní.
+
+\dk
+
+
+
 \subsection{Stabilní distribuce a konvergence}
 
 \section{Expandéry}
