@@ -800,7 +800,7 @@ Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vy
 \end{enumerate}
 
 
-\lm Nechť $\lambda_1,\ldots,\lambda_d \in \Sp(B_1)$. Potom pokud $\lambda_i \neq k$ platí:
+\lm (O charakteristickém polynomu) Nechť $\lambda_1,\ldots,\lambda_d \in \Sp(B_1)$. Potom pokud $\lambda_i \neq k$ platí:
 \begin{align}
 	v_o(\lambda) + \ldots + v_d(\lambda) = c \cdot (\lambda - \lambda_1) \cdot \ldots \cdot (\lambda - \lambda_d)
 \end{align}
@@ -866,11 +866,16 @@ $\overset{1}{=}$ plyne z lemma o zastřešování, $\overset{2}{=}$ plyne z pře
 Vektory $u_1,\dots, u_t$ tvoří $\Ker \widehat S_t$ a jsou lineárně nezávislé. Tedy $\dim\Ker\widehat S_t \ge t$.
 \qed
 
+\vt (Lloydův prototyp) Pokud existuje $t$-perfektní kód v $G$, potom $x_t(\lambda)\backslash x_d(\lambda)$.
 
+\dk Nejprve si všimněme, že $\widehat{S_t} = \widehat{X_t(A)} = \widehat{\sum_i^t A_i} = \sum_i^t B_i = X_t(B)$.
+Dále se podívejme na spektra $B$ a $\widehat{S_t}$:
+\begin{align}
+	&\Sp(B) = \{ k, \lambda_1, \ldots, \lambda_d \} \\
+	&\Sp(\widehat{S_t}) = \{ x_t(k), x_t(\lambda_1), \ldots, x_t(\lambda_d) \}
+\end{align}
 
-
-
-
+\todo{proc a zbytek...}
 
 
 \subsection{Lloydova věta}
