@@ -5,7 +5,7 @@
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
 \usepackage[small,compact]{titlesec}
 \usepackage{anyfontsize}
-
+\usepackage{rotating}
 
 \newcommand{\shn}{\Theta}
 \newcommand{\lm}{\smallskip\noindent\bf Lemma\rm{} }
@@ -34,7 +34,11 @@
 \DeclareMathOperator{\Tr}{Tr}
 \newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
 \newcommand\bigone{\makebox(0,0){\text{\huge1}}}
+\newcommand{\bigddots}[1]{\makebox(0,0){\rotatebox{-35}{\text{\xleaders\hbox{$\cdot$\hskip4pt}\hskip#1\kern0pt}}}}
 \newcommand{\sk}[1]{\langle #1\rangle}
+\newcommand{\diagdots}[3][-25]{%
+  \rotatebox{#1}{\makebox[0pt]{\makebox[#2]{\xleaders\hbox{$\cdot$\hskip#3}\hfill\kern0pt}}}%
+}
 
 \title{Linearní Algebra v Kombinatorice}
 \author{Ladislav Láska\\ Jan Musílek}
@@ -727,6 +731,24 @@ $\dim \A(G) = d+1$.
 
 \poz $\widetilde \A = \{A_0, A_1, \dots, A_d\}$ tvoří bázi $\A(G)$.
 
+
+\lm $B1 = \left(\begin{matrix}
+& & & & & & & & \bigzero & \\
+& & & & & & & & & \\
+& \bigzero & & & & {\smash{\raisebox{.75\normalbaselineskip}{\diagdots{9em}{.5em}}}} & {\smash{\raisebox{1.2\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & \\
+& & & & {\smash{\raisebox{1.3\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & & \\
+\end{matrix}\right)$ je tridiagonální matice. Všechny sloupcové součty jsou stejné a jsou rovny $k$.
+
+\dk Matice je tridiagonální, protože $s_{1,i,j}$ dává smysl jen pro $i \in \{j-1,j,j+1\}$ (z $\Delta$ nerovnosti). Navíc v $j$-tém sloupci je $s_{1,j-1,j} + s_{1,j,j} + s_{1,j+1,j}$, což zahrnuje všechny sousedy $u$, kterých je $k$.
+\qed
+
+
+\lm $B1 = \left(\begin{matrix}
+& & & & & & & & \bigzero & \\
+& & & & & & & & & \\
+& \bigzero & & & & {\smash{\raisebox{.75\normalbaselineskip}{\diagdots{9em}{.5em}}}} & {\smash{\raisebox{1.2\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & \\
+& & & & {\smash{\raisebox{1.3\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & & \\
+\end{matrix}\right)$ je tridiagonální matice $\Rightarrow$ $\forall$ vlastní čísla jsou různá.
 
 
 \subsection{Lloydova věta}
