@@ -282,31 +282,41 @@ prostor všech řezů v $G$.
 
 \lm $\beta_G << V_G$, $\beta_G = \langle\{$ hvězdy $\}\rangle$
 
-\bigskip
-\todo Zmatený důkaz obrázkem.
-\bigskip
+\dk Každý úplný bipartitní podgraf lze zapsat jako symetrickou diferenci hvězd.
+Vezmeme hvězdy ze všech vrcholů v jedné z partit. Mezi těmito vrcholy se hrany
+vyruší, mezi vrcholy z druhé partity žádné nevedou a všude jinde ano. 
 
+Mám-li dva různé úplné bipartitní podgrafy, rozepíšu si je na součet hvězd a
+výsledkem musí být dle výše uvedeného opět úplný bipartitní podgraf.
 
-\vt $\varepsilon_G^\bot = \beta_G$
+\vt $\varepsilon_G^\bot = \beta_G$. Tedy eulerovské podgrafy jsou ortogonálním
+doplňkem úplných bipartitních podgrafů.
 
-\dk $H \in \varepsilon_G, u \in V$. $H_u$ je hvězda z vrcholu $u$. $\sk{H,H_u} = \deg_H u$
+\dk Vezmeme si $H \in \varepsilon_G$ eulerovský podgraf a $u \in V(G)$. $H_u$
+označíme hvězdu z vrcholu $u$. Platí $\sk{H,H_u} = \deg_H u$, neboť hvězda
+obsahuje všechny hrany jdoucí z $u$ a žádné jiné. Protože v $H$ vychází z
+každého vrcholu sudý počet hran a počítáme nad $GF(2)$:
+\begin{align*}
+\forall u: \sk{H,H_u} = 0 \quad\Rightarrow\quad \forall B\in \beta_G: \sk{H,B} = 0 \quad\Rightarrow\quad H \in \beta_G^\bot \quad\Rightarrow\quad \varepsilon_G \subseteq \beta_G^\bot
+\end{align*}
 
-$H \in \varepsilon_G \Rightarrow \forall u: \sk{H,H_u} = 0 \Rightarrow \forall B\in \beta_G: \sk{H,B} = 0 \Rightarrow H \in \beta_G^\bot \Rightarrow \varepsilon_G \subseteq \beta_G^\bot$
-
-$H$: $\forall B\in \beta_G: \sk{H,B} = 0 \Rightarrow $H je kolmé na všechny hvězdy $\forall u: \sk{H,H_u} = 0$ \\ $\Rightarrow \forall u: \deg_H u \equiv 0 \mod 2 \Rightarrow H \in \varepsilon_G \Rightarrow \beta_G^\bot \subseteq \varepsilon_G$
+Naopak, každý podgraf $H$, který je kolmý na všechny hvězdy je nutně eulerovský:
+\begin{align*}
+\forall u: \sk{H,H_u} = 0 \quad\Rightarrow\quad \forall u: \deg_H u \equiv 0 \mod 2 \quad\Rightarrow\quad H \in \varepsilon_G \quad\Rightarrow\quad \beta_G^\bot \subseteq \varepsilon_G
+\end{align*}
 
 Tedy $\varepsilon_G = \beta_G^\bot$, protože $\varepsilon_B^\bot = {\left(\beta_G^\bot\right)}^\bot = \beta_G$.
 \qed
 
-$\dim \varepsilon_G = \dim \beta_G^\bot = |E| - n + 1$.
+\dsl $\dim \varepsilon_G = \dim \beta_G^\bot = |E| - n + 1$.
 
 
 \vt $M \subseteq GF(2)^n \quad\Rightarrow\quad (1,1,\dots,1) \in \sk M + M^\bot = \sk{M\cup M^\bot}$
 
 \dk $\sk M \cap M^\bot$
 \begin{enumerate}
-\item[(a)] $\dim(\sk M + M^\bot) = 0 \quad\Rightarrow\quad \dim(\sk M + M^\bot) = k+n-k = n \Rightarrow \sk M + M^\bot = GF(2)^n \Rightarrow (1,1,\dots,1)\in \sk M + M^\bot$
-\item[(b)] $\dim(\sk M + M^\bot) > 0 \quad\Rightarrow\quad \exists u\in \sk M \cap M^\bot$ \\ 
+\item[(a)] $\dim(\sk M \cap M^\bot) = 0 \quad\Rightarrow\quad \dim(\sk M + M^\bot) = k+n-k = n \Rightarrow \sk M + M^\bot = GF(2)^n \Rightarrow (1,1,\dots,1)\in \sk M + M^\bot$
+\item[(b)] $\dim(\sk M \cap M^\bot) > 0 \quad\Rightarrow\quad \exists u\in \sk M \cap M^\bot$ \\ 
 $\forall u\in \sk M \cap M^\bot: \sk{u,u} = 0 \Rightarrow \sum u_i^2 \equiv 0 \mod 2 = \sum u_i = \sk{u, (1,1,\dots,1)}$ \\
 nad $GF(2)$ platí $u_i^2 = u_i$ \\
 $\Rightarrow (1,1,\dots,1) \in {(\sk M \cap M^\bot)}^\bot = {\sk M}^\bot + {(M^\bot)}^\bot = M^\bot + \sk M$
