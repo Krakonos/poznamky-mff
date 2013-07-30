@@ -807,6 +807,30 @@ Vektory $u_1,\dots, u_t$ tvoří $\Ker \widehat S_t$ a jsou lineárně nezávisl
 \qed
 
 
+
+
+\df Matice $B_h$ pro graf je velikosti $d\times d$, uchovávající parametry $s_hij$:
+\begin{align}
+	(B_h)_{i,j} := s_{hij}
+\end{align}
+
+\vt Existuje funkce $f: \A \to \A$, že $f(A_h) = B_h$ a tuto operaci značíme $\widehat A = B$.
+
+\dk Z předchozího lemmatu již máme bázi $\widetilde{\A}$ prostoru $\A$. Ukážeme si tedy, že můžeme přejít k bázi z menších matic $B$. Nejdříve si všiměme, co se děje v následujícím součinu matic:
+
+\begin{align}
+	(A_hA_i)_{uv} = \sum_w(A_h)_{uw} \cdot (A_i)_{wv} = s_{hid(u,v)}
+\end{align}
+
+Kde zmíněná suma je rozpis maticového násobení pro jednu buňku součinu. Zřejmě přičtu $1$ pokaždé, když pro vrchol $w$ platí, že $d(u,w)=h$ a $d(w,v) = i$, což je přesně definice $s_{hij}$ pro $j = d(u,v)$. Jak takový prvek ještě můžeme vyjádřit (rozepsáním maticového násobení s použitím předchozího vzorce pro buňku)?
+
+\begin{align}
+	A_hA_i = \sum_{j=0}^d s_{hij} A_j
+\end{align}
+
+Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vytvořme tedy novou bázi, například takovou, která bude obsahovat právě tyto koeficienty. Do řádku $i$ matice $B'_h$ zapíšeme souřadnice součinu $A_hA_i$, tedy $s_{hij}$. Tím získáme matice $B_i$, které jsou bazí (vytvořili jsme je zapsáním souřadnic lineárně nezávislých prvků a tak jsou lineárně nezávislé), která navíc splňuje žádané vlastnosti a tedy $B'_h = B_h$. \qed
+
+
 \subsection{Lloydova věta}
 
 
