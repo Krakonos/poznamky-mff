@@ -698,29 +698,36 @@ $$|\xttt A\chi_S^\bot| \le \lambda\cdot\sqrt{|S|\cdot |T|}$$
 
 \lm $Z_{mi} = Z_{m-1,i-1} \cdot s_{1,i-1,i} + Z_{m-1,i} \cdot s_{1,i,i} + Z_{m-1,i+1} \cdot s_{1,i+1,i}.$ $Z_{mi}$ značí počet sledů délky $m$ mezi vrcholy ve vzdálenosti $i$.
 
-\dk $m = 0$ nezávisí na konkrétní volbě $u, v$. Dále indukcí dle $m$.
+\dk $Z_{00} = 1$, jinak $Z_{0i} = 0$. Dále dokážeme indukcí pro $m \ge 1$ a $i
+\ge 1$. $s_{1,i,j}$ je nenulové pouze pro $i \in \{j-1,j,j+1\}$ (z $\Delta$
+nerovnosti). V rovnici sčítáme vrcholy sousedící s $u$, které jsou ve
+vzdálenosti $i-1$, $i$ a $i+1$ od $v$.
 
-\df Matice sousednosti $A = A_G$. $\A(G) = \{p(A): p(x) \in C[x]\}$. $\A(G)$ je
-vektorový prostor nad $\C$.
+\df Matice sousednosti $A = A_G$. $\A(G) = \{p(A): p(x) \in \C[x]\}$. $\A(G)$ je
+vektorový prostor.
+
+\df Vzdálenostní matice $A_1, A_2, \dots, A_d$ grafu $G$: \\
+\indent $(A_i)_{uv} = 1$\quad pokud $d_G(u,v) = i$\hfill $A_0 = I$ \hspace{4cm} \\
+\indent $(A_i)_{uv} = 0$\quad jinak \hfill $A_1 = A$ \hspace{4cm}
 
 \vt $\dim \A(G) = d+1$, kde $d$ je průměr $G$.\footnote{Průměr grafu je maximální nejkratší vzdálenost přes všechny dvojice vrcholů.}
 
-\dk $A^m = \sum_{i=0}^d z_{mi}A_i$
-
-$(A_i)_{uv} = 1$\quad pokud $d_G(u,v) = i$\hfil $A_1 = A$
-
-$(A_i)_{uv} = 0$\quad pokud $d_G(u,v) \neq i$\hfil $A_0 = I$
-
-$Z_{mi} = 0 \Leftarrow i > m$\\
-$A^0 = A_0$\\
-$A^1 = A_1$\\
-$A^2 = A_0 + A_1 + Z_{2,2} \cdot A_2$\\
+\dk $A^m = \sum_{i=0}^d Z_{mi}A_i$ \\
+$i > m \Rightarrow Z_{mi} = 0$ \\
+$A^0 = Z_{0,0} \cdot A_0 = A_0$\\
+$A^1 = Z_{1,0} \cdot A_0 + Z_{1,1} \cdot A_1 = A_1$\\
+$A^2 = Z_{2,0} \cdot A_0 + Z_{2,1} \cdot A_1 + Z_{2,2} \cdot A_2$\\
 $\vdots$\\
-$A^d = \dots + Z_{d,d}\cdot A_d$
+$A^d = Z_{d,0} \cdot A_0 + Z_{d,1} + \dots + Z_{d,d}\cdot A_d$
 
-Generujeme celý vektorový prostor $\Rightarrow$ $\dim \A(G) = d+1$.
+Generujeme celý vektorový prostor polynomů $A$ $\deg \le d$, tedy $\dim \A(G)
+\le d+1$. Zároveň ale $A_0, A_1, \dots, A_d$ jsou lineárně nezávislé a proto
+$\dim \A(G) = d+1$. 
+\qed
 
-\todo Idea tohohle důkazu mi nějak uniká\dots{} Nechybí v něm něco?
+\poz $\widetilde \A = \{A_0, A_1, \dots, A_d\}$ tvoří bázi $\A(G)$.
+
+
 
 \subsection{Lloydova věta}
 
