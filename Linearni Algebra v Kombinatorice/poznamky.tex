@@ -15,7 +15,7 @@
 \newcommand{\vt}{\smallskip\noindent\bf Věta\rm{} }
 \newcommand{\poz}{\smallskip\noindent\bf Pozorování\rm{} }
 \newcommand{\dsl}{\smallskip\noindent\bf Důsledek\rm{} }
-\newcommand{\tvr}{\smallskip\noindent\bf Tvrzení\rm{} }
+\newcommand{\tv}{\smallskip\noindent\bf Tvrzení\rm{} }
 \newcommand{\F}{\mathcal{F}}
 \newcommand{\B}{\mathcal{B}}
 \newcommand{\A}{\mathcal{A}}
@@ -258,7 +258,7 @@ $$k = \dim M \le \dim M^\bot = n-k \quad\Rightarrow\quad 2k \le n \quad\Rightarr
 
 $G = (V,E)$ je souvislý graf. $V_G = \{$ spanning\footnote{Česky též \uv{napnuté} -- podgrafy obsahující všechny vrcholy grafu $G$ (i kdyby některé z nich byly izolované).} podgrafy $G$ $\}$
 
-\tvr $V_G$ je vektorový prostor nad $GF(2)$ s operací symetrická diference. $V_H \in GF(2)^E$
+\tv $V_G$ je vektorový prostor nad $GF(2)$ s operací symetrická diference. $V_H \in GF(2)^E$.
 
 \bigskip
 \todo Obrázek se symetrickou diferencí podgrafů.
@@ -706,6 +706,37 @@ $$|\xttt A\chi_S^\bot| \le \lambda\cdot\sqrt{|S|\cdot |T|}$$
 \subsection{Vzdálenostní mocniny a zig-zag součin}
 
 \section{Perfektní kódy}
+
+Perfektní kódy jsou v jistém smyslu ty nejlepší samoopravné kódy, konkrétně mají vlastnost, že žádná slova z abecedy nezůstávají nevyužita. Cílem našeho snažení bude ukázat větu, která tyto kódy charakterizuje ve smyslu při jakých parametrech může být kód perfektní. Začneme připomenutím základních pojmů, vyslovíme a dokážeme Lloydovu větu o nutné podmínce a z ní následně dokážeme (v současné podobně spíše nastíníme), kýženou charakterizaci.
+
+\subsection{Připomenutí pojmů}
+
+\df Samoopravný kód $C$ s parametry $(n,q)$ je pro nás systém množin $C \subseteq M = \{0, \ldots, q-1\}^n$ (prvkům této množiny říkáme kódová slova).
+
+\df Grafem kódu rozumíme graf $G=(V,E)$, že $V(G) = \{0, \ldots, q-1 \}^n$ a hrana mezi vrcholy $u,v$ vede právě tehdy, když $d(u,v) = 1$, tedy liší se právě v jedné souřadnici ($d$ je hammingovská vzdálenost). Kód v takovém grafu je pak podmnožina vrcholů, které odpovídají kódovým slovům.
+
+\df Kód opravuje $t$ chyb, pokud jsou $N_t(u)$ (okolí vrcholu $u$ do vzdálenosti $t$) disjunktní pro všechny dvojce kódových slov.
+
+\df Kód $C$ je $t$-perfektní, pokud opravuje $t$ chyb a navíc úplně pokrývá svou nosnou množinu $M$.
+
+\tv Pokud $C$ opravuje $t$ chyb, platí:
+\begin{align*}
+	|C| \leq { q^n \over \sum_{i=0}^t \binom{n}{i} (q-1)^i }
+\end{align*}
+
+\dk Okolíčka musí být disjunktní, stačí tedy spočítat, kolik může být kódových slov, což je daný výraz: V čitateli je počet všech slov. Jmenovatel podělí podle počtu chyb možná místa, kde se chyba stala a počet chyb, které se na nich mohly udát (těch je $(q-1)^i$, protože na každém vybraném místě se mohla souřadnice změnit na $q-1$ jiných). \qed
+
+
+\subsection{Lloydova věta}
+
+\vt Pokud existuje $t$-perfektní kód s parametry $(n,q)$, pak $L_t(x)$ (definice níže) má $t$ různých celočíselných kořenů mezi $0$ a $n$.
+
+\begin{align}
+	L_t(x) = \sum_{j=0}^t(-1)^j(q-1)^{t-j}\binom{x-1}{j}\binom{n-x}{t-j}
+\end{align}
+
+\dk Důkaz bude plynout touto sekcí a obsahuje spoustu pomocných lemmat a konceptů. Pro pochopení a reprodukci důkazu bude potřeba pochopit všechno mezi tímto místem a a sekcí označující samotný důkaz. Nechť práce započne.
+
 \subsection{Vzdálenostně regulární grafy}
 
 \df Vzdálenostně regulární graf: $\exists s_{hij}$ t. že $\forall u,v\in V(G), d_G(u,v) = j:$ $|\{w: d_G(u,w) = h, d_G(w,v) = i\}| = s_{hij}$.
@@ -728,6 +759,8 @@ vektorový prostor.
 0\quad & \text{jinak} \hfill & \hspace{4cm} A_1 = A \\
 \end{matrix}\right.$
 
+\subsection{Reprezentace vzdálenostně regulárních grafů polynomy}
+
 \vt $\dim \A(G) = d+1$, kde $d$ je průměr $G$.\footnote{Průměr grafu je maximální nejkratší vzdálenost přes všechny dvojice vrcholů.}
 
 \dk $A^m = \sum_{i=0}^d Z_{mi}A_i$ \\
@@ -744,8 +777,6 @@ $\dim \A(G) = d+1$.
 \qed
 
 \poz $\widetilde \A = \{A_0, A_1, \dots, A_d\}$ tvoří bázi $\A(G)$.
-
-
 
 \df Matice $B_h$ pro graf je velikosti $d\times d$, uchovávající parametry $s_hij$:
 \begin{align}
@@ -799,6 +830,7 @@ Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vy
 	\end{align}
 \end{enumerate}
 
+\subsubsection{Charakteristické polynomy}
 
 \lm (O charakteristickém polynomu) Nechť $\lambda_1,\ldots,\lambda_d \in \Sp(B_1)$. Potom pokud $\lambda_i \neq k$ platí:
 \begin{align}
@@ -866,6 +898,10 @@ $\overset{1}{=}$ plyne z lemma o zastřešování, $\overset{2}{=}$ plyne z pře
 Vektory $u_1,\dots, u_t$ tvoří $\Ker \widehat S_t$ a jsou lineárně nezávislé. Tedy $\dim\Ker\widehat S_t \ge t$.
 \qed
 
+\subsubsection{Důkaz Lloydovy věty}
+
+Zde začnou věci dávat větší smysl. Nejdříve dokážeme pomocí výše zmíněných lemat pomocné tvrzení, který dá podobný polynom, následně si s ním pohrajeme a získáme polynom Lloydův, tak jak byl zadefinován na začátku.
+
 \vt (Lloydův prototyp) Pokud existuje $t$-perfektní kód v $G$, potom $x_t(\lambda)\backslash x_d(\lambda)$.
 
 \dk Nejprve si všimněme, že $\widehat{S_t} = \widehat{X_t(A)} = \widehat{\sum_i^t A_i} = \sum_i^t B_i = X_t(B)$.
@@ -878,8 +914,17 @@ Dále se podívejme na spektra $B$ a $\widehat{S_t}$:
 \todo{proc a zbytek...}
 
 
-\subsection{Lloydova věta}
+\subsubsection{Charakterizace perfektních kódů}
+
+\vt Nechť $q=p^r$, a $p$ je prvočíslo. Pak existují právě následující netriviální perfektní kódy (tedy s $|C| \geq 2$ a pokud $|C| = 2$, tak to není kód $q=2$ a $n=2t+1$):
+\begin{enumerate}
+	\item $1$-perfektní kód $n={q^r-1 \over q-1}$ (Hammingův)
+	\item $2$-perfektní kód $q=3$ a $n=11$ (Golayův)
+	\item $3$-perfektní kód $q=2$ a $n=23$ (Golayův)
+\end{enumerate}
+Dál $q$ složené neexistují perfektní kódy pro $t \geq 3$ a pro $t = 1,2$ se to neví.
+
+\dk Důkaz je technicky náročný. Základ je v Lloydově větě, která dává relativně silný nástroj jak perfektní kód poznat. Společně se hrubým odhadem na velikost kódu ukázaným na začátku sekce, lze pomocí hrubé síly a netriviální teorie čísel získat výsledek. Ten však není v naší moci.
 
 
 \end{document}
-
