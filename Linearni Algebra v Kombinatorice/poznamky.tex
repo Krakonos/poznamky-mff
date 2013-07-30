@@ -6,6 +6,7 @@
 \usepackage[small,compact]{titlesec}
 \usepackage{anyfontsize}
 \usepackage{rotating}
+\usepackage{mdwlist}
 
 \newcommand{\shn}{\Theta}
 \newcommand{\lm}{\smallskip\noindent\bf Lemma\rm{} }
@@ -32,6 +33,7 @@
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Ker}{Ker}
 \newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
 \newcommand\bigone{\makebox(0,0){\text{\huge1}}}
 \newcommand{\bigddots}[1]{\makebox(0,0){\rotatebox{-35}{\text{\xleaders\hbox{$\cdot$\hskip4pt}\hskip#1\kern0pt}}}}
@@ -711,8 +713,10 @@ vzdálenosti $i-1$, $i$ a $i+1$ od $v$.
 vektorový prostor.
 
 \df Vzdálenostní matice $A_1, A_2, \dots, A_d$ grafu $G$: \\
-\indent $(A_i)_{uv} = 1$\quad pokud $d_G(u,v) = i$\hfill $A_0 = I$ \hspace{4cm} \\
-\indent $(A_i)_{uv} = 0$\quad jinak \hfill $A_1 = A$ \hspace{4cm}
+\indent $(A_i)_{uv} = \left\{\begin{matrix}
+1\quad & d_G(u,v) = i \hfill & \hspace{4cm} A_0 = I \\
+0\quad & \text{jinak} \hfill & \hspace{4cm} A_1 = A \\
+\end{matrix}\right.$
 
 \vt $\dim \A(G) = d+1$, kde $d$ je průměr $G$.\footnote{Průměr grafu je maximální nejkratší vzdálenost přes všechny dvojice vrcholů.}
 
@@ -732,7 +736,7 @@ $\dim \A(G) = d+1$.
 \poz $\widetilde \A = \{A_0, A_1, \dots, A_d\}$ tvoří bázi $\A(G)$.
 
 
-\lm $B1 = \left(\begin{matrix}
+\lm (o sousedech) $B1 = \left(\begin{matrix}
 & & & & & & & & \bigzero & \\
 & & & & & & & & & \\
 & \bigzero & & & & {\smash{\raisebox{.75\normalbaselineskip}{\diagdots{9em}{.5em}}}} & {\smash{\raisebox{1.2\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & \\
@@ -749,6 +753,58 @@ $\dim \A(G) = d+1$.
 & \bigzero & & & & {\smash{\raisebox{.75\normalbaselineskip}{\diagdots{9em}{.5em}}}} & {\smash{\raisebox{1.2\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & \\
 & & & & {\smash{\raisebox{1.3\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & & \\
 \end{matrix}\right)$ je tridiagonální matice $\Rightarrow$ $\forall$ vlastní čísla jsou různá.
+
+
+
+\df $z\in V(G)$, $T\in\{0,1\}^{d+1 \times n}$\\
+\indent $T_{i,u} = \left\{\begin{matrix}
+1\quad & d(u,z) = i\hfill \\
+0\quad & \text{jinak}\hfill
+\end{matrix}\right.$
+
+\lm (o zastřešování) $X\in\A(G), z\in V(G) \Rightarrow TX = \widehat XT$
+
+\dk 
+\begin{align*}
+(TA)_{iu} &= \sum_w T_{iw}A_{wu} = s_{1,i,d(u,z)} \\
+(BT)_{iu} &= \sum_j B_{ij}T_{ju} = s_{1,i,d(u,z)} \\
+TA = BT \quad&\Rightarrow\quad TA^2 = BTA = B^2T \quad\Rightarrow\quad TA^m = B^mT \\
+Tp(A) = p(B)T \quad&\Rightarrow\quad TX = \widehat XT
+\end{align*}
+\qed
+
+\df $x_i(\lambda) = v_0(\lambda) + \dots + v_i(\lambda)$ \hfil $S_t = x_t(A) = A_0 + A_1 + \dots + A_t$
+
+\lm $C$ je perfektní kód (množina vrcholů) v $G$ a $c$ je jeho charakteristický vektor. Pak $S_t\cdot c = \vec 1$.
+
+\dk $(S_t\cdot c)_u = |\{w: w\in C, d(w,u) \le t\}| = 1$, což plyne z definice perfektního kódu.
+\qed
+
+\lm $\exists$ $t$-perfektní kód $\Rightarrow$ $\dim \Ker \widehat S_t \ge t$
+
+\dk $z_0 = z \in C$
+
+$z_1,z_2,\dots,z_t \quad d(z,z_i) = i$ pro $i = 1,2,\dots,t$
+
+$(T_{z_i} \cdot c)_j = \delta_{ij}$ (Kroneckerovo delta $= 1$ pro $i=j$, $0$ jinak)
+
+Tedy vektory $T_{z_i} \cdot c$ pro $i = 0, 1, \dots, t$ jsou lineárně nezávislé.
+
+\begin{align*}
+	&\widehat S_t(T_{z_i}\cdot c) = (\widehat S_t \cdot T_{z_i}) \cdot c \overset{1}{=} T_{z_i} \cdot S_t \cdot c \overset{2}{=} T_{z_i}\cdot \vec 1 = \left(\begin{matrix}
+		k_0 \\ \vdots \\ k_d
+	\end{matrix}\right) \\
+\end{align*}
+
+$\overset{1}{=}$ plyne z lemma o zastřešování, $\overset{2}{=}$ plyne z předchozího lemmatu.
+
+\begin{align*}
+	&u_i = T_{z_i}\cdot c - T_{z_0}\cdot c\qquad i = 1, 2, \dots, t \\
+	&\widehat S_t u_i = \widehat S_t T_{z_i}\cdot c - \widehat S_t T_{z_i}\cdot c = \left(\begin{matrix}k_0 \\ \vdots \\ k_d\end{matrix}\right) - \left(\begin{matrix}k_0 \\ \vdots \\ k_d\end{matrix}\right) = \vec 0 \quad\Rightarrow\quad u_i\in\Ker \widehat S_t\\
+\end{align*}
+
+Vektory $u_1,\dots, u_t$ tvoří $\Ker \widehat S_t$ a jsou lineárně nezávislé. Tedy $\dim\Ker\widehat S_t \ge t$.
+\qed
 
 
 \subsection{Lloydova věta}
