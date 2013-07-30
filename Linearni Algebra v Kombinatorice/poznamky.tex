@@ -736,6 +736,31 @@ $\dim \A(G) = d+1$.
 \poz $\widetilde \A = \{A_0, A_1, \dots, A_d\}$ tvoří bázi $\A(G)$.
 
 
+
+\df Matice $B_h$ pro graf je velikosti $d\times d$, uchovávající parametry $s_hij$:
+\begin{align}
+	(B_h)_{i,j} := s_{hij}
+\end{align}
+Maticí $B$ navíc rozumíme matici $B_1$.
+
+\lm Existuje funkce $f: \A \to \A$, že $f(A_h) = B_h$ a tuto operaci značíme $\widehat A = B$.
+
+\dk Z předchozího lemmatu již máme bázi $\widetilde{\A}$ prostoru $\A$. Ukážeme si tedy, že můžeme přejít k bázi z menších matic $B$. Nejdříve si všiměme, co se děje v následujícím součinu matic:
+
+\begin{align}
+	(A_hA_i)_{uv} = \sum_w(A_h)_{uw} \cdot (A_i)_{wv} = s_{hid(u,v)}
+\end{align}
+
+Kde zmíněná suma je rozpis maticového násobení pro jednu buňku součinu. Zřejmě přičtu $1$ pokaždé, když pro vrchol $w$ platí, že $d(u,w)=h$ a $d(w,v) = i$, což je přesně definice $s_{hij}$ pro $j = d(u,v)$. Jak takový prvek ještě můžeme vyjádřit (rozepsáním maticového násobení s použitím předchozího vzorce pro buňku)?
+
+\begin{align}
+	A_hA_i = \sum_{j=0}^d s_{hij} A_j
+\end{align}
+
+Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vytvořme tedy novou bázi, například takovou, která bude obsahovat právě tyto koeficienty. Do řádku $i$ matice $B'_h$ zapíšeme souřadnice součinu $A_hA_i$, tedy $s_{hij}$. Tím získáme matice $B_i$, které jsou bazí (vytvořili jsme je zapsáním souřadnic lineárně nezávislých prvků a tak jsou lineárně nezávislé), která navíc splňuje žádané vlastnosti a tedy $B'_h = B_h$. \qed
+
+
+
 \lm (o sousedech) $B1 = \left(\begin{matrix}
 & & & & & & & & \bigzero & \\
 & & & & & & & & & \\
@@ -754,6 +779,31 @@ $\dim \A(G) = d+1$.
 & & & & {\smash{\raisebox{1.3\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & & \\
 \end{matrix}\right)$ je tridiagonální matice $\Rightarrow$ $\forall$ vlastní čísla jsou různá.
 
+\df Definujme polynomy $v_i \in \Q[\lambda]$ takové, že $\deg v_i(\lambda) = i$ a:
+\begin{enumerate} 
+	\item $v_0(\lambda) = 1$
+	\item $v_1(\lambda) = \lambda$
+	\item pro $i \in \{ 2, \dots, d-1\}$ induktivně, aby splňovaly rovnici 
+	\begin{align}
+		(s_{1,i,i-1} v_{i-1}(\lambda)) + (s_{1,i,i-\lambda}v_i(\lambda)) + (s_{1,i,i+1}v_{i+1}(\lambda)) = 0
+	\end{align}
+\end{enumerate}
+
+
+\lm Nechť $\lambda_1,\ldots,\lambda_d \in \Sp(B_1)$. Potom pokud $\lambda_i \neq k$ platí:
+\begin{align}
+	v_o(\lambda) + \ldots + v_d(\lambda) = c \cdot (\lambda - \lambda_1) \cdot \ldots \cdot (\lambda - \lambda_d)
+\end{align}
+
+\dk Vytvořme vektor $\vec{v} = (v_1(\lambda), \ldots, v_d(\lambda))$ a uvažme systém rovnic $B\vec{v} = \lambda \vec{v}$. Ten umíme řešit po řádcích (známe první dva členy vektoru a celou matici obsahující potřebné koeficienty), známe tedy vlastní čísla (kořeny této rovnice) a jejich vlastní vektory (obsahují složky $v_i(\lambda)$.
+
+Nejprve si ukážeme, že jedno z vlastních čísel je $k$ (všimněte si, že v předpokladech používáme $d$ vlastních čísel, ale dimenze matice $B$ je $d+1$). Vezměme si výše používaný systém rovnic a sečtěme levé a pravé strany. Podle Lemma o sousedech jsou sloupcové součty matice $B$ rovny $k$, získáme tedy rovnici $k(v_0(\lambda) + \ldots + v_d(\lambda)) = \lambda (v_0(\lambda) + \ldots + v_d(\lambda))$, z čehož po úpravě plyne, že $\lambda = k$.
+
+\todo{Rovnost s char. polynomem}
+
+\lm Pro polynomy $v_i$ platí, že $v_i(A) = A_i$ a $v_i(B) = B_i$.
+
+\dk {\it(bez důkazu)}
 
 
 \df $z\in V(G)$, $T\in\{0,1\}^{d+1 \times n}$\\
@@ -809,52 +859,7 @@ Vektory $u_1,\dots, u_t$ tvoří $\Ker \widehat S_t$ a jsou lineárně nezávisl
 
 
 
-\df Matice $B_h$ pro graf je velikosti $d\times d$, uchovávající parametry $s_hij$:
-\begin{align}
-	(B_h)_{i,j} := s_{hij}
-\end{align}
-Maticí $B$ navíc rozumíme matici $B_1$.
 
-\lm Existuje funkce $f: \A \to \A$, že $f(A_h) = B_h$ a tuto operaci značíme $\widehat A = B$.
-
-\dk Z předchozího lemmatu již máme bázi $\widetilde{\A}$ prostoru $\A$. Ukážeme si tedy, že můžeme přejít k bázi z menších matic $B$. Nejdříve si všiměme, co se děje v následujícím součinu matic:
-
-\begin{align}
-	(A_hA_i)_{uv} = \sum_w(A_h)_{uw} \cdot (A_i)_{wv} = s_{hid(u,v)}
-\end{align}
-
-Kde zmíněná suma je rozpis maticového násobení pro jednu buňku součinu. Zřejmě přičtu $1$ pokaždé, když pro vrchol $w$ platí, že $d(u,w)=h$ a $d(w,v) = i$, což je přesně definice $s_{hij}$ pro $j = d(u,v)$. Jak takový prvek ještě můžeme vyjádřit (rozepsáním maticového násobení s použitím předchozího vzorce pro buňku)?
-
-\begin{align}
-	A_hA_i = \sum_{j=0}^d s_{hij} A_j
-\end{align}
-
-Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vytvořme tedy novou bázi, například takovou, která bude obsahovat právě tyto koeficienty. Do řádku $i$ matice $B'_h$ zapíšeme souřadnice součinu $A_hA_i$, tedy $s_{hij}$. Tím získáme matice $B_i$, které jsou bazí (vytvořili jsme je zapsáním souřadnic lineárně nezávislých prvků a tak jsou lineárně nezávislé), která navíc splňuje žádané vlastnosti a tedy $B'_h = B_h$. \qed
-
-
-
-
-\df Definujme polynomy $v_i \in \Q[\lambda]$ takové, že $\deg v_i(\lambda) = i$ a:
-\begin{enumerate} 
-	\item $v_0(\lambda) = 1$
-	\item $v_1(\lambda) = \lambda$
-	\item pro $i \in \{ 2, \dots, d-1\}$ induktivně, aby splňovaly rovnici 
-	\begin{align}
-		(s_{1,i,i-1} v_{i-1}(\lambda)) + (s_{1,i,i-\lambda}v_i(\lambda)) + (s_{1,i,i+1}v_{i+1}(\lambda)) = 0
-	\end{align}
-\end{enumerate}
-
-
-\lm Nechť $\lambda_1,\ldots,\lambda_d \in \Sp(B_1)$. Potom pokud $\lambda_i \neq k$ platí:
-\begin{align}
-	v_o(\lambda) + \ldots + v_d(\lambda) = c \cdot (\lambda - \lambda_1) \cdot \ldots \cdot (\lambda - \lambda_d)
-\end{align}
-
-\dk Vytvořme vektor $\vec{v} = (v_1(\lambda), \ldots, v_d(\lambda))$ a uvažme systém rovnic $B\vec{v} = \lambda \vec{v}$. Ten umíme řešit po řádcích (známe první dva členy vektoru a celou matici obsahující potřebné koeficienty), známe tedy vlastní čísla (kořeny této rovnice) a jejich vlastní vektory (obsahují složky $v_i(\lambda)$.
-
-Nejprve si ukážeme, že jedno z vlastních čísel je $k$ (všimněte si, že v předpokladech používáme $d$ vlastních čísel, ale dimenze matice $B$ je $d+1$). Vezměme si výše používaný systém rovnic a sečtěme levé a pravé strany. Podle Lemma o sousedech jsou sloupcové součty matice $B$ rovny $k$, získáme tedy rovnici $k(v_0(\lambda) + \ldots + v_d(\lambda)) = \lambda (v_0(\lambda) + \ldots + v_d(\lambda))$, z čehož po úpravě plyne, že $\lambda = k$.
-
-\todo{Rovnost s char. polynomem}
 
 
 
