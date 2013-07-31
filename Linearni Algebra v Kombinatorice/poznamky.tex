@@ -771,7 +771,10 @@ Perfektní kódy jsou v jistém smyslu ty nejlepší samoopravné kódy, konkré
 	|C| \leq { q^n \over \sum_{i=0}^t \binom{n}{i} (q-1)^i }
 \end{align*}
 
-\dk Okolíčka musí být disjunktní, stačí tedy spočítat, kolik může být kódových slov, což je daný výraz: V čitateli je počet všech slov. Jmenovatel podělí podle počtu chyb možná místa, kde se chyba stala a počet chyb, které se na nich mohly udát (těch je $(q-1)^i$, protože na každém vybraném místě se mohla souřadnice změnit na $q-1$ jiných). \qed
+\dk Okolíčka musí být disjunktní, stačí tedy spočítat, kolik může být kódových
+slov, což je daný výraz: V čitateli je počet všech slov. Jmenovatel počítá
+velikost každého $t$-okolí, tedy vybírá možné souřadnice ke změně a jejich
+potenciální nové hodnoty.
 
 
 \subsection{Lloydova věta}
@@ -825,9 +828,9 @@ $\dim \A(G) = d+1$.
 
 \poz $\widetilde \A = \{A_0, A_1, \dots, A_d\}$ tvoří bázi $\A(G)$.
 
-\df Matice $B_h$ pro graf je velikosti $d\times d$, uchovávající parametry $s_hij$:
+\df Matice $B_h$ pro graf je velikosti $d\times d$, uchovávající parametry $s_{hij}$:
 \begin{align}
-	(B_h)_{i,j} := s_{hij}
+	(B_h)_{ij} := s_{hij}
 \end{align}
 Maticí $B$ navíc rozumíme matici $B_1$.
 
@@ -845,11 +848,17 @@ Kde zmíněná suma je rozpis maticového násobení pro jednu buňku součinu. 
 	A_hA_i = \sum_{j=0}^d s_{hij} A_j
 \end{align}
 
-Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vytvořme tedy novou bázi, například takovou, která bude obsahovat právě tyto koeficienty. Do řádku $i$ matice $B'_h$ zapíšeme souřadnice součinu $A_hA_i$, tedy $s_{hij}$. Tím získáme matice $B_i$, které jsou bazí (vytvořili jsme je zapsáním souřadnic lineárně nezávislých prvků a tak jsou lineárně nezávislé), která navíc splňuje žádané vlastnosti a tedy $B'_h = B_h$. \qed
+Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$.
+Vytvořme tedy novou bázi, například takovou, která bude obsahovat právě tyto
+koeficienty. Do řádku $i$ matice $B'_h$ zapíšeme souřadnice součinu $A_hA_i$
+vůdči bázi $\widetilde{A}$, tedy $s_{hij}$. Tím získáme matice $B'_h$, které
+jsou bazí (vytvořili jsme je zapsáním souřadnic lineárně nezávislých prvků a
+tak jsou lineárně nezávislé), která navíc splňuje žádané vlastnosti a tedy
+$B'_h = B_h$. \qed
 
 
 
-\lm (o sousedech) $B1 = \left(\begin{matrix}
+\lm (O sousedech) $B1 = \left(\begin{matrix}
 & & & & & & & & \bigzero & \\
 & & & & & & & & & \\
 & \bigzero & & & & {\smash{\raisebox{.75\normalbaselineskip}{\diagdots{9em}{.5em}}}} & {\smash{\raisebox{1.2\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & \\
@@ -867,6 +876,8 @@ Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vy
 & & & & {\smash{\raisebox{1.3\normalbaselineskip}{\diagdots{6.5em}{.5em}}}} & & \\
 \end{matrix}\right)$ je tridiagonální matice $\Rightarrow$ $\forall$ vlastní čísla jsou různá.
 
+\subsection{Charakteristické polynomy}
+
 \df Definujme polynomy $v_i \in \Q[\lambda]$ takové, že $\deg v_i(\lambda) = i$ a:
 \begin{enumerate} 
 	\item $v_0(\lambda) = 1$
@@ -876,8 +887,6 @@ Což je vlastně lineární kombinace prvků z báze s koeficienty $s_{hij}$. Vy
 		(s_{1,i,i-1} v_{i-1}(\lambda)) + (s_{1,i,i-\lambda}v_i(\lambda)) + (s_{1,i,i+1}v_{i+1}(\lambda)) = 0
 	\end{align}
 \end{enumerate}
-
-\subsection{Charakteristické polynomy}
 
 \lm (O charakteristickém polynomu) Nechť $\lambda_1,\ldots,\lambda_d \in \Sp(B_1)$. Potom pokud $\lambda_i \neq k$ platí:
 \begin{align}
@@ -901,7 +910,7 @@ Nejprve si ukážeme, že jedno z vlastních čísel je $k$ (všimněte si, že 
 0\quad & \text{jinak}\hfill
 \end{matrix}\right.$
 
-\lm (o zastřešování) $X\in\A(G), z\in V(G) \Rightarrow TX = \widehat XT$
+\lm (O zastřešování) $X\in\A(G), z\in V(G) \Rightarrow TX = \widehat XT$
 
 \dk 
 \begin{align*}
@@ -912,7 +921,9 @@ Tp(A) = p(B)T \quad&\Rightarrow\quad TX = \widehat XT
 \end{align*}
 \qed
 
-\df $x_i(\lambda) = v_0(\lambda) + \dots + v_i(\lambda)$ \hfil $S_t = x_t(A) = A_0 + A_1 + \dots + A_t$
+\df Definujme si pomocné polynomy: 
+	$x_i(\lambda) = v_0(\lambda) + \dots + v_i(\lambda)$ \hfil $S_t = x_t(A) = A_0 + A_1 + \dots + A_t$
+Kde $S_t$ je matice, která označuje dvojce vrcholů jedničkou, pokud jsou vzdálené nanejvýš $t$ (je to součet vzdálenostních matic do $t$).
 
 \lm $C$ je perfektní kód (množina vrcholů) v $G$ a $c$ je jeho charakteristický vektor. Pak $S_t\cdot c = \vec 1$.
 
@@ -935,7 +946,7 @@ Tedy vektory $T_{z_i} \cdot c$ pro $i = 0, 1, \dots, t$ jsou lineárně nezávis
 	\end{matrix}\right) \\
 \end{align*}
 
-$\overset{1}{=}$ plyne z lemma o zastřešování, $\overset{2}{=}$ plyne z předchozího lemmatu.
+$\overset{1}{=}$ plyne z lemma o zastřešování, $\overset{2}{=}$ plyne z předchozího lemmatu. Výsledný vektor je pro všechnyvolby $z_i$ stejný, protože jeho položky je počet sousedů s pevnými vzdálenostmi, a protože je to vzdálenostně regulární graf, jsou to nějaké hodnoty $s_{hij}$ se stejným $hij$ pro řádek.
 
 \begin{align*}
 	&u_i = T_{z_i}\cdot c - T_{z_0}\cdot c\qquad i = 1, 2, \dots, t \\
@@ -964,11 +975,11 @@ Dále se podívejme na spektra $B$ a $\widehat{S_t}$:
 \subsection{Charakterizace perfektních kódů}
 
 \vt Nechť $q=p^r$, a $p$ je prvočíslo. Pak existují právě následující netriviální perfektní kódy (tedy s $|C| \geq 2$ a pokud $|C| = 2$, tak to není kód $q=2$ a $n=2t+1$):
-\begin{enumerate}
-	\item $1$-perfektní kód $n={q^r-1 \over q-1}$ (Hammingův)
+\begin{description}
+	\item $1$-perfektní kód $n={q^k-1 \over q-1}$ pro libovolné $k$ (Hammingův)
 	\item $2$-perfektní kód $q=3$ a $n=11$ (Golayův)
 	\item $3$-perfektní kód $q=2$ a $n=23$ (Golayův)
-\end{enumerate}
+\end{description}
 Dál $q$ složené neexistují perfektní kódy pro $t \geq 3$ a pro $t = 1,2$ se to neví.
 
 \dk Důkaz je technicky náročný. Základ je v Lloydově větě, která dává relativně silný nástroj jak perfektní kód poznat. Společně se hrubým odhadem na velikost kódu ukázaným na začátku sekce, lze pomocí hrubé síly a netriviální teorie čísel získat výsledek. Ten však není v naší moci.
