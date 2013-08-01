@@ -21,12 +21,12 @@
 \newcommand{\B}{\mathcal{B}}
 \newcommand{\A}{\mathcal{A}}
 \renewcommand{\L}{\mathcal{L}}
-\newcommand{\Fr}{\mathbb{F}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Ft}{\mathbb{F}}
 \newcommand{\xttt}{{\chi_T^\bot}^T}
 \newcommand{\todo}[1]{\bf TODO: \rm#1}
 \renewcommand{\L}{\mathcal{L}}
@@ -496,11 +496,8 @@ První nerovnost plyne z lemma o vztahu $\vartheta$ a $\alpha$. Druhá plyne z
 opakovaného použití lemma o součinu $\vartheta$.
 \qed
 
-\vt $\exists G,H: \shn(G+H) > \shn(G) + \shn(H)$ ($+$ značí disjunktní sjednocení grafů).
 
-\dk {\it (bez důkazu)}
-
-\lm $\shn(G + \overline{G}) \ge \sqrt{2|G|}$
+\lm (O dvojité kapacitě) $\shn(G + \overline{G}) \ge \sqrt{2|G|}$
 
 \dk Ukážeme, že $\alpha ((G+\overline G)^2) \geq 2|G|$.
 \begin{align*}
@@ -521,50 +518,109 @@ $$\shn(G + \overline{G}) \ge \sqrt{2|G|}$$
 
 
 \subsection{Funkční reprezentace grafu}
-\df Nechť $G$ je graf, $\F$ je systém funkcí, $X$ množina reprezentantů. Pak pro vrchol $v$ mějme $f_v \in \F$, že $f_v X \to \F$ a :
-\begin{enumerate}
+
+\df Nechť $G$ je graf, $\F$ je systém funkcí, $X$ množina reprezentantů
+a $\Ft$ těleso. Pak pro vrchol $v$ mějme $c_v\in X$ a $f_v \in \F$, že
+$f_v: X \to \Ft$ a platí:
+\begin{enumerate*}
 	\item $f_v(c_v) \neq 0$
 	\item $uv \notin E_G \Rightarrow f_u(c_v) = 0$
-\end{enumerate}
+\end{enumerate*}
 
-\df Dimenzi $\F$ definujeme jako $\dim\L(\{f_v\})$, tedy chápeme funkce jako vektorový prostor.
+\df Dimenzi $\F$ definujeme jako $\dim\L(\{f_v\})$, tedy chápeme funkce
+jako vektorový prostor.
 
+\lm(O vztahu $\alpha$ a $\dim\F$) G má reprezentaci $\F$, pak $\alpha(G)
+\leq \dim \F$.
 
-\lm(L) G má reprezentaci $\F$, pak $\shn(G) \leq \dim \F$.
-
-\lm(A) G má reprezentaci $\F$, pak $\alpha(G) \leq \dim \F$.\par
-\dk Nechť $A$ je nezávislá v $G$. Vyhodnotím reprezentující funkci v bodech $A$.
+\dk Nechť $A$ je nezávislá v $G$. Pak $\{f_a\}_{a\in A}$ je lineárně
+nezávislá, stejně jako $\{c_a\}_{a\in A}$. Vyhodnotím reprezentující
+funkci v bodech $A$.
 \begin{align}
-\left(
+M = \left(
 	\begin{matrix}
 		f_1(c_1) & f_2(c_2) & \dots \\
 		f_2(c_1) & f_2(c_2) & \dots \\
 		\vdots &&\\
 	\end{matrix}\right)
 \end{align}
-Tedy všechny reprezentující funkce jsou lineárně nezávislé, tedy je lemma dokázáno.\qed
 
-\lm(B) Pokud $G_1$ má reprezentaci $\F_1$, $G_2$ reprezentaci $\F_2$ nad stejným tělesem, pak $G = G_1 \boxtimes G_2$ má reprezentaci $\F$ a $\dim\F \leq \dim\F_1 \cdot \dim\F_2$.
+Matice $M$ bude mít na diagonále nenuly a všude jinde nuly. Tím pádem
+jsou její řádky lineárně nezávislé a její dimenze je $|A|$. Navíc zjevně
+$\dim M \le \dim\F$.
+\qed
 
-\dk Definuji $X = X_1 \cup^.$, $c_(v_1,v_2) = (c_{v_1}, c_{v_2})$ a $f_(v_1, v_2) = f_{v_1}(x_1) \cdot f_{v_2}(x_2)$.
-Dále stačí ověřit, že platí axiomy a víme, že je to korektně definovaná reprezentace. Stačí omezit dimenzi, stačí ale nahlédnout, že nové funkce jsou lineární kombinací vektorů z nanejvýš dvou bazí, výše uvedená nerovnost tedy platí.\qed
 
-\dk(L) $\shn(G) = \sup_i \alpha(G^i)^{1/i} \leq^{LA} \sup_i(\dim f.r.(G^i))^{1/i} \leq^{LB} \sup_i\dim f.r. (G)^{1/i} = \dim f.r.(G)$
+\lm(O dimenzi součinu reprezentací) Pokud $G_1$ má reprezentaci $\F_1$,
+$G_2$ reprezentaci $\F_2$ nad stejným tělesem, pak $G = G_1 \boxtimes
+G_2$ má reprezentaci $\F$ a $\dim\F \leq \dim\F_1 \cdot \dim\F_2$.
 
-\vt Existuje $G, H$, že $\shn(G+H) > \shn(G) + \shn(H)$.
-\dk Zvolím $G$ takový, že $V_G=\binom{S}{3}$, $S = \{1, ..., s\}$ a $E_G = \{ (A, B) | |A\cap B| = 1\}$. Reprezentaci vytvoříme nad tělesem $\Fr = \Z_2$, $C_A = char. vektor A$ a $f_A(x) = \sum_{a\in A} X_a$.
+\dk Definujeme: 
+\begin{align*}
+& X = X_1 \times X_1 \\
+& c_{(v_1,v_2)} = (c_{v_1}, c_{v_2}) \\
+& f_{(v_1, v_2)}((x_1,x_2)) = f_{v_1}(x_1) \cdot f_{v_2}(x_2)
+\end{align*}
 
-Ověříme, že je o reprezentace. Navíc každá funkce, kterou máme, je nějaká kombinace tří funkcí $b_i(X) = x_i$, těch je $s$.
+Ověříme, že výše uvedené je funkční reprezentace a vezmeme si $B_1$ bázi
+$\F_1$ a $B_2$ bázi $\F_2$. Pak $\{b_1 \otimes b_2\}_{b_1\in B_1, b_2\in
+B_2}$ generuje celý prostor $\F$ a tudíž:
+$$
+	\dim\F \le |B_1|\cdot |B_2| = \dim\F_1 \cdot \dim\F_2
+$$
+\qed
 
-Dále pro $\overline G$: $\Fr = \R$, $X = \R^s$, $c_A = char. vektor A$, $f_A(x) = \left(\sum_{a\in A} x_a\right) -1$. Nahlédneme stejně jako v předchozím případě, že jde o reprezentaci a dim $\leq s+1$.
+\lm(O vztahu $\shn$ a $\dim\F$) G má reprezentaci $\F$, pak $\shn(G)
+\leq \dim \F$.
 
-Nyní zvolíme $s$ takové, že $\sqrt{2\binom{s}{3}} > 2s + 1$ a věta platí \todo{rozmyslet}. \qed
+\dk 
+$$\shn(G) = \sup_i \alpha(G^i)^{1/i} \leq \sup_i(\dim f.r.(G^i))^{1/i} \leq \sup_i\dim f.r. (G) = \dim f.r.(G)$$
 
-\df Obecná poloha vektorů množiny \v N v  $\R^d$ je taková, že libovolná podmnožina velikosti $\leq d$ je lineárně nezávislá.
+První nerovnost plyne z lemma o vztahu $\alpha$ a $\dim\F$, druhá z
+lemma o dimenzi součinu reprezentací.
+\qed
+
+
+\vt Existuje $G, H$, že $\shn(G+H) > \shn(G) + \shn(H)$
+
+\dk Zvolím $G$ takový, že $V_G={S\choose 3}$, $S = \{1, \dots, s\}$ a $E_G = \{ (A, B): |A\cap B| = 1\}$. 
+
+Reprezentaci vytvoříme nad tělesem $\Ft = \Z_2$, $X = \Z_2^s$:
+\begin{align*}
+	c_A &= \text{charakteristický vektor } A \\ 
+	f_A(x) &= \sum_{a\in A} x_a
+\end{align*}
+
+Ověříme, že se jedná o funkční reprezentaci a všimneme si, že každá
+funkce $f_A$ je kombinace tří funkcí $b_i(x) = x_i$, přičemž funkcí
+$b_i$ je $s$.
+$$
+\dim f.r.(G) \le s \qquad\Rightarrow\qquad \shn(G) \le s
+$$
+
+Dále pro $H = \overline G$ zvolíme reprezentaci pro $\Ft = \R$, $X =
+\R^s$:
+\begin{align*}
+	c_A &= \text{charakteristický vektor } A \\ 
+	f_A(x) &= (\sum_{a\in A} x_a) - 1
+\end{align*}
+
+Opět ověříme, že se jedná o funkční reprezentaci.
+$$
+\dim f.r.(\overline G) \le s+1 \qquad\Rightarrow\qquad \shn(\overline G) \le s+1
+$$
+
+$$\shn(G + \overline G) \ge \sqrt{2{s\choose 3}} > 2s+1 \ge \shn(G) + \shn(\overline G)$$
+
+První nerovnost platí z lemma o dvojité kapacitě a ostrou nerovnost
+musíme splnit, aby věta platila. Zvolíme si tedy $s \ge 16$.
+\qed
+
+\df Obecná poloha vektorů množiny $\check N$ v  $\R^d$ je taková, že libovolná podmnožina velikosti $\leq d$ je lineárně nezávislá.
 
 \df Lokálně obecná poloha vektorů reprezentace v $\R^d$ na grafu $G$ jsou takové vrcholy, že $\rho(\overline{N(v)})$ jsou lineárně nezávislé.
 
-\vt Pro $G$ s $|G| = n$ jsou ekvivalentní tyto tvrzení:
+\vt Pro $G$ s $|G| = n$ jsou následující tvrzení ekvivalentní:
 \begin{enumerate}
 	\item $G$ má ortogonální reprezentaci v $\R^d$ v obecné poloze.
 	\item $G$ má ortogonální reprezentaci v $\R^d$ v lokálně obecné poloze.
