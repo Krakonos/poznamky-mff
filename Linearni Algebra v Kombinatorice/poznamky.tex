@@ -691,6 +691,18 @@ Přičemž v posledním kroku využíváme faktu, že pro součin netriviálníh
 	\item \uv{$\Leftarrow$} \todo{gavento}
 \end{description}
 
+\vt Nechť $A_i \in \C^{n\times n}$ a $\forall i,j$ jsou $A_i$ a $A_j$ normální a $A_iA_j = A_j A_i$. Potom existuje společná ortonormální báze z vlastních vektorů.
+
+\dk \todo{gavento}
+
+\vt Nechť $A$ je hermitovská matice, tedy $A = A^*$. Potom všechna její vlastní čísla jsou reálná.
+
+\dk Víme, že existuje nějaké $D$ diagonální s vlastními čísly na diagonále a $X$, že $X^*AX = D$. Dále počítáme:
+\begin{align}
+	D^* = (X^*(AX))^* = (AX)^*X = X^*A^*X = X^*AX = D
+\end{align}
+A komplexní sdružení tedy nesmí udělat žádnou operaci, tedy jsou vlastní čísla reálná. \qed
+
 
 \subsection{Moorovy grafy}
 Motivací nechť jsou r-regulární grafy bez krátkých cyklů (troj- a 
@@ -953,7 +965,22 @@ kroku nezmění.
 
 \vt Pro $G$ neorientovaný souvislý platí: $\forall \rho$ počáteční distribuci $\{P_G^k\cdot \rho\}_k$ konverguje $\Leftrightarrow$ $G$ není bipartitní.
 
-\dk
+\dk \begin{description}
+	\item \uv{$\Rightarrow$} Pokud je $G$ bipartitní, stačí jako protipříklad vzít distribuci, která začíná jenom v jedné partitě. Pak každým pronásobením matice se celá distribuce přesune do druhé partity, protože nemá kam jinam. Zjevně tedy nekonverguje k jedinému rozložení.
+	\item \uv{$\Leftarrow$} Prvně si vyjádříme distribuci jako lineární kombinaci vlastních vektorů matice $P_G$ (to lze, protože tvoří ortonormální bázi). Tedy $\rho = \sum_i a_ip_i$. Dále si vyjadřme distribuci po $k$ iteracích:
+	\begin{align}
+		P_G^k\rho = P_G^k\sum_ia_ip_i = \sum_iP_G^ka_ip_i
+	\end{align}
+	Protože $p_i$ je vlastní vektor $P_G$, tak $P_Gp_i = \lambda_ip_i$:
+	\begin{align}
+		\sum_i\lambda_i^ka_ip_i
+	\end{align}
+	Nyní si všimneme, že protože graf není bipartitní, tak $\lambda_i \neq -\lambda_n$ a největší vlastní číslo distribuce je $1$, protože matice $P_G$ má řádkové i sloupcové součty konstantní $1$. Tedy pro $i > 1$ platí $|\lambda_i| < 1$. Dejme nyní výraz do limity a všimneme si, že suma jde k nule díky tomu, že jediný člen závislý na $k$ je $\lambda_i$:
+	\begin{align}
+		\lim_{k\to 0}\left(\lambda_1a_1p_1 + \sum_{i>1}\lambda_i^ka_ip_i\right) = a_1p_1 = \pi
+	\end{align}
+	Tedy máme stabilní distribuci, protože $a_1p_1$ jsou po celou dobu konstantní.
+\end{description}
 
 
 
