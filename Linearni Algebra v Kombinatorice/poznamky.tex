@@ -995,13 +995,32 @@ kroku nezmění.
 	\begin{align}
 		\sum_i\lambda_i^ka_ip_i
 	\end{align}
-	Nyní si všimneme, že protože graf není bipartitní, tak $\lambda_i \neq -\lambda_n$ a největší vlastní číslo distribuce je $1$, protože matice $P_G$ má řádkové i sloupcové součty konstantní $1$. Tedy pro $i > 1$ platí $|\lambda_i| < 1$. Dejme nyní výraz do limity a všimneme si, že suma jde k nule díky tomu, že jediný člen závislý na $k$ je $\lambda_i$:
+	Nyní si všimneme, že protože graf není bipartitní, tak $\lambda_1 \neq -\lambda_n$ a největší vlastní číslo distribuce je $1$, protože matice $P_G$ má řádkové i sloupcové součty konstantní $1$ a zároveň je $1$ má vlastní vektor samých jedniček. Tedy pro $i > 1$ platí $|\lambda_i| < 1$. Dejme nyní výraz do limity a všimneme si, že suma jde k nule díky tomu, že jediný člen závislý na $k$ je $\lambda_i$:
 	\begin{align}
-		\lim_{k\to 0}\left(\lambda_1a_1p_1 + \sum_{i>1}\lambda_i^ka_ip_i\right) = a_1p_1 = \pi
+		\lim_{k\to \infty}\left(\lambda_1^ka_1p_1 + \sum_{i>1}\lambda_i^ka_ip_i\right) = a_1p_1 = \pi
 	\end{align}
 	Tedy máme stabilní distribuci, protože $a_1p_1$ jsou po celou dobu konstantní.
 \end{description}
 
+\vt Nechť $\rho$ je distribuce na vrcholech grafu a $\mu=\max\{\lambda_i,-\lambda_n\}$. Pak po $t$ krocích platí, že $\|P_G^t\rho - \pi\|_1 \leq \mu^t\sqrt{n}$, tedy distribuce konverguje relativně rychle.
+
+\dk Z předchozího důkazu víme, že $\rho = p_ia_i + \sum_{i>1} \lambda_i^ta_ip_i$ a \todo{vec}.
+
+Pusťme se do odhadu naší odchylky, prozatím však v $L_2$ normě.
+
+\begin{align}
+	\|P_G^t\rho - \pi\|_2^2 = \left\|\sum_{i > 1} \lambda_ia_ip_i\right\|_2^2 = \sum_{i>1}\lambda_i^{2t}\|a_ip_i\|_2^2
+\end{align}
+Nyní si zjednodušíme práci a do sumy zahrneme i první člen. Navíc odhadneme $\lambda_i$ největšším vlastním číslem $\mu$ (mocnina u $\lambda_i$ je sudá!).
+\begin{align}
+	\leq \mu^{2t}\sum_i\|a_ip_i\|_2^2 = \mu^{2t}\|\rho\|_2^2 \leq \mu^{2t}
+\end{align}
+Nyní stačí výraz odmocnit a vzpomenout si na analýzu, čímž víme, že $\|x\|_1 \leq \|x\|_2 \cdot \sqrt n$ a máme nerovnost:
+\begin{align}
+	\|P_G^t\rho - \pi\|_2 &\leq \mu^{t} \\
+	\|P_G^t\rho - \pi\|_1 &\leq \mu^{t} \sqrt n
+\end{align}
+Což jsme chtěli dokázat. \qed
 
 
 \subsection{Stabilní distribuce a konvergence}
