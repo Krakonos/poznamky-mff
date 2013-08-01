@@ -573,6 +573,69 @@ Nyní zvolíme $s$ takové, že $\sqrt{2\binom{s}{3}} > 2s + 1$ a věta platí \
 
 
 \section{Vlastní čísla grafu}
+\df Nechť $A$ je čtvercová matice. Potom pokud pro nějaké $\lambda$ a $x$ netriviální platí, že $Ax=\lambda x$ říkáme, že $\lambda$ je vlastní číslo $A$ a $x$ je vlastní vektor příslušící k $\lambda$.
+
+\df Spektrum matice $A$ je množina množina jejích vlastních čísel. Značíme $\Sp(A) = \{ \lambda_1, \ldots, \lambda_n \}$.
+
+\df Podprostorem generovaným vlastním číslem číslem $\lambda$ rozumíme $V_\lambda = \{u | Au = \lambda u \}$. Geometrická násobnost $\lambda$ je poté dimenze tohoto prostoru $V_\lambda$.
+
+\tv $V_\lambda$ je vektorový prostor.
+\dk Stačí dokázat uzavřenost. Pro $u,v\in V_\lambda$ počítejme:
+\begin{align}
+	A(u+v) = Au + Av = \lambda u + \lambda v = \lambda(u+v)
+\end{align}
+Tedy i $u+v\in V_\lambda$. \qed
+
+\tv Vlastní čísla matice $A$ lze vypočítat jako kořeny rovnice $\det(A - \lambda \cdot E) = 0$.
+\dk Z definice počítejme:
+\begin{align}
+	Au &= \lambda u \\
+	Au - \lambda u &= \vec0 \\
+	(A-\lambda) u &= \vec0 \\
+	\det(A - \lambda E) &= 0 
+\end{align}
+Přičemž v posledním kroku využíváme faktu, že pro součin netriviálního vektoru s maticí musí být matice singulární, aby mohl vyjít nulový vektor a tudíž můžeme přejít k determinantu. \qed
+
+\df Polynomu $P_A(\lambda) = \det(A - \lambda \cdot E)$ říkáme charakteristický polynom.
+
+\df Násobnosti kořene $\lambda$ v polynomu $P_A$ říkáme {\it algebraická násobnost}.
+
+\vt Nechť $GN(\lambda)$ a $AN(\lambda)$ značí geometrickou, resp. algebraickou násobnost $\lambda$. Potom platí:
+\begin{align}
+&GN(\lambda) \geq 1 \Leftrightarrow \lambda \in \Sp(A) \Leftrightarrow AN(\lambda) \geq 1\\
+\text{a}\qquad &GN(\lambda) \leq AN(\lambda)
+\end{align}
+\dk {\it (bez důkazu)}
+
+\df Hermitovská transpozice matice $A$ je matice $A^*$, taková, že $A_{ij}^* = \overline{A_{ji}}$.
+
+\df Matice $A \in \C^{n\times n}$ je {\it normální}, pokud $AA^* = A^*A$.
+
+\vt Matice $A$ má ortonormální bázi složenou z vlastních vektorů právě tehdy, když je $A$ normální.
+
+\dk \begin{description}
+	\item \uv{$\Rightarrow$} Nechť $x_i$ jsou vlastní vektory příslušející vlastním číslům $\lambda_i$ tvořící ortonormální bázi. Z ortonormality plyne, že $XX^*=E$, kde $X$ má ve sloupcích $x_i$. Podívejme se nyní jak vypadá matice $X^* A X$:
+	\begin{align}
+		X^* A X = 
+		\underbrace{
+		\left(\begin{array}{ccc} &\vdots &\\ \hline \hspace{1cm}& x_j^* & \hspace{1cm}\\ \hline&\vdots& \end{array}\right)}_{=X^*} 
+		\underbrace{\left(\begin{array}{c|c|c} \raisebox{5mm}{\ } & &\\ \dots& \lambda_i x_i & \dots\\\raisebox{5mm}{\ }  && \end{array}\right)}_{=AX}
+		= \left(\begin{array}{ccc}\lambda_1 &&\bigzero \\ &\ddots & \\ \bigzero&&\lambda_n\end{array}\right)
+	\end{align}
+	Přičemž druhá matice vznikla ze vztahu $Ax=\lambda x$, přičemž jsme vynásobili všechny vektory naráz díky tomu, že byly v matici. Poslední rovnost plyne z pozorování, že na pozici $ij$ nalezneme výraz $x_j^*\lambda_i x_i = x_j^* x_i \lambda_i$ a protože vektory $x_l$ tvoří ortonormální bázi, jsou nula pokud je $i\neq j$ a jedna jinak.
+
+	Nyní víme, že $X^*AX=D$, kde $D$ je nějaká (konkrétní) diagonální matice. Nyní již snadno vypočteme elementárními úpravami:
+	\begin{align*}
+		X^* A X = D \quad \Rightarrow \quad AX &= XD \quad \Rightarrow A = XDX^* \\
+		A\cdot A^* = XD\underbrace{X^*\cdot X}_ED^*X^* = XDD^*X^*
+		&= XD^*DX^* = XD^*\underbrace{X^*\cdot X}_EDX^* = A^*\cdot A
+	\end{align*}
+	Přičemž jediná finta, kterou jsme použili je, že $DD^* = D^*D$, což je zřejmě pravda, protože jsou to diagonální matice.
+
+	\item \uv{$\Leftarrow$} \todo{gavento}
+\end{description}
+
+
 \subsection{Moorovy grafy}
 Motivací nechť jsou r-regulární grafy bez krátkých cyklů (troj- a 
 čtyř-úhelníků). Triviální konstrukce nám dává odhad na počet vrcholů:
