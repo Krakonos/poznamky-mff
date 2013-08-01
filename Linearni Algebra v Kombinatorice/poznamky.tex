@@ -882,20 +882,9 @@ A ověříme celočíselnost polynomu $p$ s tím, že $t:=s/2=\sqrt m$, tedy $s=
 \begin{align}
 	p &= {d \over 2fs} ((d-1+f-e)(s+f-e)-2f) \\
 	&= {m+1 \over 4t} ((m+1+0)(2t+0)-2)\\
-	&= {(t^2 + 1)(t^3-1) \over 2t}\\
+	&= {(t^2 + 1)(t^3-1) \over 2t}
 \end{align}
 Což má být přirozené číslo. To je pravda zřejmě jenom pro $t=1$, tedy $n=3$ a pokud náš graf není trojúhelník, jde to spor. Pokud to trojúhelník je, splňuje žádanou vlastnost triviálně. \qed
-
-
-
-
-$(V(G), \{N(u), u\in V(G)\}) = \B$ množinový systém.
-
-$u \in N(w) \wedge v \in N(w) \Rightarrow \exists uw, \exists vw$ \\
-\indent $\forall u\neq v\ \exists!\ N(w) \ni u,v$ \\
-\indent $\forall u\neq v\ |N(u)\cap N(v)| = 1$
-
-Z výše uvedeného vyplývá, že $\B$ tvoří konečnou projektivní rovinu.
 
 \subsection{Raileighův princip a proplétání}
 \vt (Raileighův princip) Nechť $A$ je matice s ortogonální bazí z vlastních 
@@ -971,8 +960,51 @@ Na navíc platí pokud $\lambda_i = \mu_i$, potom:
 \end{align}
 A $x$ je vlastní vektor příslušící $\lambda_i$, jak jsme chtěli dokázat.\qed
 
+\df $A$ je bloková matice s bloky velikosti $x_1, \dots, x_m$. Kvocient $A$ je matice $B^{m\times m}$, kde $b_{i,j} = $ průměr hodnot $A_{i,j}$.
+\begin{align*}
+	A = \left(\begin{matrix}
+		A_{1,1} & A_{1,2} & \dots \\
+		A_{2,1} & A_{2,2} & \dots \\
+		\vdots & \vdots & \ddots 
+		\end{matrix}\right)
+	\qquad
+	\qquad
+	B = \left(\begin{matrix}
+		b_{1,1} & b_{1,2} & \dots \\
+		b_{2,1} & b_{2,2} & \dots \\
+		\vdots & \vdots & \ddots 
+		\end{matrix}\right)
+\end{align*}
+
 \vt (Věta o proplétání kvocientu) Pokud $B$ je kvocient $A$, pak vlastní čísla
 $B$ proplétají vlastní čísla $A$.
+
+\dk Mějme $\widetilde S$ je matici incidence blokové $A$:
+\begin{align*}
+	\widetilde S = \left(\begin{array}{llll}
+		\framebox[3em][c]{1} & & & \hfil\bigzero \\
+		& \framebox[4em][c]{1} & & \\
+		\bigzero & & \framebox[2em][c]{1} & \\
+		& & & \framebox[1em][c]{1}
+		\end{array}\right)
+\end{align*}
+
+\begin{align*}
+	& \widetilde S\cdot\widetilde S^T = \text{diagonální matice } (x_1, x_2, \dots, x_m) = D \\
+	& S := \widetilde S \cdot D^{-{1\over2}} \\
+	& \widetilde B = S^TAS
+\end{align*}
+
+Kromě toho platí:
+\begin{align*}
+	& S^TS = I
+	& B = D^{-{1\over2}}\widetilde BD^{-{1\over2}}
+\end{align*}
+
+Tedy $B$ je matice podobná $\widetilde B$ a má stejná vlastní čísla. Matice
+$\widetilde B$ proplétá matici $A$, což plyne z věty o proplétání při násobení
+maticí. \qed
+
 
 
 \section{Náhodné procházky}
