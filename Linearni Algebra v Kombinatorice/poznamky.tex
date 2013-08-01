@@ -38,7 +38,7 @@
 \newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
 \newcommand\bigone{\makebox(0,0){\text{\huge1}}}
 \newcommand{\bigddots}[1]{\makebox(0,0){\rotatebox{-35}{\text{\xleaders\hbox{$\cdot$\hskip4pt}\hskip#1\kern0pt}}}}
-\newcommand{\sk}[1]{\langle #1\rangle}
+\newcommand{\sk}[1]{{\langle #1\rangle}}
 \newcommand{\diagdots}[3][-25]{%
   \rotatebox{#1}{\makebox[0pt]{\makebox[#2]{\xleaders\hbox{$\cdot$\hskip#3}\hfill\kern0pt}}}%
 }
@@ -325,8 +325,7 @@ $\Rightarrow (1,1,\dots,1) \in {(\sk M \cap M^\bot)}^\bot = {\sk M}^\bot + {(M^\
 \qed
 
 
-% zjistit znak pro disjunktní sjednocení
-\vt $\forall G \ \exists V_1,V_2,\ V_1\cup^\cdot V_2 = V(G)$ t. že $G[V_1]$ i $G[V_2]$ mají všechny stupně sudé.
+\vt $\forall G \ \exists V_1,V_2,\ V_1\overset{.}{\cup} V_2 = V(G)$ t. že $G[V_1]$ i $G[V_2]$ mají všechny stupně sudé.
 
 \dk $M = \varepsilon_G << V_G$
 
@@ -336,23 +335,94 @@ $G = (1,1,\dots,1) \in \varepsilon_G + \varepsilon_G^\bot = \varepsilon_G + \bet
 Důsledkem je, že $\exists H \in \varepsilon_G\ \exists B\in \beta_G: G = H + B$ (tedy každý graf lze zapsat jako symetrickou diferenci eulerovského podgrafu a hranového řezu).
 
 
+
 \section{Shannonova kapacita a Lovászova $\vartheta$ funkce}
+
+\df Domečkový součin grafů $G$ a $H$ je graf $G \boxtimes H$ takový, že:
+\begin{align*}
+	&V(G \boxtimes H) = \{ (u,v) \ |\  u\in V(G), v\in V(H) \} \\
+	&E(G \boxtimes H) = \{ ((u_1,v_1),(u_2,v_2))\} \left\{\begin{matrix}
+		&u_1 = u_2, v_1 \sim v_2 &\text{(sousedí)} \\
+		&v_1 = v_2, u_1 \sim u_2 \\
+		&v_1 \sim v_2, u_1 \sim u_2
+		\end{matrix}\right.
+\end{align*}
+
+Motivací ke zkoumání Shannonovy kapacity grafu může být posílání zpráv.
+Potřebujeme-li kód, který opraví jednu chybu, můžeme na $C_5$ najít pouze dvě
+kódová slova ($\alpha(C_5) = 2$). Naproti tomu, $\alpha(C_5 \boxtimes C_5) = 5
+> 2^2$. Posílání zpráv ve větších blocích tedy může být efektivnější.
+
 \subsection{Shannonova kapacita}
+\df Shannonova kapacida grafu:
+$$\shn(G) = \sup_{i\ge 1}(\alpha(G^i))^{1/i}$$
+
+\lm $\shn(G\boxtimes H) \ge \shn(G) \cdot \shn(H)$
+
+\dk Vezměme si maximální nezávislou množinu v $G$ a maximální nezávislou
+množinu v $H$. Z vlastností domečkového součinu plyne, že mezi vrcholy
+$G\boxtimes H$ zkombinovanými z těchto množin nepovede žádná hrana a tudíž
+budou tvořit nezávislou množinu velikosti alespoň $\alpha(G)\cdot\alpha(H)$.
+
+\poz $\shn(G^i) \ge \shn(G)^i$
+
+\dk Postupnou iterací lemmatu.
+
+\df Ortonormální reprezentace grafu $G$ je funkce $\rho: V(G) \rightarrow \R^d$,
+$\|\rho(v)\| = 1$. Pro každé $(u,v) \not\in E(G)$ platí $\rho(u)\bot\rho(v)$,
+neboli $\sk{\rho(u), \rho(v)} = 0$.
+
+\df Lovászova theta funkce:
+$$\vartheta(G,\rho) = \max_{v\in V(G)} {1\over \sk{\rho(v),e_1}^2}$$
+
+Vezmeme si reprezentaci grafu $C_5$ ta se skládá z pěti vektorů $v_1, \dots,
+v_5$ a jednoho speciálního vektoru $e_1$, vůči kterému budeme ostatní
+vztahovat. Protože se jedná o ortonormální reprezentaci, musí každé dva
+nesousední vrcholy z $C_5$ svírat pravý úhel. Představíme si \uv{paraplíčko},
+kde vektor $e_1$ tvoří držadlo a vektory $v_1, \dots, v_5$ jsou okolo něj a
+tvoří dráty deštníku. Představme si dále, že deštník roztahujeme, dokud nebudou každé dva nesousední dráty svírat pravý úhel. Pak můžeme spočíst úhel mezi dráty a držadlem, který vyjde $\sk{\rho(v),e_1} = 5^{-{1\over 4}}$. Z toho:
 $$
-	\shn(G) = \sup_i(\alpha(G_i))^{1/i}
+\vartheta(C_5,\rho) = \sqrt 5
 $$
 
-\lm $\shn(G + \overline{G}) \geq \sqrt{2|G|}$
+\df $\vartheta(G) = \min\limits_{\rho\ \text{ONR}} \vartheta(G,\rho)$
 
-\dk 
-\begin{align}
-	\alpha ((G+\overline G)^2) \geq 2|G| \\
-	V_{G+\overline G} = \{ V_1, ..., V_n, V_1', ..., V_n'\}
-\end{align}
-Lze vzít nezávislou množinu $A$:
-\begin{align}
-	A = (V_i, V_i'), (V_i', V_i)
-\end{align}
+Z toho plyne $\vartheta(C_5)\le \sqrt 5$. Kdybychom ještě znali vztah mezi
+$\shn(G)$ a $\vartheta(G)$, měli bychom vyhráno. Tuto charakterizaci přináší
+následující věta.
+
+\vt $\shn(G) \le \vartheta(G)$
+
+\dk K důkazu věty budeme potřebovat dvě pomocná lemmata.
+
+
+
+\dk $$\alpha(G^i) \le \vartheta(G^i) \le \vartheta(G)^i$$
+První nerovnost plyne z lemma o vztahu $\vartheta$ a $\alpha$. Druhá plyne z
+opakovaného použití lemma o součinu $\vartheta$.
+\qed
+
+\vt $\exists G,H: \shn(G+H) > \shn(G) + \shn(H)$ ($+$ značí disjunktní sjednocení grafů).
+
+\dk {\it (bez důkazu)}
+
+\lm $\shn(G + \overline{G}) \ge \sqrt{2|G|}$
+
+\dk Ukážeme, že $\alpha ((G+\overline G)^2) \geq 2|G|$.
+\begin{align*}
+	V_{G+\overline G} = \{ v_1, ..., v_n, v_1', ..., v_n'\}
+\end{align*}
+
+Vezeme graf $(G+\overline G)^2$ a najdeme v něm nezávislou množinu $A$:
+\begin{align*}
+	A = \left\{\begin{matrix}
+		(v_1, v_1'), (v_2, v_2'), \dots \\
+		(v_1', v_1), (v_2', v_2), \dots
+		\end{matrix}\right\}
+\end{align*}
+
+Velikost $A$ je zřejmě $2|G|$ a z definice Shannonovy kapacity dostaneme:
+$$\shn(G + \overline{G}) \ge \sqrt{2|G|}$$
 \qed
 
 
