@@ -393,6 +393,20 @@ Lze vzít nezávislou množinu $A$:
 \end{align}
 \qed
 
+\lm (O vztahu $\vartheta$ a $\alpha$) Nechť $H$ je graf a $\rho$ nějaká jeho ortogonální reprezentace. Pak $\alpha(H) \leq \vartheta(H, \rho)$.
+
+\dk Nechť $A$ je nějaká nezávislá množina $H$. Zřejmě vektory $\rho(v)$ pro $v \in A$ tvoří ortonormální systém vektorů. Přáli bychom si odhadnout, jak velký bude skalární součin $\sk{\rho(v),e_1}^2$, z čehož nám vztah vyplyne.
+
+Nechť $u$ je libovolný vektor a $b_i$ jsou vektory ortonormální báze. Chceme-li vyjádřit vektor $u$ proti bázi $b_i$, získáme $i$-tou souřadnici skalárním součinem $\sk{b_i,u}$ (můžeme si to představovat tak, že z vektorů $b_i$ složíme matici předhocu). Použijeme-li Pythagorovu větu, získáme:
+\begin{align}
+	||u||^2 = \sum_{i=1}^n \sk{b_i,u}^2
+\end{align}
+Pokud aplikujeme tento poznatek na vektory $\rho{v}$ rozšířené na bázi (což jistě lze), a vektor $e_1$, rovnost se změní na nerovnost (nezajímají nás přidané vektory) a s vědomím, že všechny vektory máme ortonormální, získáme:
+\begin{align}
+	1=||u||^2 \geq \sum_{v\in A}\sk{\rho(v),e_1}^2
+\end{align}
+Tedy existuje alespoň jeden vrchol $w$, že $\sk{\rho(v),e_1}^2 \leq 1/|A|$ a dosadíme-li do zlomku z definice $\vartheta$, získáme odhad $ \alpha(G) = |A| \leq\vartheta(H,\rho)$, což jsme chtěli dokázat. \qed
+
 
 
 \lm (O součinu $\vartheta$) Nechť $H_1$ a $H_2$ jsou grafy, a $\rho_i$ jejich 
@@ -410,7 +424,6 @@ $x_iy_i$.
 
 Zbývá pouze ověřit, že dělá správnou věc. Podívejme se tedy nejdříve na skalární 
 součin:
-
 \begin{align}
 	\sk{x \otimes y , x' \otimes y'} = \sk{x | x'} \cdot \sk{y | y'}
 \end{align}
@@ -424,7 +437,7 @@ Zde již jednoduchou úvahou zjistíme, že $\rho$ je stále ortonormální
 reprezentace: zjevně pro kolmé vektory jsou opět kolmé, a všechny vektory si 
 zachovají délku $1$. Nyní se stačí podívat, co se stane s $\vartheta$ funkcí, 
 rozepišme si ji ted z definice:
-\begin{align}
+\begin{align*}
 	\vartheta(H_1 \boxtimes H_2, \rho) &= \max_{v\in V(H_1 \boxtimes H_2)} { 1 
 	\over \sk{\rho(v) , e_1}^2} \\
 	&= \max_{v\in V(H_1 \boxtimes H_2)} { 1 \over \sk{\rho_1(v_1)\otimes \rho_2(v_2) , e_{11} \otimes e_{12}}^2} \\
@@ -433,7 +446,7 @@ rozepišme si ji ted z definice:
 	&= \max_{v_1\in V(H_1)} { 1 \over \sk{\rho_1(v_1) , e_{11}}^2} \cdot
 	  \max_{v_2\in V(H_2)} { 1 \over \sk{\rho_2(v_2) , e_{12}}^2} 
 	&= \vartheta(H_1,\rho_1) \cdot \vartheta(H_2, \rho_2)
-\end{align}
+\end{align*}
 A lemma je dokázáno. \qed
 
 
