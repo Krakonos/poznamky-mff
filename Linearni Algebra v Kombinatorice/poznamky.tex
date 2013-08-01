@@ -790,8 +790,26 @@ Z výše uvedeného vyplývá, že $\B$ tvoří konečnou projektivní rovinu.
 
 \subsection{Raileighův princip a proplétání}
 \vt (Raileighův princip) Nechť $A$ je matice s ortogonální bazí z vlastních 
-vektorů $x_i$ a vlastními čísly $\lambda_i \geq \lambda_k$. Potom $x \in\langle 
-x_1,\dots,x_k\rangle \Rightarrow x^TAx\geq x^T\lambda_kx$.
+vektorů $x_i$ a vlastními čísly $\lambda_i \geq \lambda_k$. Potom:
+\begin{enumerate}
+\item $x \in\sk{x_1,\dots,x_k} \Rightarrow x^*Ax\ge \lambda_kx^*x$
+\item $x \in\sk{x_k,\dots,x_n} \Rightarrow x^*Ax\le \lambda_kx^*x$
+\end{enumerate}
+
+\dk $x \in\sk{x_1,\dots,x_k} \Rightarrow x = \sum_{i=1}^k \alpha_ix_i$
+\begin{align*}
+	x^*Ax &= x^*(Ax) = x^*\left(A\cdot\sum_{i=1}^k\alpha_ix_i\right) = x^*\left(\sum_{i=1}^k\alpha_iAx_i\right) = x^*\left(\sum_{i=1}^k\alpha_i\lambda_ix_i\right) = \\
+	&= \sum_{i=1}^k\alpha_i\lambda_ix^*x_i = \sum_{i=1}^k\alpha_i\lambda_i\left(\sum_{j=1}^k \alpha_jx_j\right)^*x_i = \sum_{i=1}^k \alpha_i\lambda_i(\alpha_ix_i)^*x_i = \\
+	&= \sum_{i=1}^k \lambda_i\underbrace{\alpha_i\overline{\alpha_i}}_{\ge 0} \ge \sum_{i=1}^k \lambda_k\alpha_i\overline{\alpha_i} = \lambda_k\sum_{i=1}^k \alpha_i\overline{\alpha_i} = \lambda_kx^*x
+\end{align*}
+
+Poslední rovnost plyne z následujícího:
+\begin{align*}
+	 \lambda_kx^*x = \left(\sum_{i=1}^k \alpha_ix_i\right)^*\left(\sum_{i=1}^k \alpha_ix_i\right) = \sum_{i=1}^k \alpha_i\overline{\alpha_i}
+\end{align*}
+
+Druhou nerovnost dokážeme analogicky. \qed
+
 
 \vt (Věta o proplétání) Nechť $A$ a $B$ jsou matice takové, že $B$ vznikla z $A$ 
 vymazáním nějakého řádku a sloupce. Potom pro vlastní čísla $\lambda_i,\mu_i$ 
@@ -816,9 +834,9 @@ Reileighův princip pro oba prostory a máme:
 Stačí ukázat, že $\mu_k \geq \lambda_{k+1}$ -- to je ale snadné, stačí vzít $-A$ 
 a $-B$, čímž se obrátí znaménka vlastních čísel a nerovnosti. \qed
 
-\vt (Věta o proplétání podobných matic) Nechť $A$ je symetrická čtvercová matice 
+\vt (Věta o proplétání při násobení maticí) Nechť $A$ je symetrická čtvercová matice 
 s vlastními čísly a vektory $\lambda_i$ a $x_i$, $S$ reálná matice, že $S^TS=I$.  
-Definujeme $B := S^TAB$ a označíme vlastní čísla a vektory matice $B$ jako 
+Definujeme $B := S^TAS$ a označíme vlastní čísla a vektory matice $B$ jako 
 $\mu_i$ a $y_i$. Potom $\mu_i$ proplétají $\lambda_i$ a pokud navíc $\mu_i = 
 \lambda_i$ pro nějaké $i$, tak $Sy_i$ je vlastní vektor $A$ příslušící vlastnímu 
 číslu $\lambda_i$.
@@ -844,6 +862,8 @@ Na navíc platí pokud $\lambda_i = \mu_i$, potom:
 \end{align}
 A $x$ je vlastní vektor příslušící $\lambda_i$, jak jsme chtěli dokázat.\qed
 
+\vt (Věta o proplétání kvocientu) Pokud $B$ je kvocient $A$, pak vlastní čísla
+$B$ proplétají vlastní čísla $A$.
 
 
 \section{Náhodné procházky}
