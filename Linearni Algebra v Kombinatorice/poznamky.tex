@@ -394,6 +394,49 @@ Lze vzít nezávislou množinu $A$:
 \qed
 
 
+
+\lm (O součinu $\vartheta$) Nechť $H_1$ a $H_2$ jsou grafy, a $\rho_i$ jejich 
+ortonormální reprezentace. Potom existuje ortonormální reprezentace $\rho$ 
+silného součinu $H_1 \boxtimes H_2$, pro niž platí $\vartheta(H_1 \boxtimes H_2, 
+\rho) = \vartheta(H_1, \rho_1) \cdot \vartheta(H_2,\rho_2)$.
+
+\dk Zadefinujme si funkci $\rho$ pro vrcholy $v_i$ následovně:
+\begin{align}
+	\rho(v) = \rho_1(v_1) \otimes \rho_2(v_2)
+\end{align}
+Kde operace $\otimes$ je tenzorový součin vektorů, tedy pro $x \in \R^n$ a $y 
+\in \R^m$ je výsledek vektor $z \in \R^{mn}$, který obsahuje všechny součiny 
+$x_iy_i$. 
+
+Zbývá pouze ověřit, že dělá správnou věc. Podívejme se tedy nejdříve na skalární 
+součin:
+
+\begin{align}
+	\sk{x \otimes y , x' \otimes y'} = \sk{x | x'} \cdot \sk{y | y'}
+\end{align}
+Pokud levou a pravou stranu zvlášť rozepíšeme, je vidět, že roznásobením sum 
+napravo získáme sumu nalevo a rovnost tedy platí:
+\begin{align}
+	\sum_{ij} x_iy_i \cdot x_i' y_i' = \left( \sum_i x_ix_i'\right) \left(\sum_j 
+	y_iy_i' \right)
+\end{align}
+Zde již jednoduchou úvahou zjistíme, že $\rho$ je stále ortonormální 
+reprezentace: zjevně pro kolmé vektory jsou opět kolmé, a všechny vektory si 
+zachovají délku $1$. Nyní se stačí podívat, co se stane s $\vartheta$ funkcí, 
+rozepišme si ji ted z definice:
+\begin{align}
+	\vartheta(H_1 \boxtimes H_2, \rho) &= \max_{v\in V(H_1 \boxtimes H_2)} { 1 
+	\over \sk{\rho(v) , e_1}^2} \\
+	&= \max_{v\in V(H_1 \boxtimes H_2)} { 1 \over \sk{\rho_1(v_1)\otimes \rho_2(v_2) , e_{11} \otimes e_{12}}^2} \\
+	&= \max_{v\in V(H_1 \boxtimes H_2)} { 1 \over \sk{\rho_1(v_1) , e_{11}}^2
+		\cdot \sk{\rho_2(v_2) , e_{12}}^2} \\
+	&= \max_{v_1\in V(H_1)} { 1 \over \sk{\rho_1(v_1) , e_{11}}^2} \cdot
+	  \max_{v_2\in V(H_2)} { 1 \over \sk{\rho_2(v_2) , e_{12}}^2} 
+	&= \vartheta(H_1,\rho_1) \cdot \vartheta(H_2, \rho_2)
+\end{align}
+A lemma je dokázáno. \qed
+
+
 \subsection{Funkční reprezentace grafu}
 \df Nechť $G$ je graf, $\F$ je systém funkcí, $X$ množina reprezentantů. Pak pro vrchol $v$ mějme $f_v \in \F$, že $f_v X \to \F$ a :
 \begin{enumerate}
