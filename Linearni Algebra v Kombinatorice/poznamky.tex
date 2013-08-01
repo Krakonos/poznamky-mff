@@ -778,10 +778,10 @@ pětiúhelník ($e=0$, $f=1$).
 
 \vt $G$ je silně regulární graf s parametry $d$, $e$, $f$ a $n$ vrcholy. Potom:
 \begin{enumerate}
-	\item[(a)] Zafixujeme $f$. $e = f-1$; $d = 2f$; $n = 4f+1$
+	\item[(a)] Zafixujeme $f$: $e = f-1$; $d = 2f$; $n = 4f+1$
 	\item[] {\it nebo}
-	\item[(b)] $(e-f)^2-4(f-d) = s^2 \qquad \exists s\in \Z$ \\
-	a ${d\over 2fs}((d-1+f-e)(s+f-e)-2f) \in \N$
+	\item[(b)] $\exists s \in \Z$, že platí $(e-f)^2-4(f-d) = s^2$ \\
+	a výraz \ ${d\over 2fs}((d-1+f-e)(s+f-e)-2f)$ je přirozené číslo
 \end{enumerate}
 
 \dk Nechť G je silně regulární, $A$ je jeho matice sousednosti. $(A^2)_{ij} =
@@ -850,12 +850,46 @@ $\lambda_2$ ($q$-násobné).
 \qed
 
 
-\vt (Friendship theorem) $G$ má vlastnost $e = f = 1$. Pak $\exists u: \deg(u) = n-1$.
+\vt (Friendship theorem) Nechť $G=(V,E)$ je graf, že každé dva vrcholy $u,v$ mají právě jednoho společného souseda. Pak existuje $u$, že $\deg(u) = n-1$.
 
-Friendship theorem tvrdí, že takový silně regulární graf musí vypadat jako
-mlýn (hromádka trojúhelníků, které se stýkají v jednom centrálním vrcholu).
+Neboli Friendship theorem tvrdí, že takový silně regulární graf musí vypadat jako
+mlýn (hromádka trojúhelníků, které se stýkají v jednom centrálním vrcholu). \todo{obrázek}
 
-\dk $(V(G), \{N(u), u\in V(G)\}) = \B$ množinový systém.
+\dk Nejprve si připomeňme, co jsou to konečné projektivní roviny.
+
+\df Konečná projektivní rovina je množina bodů a přímek, že:
+\begin{enumerate}
+	\item Každé dvě přímky sdílejí právě jeden bod.
+	\item Každé dva body spojuje právě jedna přímka.
+	\item Existují 4 body a žádná přímka neprotíná více než dva z nich.
+\end{enumerate}
+
+Nyní si označme symbolem $N(v)$ množinu sousedů vrcholu $v$. Všimneme si, že
+sousedství pro náš graf přesně odpovídají přímkám v KPR. Protože ale třetí
+podmínka by znamenala, že naše věta neplatí, budeme si přát, aby to KPR nebyla
+-- pak snadno najdeme vrchol, který je spojený s každým dalším.
+
+Pro spor tedy předpokládejme, že graf KPR je. Protože v KPR mají všechny přímky stejnou mohutnost, je také $d$-regulární. Navíc každé $u,v$ má právě jednoho společného souseda, což znamená, že $G$ je silně regulární s parametry  $e=f=1$.
+
+Podle předchozí věty to ověříme: možnost (a) nastat nemůže, protože $e=f$.
+Počítejme tedy, že nastala možnost (b). Protože je to KPR řádu $m$, tak $d=m+1$ a $n=m^2 + m + 1$.
+\begin{align}
+	(e-f)^2 - 4(f-d) = 0^2 - 4 - 4(m+1))= s^2 \\
+	4m = s^2 \\
+	s=2\sqrt m 
+\end{align}
+A ověříme celočíselnost polynomu $p$ s tím, že $t:=s/2=\sqrt m$, tedy $s=2t$ a $m=t^2$:
+\begin{align}
+	p &= {d \over 2fs} ((d-1+f-e)(s+f-e)-2f) \\
+	&= {m+1 \over 4t} ((m+1+0)(2t+0)-2)\\
+	&= {(t^2 + 1)(t^3-1) \over 2t}\\
+\end{align}
+Což má být přirozené číslo. To je pravda zřejmě jenom pro $t=1$, tedy $n=3$ a pokud náš graf není trojúhelník, jde to spor. Pokud to trojúhelník je, splňuje žádanou vlastnost triviálně. \qed
+
+
+
+
+$(V(G), \{N(u), u\in V(G)\}) = \B$ množinový systém.
 
 $u \in N(w) \wedge v \in N(w) \Rightarrow \exists uw, \exists vw$ \\
 \indent $\forall u\neq v\ \exists!\ N(w) \ni u,v$ \\
