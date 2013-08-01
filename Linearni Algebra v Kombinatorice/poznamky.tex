@@ -186,6 +186,47 @@ $$\left\{x | \sum x_i = 2 \right\} \cap \R^{n+1} \simeq \R^n$$
 Tedy máme 2-vzdálenostní množinu $n+1 \choose 2$ bodů na kouli v $\R^n$.
 
 
+\subsection{FiŠerova nerovnost}
+
+\vt Nechť máme graf $K_n$ a jeho hranově disjunktní rozklad na $m$ úplných 
+bipartitních grafů. Potom $m \geq n-1$.
+
+\dk Označme si úplné bipartitní grafy $B_1, \ldots, B_m$ a $X_k$, $Y_k$ jejich 
+partity, přičemž jednotlivý $B_i$ nemusí být pokrývat všechny vrcholy $K_n$.  
+Mějme matici $A_k$ pro graf $B_k$ velikosti $n \times n$ definovanou:
+\begin{align}
+	a_{ij} = \left\{\begin{array}{ll}1 & \text{pokud } i \in X_k\text{ a }j \in 
+	Y_k \\ 0 & \text{jinak} \end{array}\right.
+\end{align}
+Protože v každém nenulovém řádku jsou jedničky právě pro sousedy daného vrcholu 
+v druhé partitě, jsou všechny nenulové řádky stejné (sousedství jsou stejná), 
+$A_k$ má tedy hodnost $1$.
+
+Nyní uvažme matici $A=A_1 + \ldots + A_m$. Hodnost součtu je nanejvýš rovna 
+součtu hodností, proto $\rank(A) \leq m$. Nyní budeme chtít dokázat, že 
+$\rank(A) \geq n-1$:
+
+Protože každá hrana grafu náleží právě jednomu $B_k$, je jednička právě na 
+jednom z míst $a_{ij}$ nebo $a_{ji}$ (pozor, matice nejsou matice sousednosti -- 
+rozlišují partitu!). Na diagonále $A$ jsou pak samé nuly. Sečtením $A+A^T$ 
+získáme matici incidence $K_n$, tedy $A+A^T=J_n - I_n$.
+
+Dále pro spor předpokládejme, že $\rank(A) \leq n-2$. Připíšeme k matici jeden 
+řádek samých jedniček, čímž hodnost zvýšíme nanejvýš o $1$. Protože ale $A$ nemá 
+plnou hodnost, existuje netriviální lineární kombinace sloupců, která dává 
+$\vec{0}$ -- nechť jsou její koeficienty zaznamenány ve vektoru $\vec{x} \in 
+\R^n$ a tedy $A\vec{x}=\vec{0}$. Zároveň protože poslední řádek jsou samé 
+jedničky, platí $\sum x_i \cdot 1 = 0$ a tedy také $J_n\vec{x} = 0$. Počítejme 
+dvěmi způsoby:
+
+\begin{align}
+	&x^T(A + A^T) x = x^T(J_n - I_n)x = x^T(J_nx) - x^T(I_nx) = 0 - x^T x = - 
+	\sum x_i^2 < 0 \\
+	&x^T(A+A^T) x = x^TA^Tx + x^TAx = 0^Tx + x^T0 = 0
+\end{align}
+
+což dává spor. \qed
+
 \subsection{Dolní odhad na Ramseyovo číslo}
 \vt (Ramsey) $\forall n\ \exists N\ \forall G$ na $\ge N$ vrcholech má $\omega(G) \ge n$ nebo $\alpha(G) \ge n$.
 
@@ -200,9 +241,6 @@ Klika v $G$ je {\it skorodisjunktní systém podmnožin} $X$ $\Rightarrow$ $\ome
 Vrcholy jsou nezávislé, pokud $|a\cap b| \in \{0,2\}$ a velikost nezávislé množiny 
 v $G$ je tedy {\it sudo-licho město} $\Rightarrow$ $\alpha(G) \le |X| = n-1$.
 \qed
-
-
-\subsection{Fisherova nerovnost}
 
 \section{Skalární součin}
 
