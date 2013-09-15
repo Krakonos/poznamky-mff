@@ -58,7 +58,7 @@
 \df Vektory $v_i$ jsou lineárně nezávislé, pokud existuje netriviální řešení 
 rovnice $\sum_i \alpha_iv_i=0$.
 \subsection{Sudo-licho města}
-\df Nechť $|X|=n$ a $A_1, \dots, A_m \subseteq X$ jsou neprázdné podmnožiny.  
+\df Nechť $|X|=n$ a $A_1, \dots, A_m \subseteq X$ $A_i \ne A_j$  jsou neprázdné podmnožiny.  
 Úloha A-B město se ptá, jak velké může být $m$, pokud $|A_i| \sim B$ a $|A_i\cap 
 A_j|\sim A$ (tedy pro sudo-licho město máme omezení na liché velikosti a sudé 
 průniky).
@@ -186,7 +186,7 @@ $$\left\{x | \sum x_i = 2 \right\} \cap \R^{n+1} \simeq \R^n$$
 Tedy máme 2-vzdálenostní množinu $n+1 \choose 2$ bodů na kouli v $\R^n$.
 
 
-\subsection{FiŠerova nerovnost}
+\subsection{Fišerova nerovnost}
 
 \vt Nechť máme graf $K_n$ a jeho hranově disjunktní rozklad na $m$ úplných 
 bipartitních grafů. Potom $m \geq n-1$.
@@ -252,18 +252,19 @@ Mějme vektorový prostor $V = T^n$.
 
 \df $M \subseteq T^n$ \quad $M^\bot = \{x\ |\ \forall a\in M: \sk{x,a} = 0\}$ je ortogonální doplněk $M$.
 
-Zjevně platí $\dim M^\bot = n - \dim \sk M$
+\poz $\dim M^\bot = n - \dim \sk M$
 
-\poz ${(M^\bot)}^\bot = \sk M$
+\poz ${(M^\bot)}^\bot = \L M$
 
-\dk přes dimenze\quad $n-(n-k) = k = \dim M$ \qed
+\dk \uv{$\supseteq$} jednuduché \uv{$\subseteq$} přes dimenze\quad $n-(n-k) = k = \dim M$ \qed
 
-\df (Součet podprostorů) $\sk{M\cup N} = \sk M + \sk N$
+\df (Součet podprostorů) $\L M + \L N = \L{(M\cup N)}$
 
-$$\dim\left(\sk M + \sk N\right) + \dim\left(\sk M \cap \sk N\right) = \dim \sk M + \dim \sk N$$
+\poz $$\dim\left(\L M + \L N\right) + \dim\left(\L M \cap \L N\right) = \dim \L M + \dim \L N$$
 
 \dsl Podprostory $M,N << T^n: \dim M + \dim N > n \Rightarrow \dim M \cap N \ge 1$ $\Rightarrow$ $\exists u \neq 0, u \in M\cap N$.
-Pro tělesa, ve kterých platí $\sk{x,x} \neq 0$ pro $x\neq 0$ platí:
+
+\dsl Pro tělesa, ve kterých platí $\sk{x,x} \neq 0$ pro $x\neq 0$ platí:
 $$M << T^n \Rightarrow M\cap M^\bot = \{0\} \Rightarrow \dim(M+M^\bot) = n \Rightarrow M + M^\bot = T^n$$
 
 \subsection{Sudo-sudo města}
@@ -274,11 +275,14 @@ $$M << T^n \Rightarrow M\cap M^\bot = \{0\} \Rightarrow \dim(M+M^\bot) = n \Righ
 
 \dk Utvoříme páry -- $2^{n\over 2}$ je počet podmnožin $n\over 2$ prvkové množiny. \qed
 
-\vt $k(n) \le {n\over 2}$
+\vt $k(n) \le 2^{n\over 2}$
 
 \dk\footnote{$A_i$ budeme považovat za charakteristický vektor podmnožiny $A_i$
-v množině $X$.} $A_i \in GF(2^n)$. Nechť $M$ je maximální (co do inkluze)
-sudo-sudo město. Pak $M$ je vektorový prostor:
+v množině $X$.} $A_i \in GF(2^n)$. Nechť $M=\{A_1, A_2, \dots A_k\}$ je maximální (co do inkluze)
+sudo-sudo město. Ukážeme že $M$ je vektorový prostor.
+Vektory mají sudé průniky {\it (sudo-sudo město)} nad $GF(2)$ tedy platí $\forall x,y\in M: \sk{x,y} = 0$.
+Dále:
+
 \begin{align}
 	&\emptyset \in M \\
 	&\forall u \in M, \forall c\in GF(2): c\cdot u \in M \\
@@ -286,7 +290,7 @@ sudo-sudo město. Pak $M$ je vektorový prostor:
 	&\forall u,v \in M: \sk{u+v,u+v} = \sk{u,u} + 2\sk{u,v} + \sk{v,v} = 0 + 0 + 0 = 0
 \end{align}
 
-Když $M << GF(2)^n$ a $\dim M = k$, pak $|M| = 2^k$. Vektory mají sudé průniky {\it (sudo-sudo město)} nad $GF(2)$ a tedy platí $\forall x,y\in M: \sk{x,y} = 0$.
+Když $M << GF(2)^n$ a $\dim M = k$, pak $|M| = 2^k$. 
 
 $$\forall x\in M: x\in M^\bot \quad\Rightarrow\quad M\subseteq M^\bot \quad\Rightarrow\quad \dim M \le \dim M^\bot$$
 
@@ -297,7 +301,7 @@ $$k = \dim M \le \dim M^\bot = n-k \quad\Rightarrow\quad 2k \le n \quad\Rightarr
 
 $G = (V,E)$ je souvislý graf. $V_G = \{$ spanning\footnote{Česky též \uv{napnuté} -- podgrafy obsahující všechny vrcholy grafu $G$ (i kdyby některé z nich byly izolované).} podgrafy $G$ $\}$
 
-\tv $V_G$ je vektorový prostor nad $GF(2)$ s operací symetrická diference. $V_H \in GF(2)^E$.
+\tv $V_G$ je vektorový prostor nad $GF(2)$, místo stčítání vektorů je symetrická diference. $V_H \in GF(2)^E$.
 
 \bigskip
 \todo Obrázek se symetrickou diferencí podgrafů.
@@ -356,7 +360,7 @@ Tedy $\varepsilon_G = \beta_G^\bot$, protože $\varepsilon_B^\bot = {\left(\beta
 \begin{enumerate}
 \item[(a)] $\dim(\sk M \cap M^\bot) = 0 \quad\Rightarrow\quad \dim(\sk M + M^\bot) = k+n-k = n \Rightarrow \sk M + M^\bot = GF(2)^n \Rightarrow (1,1,\dots,1)\in \sk M + M^\bot$
 \item[(b)] $\dim(\sk M \cap M^\bot) > 0 \quad\Rightarrow\quad \exists u\in \sk M \cap M^\bot$ \\ 
-$\forall u\in \sk M \cap M^\bot: \sk{u,u} = 0 \Rightarrow \sum u_i^2 \equiv 0 \mod 2 = \sum u_i = \sk{u, (1,1,\dots,1)}$ \\
+$\forall u\in \sk M \cap M^\bot: \sk{u,u} = 0 \Rightarrow \sum u_i^2 \equiv 0 \mod 2 \Rightarrow \sum u_i = \sk{u, (1,1,\dots,1)}$ \\
 nad $GF(2)$ platí $u_i^2 = u_i$ \\
 $\Rightarrow (1,1,\dots,1) \in {(\sk M \cap M^\bot)}^\bot = {\sk M}^\bot + {(M^\bot)}^\bot = M^\bot + \sk M$
 \end{enumerate}
@@ -370,7 +374,7 @@ $\Rightarrow (1,1,\dots,1) \in {(\sk M \cap M^\bot)}^\bot = {\sk M}^\bot + {(M^\
 $G = (1,1,\dots,1) \in \varepsilon_G + \varepsilon_G^\bot = \varepsilon_G + \beta_G$
 \qed
 
-Důsledkem je, že $\exists H \in \varepsilon_G\ \exists B\in \beta_G: G = H + B$ (tedy každý graf lze zapsat jako symetrickou diferenci eulerovského podgrafu a hranového řezu).
+\dsl $\exists H \in \varepsilon_G\ \exists B\in \beta_G: G = H + B$ (tedy každý graf lze zapsat jako symetrickou diferenci eulerovského podgrafu a hranového řezu).
 
 
 
@@ -434,7 +438,7 @@ následující věta.
 \dk K důkazu věty budeme potřebovat dvě pomocná lemmata.
 
 
-\lm (O vztahu $\vartheta$ a $\alpha$) Nechť $H$ je graf a $\rho$ nějaká jeho ortogonální reprezentace. Pak $\alpha(H) \leq \vartheta(H, \rho)$.
+\lm (O vztahu $\vartheta$ a $\alpha$) Nechť $H$ je graf a $\rho$ nějaká jeho ortonormální reprezentace. Pak $\alpha(H) \leq \vartheta(H, \rho)$.
 
 \dk Nechť $A$ je nějaká nezávislá množina $H$. Zřejmě vektory $\rho(v)$ pro $v \in A$ tvoří ortonormální systém vektorů. Přáli bychom si odhadnout, jak velký bude skalární součin $\sk{\rho(v),e_1}^2$, z čehož nám vztah vyplyne.
 
@@ -446,7 +450,7 @@ Pokud aplikujeme tento poznatek na vektory $\rho{v}$ rozšířené na bázi (co�
 \begin{align}
 	1=||u||^2 \geq \sum_{v\in A}\sk{\rho(v),e_1}^2
 \end{align}
-Tedy existuje alespoň jeden vrchol $w$, že $\sk{\rho(v),e_1}^2 \leq 1/|A|$ a dosadíme-li do zlomku z definice $\vartheta$, získáme odhad $ \alpha(G) = |A| \leq\vartheta(H,\rho)$, což jsme chtěli dokázat. \qed
+Tedy existuje alespoň jeden vrchol $w$, že $\sk{\rho(w),e_1}^2 \leq 1/|A|$ a dosadíme-li do zlomku z definice $\vartheta$, získáme odhad $ \alpha(G) = |A| \leq\vartheta(H,\rho)$, což jsme chtěli dokázat. \qed
 
 
 
@@ -471,8 +475,8 @@ součin:
 Pokud levou a pravou stranu zvlášť rozepíšeme, je vidět, že roznásobením sum 
 napravo získáme sumu nalevo a rovnost tedy platí:
 \begin{align}
-	\sum_{ij} x_iy_i \cdot x_i' y_i' = \left( \sum_i x_ix_i'\right) \left(\sum_j 
-	y_iy_i' \right)
+	\sum_{ij} (x_iy_j) \cdot (x_i' y_j') = \left( \sum_i x_ix_i'\right) \left(\sum_j 
+	y_jy_j' \right)
 \end{align}
 Zde již jednoduchou úvahou zjistíme, že $\rho$ je stále ortonormální 
 reprezentace: zjevně pro kolmé vektory jsou opět kolmé, a všechny vektory si 
@@ -688,12 +692,12 @@ Přičemž v posledním kroku využíváme faktu, že pro součin netriviálníh
 	\end{align*}
 	Přičemž jediná finta, kterou jsme použili je, že $DD^* = D^*D$, což je zřejmě pravda, protože jsou to diagonální matice.
 
-	\item \uv{$\Leftarrow$} \todo{gavento}
+	\item \uv{$\Leftarrow$} \todo{gavento} byl jen pochybny naznak
 \end{description}
 
 \vt Nechť $A_i \in \C^{n\times n}$ a $\forall i,j$ jsou $A_i$ a $A_j$ normální a $A_iA_j = A_j A_i$. Potom existuje společná ortonormální báze z vlastních vektorů.
 
-\dk \todo{gavento}
+\dk \todo{Gavento}
 
 \vt Nechť $A$ je hermitovská matice, tedy $A = A^*$. Potom všechna její vlastní čísla jsou reálná.
 
@@ -843,8 +847,8 @@ $\lambda_2$ ($q$-násobné).
 	$e = f-1 \quad\Rightarrow\quad n = 2d+1$ \\
 	$d^2 + d + (f-d) = f(2d+1) \quad\Rightarrow\quad d = 2f \quad\Rightarrow\quad n = 4f+1$
 
-	\item[(b)] $s\not\in\Q\Rightarrow s\in\N$ \\
-	\todo Prý pokračování na cvičení, nemůžu ho ale najít. \\
+	\item[(b)] $s\in\Q\Rightarrow s\in\N$ \\
+	\todo Prý pokračování na cvičení, nemůžu ho ale najít. Já taky ne. \\
 	$$p = {d\over 2fs}\left((d-1+f-e)(s+f-e)-2f\right) \in \N$$
 \end{enumerate}
 \qed
@@ -865,7 +869,7 @@ mlýn (hromádka trojúhelníků, které se stýkají v jednom centrálním vrch
 \end{enumerate}
 
 Nyní si označme symbolem $N(v)$ množinu sousedů vrcholu $v$. Všimneme si, že
-sousedství pro náš graf přesně odpovídají přímkám v KPR. Protože ale třetí
+sousedství pro náš graf přesně odpovídají přímkám v KPR a body jsou body. Protože ale třetí
 podmínka by znamenala, že naše věta neplatí, budeme si přát, aby to KPR nebyla
 -- pak snadno najdeme vrchol, který je spojený s každým dalším.
 
@@ -887,7 +891,7 @@ A ověříme celočíselnost polynomu $p$ s tím, že $t:=s/2=\sqrt m$, tedy $s=
 Což má být přirozené číslo. To je pravda zřejmě jenom pro $t=1$, tedy $n=3$ a pokud náš graf není trojúhelník, jde to spor. Pokud to trojúhelník je, splňuje žádanou vlastnost triviálně. \qed
 
 \subsection{Raileighův princip a proplétání}
-\vt (Raileighův princip) Nechť $A$ je matice s ortogonální bazí z vlastních 
+\vt (Raileighův princip) Nechť $A$ je matice s ortonormální bazí z vlastních 
 vektorů $x_i$ a vlastními čísly $\lambda_i \geq \lambda_k$. Potom:
 \begin{enumerate}
 \item $x \in\sk{x_1,\dots,x_k} \Rightarrow x^*Ax\ge \lambda_kx^*x$
@@ -924,7 +928,7 @@ nulovou přidat a nic se nestane):
 S_1 := \L\{x_k, \dots, x_n\} \subseteq \C^n \\
 S_2 := \L\{y_1, \dots, y_k\} \subseteq \C^n
 \end{align}
-Zřejmě $\dim(S_1) + \dim(S_2) > n$, tedy $\exists x \in S_1\cap S_2$. Použijeme 
+Zřejmě $\dim(S_1) + \dim(S_2) = (n-k+1) + k > n$, tedy $\exists x \in S_1\cap S_2$. Použijeme 
 Reileighův princip pro oba prostory a máme:
 \begin{align}
 	\mu_k \leq \frac{y^*By}{y^*y} = \frac{x^*Ax}{x^*x} \leq \lambda_k
