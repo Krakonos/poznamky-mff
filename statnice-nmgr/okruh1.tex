@@ -1,0 +1,75 @@
+\documentclass[a4paper,12pt,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage[small,compact]{titlesec}
+\usepackage{anyfontsize}
+\usepackage{rotating}
+\usepackage{mdwlist}
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
+
+\usepackage{titlesec}
+\titleformat*{\section}{\removelastskip\bigskip\LARGE\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+
+\newcommand{\shn}{\Theta}
+\newcommand{\lm}{\smallskip\noindent\bf Lemma\rm{} }
+\newcommand{\dk}{\smallskip\noindent\bf Důkaz\rm{} }
+\newcommand{\df}{\smallskip\noindent\bf Definice\rm{} }
+\newcommand{\vt}{\smallskip\noindent\bf Věta\rm{} }
+\newcommand{\poz}{\smallskip\noindent\bf Pozorování\rm{} }
+\newcommand{\pzn}{\smallskip\noindent\bf Poznámka\rm{} }
+\newcommand{\dsl}{\smallskip\noindent\bf Důsledek\rm{} }
+\newcommand{\tv}{\smallskip\noindent\bf Tvrzení\rm{} }
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ft}{\mathbb{F}}
+\newcommand{\xttt}{{\chi_T^\bot}^T}
+\newcommand{\todo}[1]{\bf TODO: \rm#1}
+\renewcommand{\L}{\mathcal{L}}
+%\newcommand{\qed}{\hfill QED}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Ker}{Ker}
+\newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
+\newcommand\bigone{\makebox(0,0){\text{\huge1}}}
+\newcommand{\bigddots}[1]{\makebox(0,0){\rotatebox{-35}{\text{\xleaders\hbox{$\cdot$\hskip4pt}\hskip#1\kern0pt}}}}
+\newcommand{\sk}[1]{{\langle #1\rangle}}
+\newcommand{\diagdots}[3][-25]{%
+  \rotatebox{#1}{\makebox[0pt]{\makebox[#2]{\xleaders\hbox{$\cdot$\hskip#3}\hfill\kern0pt}}}%
+}
+
+\title{Státnice -- Informatika -- I4\\ Diskrétní modely a algoritmy\\ ~\\ Kombinatorika a teorie grafů}
+\author{Ladislav Láska\\ Jan Musílek}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Barevnost grafů}
+
+\input{regularni-grafy}
+
+\section{Souvislost grafů}
+\section{Speciální vlastnosti orientovaných grafů}
+\section{Algebraické vlastnosti grafů}
+\section{Teorie párování}
+
+\input{ramseyova-teorie}
+
+\section{Nekonečná kombinatorika}
+\section{Strukturální vlastnosti množinových systémů}
+
+\end{document}

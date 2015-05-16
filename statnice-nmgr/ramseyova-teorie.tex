@@ -1,0 +1,52 @@
+\section{Ramseyova teorie}
+Ramseyova teorie zkoumá především výskyt zajímavých struktur na velmi velkých grafech. Ramseyových vět existuje hned několik, začneme ovšem jinou extremální větou a to Turánovou. Hlavními výsledky v Ramseyově teorii jsou Hales-Juwett a Van der Waerdenova věta.
+
+\subsection{Turánova věta}
+
+\df Turánův graf $T(n,r)$ {\it je graf na $n$ vrcholech, které byly rozděleny do $r$ skupin, jejichž velikost se liší nejvýš o 1. Hrana vede mezi každými dvěma vrcholy, které nejsou ve stejné skupině.}
+
+Turánovy grafy jsou pokus o konstrukci hranově extremálních grafů neobsahujících podgraf $K_{r+1}$. Turánova věta nám pak říká, že turánovy grafy mají skutečně maximální možný počet hran.
+
+\vt (Turánova, verze 1) {\it Ze všech grafů na $n$ vrcholech, které neobsahují $K_{r+1}$ jako podgraf má $T(n,r)$ nejvyšší počet hran.}
+
+\vt (Turánova, verze 2) {\it Nechť $G$ je graf na $n$ vrcholech neobsahující $K_{r+1}$ jako podgraf. Pak počet hran $G$ je nejvýš ${r-1\over r}\cdot{n^2\over 2} = \left(1-{1\over r}\right)\cdot{n^2\over 2}$.}
+
+\dk (Turánovy věty): Předpokládejme, že $G$ je graf neobsahující $K_{r+1}$ s maximálním počtem hran. V první části důkazu ukážeme, že $G$ musí být úplný $r$-partitní graf, v druhé části že se velikost jednotlivých partit může lišit nejvýš o 1.
+
+\textbf{Část 1.} Graf $G$ neobsahuje trojici vrcholů $u$, $v$, $w$ tž. mezi nimi vede pouze jedna hrana. To dokážeme tak, že buď smažeme $w$ a zkopírujeme $u$, nebo smažeme $u$ a $v$ a zkopírujeme dvakrát $w$, čímž dostaneme graf s více hranami. Z toho plyne, že můžeme vrcholy $G$ rozdělit do tříd ekvivalence na základě nesousednosti (dva vrcholy jsou ve stejné třídě, když mezi nimi nevede hrana). Třídy ekvivalence tvoří partity a $G$ je tedy úplný multipartitní graf. Čím více partit, tím více hran, takže $G$ je úplný $r$-partitní graf.
+
+\textbf{Část 2.} Mějme partity $A$ a $B$ tž. $|A| > |B| + 1$. Pak přesunem vrcholu z $A$ do $B$ ztratíme $|B|$ hran, ale získáme $|A|-1$ hran a tedy zvýšíme počet hran v $G$ alespoň o 1. Tedy, počet hran v $r$-partitním grafu je maximální, když se velikosti partit liší nejvýše o 1.
+\qed
+
+\subsection{Ramseyovy věty}
+
+\vt (Ramsey) {\it Pro každé $k \in \N$ existuje $n \in \N$ tž. každý graf na alespoň $n$ vrcholech obsahuje $K_k$ nebo indukovaný $\overline{K_k}$ jako podgraf.\footnote{Nejmenší takové $n$ pro dané $k$ nazýváme Ramseyovo číslo a značíme $R(k)$.}\footnote{Můžeme se setkat i s verzí, kdy určujeme velikost kliky a velikost nezávislé množiny zvlášť. Pak značíme Ramseyovo číslo $R(k,l)$.}}
+
+\vt (Ramsey, vícebarevná) {\it Pro každé $t$ a $k$ existuje $N$ takové, že pro každou funkci $c: {[n]\choose 2} \rightarrow [t], n\geq N$ existuje množina $A \in {[n]\choose k}$, pro níž je funkce $c$ na $A\choose 2$ konstantní.} Jinými slovy, existuje dostatečně velké $N$ takové, že každý úplný graf alespoň na $N$ vrcholech obarvený $t$ barvami obsahuje jednobarevnou kliku velikosti $k$.
+
+\vt (Ramsey, nekonečná) {\it Pro každé $t$ a každou funkci $c: {\N\choose 2} \rightarrow [t]$ existuje nekonečná množina $A\subseteq \N$, pro níž je funkce $c$ na $A\choose 2$ konstantní.} Neboli, v každém nekonečném úplném grafu obarveném $t$ barvami existuje nekonečně velká monochromatická klika.
+
+\dk TODO
+
+\subsection{Hales-Jewett}
+
+Zjednodušeně řečeno, Hales-Jewettova věta praví, že když dostanu od protivníka délku hrany krychle $a$ a počet barev $r$, dokážu najít dostatečně velkou dimenzi $N$, aby každé obarvení $N$-dimenzionální krychle o hraně $a$ pomocí $r$ barev obsahovalo jednobarevnou piškvorku délky $a$. Dále budeme značit $A = \{1, \dots, a\}$.
+
+\vt (Hales-Jewett) {\it Pro každé $a$ (délka hrany krychle) a $r$ (počet barev) existuje $N = HJ(r,a)$ tž. obarvíme-li body krychle $A^N$ pomocí $r$ barev, vždy existuje jednobarevná kombinatorická přímka.}
+
+\tv (o vnořené konzistentní krychli) {\it Existuje $N$ takové, že pro každé obarvení $\chi: A^N \rightarrow {1,\dots, r}$ existuje podkrychle $\alpha[A^n] \subset A^N$ obarvená konzistentně.} Konzistentně obarvená krychle znamená, že barvy na vnější slupce (bodech, jejichž nějaká souřadnice je 0) jsou kopiemi barev sousedních vrcholů o jednu vrstvu hlouběji.
+
+\dk \textbf{(Idea)} Zafixujeme si $r$ a důkaz provedeme indukcí podle $a$. Pro $a=1$ je situace triviální. Pro větší $a$ použijeme pomocné tvrzení o vnořené konzistentní krychli a najdeme krychli $A^n$. Z té sloupneme vnější slupku, v krychli s o jedna kratší hranou nalezneme piškvorku (z indukčního předpokladu) a po doplnění slupky dostaneme piškvorku v $A^n$ (protože krychle je konzistentní). Piškvorka v $A^n$ je i piškvorkou v $A^N$ (jedná se o vnoření), čímž je indukční krok hotový.
+\qed
+
+Důkaz pomocného tvrzení je technický, takže jen pro představu uvedeme konstrukci $N$, abychom měli představu o jeho velikosti. Zadefinujeme $N = N_1 + \dots + N_n$, kde:
+
+$$N_1 = r^{a^n},\qquad N_i = r^{a^{\left(n+\sum_{j=1}^{i-1} N_j\right)}}$$
+
+\subsection{Van der Waerden}
+
+\vt (Van der Waerden) {\it Pro každé $r, k \in \Z^+$} existuje $N$ takové, že v každém obarvení posloupnosti ${1, 2, \dots, N}$ $r$ barvami najdeme jednobarevnou aritmetickou posloupnost délky alespoň $k$.
+
+V praxi je takové $N$ obludně velké, nejlepší známý horní odhad tvrdí $W(r,k) \le 2^{2^{r^{2^{2^{k+9}}}}}$.
+
+

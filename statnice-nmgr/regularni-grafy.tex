@@ -1,0 +1,51 @@
+\section{Regulární grafy}
+\df {\it \emph{Regulární graf} je graf, jehož všechny vrcholy mají stejný stupeň. Graf je $k$\emph{-regulární}, je-li stupeň všech jeho vrcholů $k$.}
+
+\begin{itemize*}
+\item 0-regulární grafy se skládají z izolovaných vrcholů
+\item 1-regulární grafy jsou disjunktním sjednocením hran
+\item 2-regulární grafy jsou disjunktním sjednocením cyklů a nekonečných cest
+\item 3-regulární grafy nazýváme kubické, patří mezi ně např. Petersen
+\end{itemize*}
+
+\vt (o vlastních číslech) {\it Graf $G$ je $k$-regulární $\Leftrightarrow$ matice sousednosti $G$ má vlastní číslo $k$ a odpovídající vlastní vektor $(1,\dots,1).$ 
+$k$-regulární graf je souvislý $\Leftrightarrow$ vlastní číslo $k$ má násobnost 1.}
+
+\subsection{Silně regulární grafy}
+\df {\it \emph{Silně regulární graf} je $d$-regulární, $\forall$ hranu $xy\in E$ $\exists!e$ vrcholů $u: ux,uy\in E$ a $\forall$ nehranu $xy\not\in E$ $\exists!f$ vrcholů $u: ux,uy\in E$.}
+
+Abychom mohli zanedbat triviální případy, dodáváme $f>0$ a $G\neq K_n$.
+Příkladem silně regulárního grafu je úplný bipartitní graf se stejně velkými
+partitami ($e=0$). Nejmenším nebipartitním silně regulárním grafem je
+pěticyklus ($e=0$, $f=1$). Nejmenší graf, který je regulární, ale není silně
+regulární je šesticyklus.
+
+\vt (Friendship theorem) {\it Nechť $G=(V,E)$ je graf, že každé dva vrcholy $u,v$ mají právě jednoho společného souseda. Pak existuje $u$, že $\deg(u) = n-1$.}
+
+Neboli Friendship theorem tvrdí, že takový silně regulární graf musí vypadat jako
+mlýn (hromádka trojúhelníků, které se stýkají v jednom centrálním vrcholu).
+
+\subsection{Moorovy grafy}
+Moorovy grafy jsou $r$-regulární grafy bez krátkých cyklů (délky 3 a 4) s nejmenším možným počtem vrcholů. Obecně se definují i pro jiný girth (délku nejkratší kružnice), definice z LAKu je následující:
+
+\df Moorův graf je takový $r$-regulární graf bez troj- a čtyř-úhelníků, kde $|V| = 1 + r + r(r-1) = r^2 + 1$.
+
+Konstrukcí lze ukázat, že menší počet vrcholů už implikuje malý cyklus, nebo rozbije $r$-regulárnost.
+
+\vt Moorův graf existuje pro $r=1,2,3,7$, pro $r=57$ se neví (otevřený problém) a pro žádné další $r$ neexistuje.
+
+\subsection{Regularita a Hamiltonovskost}
+\vt (Dirac) {\it Máme-li souvislý graf $G$, $n \ge 3$ a stupeň každého vrcholu je alespoň $n\over 2$, pak je $G$ hamiltonovský.} 
+
+Důkaz vezme nejdelší cestu v $G$ a hledá se spor s tím, že je nejdelší. Diracovu větu použijeme v důkazu následující věty od Nash-Williamse. 
+
+\vt (Nash-Williams) {\it Každý $k$-regulární graf na $2k+1$ vrcholech obsahuje Hamiltonovskou kružnici.}
+
+\dk Mějme $k$-regulární graf $G$ na $2k+1$ vrcholech. Přidáme k němu nový vrchol $w$ a spojíme ho se všemi vrcholy $G$. Výsledný graf $H$ má $2k+2$ vrcholů s minimálním stupněm $k+1$. Dle Diracovy věty je $H$ Hamiltonovský. Odebráním $w$ z $H$ získáme v $G$ Hamiltonovskou cestu $v_0v_1\dots v_{2k}$.
+
+Předpokládejme že neexistuje dvojice sousedních vrcholů $v_iv_{i+1}$, přes které by šla uzavřít kružnice $v_0v_1\dots v_iv_{2k}v_{2k-1}\dots v_{i+1}v_0$. Pak mohou nastat dva případy.
+
+\textbf{Případ (i)} $v_0$ sousedí právě s vrcholy v první polovině cesty a $v_{2k}$ právě s vrcholy v druhé polovině cesty. Pak musí existovat dvojice vrcholů $v_i,v_j$ v první polovině cesty, mezi kterými nevede hrana. Kdyby vedla hrana mezi každými dvěma vrcholy v první polovině cesty, pak by byl stupeň $v_k$ vyšší, než $k$. Protože stupeň $v_i$ je $k$, existuje $v_l$ v druhé polovině cesty tž. $v_iv_l \in E$. Pak najdu HK.
+
+\textbf{Případ (ii)} Existuje vrchol $v_i$ takový, že $v_{i+1}v_0 \in E$, $v_iv_0 \not\in E$ a $v_{i-1}v_{2k} \in E$. Potom $G$ obsahuje $2k$-cyklus $v_{i-1}v_{i-2}\dots v_0v_{i+1}\dots v_{2k}$. Přejmenujme $2k$-cyklus $C$ na $u_1u_2\dots u_{2k}$ a $u_0$ bude vrchol $G$, který v $C$ není. Potom $u_0$ nemůže sousedit se dvěma sousedními vrcholy $C$ (jinak by existovala HK) a tedy sousedí s každým druhým vrcholem $C$, řekněme s $u_1, u_3, \dots, u_{2k-1}$. Nahrazením $u_{2j}$ za $u_0$ ($\forall j$) dostaneme jiný maximální cyklus v $G$ a tedy $u_{2j}$ musí mít sousedy $u_1, u_3, \dots, u_{2k-1}$ (stejný argument jako v předchozí větě). Pak ale $u_1$ musí sousedit s $u_0, u_2, \dots, u_{2k}$ a tedy $\deg u_1 \ge k+1$, což je spor s $k$-regularitou. Tudíž je $G$ Hamiltonovský.
+
