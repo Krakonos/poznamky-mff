@@ -1,0 +1,18 @@
+\section{Nekonečná kombinatorika}
+
+\vt (Cantor-Bernstein) {\it Nechť $A$ a $B$ jsou dvě množiny, pro které existují prostá zobrazení $f: A \rightarrow B$ a $g: B \rightarrow A$. Potom existuje bijekce $h: A \rightarrow B$.
+
+\dk Sestrojíme bipartitní graf a ukážeme, že ve všech jeho komponentách existuje párování. Hezky popsáno v \texttt{http://mj.ucw.cz/papers/kg1.pdf}
+
+\lm (König) V každém zakořeněném stromu, který má nekonečně mnoho vrcholů, ale pouze konečné stupně, existuje nekonečná cesta začínající v kořeni.
+
+\dk Triv. -- začnu v kořeni a zanořím se vždy do nekonečného podstromu, takový musí existovat.
+
+Königovo lemma lze využít v důkazu věty o kompaktnosti výrokové logiky.\footnote{\it Spočetná množina formulí $\Psi$ je splnitelná právě tehdy, když je splnitelná každá její konečná podmnožina.}
+
+\subsection{Hallova věta}
+
+\df Systém různých reprezentantů (SRR) {\it množinového systému $(X,S)$ je prostá funkce $f:S\rightarrow X$ tž. $\forall A \in S: f(A) \in A$.}
+
+\vt (spočetná Hallova) {\it Buď $(X,S)$ množinový systém obsahující spočetně mnoho konečných množin. Pak $(X,S)$ má SRR právě tehdy, když pro libovolný podsystém $T \subseteq S$ s konečně mnoha podmnožinami platí $|\bigcup T| \ge |T|$} (Hallova podmínka)
+
