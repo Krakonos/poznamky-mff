@@ -26,7 +26,12 @@ Turánovy grafy jsou pokus o konstrukci hranově extremálních grafů neobsahuj
 
 \vt (Ramsey, nekonečná) {\it Pro každé $t$ a každou funkci $c: {\N\choose 2} \rightarrow [t]$ existuje nekonečná množina $A\subseteq \N$, pro níž je funkce $c$ na $A\choose 2$ konstantní.} Neboli, v každém nekonečném úplném grafu obarveném $t$ barvami existuje nekonečně velká monochromatická klika.
 
-\dk TODO
+\dk Sestrojíme si nekonečnou posloupnost nekonečných množin $A_1, A_2, \dots$ Začneme s $A_1 = \N$. Z $A_i$ zkonstruujeme $A_{i+1}$ tak, že si vybereme nejmenší prvek\footnote{Mohl by být libovolný, ale takhle se elegantně vyhneme problému s axiomem výběru.} $v_i \in A_i$ a rozdělíme vrcholy $A_i \setminus \{v_i\}$ na třídy ekvivalence $B_i^1, \dots, B_i^t$ podle toho, jakou barvu má hrana, která je spojuje s $v_i$. Podle nekonečného principu holubníku je alespoň jedna z $B_i^j$ nekonečná. Položme $b_i = j$ a $A_{i+1} = B_i^j$ a pokračujme dalším krokem (do nekonečna).
+
+Všimněme si, že v posloupnosti vybraných vrcholů $(v_i)$ platí $\forall i < j$ má hrana $v_iv_j$ barvu $b_i$ (tedy záleží pouze na vrcholu s nižším pořadovým číslem). V nekonečné posloupnosti $b_1,b_2,\dots$ se musí některá z $t$ barev opakovat nekonečněkrát -- odpovídající vrcholy pak tvoří jednobarevný nekonečný úplný graf.
+\qed
+
+Konečná verze se dokazuje obdobně, ale musíme pečlivěji upočítat potřebnou velikost počáteční množiny.
 
 \subsection{Hales-Jewett}
 
@@ -49,4 +54,6 @@ $$N_1 = r^{a^n},\qquad N_i = r^{a^{\left(n+\sum_{j=1}^{i-1} N_j\right)}}$$
 
 V praxi je takové $N$ obludně velké, nejlepší známý horní odhad tvrdí $W(r,k) \le 2^{2^{r^{2^{2^{k+9}}}}}$.
 
+\dk Použijeme Hales-Jewetta a najdeme $N = HJ(r,k)$. Každé číslo $a \in \{0, 1, \dots, t^N-1\}$ můžeme zapsat v soustavě o základu $t$ jako $(a_0,a_1,\dots,a_{N-1})$, kde $a = a_0 + a_1t + \dots + a_{N-1}t^{N-1}$. Tím jsme získali bijekci mezi čísly od 0 do $t^N-1$ a vrcholy $N$-dimenzionální krychle o hraně $k$. Z Hales-Jewetta víme, že v krychli existuje kombinatorická přímka délky $k$. Kombinatorická přímka odpovídá aritmetické posloupnosti -- jedna její souřadnice nabývá hodnot od 0 do $N-1$ a všechny ostatní zůstávají konstantní.
+\qed
 
