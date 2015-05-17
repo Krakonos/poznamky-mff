@@ -9,6 +9,10 @@
 \usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
 \usepackage{wrapfig}
 \usepackage{subcaption}
+\usepackage{color}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
 
 \usepackage{titlesec}
 \titleformat*{\section}{\removelastskip\bigskip\LARGE\bfseries}
@@ -43,6 +47,7 @@
 \newcommand{\In}{{\bf I}_n}
 %\newcommand{\qed}{\hfill QED}
 \DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\zz}{\circled{z}}
 \DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\Ker}{Ker}
@@ -73,6 +78,7 @@
 \section{Speciální vlastnosti orientovaných grafů}
 \input{orientovane-grafy}
 \section{Algebraické vlastnosti grafů}
+\input{algebraicke-vlastnosti}
 \section{Teorie párování}
 
 \input{ramseyova-teorie}
