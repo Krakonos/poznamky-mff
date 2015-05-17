@@ -26,6 +26,7 @@ Neboli Friendship theorem tvrdí, že takový silně regulární graf musí vypa
 mlýn (hromádka trojúhelníků, které se stýkají v jednom centrálním vrcholu).
 
 \subsection{Moorovy grafy}
+
 Moorovy grafy jsou $r$-regulární grafy bez krátkých cyklů (délky 3 a 4) s nejmenším možným počtem vrcholů. Obecně se definují i pro jiný girth (délku nejkratší kružnice), definice z LAKu je následující:
 
 \df Moorův graf je takový $r$-regulární graf bez troj- a čtyř-úhelníků, kde $|V| = 1 + r + r(r-1) = r^2 + 1$.
@@ -33,6 +34,58 @@ Moorovy grafy jsou $r$-regulární grafy bez krátkých cyklů (délky 3 a 4) s 
 Konstrukcí lze ukázat, že menší počet vrcholů už implikuje malý cyklus, nebo rozbije $r$-regulárnost.
 
 \vt Moorův graf existuje pro $r=1,2,3,7$, pro $r=57$ se neví (otevřený problém) a pro žádné další $r$ neexistuje.
+
+\dk (Idea) Mějme graf $G$ Moorův a $A$ jeho matici sousednosti. Zapišme druhou 
+mocninu $A$ jako stupeň na diagonále a prohozené 0 a 1 jinde a upravme:
+\begin{align}
+	&A^2 = r\In + ({\bf J}_n- A - \In) \\
+	\label{moorova-matice}&A^2 + A + (1-r)\In = {\bf J}_n
+\end{align}
+Dále pro nějaké $\lambda\in \Sp(A)$ a $x$ odpovídající vlastní vektor:
+\begin{align}
+	\label{moorova-mocnina}A^2 x = AAx = A\lambda x = \lambda A x = \lambda 
+	\lambda x = \lambda^2 x
+\end{align}
+A dosadíme (\ref{moorova-matice}) za $A$:
+\begin{align}
+	{\bf J}_nx = (A^2 + A + (1-r)\In)x = (\lambda^2 + \lambda + (1-r))x
+\end{align}
+A tedy $(\lambda^2 + \lambda + 1 -r) \in \Sp(J)$. Vlastní čísla matice ${\bf J}_n$ 
+(matice samých jedniček) ale známe, jsou to $\{0^{(n-1)}, n^{(1)}\}$. Zjevně pro 
+$\lambda = r$ vyjde vlastní číslo $n$, je tedy potřeba vyřešit kvadratickou 
+rovnici s parametrem $r$:
+\begin{align}
+	\lambda^2 + \lambda + 1 - r = 0
+\end{align}
+Jak na to půjdeme? Vyjádříme si $\lambda$ známým vzorečkem pro kořeny:\footnote{$D=b^2-4ac,\quad x_{1,2} = {-b \pm \sqrt D \over 2a}$}
+\begin{align}
+	\lambda_{1,2} = \frac{-1\pm \sqrt{1-4(1-r)}}{2} = \frac{-1\pm\sqrt{4r-3}}{2}
+\end{align}
+Násobnost označíme $m_1, m_2$. Stopa matice je suma vlastních čísel včetně
+násobností, ale také součet čísel na diagonále. Protože matice sousednosti $A$
+má na diagonále vždy nuly, platí rovnice:
+
+
+\begin{align}
+	\Tr(A) = r+m_1\lambda_1 + m_2\lambda_2 = 0
+\end{align}
+Nejdříve
+upravíme do formy (násobení dvěma a přeskupení):
+\begin{align}
+	2r - \sqrt{4r-3}(m1-m2) - \underbrace{(m_1+m_2)}_{m_1+m_2=n-1=r^2} &= 0\\
+	2r - r^2 + \sqrt{4r-3}(m_1 - m_2) &= 0 
+	\label{4-2:rovnice}
+\end{align}
+Moorův graf je $r$-regulární, $r\in\N$, tedy máme dvě možnosti:
+\begin{enumerate}
+	\item $\sqrt{4r-3} \not\in \Q$: potom $m_1 = m_2$ a tedy $r = 2$.
+	\item $\sqrt{4r-3} = s \in \Q$, což implikuje\footnote{Odmocnina z celého čísla je
+  vždy celé číslo či iracionální číslo, nikdy zlomek.} $s \in \N$.
+  Substitucí $4r - 3 = s^2$ do rovnice \ref{4-2:rovnice} získáme
+	$s \in \set{1, 3, 5, 15}$, což dává $r \in \set{1, 3, 7, 57}$.
+\end{enumerate}
+\qed
+
 
 \subsection{Regularita a Hamiltonovskost}
 \vt (Dirac) {\it Máme-li souvislý graf $G$, $n \ge 3$ a stupeň každého vrcholu je alespoň $n\over 2$, pak je $G$ hamiltonovský.} 
