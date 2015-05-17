@@ -43,9 +43,33 @@ Důkaz vezme nejdelší cestu v $G$ a hledá se spor s tím, že je nejdelší. 
 
 \dk Mějme $k$-regulární graf $G$ na $2k+1$ vrcholech. Přidáme k němu nový vrchol $w$ a spojíme ho se všemi vrcholy $G$. Výsledný graf $H$ má $2k+2$ vrcholů s minimálním stupněm $k+1$. Dle Diracovy věty je $H$ Hamiltonovský. Odebráním $w$ z $H$ získáme v $G$ Hamiltonovskou cestu $v_0v_1\dots v_{2k}$.
 
-Předpokládejme že neexistuje dvojice sousedních vrcholů $v_iv_{i+1}$, přes které by šla uzavřít kružnice $v_0v_1\dots v_iv_{2k}v_{2k-1}\dots v_{i+1}v_0$. Pak mohou nastat dva případy.
+\begin{wrapfigure}{R}{6cm}
+\centering
+\includegraphics[width=5cm]{img/nash-williams4.pdf}
+\caption{Triviální případ}
+\label{dk:nw-triv}
+\end{wrapfigure}
 
-\textbf{Případ (i)} $v_0$ sousedí právě s vrcholy v první polovině cesty a $v_{2k}$ právě s vrcholy v druhé polovině cesty. Pak musí existovat dvojice vrcholů $v_i,v_j$ v první polovině cesty, mezi kterými nevede hrana. Kdyby vedla hrana mezi každými dvěma vrcholy v první polovině cesty, pak by byl stupeň $v_k$ vyšší, než $k$. Protože stupeň $v_i$ je $k$, existuje $v_l$ v druhé polovině cesty tž. $v_iv_l \in E$. Pak najdu HK.
+Předpokládejme že neexistuje dvojice na sousedních vrcholů $v_{i-1}v_i$, přes které by šla uzavřít kružnice (viz Obrázek \ref{dk:nw-triv}). Pak ale nutně platí, že když $v_0v_i \in E$, pak $v_{i-1}v_{2k} \not\in E$. Vrchol $v_{2k}$ má $k$ sousedů, ale nesmí mezi nimi být žádné vrcholy, jejihž pravý soused je spojen s $v_0$. Jinými slovy, $v_0$ nám vyblokuje $k$ vrcholů, do kterých nesmí vést hrana z $v_{2k}$ a ten sousedí se všemi ostatními. Tedy, když $v_0v_i \not\in E$, pak $v_{i-1}v_{2k} \in E$ (tuto vlastnost použijeme později).
 
-\textbf{Případ (ii)} Existuje vrchol $v_i$ takový, že $v_{i+1}v_0 \in E$, $v_iv_0 \not\in E$ a $v_{i-1}v_{2k} \in E$. Potom $G$ obsahuje $2k$-cyklus $v_{i-1}v_{i-2}\dots v_0v_{i+1}\dots v_{2k}$. Přejmenujme $2k$-cyklus $C$ na $u_1u_2\dots u_{2k}$ a $u_0$ bude vrchol $G$, který v $C$ není. Potom $u_0$ nemůže sousedit se dvěma sousedními vrcholy $C$ (jinak by existovala HK) a tedy sousedí s každým druhým vrcholem $C$, řekněme s $u_1, u_3, \dots, u_{2k-1}$. Nahrazením $u_{2j}$ za $u_0$ ($\forall j$) dostaneme jiný maximální cyklus v $G$ a tedy $u_{2j}$ musí mít sousedy $u_1, u_3, \dots, u_{2k-1}$ (stejný argument jako v předchozí větě). Pak ale $u_1$ musí sousedit s $u_0, u_2, \dots, u_{2k}$ a tedy $\deg u_1 \ge k+1$, což je spor s $k$-regularitou. Tudíž je $G$ Hamiltonovský.
+\textbf{Případ (i)} $v_0$ sousedí právě s vrcholy v první polovině cesty a $v_{2k}$ právě s vrcholy v druhé polovině cesty. Pak musí existovat dvojice vrcholů $v_i,v_j$ v první polovině cesty, mezi kterými nevede hrana. Kdyby vedla hrana mezi každými dvěma vrcholy v první polovině cesty, pak by byl stupeň $v_k$ vyšší, než $k$. Protože stupeň $v_i$ je $k$, existuje $v_l$ v druhé polovině cesty tž. $v_iv_l \in E$. Pak najdu HK (viz Obrázek \ref{dk:nw-i}).
+
+\textbf{Případ (ii)} Existuje vrchol $v_i$ takový, že $v_{i+1}v_0 \in E$, $v_iv_0 \not\in E$. Pak podle vlastnosti dokázané výše je $v_{i-1}v_{2k} \in E$. Potom $G$ obsahuje $2k$-cyklus $v_{i-1}v_{i-2}\dots v_0v_{i+1}\dots v_{2k}$ (viz Obrázek \ref{dk:nw-ii}). Přejmenujme $2k$-cyklus $C$ na $u_1u_2\dots u_{2k}$ a $u_0$ bude vrchol $G$, který v $C$ není. Potom $u_0$ nemůže sousedit se dvěma sousedními vrcholy $C$ (jinak by existovala HK) a tedy sousedí s každým druhým vrcholem $C$, řekněme s $u_1, u_3, \dots, u_{2k-1}$. Nahrazením $u_{2j}$ za $u_0$ ($\forall j$) dostaneme jiný maximální cyklus v $G$ a tedy $u_{2j}$ musí mít sousedy $u_1, u_3, \dots, u_{2k-1}$ (stejný argument jako v předchozí větě). Pak ale $u_1$ musí sousedit s $u_0, u_2, \dots, u_{2k}$ a tedy $\deg u_1 \ge k+1$, což je spor s $k$-regularitou. Tudíž je $G$ Hamiltonovský.
+\qed
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{7.5cm}
+\includegraphics[width=7.5cm]{img/nash-williams2.pdf}
+\caption{Případ (i)}
+\label{dk:nw-i}
+\end{subfigure}
+\hfill
+\begin{subfigure}{7.4cm}
+\includegraphics[width=7.5cm]{img/nash-williams3.pdf}
+\caption{Případ (ii)}
+\label{dk:nw-ii}
+\end{subfigure}
+\caption{Netriviální případy}
+\end{figure}
 
