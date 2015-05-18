@@ -6,9 +6,30 @@ souvislý, pokud je souvislá jeho symetrizace. Graf $G$ je silně souvislý, po
 $\forall u,v \in V(G), u\neq v$ existuje orientovaná cesta z $u$ do $v$.
 Analogicky definujeme silně souvislé komponenty (SSK) grafu $G$.
 
-\subsection{Algoritmus pro hledání SSK}
+\subsection{Tarjanův algoritmus pro hledání SSK}
 
-\todo Tarjanův algoritmus
+Než popíšeme algoritmus, všimneme si nejprve několika vlastností orientovaných grafů. Graf SSK je orientovaný acyklický graf. Proto v něm musí existovat alespoň jedna zdrojová komponenta (do níž nevedou žádné hrany) a alespoň jedna stoková varianta (z níž nevedou žádné hrany). Kdybychom měli vrchol ze stokové komponenty, mohli bychom z něj pustit DFS, který najde právě všechny vrcholy v této SSK. Po odebrání této komponenty z grafu bychom našli novou stokovou komponentu a pokračovali, dokud by nebyl celý graf rozdělen.
+
+Nevíme sice, jak najít vrchol ze stokové komponenty, ale je jednoduché najít vrchol ze zdrojové komponenty -- stačí na $G$ spustit DFS (opakovaně, pokud neprošel všechny vrcholy). Vrchol, který opustíme jako poslední\footnote{Při zavedení DFS si obvykle zadefinujeme pořadí podle opouštění vrcholu, značíme $out(v)$.}, je určitě ve zdrojové komponentě. Je zjevné, že když otočíme orientaci všech hran v $G$, SKK se nezmění, pouze se ze stokových stanou zdrojové a naopak.
+
+\lm {\it V grafu SKK $G$ vede hrana z komponenty $C_1$ do $C_2$, pak 
+$\max_{x\in C_1} out(x) > \max_{y\in C_2} out(y)$}
+
+Z výše uvedeného již vyplývá jakým způsobem Tarjanův algoritmus pracuje: Nejprve obrátí orientaci všech hran v $G$ a najde pořadí $out(v)$ pro všechny vrcholy $G$. Poté opakovaně spouští DFS z ještě neprozkoumaných vrcholů, v pořadí od nejvyššího nalezeného $out(v)$.\footnote{Zápis algoritmu v pseudokódu je přejat z \url{http://mj.ucw.cz/vyuka/ads/25-grafy.pdf}.}
+
+\begin{enumerate*}
+\item Sestrojíme graf $G^T$ s obrácenými hranami
+\item $Z \leftarrow$ prázdný zásobník
+\item Pro všechny vrcholy $v$ nastavíme $komp(v) = 0$
+\item Spouštíme DFS v $G^T$ opakovaně, než prozkoumáme všechny vrcholy. Kdykoliv přitom opouštíme vrchol, vložíme ho do $Z$. Vrcholy v zásobníku jsou tedy setříděné podle $out(v)$.
+\item Postupně odebíráme vrcholy ze zásobníku $Z$ a pro každý vrchol $v$:
+\item $\qquad$Pokud $komp(v) = 0$
+\leftmargin=6cm
+\indent
+\item $\qquad\qquad$ Spustíme DFS($v$) v $G$, přičemž vstupujeme pouze do vrcholů s $komp(x) = 0$ a tuto hodnotu přepisujeme na $v$.
+\end{enumerate*}
+
+\dk Důkaz korektnosti algoritmu je zjevný z lemmatu a pozorování, která mu předchází. Algoritmus pouze spouští DFS a žádný vrchol neprojde vícekrát, takže se určitě zastaví. Časová i prostorová složitost jsou $\Theta(n+m)$.
 
 \subsection{Turnaje a hamiltonovské cesty}
 
