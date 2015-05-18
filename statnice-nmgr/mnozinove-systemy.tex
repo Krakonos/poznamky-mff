@@ -1,0 +1,134 @@
+\subsection{Extrémální vlastnosti}
+
+\df Slunečnice (někdy také $\Delta$-systém) s $k$ lístky a jádrem $Y$ je systém 
+množin $S_1, \dots, S_k$ takových, že $\forall i\neq j: S_i \cap S_j = Y$ a 
+navíc $S_i \setminus Y \neq \emptyset$.
+
+\vt (Slunečnicové lemma) Nechť $\F$ je množinový systém s množinami velikosti 
+$s$.  Pokud $|\F| > s!  (k-1)^s$, potom $\F$ obsahuje slunečnici s $k$ lístky.
+
+\dk Indukcí podle $s$. Pro $s=1$ máme alespoň $k-1$ jednoprvkových množin, a 
+všechny tvoří slunečnici s malými lístky a prázdným jádrem. Dále nechť $s\geq 
+2$: $\A := \{A_1, \dots, A_t\}$ označme maximální systém po dvou disjunktn9ch 
+množin z $\F$. Pokud $t \geq k$, tvoří slunečnici s prázným jádrem a máme 
+hotovo. Jinak vezměme $B := \bigcup_i A_i$; pro tu platí $|B| \leq s\cdot 
+(k-1)$ a nějaký prvek, říkejme mu $x$, se vyskytuje v hodně množinách, 
+konkrétně z holubníkového principu:
+\begin{align*}
+	{|\F| \over |B|} > (s-1)!(k-1)^{s-1}
+\end{align*}
+Takových množin je dokonce tolik, že samy o sobě splňují nutnou podmínku pro 
+slunečnici velikosti $k$ v množinách o $1$ menších. Aplikujeme tedy indukci na 
+systém $\F_x := \{S - x: S \in \F, x \in S\}$ a do výsledné slunečnice prvek 
+$x$ vrátíme.
+
+\vt (Slunečnicová spekulace) Ve slunečnicovém lemmatu stačí dokonce $|\F| \geq 
+c_k^s$, kde $c_k$ je nějaká konstanta.
+
+\pzn Ačkoliv Slunečnicové lemma zahřeje zevnitř, jeho aplikace se příliš 
+nezmiňují. Zde je jedna:
+
+Je otevřeným problémem, zda existuje algoritmus na násobení matic v čase 
+$n^{2+\epsilon}$ pro každé $\epsilon$. Postup Coppersmitha a Winograda nabízí 
+jednu z možností, jak takový algoritmus sestrojit; speciálně potřebují získat 
+speciální Abelovskou grupu splňující hromádku požadavků; lze ukázat, že 
+existence takové grupy je ve sporu se Slunečnicovou spekulací. To ale 
+neznamená, že i kdyby Slunečnicová spekulace byla pravdivá, že neexistuje 
+rychlý algoritmus na násobení matic, jsou další postupy, jak toho dosáhnout 
+(speciálně Cohn-Umans).
+
+
+\vt (Erdös-Ko-Rado) Nechť $n \geq 2k$, potom každý průsečný systém 
+$k$-prvkových podmnožin $n$-prvkové množiny má nanejvýš $\binom{n-1}{k-1}$ 
+množin.
+
+\df (Discrepancy) Pro zjištění, jak je nějaké řešení dobré, můžeme definovat 
+discrepanci $\disc(\F,f)$ pro množinový systém $\F$ a funkci $f: X \to \dots$ 
+jako:
+\begin{align}
+	f(S) &= \sum_{x\in S} f(x) \\
+	\disc(\F,f) &= \max_{S\in \F} |f(S)| \\
+	\disc(\F) &= \min_f \disc(\F,f)
+\end{align}
+Diskrepence tedy vyjadřuje, jak dobré ohodnocení vydala funkce $f$ pro nějaký 
+náš cíl, který chceme ohodnotit.
+
+\app Mějme $X$ $n$-prvkovou množinu a systém $\F$ jejích podmnožin. Chtěli 
+bychom obarvit prvky $X$ dvěmi barvami tak, aby v každé množině $\F$ byl počet 
+barev co možná nejvyváženější. Zvolíme tedy $f: X \to \{-1, 1\}$, vyjadřující 
+dvě barvy (pokud jich je v množině stejně, sečtou se na 0, což je dobré).  
+Množinový systém $\F = 2^X$ by nedopadlo dobře, speciálně $\disc(\F) = n/2$ 
+(nejlepší strategie je obarvit půl na půl, kdykoliv se obarví více, množina co 
+obsahuje právě všechny stejně barevné prvky dosáhne horšího skóre). Co ale, 
+kdybychom uvažovali menší skupinu množin?
+
+\tv (Černovova nerovnost) Nechť $X_1, \dots, X_n$ jsou nezávislé náhodné 
+proměnné nabývající hodnot $+1$ a $-1$ s pravděpodobností $1/2$ a $X = \sum_i 
+X_i$. Potom pro každé $t \geq 0$ platí:
+\begin{align}
+	P[X \geq t] &< e^{-t^2/2\sigma^2} \\
+	P[X \leq -t] &< e^{-t^2/2\sigma^2}\\
+	\label{cernov:abs} P[|X| \leq t] &< 2\cdot e^{-t^2/2\sigma^2}
+\end{align}
+(v tomto případě $\sigma = \sqrt{n}$ díky jednoduchým proměnným).
+
+
+\tv Nechť $|X|=n$ a $|\F| = m$ a největší množina má velikost $s$.  Potom 
+$\disc(\F) \leq \sqrt{2s\ln(2m)}$.
+
+\dk Nechť $f$ je zvolena uniformě nezávisle náhodně. Podívejme se tedy na nějaké
+$S \in \F$, jaké má skóre. Použijeme Černovovu nerovnost (\ref{cernov:abs}):
+\begin{align}
+	P[|f(X)| \geq t] < 2 \cdot e^{-t^2/2s^2}
+\end{align}
+Stačí zvolit $t$ tak, aby vyšla pravá strana dostatečně malá. Máme-li $m$ 
+podmnožin, stačí ostře menší, než $1/m$ (po použití Union Boundu vyjde $< 1$).  
+Zvolme například $t := \sqrt{2s\ln(2m)}$, pro které to zrovna platí. Víme tedy, 
+že převděpodobnost, že existuje prvek se skóre $|f(S)| \geq t$ je ostře menší 
+než 1; existuje tedy $f$, pro kterou věta platí.
+
+\vt (Bollobás) Nechť $A_1, \dots, A_m$ a $B_1, \dots, B_m$ jsou posloupnosti 
+množin takové, že $A_i \cap B_j = \emptyset$ právě tehdy, když $i = j$. Potom 
+pokud $a_i := |A_i|$ a $b_i := |B_i|$, platí:
+\begin{align}
+	\sum_{i=1}^m\binom{a_i + b_i}{a_i}^{-1} \leq 1
+\end{align}
+
+\dk Nechť $X = \bigcup_i A_i \cup B_i$. Postupujme indukcí podle velikosti $X$, 
+kde pro $|X| = 1$ je tvrzení platné triviálně. Uvažujme následující systémy:
+\begin{align}
+	\F_x := \{ (A_i, B_i - x) : x \notin A_i\}
+\end{align}
+Protože v každém z těchto systému chybí jeden prvek, lze na ně aplikovat indukci 
+a sečíst výsledky. První člen odpovídá množinám, kde $x\notin A_i \cup B_i$, 
+druhý těm, kde $x \in B_i$:
+\begin{align}
+	\sum_{i=1^m}(n-a_i-b_i) \binom{a_i+b_i}{a_i} + b_i{a_i+b_i-1}{a_i}^{-1} \leq 
+	n
+\end{align}
+Protože $\binom{k-1}{l} = {k-l\over k}\binom{k}{l}$, můžeme upravit druhý člen 
+na:
+\begin{align}
+	b_i \cdot \left({(a_i+b_i)-a_i \over a_i+b_i} 
+	\binom{a_i+b_i}{a_i}\right)^{-1} = (a_i + b_i) \cdot 
+	\binom{a_i+b_i}{a_i}^{-1}
+\end{align}
+A celou rovnici vydělit $n$, což dokončuje důkaz. \qed
+
+\df (Řetězec a antiřetězec) Systém částěčně uspořádaných množin $\F$ je řetězec,
+pokud jsou každé dva prvky porovnatelné (operací \uv{podmnožina}), antiřetězec, 
+pokud žádné dva prvky nejsou porovnatelné.
+
+\vt (Sperner) Nechť $\F$ je systém podmnožin $X$, $|X| = n$. Potom pokud $\F$ je
+antiřetězec, tak $|\F| \leq \binom{n}{\lfloor n/2 \rfloor}$.
+
+\dk Nechť $A_1, \dots, A_m$ je antiřetězec. Definujme $B_i := X \setminus A_i$.  
+To určitě splňuje předpoklady pro Bollobásovu větu ($A_i \cap B_i = \emptyset$, 
+protože to jsou doplňky, jinde existuje jistě nějaký prvek, protože jde o 
+antiřetězec):
+\begin{align}
+	|F| \cdot \binom{n}{\lfloor n/2 \rfloor}^{-1} \leq 
+	\sum_{i=1}^m\binom{n}{|A_i|}^{-1} \leq \sum_{i=1}^m \binom{a_i + 
+	b_i}{a_i}^{-1} \leq 1
+\end{align}
+\qed

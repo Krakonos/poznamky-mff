@@ -9,6 +9,11 @@
 \usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
 \usepackage{wrapfig}
 \usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
 
 \usepackage{titlesec}
 \titleformat*{\section}{\removelastskip\bigskip\LARGE\bfseries}
@@ -24,6 +29,7 @@
 \newcommand{\pzn}{\smallskip\noindent\bf Poznámka\rm{} }
 \newcommand{\dsl}{\smallskip\noindent\bf Důsledek\rm{} }
 \newcommand{\tv}{\smallskip\noindent\bf Tvrzení\rm{} }
+\newcommand{\app}{\smallskip\noindent\bf Aplikace\rm{} }
 \newcommand{\F}{\mathcal{F}}
 \newcommand{\B}{\mathcal{B}}
 \newcommand{\A}{\mathcal{A}}
@@ -43,6 +49,8 @@
 \newcommand{\In}{{\bf I}_n}
 %\newcommand{\qed}{\hfill QED}
 \DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\zz}{\circled{z}}
 \DeclareMathOperator{\Sp}{Sp}
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\Ker}{Ker}
@@ -74,6 +82,7 @@
 \input{orientovane-grafy}
 
 \section{Algebraické vlastnosti grafů}
+\input{algebraicke-vlastnosti}
 \section{Teorie párování}
 
 \input{ramseyova-teorie}
@@ -81,5 +90,6 @@
 \input{nekonecna-kombinatorika}
 
 \section{Strukturální vlastnosti množinových systémů}
+\input{mnozinove-systemy}
 
 \end{document}
