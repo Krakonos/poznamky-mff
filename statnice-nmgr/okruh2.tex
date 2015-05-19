@@ -1,0 +1,86 @@
+\documentclass[a4paper,12pt,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage[small,compact]{titlesec}
+\usepackage{anyfontsize}
+\usepackage{rotating}
+\usepackage{mdwlist}
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=2cm]{geometry}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+  \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+
+\usepackage{titlesec}
+\titleformat*{\section}{\removelastskip\bigskip\LARGE\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+
+\newcommand{\shn}{\Theta}
+\newcommand{\lm}{\smallskip\noindent\bf Lemma\rm{} }
+\newcommand{\dk}{\smallskip\noindent\bf Důkaz\rm{} }
+\newcommand{\df}{\smallskip\noindent\bf Definice\rm{} }
+\newcommand{\vt}{\smallskip\noindent\bf Věta\rm{} }
+\newcommand{\poz}{\smallskip\noindent\bf Pozorování\rm{} }
+\newcommand{\pzn}{\smallskip\noindent\bf Poznámka\rm{} }
+\newcommand{\dsl}{\smallskip\noindent\bf Důsledek\rm{} }
+\newcommand{\tv}{\smallskip\noindent\bf Tvrzení\rm{} }
+\newcommand{\app}{\smallskip\noindent\bf Aplikace\rm{} }
+\newcommand{\alg}{\smallskip\noindent\bf Algoritmus\rm{} }
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\L}{\mathcal{L}}
+\renewcommand{\O}{\mathcal{O}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\NP}{\mathcal{NP}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Ft}{\mathbb{F}}
+\newcommand{\xttt}{{\chi_T^\bot}^T}
+\newcommand{\todo}[1]{\bf TODO: \rm#1}
+\newcommand{\set}[1]{\{#1\}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\I}{{\bf I}}
+\newcommand{\In}{{\bf I}_n}
+%\newcommand{\qed}{\hfill QED}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\zz}{\circled{z}}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Ker}{Ker}
+\newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
+\newcommand\bigone{\makebox(0,0){\text{\huge1}}}
+\newcommand{\bigddots}[1]{\makebox(0,0){\rotatebox{-35}{\text{\xleaders\hbox{$\cdot$\hskip4pt}\hskip#1\kern0pt}}}}
+\newcommand{\sk}[1]{{\langle #1\rangle}}
+\newcommand{\diagdots}[3][-25]{%
+  \rotatebox{#1}{\makebox[0pt]{\makebox[#2]{\xleaders\hbox{$\cdot$\hskip#3}\hfill\kern0pt}}}%
+}
+
+\title{Státnice -- Informatika -- I4\\ Diskrétní modely a algoritmy\\ ~\\ 
+Pravděpodobnostní metody a algoritmy}
+\author{Ladislav Láska\\ Jan Musílek}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Kombinatorické počítání}
+\section{Vytvořující funkce}
+\section{Rekurence}
+\input{pravdepodobnostni-modely}
+\section{Asymptotické odhady funkcí}
+\section{Pravděpodobnostní konstrukce a algoritmy}
+
+\end{document}
