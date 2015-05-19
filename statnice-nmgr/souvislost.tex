@@ -1,0 +1,52 @@
+\df (Souvislost) Graf je hranově (vrcholově) $k$-souvislý právě tehdy, když je 
+souvislý a po odebrání $k-1$ hran (vrcholů) zůstává souvislý.
+
+\df (Souvislost orientovaných grafů) Graf $G$ je slabě souvislý, pokud je jeho 
+dezorientovaný ekvivalent souvislý. Graf je silně souvislý, pokud je každá 
+dvojce vrcholů spojená orientovanou cestou.
+
+{\it Více o silné souvislosti se nachází v sekci \ref{silna-souvislost}, včetně 
+algoritmu na hledání komponent silné souvislosti.}
+
+\vt (Ford-Fulkerson) Pro každý graf $G$ platí, že je hranově $k$-souvislý právě 
+tehdy, když mezi každou dvojicí vrcholů existuje alespoň $k$ hranově 
+disjunktních cest.
+
+\vt (Menger) Pro každý graf $G$ platí, že je vrcholově $k$-souvislý právě 
+tehdy, když mezi každými dvěma různými vrcholy existuje alespoň $k$ cest, které 
+jsou vrcholově disjunktní (až na koncové vrcholy).
+
+\vt (Souvislost a stupeň) Nechť $G$ má průměrný stupeň alespoň $4k$. Potom má 
+$G$ $k$-souvislý podgraf.
+
+\vt (Minimální souvislý graf) Algoritmicky najít nejmenší (co do počtu hran) 
+podgraf, který je $k$-souvislý je $\NP$-těžké.
+
+\df (Arboricita) Arboricita grafu $\A(G)$ je nejmenší počet lesů, které stačí k 
+pokrytí celého grafu.
+
+\poz (Dolní odhad na Arboricitu) Pro libovolný graf $\A(G) \geq m/(n-1)$, 
+protože každá kostra má nanejvýš $n-1$ hran.
+
+\vt (Nash-Williams) Pro graf $G=(V,E)$ platí: $\A(G) = \max_{S \subseteq V} 
+\lceil m_S / (|S| -1 ) \rceil$, kde $m_S$ je počet hran grafu indukovaného na 
+$S$.
+
+\subsection{Linkovanost}
+
+\df (Linkovanost) Graf $G$ je $k$-linkovaný, pokud pro libovolné množiny 
+vrcholů $s_i, t_i, i := 1,\dots, k$ existují hranově disjunktní cesty z $s_i$ 
+do $t_i$.
+
+\pzn Linkovanost je silnější varianta souvislosti, speciálně $k$-linkovaný graf 
+je určitě $k$-souvislý, naopak to neplatí; Mengerova věta totiž nezaručuje (a 
+ani nemůže) propojení správných vrcholů.
+
+\vt (Souvislost a linkovanost) Nechť $G$ je $2k$-linkovaný a obsahuje minor 
+$K_{4k}$. Potom je $G$ $k$-linkovaný.
+
+\vt (Velká souvislost a linkovanost) Nechť $G$ je $2^{4k+1}$-souvislý, potom je 
+$G$ $k$-linkovaný.
+
+
+
