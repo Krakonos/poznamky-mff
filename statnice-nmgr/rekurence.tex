@@ -2,11 +2,18 @@
 \label{sec:rekurence}
 
 Základním stavebním kamenem při počítání rekurencí jsou vytvořující funkce (viz
-sekci \ref{sec:vytvorujici-funkce}). Nejprve si uvedeme větu pro řešení lineárních rekurencí a pak ukážeme její použití pro nalezení explicitního vzorce pro $n$-tý člen Fibonacciho posloupnosti.
+sekci \ref{sec:vytvorujici-funkce}). Nejprve si uvedeme větu pro řešení
+lineárních rekurencí a pak ukážeme její použití pro nalezení explicitního
+vzorce pro $n$-tý člen Fibonacciho posloupnosti.
 
 \subsection{Věta o řešení lineárních rekurencí}
 
-\vt (kuchařka na řešení lineárních rekurencí) Buď $A_{n+k} = c_0A_n + \dots + c_{k-1}A_{n+k-1}$ lineární rekurence s počátečními podmínkami $A_0,\dots,A_{k-1}$. Dále buď $R(x) = x^k - c_{k-1}x^{k-1} - \dots - c_0x^0$ její charakteristický polynom a $\lambda_1,\dots,\lambda_z$ navzájem různé kořeny tohoto polynomu s násobnostmi po řadě $k_1,\dots,k_z$. Potom existují konstanty $C_{ij} \in \C$ takové, že
+\vt (kuchařka na řešení lineárních rekurencí) Buď $A_{n+k} = c_0A_n + \dots +
+c_{k-1}A_{n+k-1}$ lineární rekurence s počátečními podmínkami
+$A_0,\dots,A_{k-1}$. Dále buď $R(x) = x^k - c_{k-1}x^{k-1} - \dots - c_0x^0$
+její charakteristický polynom a $\lambda_1,\dots,\lambda_z$ navzájem různé
+kořeny tohoto polynomu s násobnostmi po řadě $k_1,\dots,k_z$. Potom existují
+konstanty $C_{ij} \in \C$ takové, že
 $$A_n = \sum_{i=1}^z\sum_{j=0}^{k_i-1}\left(C_{ij}\cdot{n+j\choose j}\cdot\lambda_i^n\right)$$
 Pokud polynom $R$ nemá násobné kořeny, vztah lze zapsat jednodušeji:
 $$A_n = \sum_{i=1}^nC_i\lambda_i^n$$
@@ -14,13 +21,18 @@ $$A_n = \sum_{i=1}^nC_i\lambda_i^n$$
 \dk Konstrukcí\footnote{Částečně přejato z \url{http://mj.ucw.cz/papers/linrec.pdf}.}. Mějme zadanou lineární rekurenci, kde pro každé $n\ge k$ platí:
 $$A_n = c_0A_{n-k} + c_1A_{n-k+1} + \dots + c_{k-1}A_{n-1}$$
 
-Označíme-li $G$ hledanou vytvořující funkci, platí $A_n = [x^n]G(x)$, kde operátor $[x^n]$ značí koeficient u $x^n$ v mocninné řadě pro funkci $G$. Pak také $A_{n-i} = [x^n](G(x)\cdot x^i)$. Přepíšeme tedy rekurentní vztah novou notací:
+Označíme-li $G$ hledanou vytvořující funkci, platí $A_n = [x^n]G(x)$, kde
+operátor $[x^n]$ značí koeficient u $x^n$ v mocninné řadě pro funkci $G$. Pak
+také $A_{n-i} = [x^n](G(x)\cdot x^i)$. Přepíšeme tedy rekurentní vztah novou
+notací:
 
 \begin{align}
 [x^n]G(x) &= c_0[x^n](G(x)\cdot x^k) + c_1[x^n](G(x)\cdot x^{k-1}) + \dots + c_{k-1}[x^n](G(x)\cdot x^1) \\
 &= [x^n]\left(G(x)\cdot (c_0x^k + c_1x^{k-1} + \dots + c_{k-1}x^1)\right)\end{align}
 
-Pokud by se koeficienty u $x^n$ rovnaly pro všechna $n$, byly by stejné i vytvořující funkce. Pokud se nerovnají pro $n<k$, pak se funkce na levé a pravé straně liší o polynom $P(x)$ stupně menšího než $k$:
+Pokud by se koeficienty u $x^n$ rovnaly pro všechna $n$, byly by stejné i
+vytvořující funkce. Pokud se nerovnají pro $n<k$, pak se funkce na levé a pravé
+straně liší o polynom $P(x)$ stupně menšího než $k$:
 
 \begin{align}
 G(x) &= G(x)\cdot(c_0x^k + \dots + c_{k-1}x^1) - P(x) \\
@@ -43,10 +55,17 @@ je $D_i\lambda_i^n$ pro nějakou konstantu $D_i$. Když sečteme všechny parci�
 
 $$A_n = [x^n]G(x) = D_1\lambda_1^n + \dots + D_k\lambda_k^n$$
 
-Důkaz pro vícenásobné kořeny je podobný, jen se musíme vypořádat s tím, že nám v rozkladu na parciální zlomky vzniknou členy ve tvaru $C_i/(x-\alpha_i)^j$. K tomu nám pomůže zobecněná binomická věta.
+Důkaz pro vícenásobné kořeny je podobný, jen se musíme vypořádat s tím, že nám
+v rozkladu na parciální zlomky vzniknou členy ve tvaru $C_i/(x-\alpha_i)^j$. K
+tomu nám pomůže zobecněná binomická věta.
 \qed
 
-Konstanty $D_i$ spočteme z počátečních podmínek rekurence (vyřešením soustavy lineárních rovnic). Pro praktické počítání si všimněme, že $\lambda_i$ jsou kořeny zrcadlového polynomu ke $Q(x)$ -- můžeme tedy počítat rovnou kořeny tohoto zrcadlového polynomu $Q^*(x) = x^k-c_{k-1}x^{k-1}-\dots-c_x^0$ a ušetřit si práci. Tento polynom se při studiu rekurencí často používá a říká se mu charakteristický polynom rekurence.
+Konstanty $D_i$ spočteme z počátečních podmínek rekurence (vyřešením soustavy
+lineárních rovnic). Pro praktické počítání si všimněme, že $\lambda_i$ jsou
+kořeny zrcadlového polynomu ke $Q(x)$ -- můžeme tedy počítat rovnou kořeny
+tohoto zrcadlového polynomu $Q^*(x) = x^k-c_{k-1}x^{k-1}-\dots-c_x^0$ a ušetřit
+si práci. Tento polynom se při studiu rekurencí často používá a říká se mu
+charakteristický polynom rekurence.
 
 \subsection{Příklady použití}
 \noindent\textbf{Příklad} (odvození explicitního vzorce pro $n$-tý člen Fibonacciho posloupnosti)
@@ -65,7 +84,8 @@ Konstanty $D_1$ a $D_2$ odvodíme z rovnic pro $F_0$ a $F_1$, tedy:
 $$F_0 = 0 = D1 + D2$$
 $$F_1 = 1 = D_1\left({1+\sqrt 5\over 2}\right) + D_2\left({1-\sqrt 5\over 2}\right)$$
 
-Vyřešíme soustavu lineárních rovnic a dostaneme $D_1 = 1/\sqrt 5$, $D_2 = -1/\sqrt 5$. Platí tedy explicitní vzorec pro $n$-té Fibonacciho číslo:
+Vyřešíme soustavu lineárních rovnic a dostaneme $D_1 = 1/\sqrt 5$, $D_2 =
+-1/\sqrt 5$. Platí tedy explicitní vzorec pro $n$-té Fibonacciho číslo:
 
 $$F_n = {1\over\sqrt 5}\left(\left({1+\sqrt 5\over 2}\right)^n - \left({1-\sqrt 5\over 2}\right)^n\right)$$
 \qed
@@ -75,7 +95,7 @@ $$F_n = {1\over\sqrt 5}\left(\left({1+\sqrt 5\over 2}\right)^n - \left({1-\sqrt 
 Master theorem nachází využití v analýze časové složitosti rekurzivních
 algoritmů. Máme-li algoritmus, který v každém kroku rozdělí problém na $a$
 podproblémů velikosti $N/b$ a zároveň tímto dělením a naopak sestavováním
-podřešení stráví čas $\Theta(N^c)$, můžeme použít následující.
+celkév odpovědi stráví čas $\Theta(N^c)$, můžeme použít následující.
 
 \vt \emph{(Master theorem)} Rekurentní rovnice $T(N) = a\cdot T(N/b) + \Theta(N^c), T(1) = 1$ má pro konstanty $a \ge 1, b > 1, c\ge 0$ řešení:
 \begin{itemize*}
@@ -84,5 +104,38 @@ podřešení stráví čas $\Theta(N^c)$, můžeme použít následující.
 \item $T(N) = \Theta(N^{\log_b a})$, pokud $a/b^c > 1$
 \end{itemize*}
 
-\todo \dk
+\dk Uvažujme rekurenci:\footnote{Důkaz je částečně převzat z \url{mj.ucw.cz/vyuka/ads/29-dac.pdf}}
+\begin{align*}
+T(1) &= 1 \\
+T(N) &= a\cdot T(N/b) + \Theta(N^c)
+\end{align*}
+
+Bez újmy na obecnosti předpokládejme, že $N$ je mocninou $b$. Pokud by nebylo,
+spočítáme horní odhad přes nejbližší vyšší mocninu $b$ a uvědomíme si, že je
+vyšší jen konstantakrát. Představíme si strom rekurze. Každý vnitřní vrchol
+stromu má přesně $a$ synů, takže na $i$-té hladině se nachází $a^i$ vrcholů.
+Problémy na $i$-té hladině mají velikost $N/b^i$ a celý strom rekurze má
+hloubku $\log_b N$.
+
+V jednom vrcholu $i$-té hladiny strávíme čas $\Theta((N/b^i)^c)$, na celé
+hladině $\Theta(a^i\cdot (N/b^i)^c)$. Pro snažší počítání tento čas upravíme do
+tvaru $\Theta(N^c\cdot (a/b^c)^i)$. Potom v součtu na všech hladinách strávíme:
+\begin{align*}
+\Theta(N^c\cdot [(a/b^c)^0 + (a/b^c)^1 + \dots + (a/b^c)^{\log_b N} ])
+\end{align*}
+
+Výraz v hranatých závorkách je geometrická řada s kvocientem $q=a/b^c$. Její součet závisí na velikosti kvocientu.
+\begin{itemize*}
+\item $q = 1$: Všechny členy čady jsou rovny jedné, součet je tedy $\log_b N +
+	1$. Tomu odpovídá časová složitost $T(N) = \Theta(N^c + \log N)$
+\item $q < 1$: Odhadneme součet shora součtem nekonečné geometrické
+	posloupnosti s kvocientem $q$, tedy $1/(1-q)$, což je konstanta. Proto
+	$T(N) = \Theta(N^c)$.
+\item $q > 1$: Řadu sečteme\footnote{Podle vzorce pro součet geometrické posloupnosti $s_n = a_1\cdot(q^n-1)/(q-1)$ pro $q\neq 1$.} na $(q^{1+\log_b N} - 1) / (q-1) = \Theta(q^{log_b N})$. Nejvíce času v tomto případě trávíme v listech. Výraz chytře upravíme:
+\begin{align*}
+q^{\log_b N} = \left(a\over b^c\right)^{\log_b N} = {b^{\log_b a\cdot\log_b N} \over b^{c\cdot\log_b N}} = {(b^{\log_b N})^{\log_b a} \over (b^{\log_b N})^c} = {N^{\log_b a}\over N^c}
+\end{align*}
+Vyjde nám $T(N) = \Theta(N^c\cdot N^{\log_b a} / N^c) = \Theta(N^{\log_b a})$.
+\end{itemize*}
+\qed
 
