@@ -1,0 +1,65 @@
+\section{Vytvořující funkce}
+\label{sec:vytvorujici-funkce}
+
+\df Nechť $(a_n)$ je posloupnost reálných čísel. Vytvořující řadou této
+posloupnosti rozumíme mocninnou řadu:
+$$a_0 + a_1x + a_2x^2 + \dots = \sum_{n=0}^\infty a_nx^n$$
+
+Je-li tato řada konvergentní pro nějaké $x \neq 0$, nazveme tuto řadu
+vytvořující funkcí\footnote{Pro odlišení od ostatních druhů vytvořujících
+funkcí se někdy nazývá obyčejná vytvořující funkce.} posloupnosti $(a_n)$ a
+budeme ji značit $a(x)$. 
+
+Podobně můžeme definovat vytvořující řadu, resp. vytvořující funkci
+dvourozměrné (nebo i vícerozměrné) posloupnosti $(a_{m,n})$:
+$$a(x,y) = \sum_{m,n=0}^\infty a_{m,n}x^my^n$$
+
+\subsection{Vlastnosti vytvořujících funkcí}
+Najít vytvořující funkci posloupnosti umíme snadno z definice. Když chceme
+naopak získat z vytvořující funkce posloupnost, můžeme užít následující vzorec:
+
+$$a_n = {a^{(n)}(0)\over n!}$$
+
+kde $a^{(n)}(0)$ značí $n$-tou derivaci funkce $a$ v bodě 0. Tato vlastnost
+plyne z matematické analýzy, konkrétně z Taylorova rozvoje. 
+
+Z definice je také jasné, že ne každá posloupnost reálných čísel má vytvořující
+funkci (příslušná vytvořující řada nemusí konvergovat). Stejně tak ne každá
+funkce odpovídá nějaké posloupnosti reálných čísel (nemusí mít definované
+derivace).
+
+
+\subsection{Operace s vytvořujícími funkcemi}
+
+\begin{description*}
+\item[Součet] Posloupnost $(a_0+b_0,a_1+b_1,\dots)$ má vytvořující funkci $a(x)+b(x)$.
+\item[Násobení konstantou] Posloupnost $(\alpha a_0, \alpha a_1, \dots)$ má vytvořující funkci $\alpha a(x)$.
+\item[Posun vpravo] Posloupnost $(\underbrace{0,0,\dots,0}_{n\times},a_0,a_1,\dots)$ má vytvořující funkci $x^na(x)$.
+\item[Posun vlevo] Posloupnost $(a_k,a_{k+1},\dots)$ má vytvořující funkci $(a(x)-\sum_{i=0}^{k-1}a_ix^i)/x^k$. Tady musíme nejen vydělit $x^k$, ale navíc odečíst prvních $k$ členů. Např. posun o 3: $(a(x)-a_0-a_1x-a_2x^2)/x^3$.
+\item[Dosazení $\alpha x$ a $x$] Vytvořující funkce $a(\alpha x)$ odpovídá posloupnosti $(a_0,\alpha a_1,\alpha^2 a_2,\dots)$.
+\item[Dosazení $x^n$ za $x$] Vytvořující funkce $a(x^n)$ odpovídá posloupnosti $(a_0,\underbrace{0,\dots,0}_{n-1\times},a_1,\underbrace{0,\dots,0}_{n-1\times},a_2,\dots)$.
+\item[Derivace] Vytvořující funkce $a'(x)$ odpovídá posloupnosti $(a_1,2a_2,3a_3,\dots)$.
+\item[Násobení] Násobením vytvořujících funkcí $a(x)b(x)$ dostáváme vytvořující funkci $c(x)$, která odpovídá posloupnosti $(c_n); c_n = \sum_{k=0}^n a_kb_{n-k}$.
+\end{description*}
+
+\subsection{Použití vytvořujících funkcí}
+
+Vytvořující funkce mohou být využity při odvozování explicitních vzorců pro rekurentní posloupnosti a kombinatorické počítání (tam se ale jedná především o exponenciální vytvořující funkce). 
+
+Příkladem použití je odvození explicitního vzorce pro $n$-tý člen Fibonacciho posloupnosti (důkaz v sekci \ref{sec:rekurence}).
+
+\subsection{Exponenciální vytvořující funkce}
+\df Exponenciální vytvořující řadou posloupnosti $(a_n)$ je mocninná řada:
+$$a_0 + a_1x + {a_2x^2 \over 2!} + \dots = \sum_{n=0}^\infty a_n{x^n\over n!}$$
+Pokud tato řada konverguje pro $x \neq 0$, pak ji nazveme exponenciální vytvořující funkcí posloupnosti $(a_n)$ a označíme ji $A(x)$.
+
+Chceme-li z exponenciální vytvořující funkce odvodit odpovídající posloupnost, můžeme spočítat $a_n = A^{(n)}(0)$, kde $A^{(n)}(0)$ značí $n$-tou derivaci funkce $A(x)$ v bodě 0.
+
+{\bf Poznámka:} Některé posloupnosti nemají odpovídající obyčejnou vytvořující funkci, ale mají exponenciální vytvořující funkci. Příkladem je posloupnost $(a_n); a_n = n!$.
+
+S exponenciálními vytvořujícími funkcemi můžeme stejně jako u obyčejných vytvořujících funkcí používat operace sčítání a násobení konstantou. Další operace můžeme používat s úpravami. Speciálně zajímavé je násobení exp. vytvořujících funkcí:
+$$A(x)B(x) = C(x),\qquad c_n = \sum_{k=0}^n{n\choose k}a_kb_{n-k}$$
+
+Exponenciální vytvořující funkce se používají především v kombinatorickém počítání.
+
+\todo Použití exp. vytv. fcí v kombinatorickém počítání.

@@ -1,0 +1,73 @@
+\section{Rekurence}
+\label{sec:rekurence}
+
+Základním stavebním kamenem při počítání rekurencí jsou vytvořující funkce (viz
+sekci \ref{sec:vytvorujici-funkce}). Nejprve si uvedeme větu pro řešení lineárních rekurencí a pak ukážeme její použití pro nalezení explicitního vzorce pro $n$-tý člen Fibonacciho posloupnosti.
+
+\subsection{Věta o řešení lineárních rekurencí}
+
+\vt (kuchařka na řešení lineárních rekurencí) Buď $A_{n+k} = c_0A_n + \dots + c_{k-1}A_{n+k-1}$ lineární rekurence s počátečními podmínkami $A_0,\dots,A_{k-1}$. Dále buď $R(x) = x^k - c_{k-1}x^{k-1} - \dots - c_0x^0$ její charakteristický polynom a $\lambda_1,\dots,\lambda_z$ navzájem různé kořeny tohoto polynomu s násobnostmi po řadě $k_1,\dots,k_z$. Potom existují konstanty $C_{ij} \in \C$ takové, že
+$$A_n = \sum_{i=1}^z\sum_{j=0}^{k_i-1}\left(C_{ij}\cdot{n+j\choose j}\cdot\lambda_i^n\right)$$
+Pokud polynom $R$ nemá násobné kořeny, vztah lze zapsat jednodušeji:
+$$A_n = \sum_{i=1}^nC_i\lambda_i^n$$
+
+\dk Konstrukcí\footnote{Částečně přejato z \url{http://mj.ucw.cz/papers/linrec.pdf}.}. Mějme zadanou lineární rekurenci, kde pro každé $n\ge k$ platí:
+$$A_n = c_0A_{n-k} + c_1A_{n-k+1} + \dots + c_{k-1}A_{n-1}$$
+
+Označíme-li $G$ hledanou vytvořující funkci, platí $A_n = [x^n]G(x)$, kde operátor $[x^n]$ značí koeficient u $x^n$ v mocninné řadě pro funkci $G$. Pak také $A_{n-i} = [x^n](G(x)\cdot x^i)$. Přepíšeme tedy rekurentní vztah novou notací:
+
+\begin{align}
+[x^n]G(x) &= c_0[x^n](G(x)\cdot x^k) + c_1[x^n](G(x)\cdot x^{k-1}) + \dots + c_{k-1}[x^n](G(x)\cdot x^1) \\
+&= [x^n]\left(G(x)\cdot (c_0x^k + c_1x^{k-1} + \dots + c_{k-1}x^1)\right)\end{align}
+
+Pokud by se koeficienty u $x^n$ rovnaly pro všechna $n$, byly by stejné i vytvořující funkce. Pokud se nerovnají pro $n<k$, pak se funkce na levé a pravé straně liší o polynom $P(x)$ stupně menšího než $k$:
+
+\begin{align}
+G(x) &= G(x)\cdot(c_0x^k + \dots + c_{k-1}x^1) - P(x) \\
+G(x) &= {P(x)\over c_0x^k+c_1x^{k-1}+\dots +c_{k-1}x^1-1}
+\end{align}
+
+Nalezneme kořeny $\alpha_1, \dots, \alpha_k$ polynomu ve jmenovateli zlomku,
+tj. polynomu $Q(x) = c_0x^k+c_1x^{k-1}+\dots +c_{k-1}x^1-1$. Předpokládejme,
+že jsou navzájem různé. Pak můžeme provést rozklad na parciální zlomky:
+$$G(x) = {C_1\over x-\alpha_1} + \dots + {C_k\over x-\alpha_k}$$
+
+Když zjistíme, jakou posloupnost generuje $C_i/(x-\alpha_i)$, máme
+vyhráno. Vydělíme proto čitatele i jmenovatele $-\alpha_i$ a dostaneme
+ekvivalentní tvar:
+$${-C_i/\alpha_i\over1-{1\over\alpha_i}x} = {-C_i\lambda_i\over 1-\lambda_ix},\qquad\text{kde}~\lambda_i = 1/\alpha_i$$
+
+Pomocí pravidla o dosazení $\lambda_ix$ za $x$ a násobení $\lambda_i$
+zjistíme, že vytvořující funkce odpovídá polynomu, jehož koeficient u $x^n$
+je $D_i\lambda_i^n$ pro nějakou konstantu $D_i$. Když sečteme všechny parciální zlomky, dostaneme explicitní vzorec:
+
+$$A_n = [x^n]G(x) = D_1\lambda_1^n + \dots + D_k\lambda_k^n$$
+
+Důkaz pro vícenásobné kořeny je podobný, jen se musíme vypořádat s tím, že nám v rozkladu na parciální zlomky vzniknou členy ve tvaru $C_i/(x-\alpha_i)^j$. K tomu nám pomůže zobecněná binomická věta.
+\qed
+
+Konstanty $D_i$ spočteme z počátečních podmínek rekurence (vyřešením soustavy lineárních rovnic). Pro praktické počítání si všimněme, že $\lambda_i$ jsou kořeny zrcadlového polynomu ke $Q(x)$ -- můžeme tedy počítat rovnou kořeny tohoto zrcadlového polynomu $Q^*(x) = x^k-c_{k-1}x^{k-1}-\dots-c_x^0$ a ušetřit si práci. Tento polynom se při studiu rekurencí často používá a říká se mu charakteristický polynom rekurence.
+
+\subsection{Příklady použití}
+\noindent\textbf{Příklad} (odvození explicitního vzorce pro $n$-tý člen Fibonacciho posloupnosti)
+$$F_0 = 0\qquad\qquad F_1 = 1\qquad\qquad F_n = F_{n-1} + F_{n-2}$$
+
+Tedy vytvořující funkce $F(x)$ bude vypadat následovně:
+$$F(x) = {-x\over x^2+x-1} = {x\over 1-x-x^2}$$
+
+K tomu zrcadlový polynom jmenovatele:
+$$Q^*(x) = x^2-x-1\qquad\qquad\lambda_{1,2} = {1\pm\sqrt 5\over 2}$$
+
+Tedy explicitní vzorec bude (zatím s neznámými konstantami $D_i$):
+$$F_n = D_1\left({1+\sqrt 5\over 2}\right)^n + D_2\left({1-\sqrt 5\over 2}\right)^n$$
+
+Konstanty $D_1$ a $D_2$ odvodíme z rovnic pro $F_0$ a $F_1$, tedy:
+$$F_0 = 0 = D1 + D2$$
+$$F_1 = 1 = D_1\left({1+\sqrt 5\over 2}\right) + D_2\left({1-\sqrt 5\over 2}\right)$$
+
+Vyřešíme soustavu lineárních rovnic a dostaneme $D_1 = 1/\sqrt 5$, $D_2 = -1/\sqrt 5$. Platí tedy explicitní vzorec pro $n$-té Fibonacciho číslo:
+
+$$F_n = {1\over\sqrt 5}\left(\left({1+\sqrt 5\over 2}\right)^n - \left({1-\sqrt 5\over 2}\right)^n\right)$$
+\qed
+
+\todo Master theorem?
