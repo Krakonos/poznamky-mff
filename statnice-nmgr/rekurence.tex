@@ -70,4 +70,19 @@ Vyřešíme soustavu lineárních rovnic a dostaneme $D_1 = 1/\sqrt 5$, $D_2 = -
 $$F_n = {1\over\sqrt 5}\left(\left({1+\sqrt 5\over 2}\right)^n - \left({1-\sqrt 5\over 2}\right)^n\right)$$
 \qed
 
-\todo Master theorem?
+\subsection{Master theorem}
+
+Master theorem nachází využití v analýze časové složitosti rekurzivních
+algoritmů. Máme-li algoritmus, který v každém kroku rozdělí problém na $a$
+podproblémů velikosti $N/b$ a zároveň tímto dělením a naopak sestavováním
+podřešení stráví čas $\Theta(N^c)$, můžeme použít následující.
+
+\vt \emph{(Master theorem)} Rekurentní rovnice $T(N) = a\cdot T(N/b) + \Theta(N^c), T(1) = 1$ má pro konstanty $a \ge 1, b > 1, c\ge 0$ řešení:
+\begin{itemize*}
+\item $T(N) = \Theta(N^c \log N)$, pokud $a/b^c = 1$
+\item $T(N) = \Theta(N^c)$, pokud $a/b^c < 1$
+\item $T(N) = \Theta(N^{\log_b a})$, pokud $a/b^c > 1$
+\end{itemize*}
+
+\todo \dk
+
