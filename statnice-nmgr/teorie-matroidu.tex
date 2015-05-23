@@ -1,0 +1,79 @@
+\section{Teorie matroidů}
+
+Matroid je struktura v kombinatorice, která zobecňuje koncept
+\uv{nezávislosti}, jehož konkrétním příkladem je lineární nezávistlost ve
+vektorových prostorech. Existuje mnoho ekvivalentních způsobů jak zavést
+matroidy, nejvýznamnějšími jsou nezávislé množiny, báze, kružnice a ranková
+funkce. Teorie matroidů si často vypůjčuje teminologii z lineární algebry a
+teorie grafů.
+
+\subsection{Definice přes nezávislé množiny}
+\df Matroid $M$ je dvojice $(S,I)$, kde $S$ je konečná množina (nazýváme ji
+\emph{nosná množina} a $I \subset 2^S$ je množina podmnožin $S$ (nazýváme je
+nezávislé množiny), splňující následující vlastnosti:
+\begin{enumerate*}
+\item Prázdná množina je nezávislá, tedy $\emptyset \in I$
+\item Každá podmnožina nezávislé množiny je nezávislá, tedy pro každé $A' \subseteq A \subseteq S$ platí $A \in I \Rightarrow A' \in I$. Tato vlastnost se nazývá \emph{dědičnost}.
+\item Pokud $A$ a $B$ jsou dvě nezávislé množiny z $I$, $|A| > |B|$, pak existuje prvek $x\in A\setminus B$ tž. $B\cup\{x\}$ je nezávislá. Tato vlastnost se nazývá \emph{výměnná vlastnost}.
+\end{enumerate*}
+
+\df Podmnožina $S$, která není v $I$ se nazývá \emph{závislá}. Maximální nezávislá
+množina (po přidání libovolného prvku se stane závislou) se nazývá \emph{báze}.
+Naopak minimální závislou množinu (po odebrání libovolného prvku se stane
+nezávislou) nazýváme \emph{kružnice}.
+
+\pzn Grafová analogie: $S$ je množina hran grafu, $I$ je množina všech lesů na
+hranách $S$. Báze odpovídá kostře grafu $G$, kružnice cyklu v grafu $G$.
+
+\pzn Vektorová analogie: $S$ je množina sloupců matice. Nezávislé množiny jsou
+pak právě lineárně nezávislé množiny vektorů z $S$. Báze matroidu odpovídají
+bázím vektorového prostoru. 
+
+\subsection{Definice přes báze}
+\df Matroid $M$ je dvojice $(S,\B)$, kde $S$ je konečná množina a $\B$ je
+množina podmnožin $S$ (tyto podmnožiny nazýváme báze), splňující následující
+vlastnosti:
+\begin{enumerate*}
+\item $\B$ je neprázdná.
+\item Když $A,B \in \B$ jsou různé a $a \in A\setminus B$, pak existuje $b \in B\setminus A$ tž. $A\setminus\{a\}\cup\{b\} \in \B$.
+\end{enumerate*}
+
+\poz Tato definice je ekvivalentní s definicí přes nezávislé množiny. Nezávislé
+množiny jsou právě podmnožiny bází.
+
+\subsection{Definice přes kružnice}
+\df Matroid $M$ je dvojice $(S,\c)$, kde $S$ je konečná množina a $\c$ je
+množina podmnožin $S$ (tyto podmnožiny nazýváme kružnice), splňující
+následující vlastnosti: 
+\begin{enumerate*}
+\item $\emptyset \notin \c$
+\item Pokud $A$ i $B$ jsou kružnice, pak $A\subseteq B \Rightarrow A = B$.
+\item Když $A$ i $B$ jsou kružnice a $e\in A\cap B$, pak existuje kružnice v $A\cup B$, která neobsahuje $e$.
+\end{enumerate*}
+
+\poz Tato definice je ekvivalentní s definicí přes nezávislé množiny. Nezávislé
+množiny jsou právě ty, které neobsahují žádnou kružnici.
+
+\subsection{Definice přes rankovou funkci}
+\df Ranková funkce je zobrazení $r: 2^S \rightarrow \N$, která každé podmnožině
+$S$ přiřadí velikost její největší nezávislé podmnožiny.
+
+\df Matroid $M$ je dvojice $(S,r)$, kde $S$ je konečná množina a $r: 2^S
+\rightarrow \N$ je ranková funkce, splňující následující vlastnosti:
+\begin{enumerate*}
+\item $0 \le r(X) \le |X|$
+\item $X\subseteq Y \Rightarrow r(X) \le r(Y)$
+\item $r(X\cup Y) + r(X\cap Y) \le r(X) + r(Y)$
+\end{enumerate*}
+
+\poz Tato definice je ekvivalentní s definicí přes nezávislé množiny. Nezávislé množiny jsou právě ty, kde $r(X) = |X|$.
+
+\subsection{Přehled jednoduchých vlastností}
+\tv Všechny báze matroidu $M$ mají stejnou velikost $r(M)$. Toto číslo
+označujeme jako rank matroidu $M$. V grafech je zjevně $r(G) = n-k$, kde $n$ je počet vrcholů a $k$ počet komponent.
+
+\df Duální matroid $M^*$ definujeme tak, že jeho báze jsou doplňky bází $M$. Pak zjevně platí $M^{**} = M$.
+
+
+
+
