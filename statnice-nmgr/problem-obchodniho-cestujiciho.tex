@@ -36,6 +36,12 @@ algoritmů, které najdou přijatelně dobré (i když ne nejlepší) řešení.
 Všechny aproximační algoritmy pro TSP předpokládají, že platí trojúhelníková
 nerovnost.
 
+\begin{wrapfigure}{R}{4.5cm}
+\centering
+\vspace{-0.4cm}
+\includegraphics[width=4.5cm]{img/tsp-aproximace.pdf}
+\end{wrapfigure}
+
 \alg (Aproximace přes kostry) Nejprve najdeme minimální kostru grafu $G$. Ta je
 dolním odhadem na řešení TSP.\footnote{Kdyby bylo řešení TSP menší, než
 minimální kostra, pak bychom dostali menší kostru vypuštěním libovolné hrany z
@@ -77,7 +83,4 @@ hrany a prohlásíme je za párování. Protože váha celé kružnice je $w(B)$
 váha lichých nebo sudých hran musí být nejvýš $w(B)/2$. Tedy, $w(M) + w(T) \le
 w(A) + w(A)/2$ a algoritmus je $3\over 2$-aproximační. 
 \qed
-
-
-
 
