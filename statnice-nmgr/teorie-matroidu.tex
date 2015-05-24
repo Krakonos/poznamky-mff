@@ -12,9 +12,9 @@ teorie grafů.
 \emph{nosná množina} a $I \subset 2^S$ je množina podmnožin $S$ (nazýváme je
 nezávislé množiny), splňující následující vlastnosti:
 \begin{enumerate*}
-\item Prázdná množina je nezávislá, tedy $\emptyset \in I$
+\item Prázdná množina je nezávislá, tedy $\emptyset \in I$.
 \item Každá podmnožina nezávislé množiny je nezávislá, tedy pro každé $A' \subseteq A \subseteq S$ platí $A \in I \Rightarrow A' \in I$. Tato vlastnost se nazývá \emph{dědičnost}.
-\item Pokud $A$ a $B$ jsou dvě nezávislé množiny z $I$, $|A| > |B|$, pak existuje prvek $x\in A\setminus B$ tž. $B\cup\{x\}$ je nezávislá. Tato vlastnost se nazývá \emph{výměnná vlastnost}.
+\item Pokud $A$ a $B$ jsou dvě nezávislé množiny z $I$, $|A| = |B| + 1$, pak existuje prvek $x\in A\setminus B$ tž. $B\cup\{x\}$ je nezávislá. Tato vlastnost se nazývá \emph{výměnná vlastnost}.
 \end{enumerate*}
 
 \df Podmnožina $S$, která není v $I$ se nazývá \emph{závislá}. Maximální nezávislá
@@ -70,10 +70,113 @@ $S$ přiřadí velikost její největší nezávislé podmnožiny.
 
 \subsection{Přehled jednoduchých vlastností}
 \tv Všechny báze matroidu $M$ mají stejnou velikost $r(M)$. Toto číslo
-označujeme jako rank matroidu $M$. V grafech je zjevně $r(G) = n-k$, kde $n$ je počet vrcholů a $k$ počet komponent.
+označujeme jako rank matroidu $M$. V grafech je zjevně $r(G) = n-k$, kde $n$ je
+počet vrcholů a $k$ počet komponent.
 
-\df Duální matroid $M^*$ definujeme tak, že jeho báze jsou doplňky bází $M$. Pak zjevně platí $M^{**} = M$.
+\df Duální matroid $M^*$ definujeme tak, že jeho báze jsou doplňky bází $M$.
+Pak zjevně platí $M^{**} = M$.
 
+\df Smyčka je prvek $S$, který není obsažen v žádné bázi. Co-smyčka je prvek
+$S$ obsažený v každé bázi.
 
+\df Uniformní matroid $U_{k,n}$ na $n$ prvcích definujeme tak, že nezávislými
+podmnožinami jsou právě ty, jejihž velikost je nejvýše $k$. V $U_{0,n}$ je
+každý prvek smyčka, v $U_{n,n}$ je každý prvek co-smyčka.
+
+\subsection{Operace s matroidy}
+\df Nechť $M = (S_1,I_1)$ a $N = (S_2,I_2)$ jsou matroidy. \emph{Direktní
+součet} matroidů $M$ a $N$ je matroid $(S_1 \sqcup S_2, I_1 \sqcup I_2)$, kde
+$A\sqcup B$ značí disjuktní sjednocení množin $A$ a $B$.
+
+\df Nechť $M = (S_1,I_1)$ a $N = (S_2,I_2)$ jsou matroidy. \emph{Sjednocení
+matroidů} $M$ a $N$ je matroid $(S_1\cup S_2, \{i_1\cup i_2 ~|~ \forall i_1\in
+I_1, \forall i_2\in I_2\})$.
+
+\subsection{Hladový algoritmus}
+\df \emph{Systém nezávislých množin} je dvojice $(S,I)$, kde $S$ je konečná
+množina a $I \subset 2^S$ je množina podmnožin $S$ (nazýváme je nezávislé
+množiny), splňující, že $\emptyset\in I$ a každá podmnožina nezávislé množiny
+je též nezávislá.
+
+\vt Mějme $M = (X,J)$ systém nezávislých množin a orákulum, které nám pro každou
+množinu $Y\subseteq X$ určí, zda je nezávislá. Definujeme hladový algoritmus
+tak, že začne s prázdnou množinou $S$ a poté do ní v každém kroku přidá prvek z
+$X$ s nejnižším ohodnocením, který neporuší nezávislost $S$. Potom hladový
+algoritmus vygeneruje maximální nezávislou množinu $S$ s minimálním součtem
+ohodnocení pro každou nezápornou ohodnocovací funkci $w: X \rightarrow \N$ právě
+tehdy, když $M$ je matroid.
+
+\dk Rozdělíme tvrzení na dvě implikace a dokážeme každou zvlášť.
+
+\noindent \textbf{1) $M$ je matroid $\Rightarrow$ hladový algoritmus funguje pro
+každé ohodnocení $w$}
+
+Je zjevné, že hladový algoritmus nalezne maximální nezávislou množinu. Vezměmě
+výstup hladového algoritmu $\{x_1,\dots,x_r\}$ tž. $w(x_1) \le \dots \le
+w(x_r)$. Pro spor předpokládejme, že existuje nezávislá množina
+$\{y_1,\dots,y_r\}$ tž. $w(y_1) \le \dots \le w(y_r)$ a $w(x_k) > w(y_k)$
+pro nějaké $k$. Pokud by takové $k$ neexistovalo, je $\{x_1,\dots,x_r\}$
+maximální nezávislá množina s minimálním ohodnocením.
+
+Předpokládejme, že $k$ je nejmenší takové, že $w(x_k) > w(y_k)$. Zjevně $k > 1$.
+Potom mějme $S = \{x_1,\dots,x_{k-1}\}$ a $T = \{y_1,\dots,y_k\}$. Platí, že
+$|T| = |S|+1$ a tedy podle výměnné vlastnosti matroidů existuje $j \in
+\{1,\dots,k\}$ tž. $S\cup \{y_j\}$ je nezávislá množina (a $y_j$ není v $S$).
+Protože $w(y_j) \le w(y_k) < w(x_k)$, hladový algoritmus by vybral $y_j$ dříve,
+než $x_k$, což je spor.
+
+\noindent \textbf{2) hladový algoritmus funguje pro každé ohodnocení $w$
+$\Rightarrow$ $M$ je matroid}
+
+Předpokládejme, že máme systém nezávislých množin, který nesplňuje výměnnou
+vlastnost. Zkonstruujeme ohodnocovací funkci $w$ takovou, že na ní hladový
+algoritmus selže. Mějme tedy $A,B \subset X$ nezávislé množiny takové, že $|A| =
+|B| + 1$, ale pro žádné $a \in A\setminus B$ není $B\cup \set a$ nezávislá
+množina. Pak definujme:
+\begin{align*}
+w(x) = \left\{
+	\begin{array}{lr}
+		w_1\quad\text{pokud}~x \in A\cap B \\
+		w_2\quad\text{pokud}~x \in B \setminus A \\
+		w_3\quad\text{pokud}~x \in A \setminus B \\
+		w_4\quad\text{jinak}
+	\end{array}
+	\right.
+\end{align*}
+
+Dále definujme, $w_1 < w_2 < w_3 < w_4$. Všimněme si, že hladový algoritmus
+nejprve vybere všechny prvky z $A\cap B$, poté všechny prvky z $B\setminus A$ a
+pak (podle předpokladu) už nebude moci vybrat žádný prvek z $A\setminus B$.
+Protože $B$ není maximální, budeme k němu muset přidat prvek z
+$X\setminus\set{A\cup B}$, který má váhu $w_4$.
+
+Nyní nám stačí nastavit konstanty $w_1,\dots,w_4$ tak, aby byl výsledek
+hladového algoritmu těžší, než kterákoliv nezávislá množina obsahující $A$
+(taková zjevně musí existovat). Mějme tedy $m$ velikost maximální nezávislé
+množiny. Chceme:
+\begin{align*}
+|A\cap B|w_1 + |B-A|w_2 + (m-|B|)w_4 > |A\cap B|w_1 + |A-B|w_3 + (m-|A|)w_4
+\end{align*}
+Protože $|A| = |B|+1$, tak:
+\begin{align}
+\label{rov:hungry-w4}
+w_4 > |A-B|w_3 - |B-A|w_2
+\end{align}
+Hladový algoritmus vybere o jeden prvek s váhou $w_4$ více, než kdyby nejdříve
+pobral celou množinu $A$. Musíme tedy nastavit $w_4$ dostatečně velké. Jeden ze
+způsobů, jak jej zvolit (pro libovolné $\varepsilon\in (0,1)$):
+\begin{align*}
+w_1 &= \varepsilon /|X| \\
+w_2 &= \varepsilon /|B-A| \\
+w_3 &= (1+\varepsilon) /|A-B| \\
+w_4 &= 2
+\end{align*}
+
+Pak už stačí jen dokázat, že takto zvolená $w$ splňuje $w_1 < w_2 < w_3 < w_4$ a
+že platí rovnice \ref{rov:hungry-w4}.
+\qed
+
+\subsection{Matroid intersection theorem}
+\todo
 
 
