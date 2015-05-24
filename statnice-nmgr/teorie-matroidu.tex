@@ -177,6 +177,26 @@ Pak už stačí jen dokázat, že takto zvolená $w$ splňuje $w_1 < w_2 < w_3 <
 \qed
 
 \subsection{Matroid intersection theorem}
-\todo
+\df \emph{Průnik matroidů} $M_1 = (S,I_1)$ a $M_2 = (S,I_2)$ je dvojice
+$(S,I_1\cap I_2)$. Tato dvojice může, ale nemusí být matroid.
 
+\tv Je-li $M_1 = (S,I_1)$ matroid a $M_2 = (S,I_2)$ uniformní matroid, pak $M_3
+= (S,I_1\cap I2)$ je matroid.
+
+\vt \emph{(Matroid intersection)} Mějme $M_1 = (S,r_1)$ a $M_2 = (S,r_2)$
+matroidy zadané rankovou funkcí. Velikost jejich maximální společné nezávislé
+množiny je rovna
+$\min\limits_{A\subseteq S} \left(r_1(A) + r_2(S\setminus A)\right)$.
+
+\app \emph{(párování v bipartitním grafu)} Mějme bipartitní graf $G = (V,E)$ s
+partitami $A$ a $B$. Pak definujeme matroidy $M_1 = (E,I_1)$ a $M_2 = (E,I_2)$,
+kde
+\begin{align*}
+I_1 &= \{E'\subseteq E ~;~ |\delta(v)\cap E'| \le 1, v\in A\} \\
+I_2 &= \{E'\subseteq E ~;~ |\delta(v)\cap E'| \le 1, v\in B\}
+\end{align*}
+Tedy, v $I_1$ jsou právě ty množiny hran, že každý vrchol z $A$ sousedí nejvýš s
+jednou. Analogicky pro $A_2$. Nyní je zřejmé, že v $I_1\cap I_2$ se nachází
+právě všechna párování v $G$ a velikost maximálního párování můžeme určit z
+Matroid intersection theoremu.
 
