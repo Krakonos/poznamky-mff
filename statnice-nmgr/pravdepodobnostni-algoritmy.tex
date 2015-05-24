@@ -26,7 +26,7 @@ Algoritmus selže pouze tehdy, když všechny vrcholy, které v grafu navštív�
 patří do $B_x$.Pomocí Markovovských řetězců lze dokázat, že pravděpodobnost, že
 se toto stane je nanejvýš:
 \begin{align}
-		\left({|B_x| \over 2^m} + {\lambda_2(G) \over 2}\right)^k-1
+	\left({|B_x| \over 2^m} + {\lambda_2(G) \over 2}\right)^{k-1}
 \end{align}
 Aplikujeme/li vytah $|B_x|/2^m < p_f$, máme $(p_f + \lambda_2(G)/d)^{k-1}$, což
 je stále exponenciální pokles pravděpodobnosti, že algoritmus selže.
