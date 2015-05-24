@@ -136,7 +136,13 @@ exponenciální k velikosti vstupu.
 	\caption{Hierarchie pravděpodobnostních tříd}
 \end{figure}
 
-\vt P $\subseteq$ RP, ZPP $\subseteq$ RP
+\vt P $\subseteq$ ZPP $\subseteq$ RP $\subseteq$ NP  $\subseteq$ PP $\subseteq$
+PSPACE $\subseteq$ EXPTIME
+
+\vt RP$\subseteq$ BPP$\subseteq$ PP
+
+\vt (NP a BPP) Není známo, v jakém vztahu jsou BPP a NP, ale neočekává se, že by
+NP $\subseteq$ BPP.
 
 \tv (P ?= BPP) Je otevřený problém, zda P $=$ BPP. Pokud ano, pak P, RP, co-RP a
 ZPP jsou si rovny.
@@ -147,3 +153,74 @@ proměnných roven nulovému polynomu, je v co-RP, ale  neví se, zda je v P.
 \df (Monte Carlo, Las Vegas) Algoritmus, který běží v polynomiálním čase, ale
 může vydat špatný výsledek, je {\bf Monte Carlo}. Algoritmus, který běží v
 randomizovaném čase, ale vydá správný výsledek vždy, je {\bf Las Vegas}
+
+\subsection{PCP věta}
+
+\df Složitostní třída $\pcp(r(n), q(n))$ je třída jazyků $L$, pro které existuje
+polynomiální algoritmus $A(x, \Pi)$ ($x$ je vstup, $\Pi$ je důkaz) tak:
+\begin{itemize}
+	\item Použije nanejvýš $\O(r(n))$ bitů náhody.
+	\item Použije nanejvýš $\O(q(n))$ bitů důkazu.
+	\item Pokud vstup $x \in L$, potom existuje $\Pi$ takový, že algoritmus
+		$A(x, \Pi)$ vždy odpoví {\bf ANO}.
+	\item Pokud vstup $x \notin L$, potom pro každý důkaz $\Pi$ algoritmus
+		odpoví {\bf ANO} s pravděpodobností nanejvýš $1/2$.
+\end{itemize}
+
+\poz Jako PCP lze definovat některé známé složitostní třídy:
+\begin{itemize}
+	\item P = $\pcp(0,0)$
+	\item NP = $\pcp(0, n^{\O(1)})$
+	\item coRP = $\pcp(n^{\O(1)},0)$
+\end{itemize}
+
+\vt Pokud $NP \subseteq PCP(\o(\log n), \o(\log n))$, potom P = NP.
+
+\df (PCP) Třídu $\pcp$ definujeme jako $\pcp(\log(n), 1)$.
+
+\vt (PCP Věta) NP = $\pcp$.
+
+A co z toho plyne? Pokud máme libovolný problém v NP, PCP věta nám dává
+polynomiální algoritmus na ověření. O tomto algoritmu víme, že potřebuje
+$\O(\log n)$ bitů náhody, a k tomu kostantně mnoho bitů z důkazu (nikde se to
+nepíše, ale běžně se uvažuje, že je algoritmus neadaptivní -- ve skutečnosti by
+to mělo být jedno).
+
+Této vlastnosti lze využít při konstrukci redukce, která pro instanci $3$-SATu
+a nějaké $\epsilon$ vytvoří jiný $3$-SAT (nebo jiný problém, na tom tolik
+nesejde), takový, že $1-\epsilon$ aproximace nového problému implikuje
+splnitelnost starého problému.
+
+\vt (Gap-introducing redukce) Existuje polynomiální transformace T z $3$-CNF
+formule na $3$-CNF formuli a $\epsilon > 0$ takové, že:
+\begin{enumerate}
+		\item Pokud je $\varphi$ splnitelná, $T(\varphi)$ je splnitelná.
+		\item Pokud není $\varphi$ splnitelná, pak nanejvýš $1-\epsilon$
+			klauzulí $T(\varphi)$ je splnitelných.
+\end{enumerate}
+
+To není jednoduché dokázat. Pokud ale takový problém máme, můžeme začít používat
+klasické redukce -- speciálně takové, které zachovávají aproximační faktor
+(gap-preserving redukce), nebo dokonce takové, které ho zlepšují. Příkladem
+toho, jak na to, nechť je důkaz neaproximovatelnosti kliky. Bylo by jednoduché
+dokázat, že klika je neaproximovatelná pro nějaké $\epsilon$, prostou redukcí
+$3$-SAT na kliku. Následující tvrzení je ale silnější:
+
+\vt (Klika je neaproximovatelná) Je NP-těžké aproximovat maximální kliku v grafu
+pro libovolný konstantní aproximační faktor.
+
+\dk Začneme neaproximovatelností $3$-SATu, nechť tedy máme $T(\varphi)$ s $m$
+klauzulemi a
+$\epsilon$ pro které není $\varphi$ aproximovatelná. Vytvoříme graf $G$
+následujícím způsobem: Pro nějaké $c$ nechť jsou vrcholy dvojice $(r,a)$, kde
+$r$ je $c$-tice klauzulí (takových $c$-tic bude $m^c$) a $a$ nějaké ohodnocení
+proměnných v $r$. Pro každou $c$-tici tedy máme tolik vrcholů, kolik je možných
+jejich ohodnocení. Dále spojme hranou všechny vrcholy, které mají nekompatibilní
+ohodnocení. Pokud je formule splnitelná, maximální klika má $m^c$ vrcholů. Pokud
+je ale nesplnitelná, velikost maximální kliky je nanejvýš $(1-\epsilon)m)^c$.Pro
+$c=1$ získáme neaproximovatelnost pro $\epsilon$, protože aproximovatelnost
+kliky alespoň $1-\epsilon$ by znamenala stejnou aproximovatelnost $3$-SATu;
+pro libovolné větší (ale konstantní) $c$ máme podobnou variantu, ale pro
+$(1-\epsilon)^c$ aproximaci, což klesá k nule a tedy klika není aproximovatelná
+pro libovolný konstantní aproximační faktor. \qed
+
