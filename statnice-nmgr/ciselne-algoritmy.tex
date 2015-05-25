@@ -1,0 +1,89 @@
+\subsection{Jednoduché algoritmy}
+\begin{itemize}
+	\item Strassenův algoritmus na násobení matic
+	\item Euklidův algoritmus
+	\item Eratosthenovo síto
+\end{itemize}
+\subsection{Prvočísla}
+
+\vt (Lagrangeova) Pokud má konečná grupa $G$ podgrupu $H$, pak je řád $G$
+dělitelný řádem $H$.
+\vt (Malá Fermatova) Je-li $p$ prvočíslo a $\gcd(x,y) = 1$, potom platí $x^{p-1}
+\equiv 1$.
+
+\df (Eulerova funkce) Pro číslo $n$ definujeme $\varphi(n)$ počet čísel mezi $1$
+a $n-1$ nesoudělných s $n$ (tj. $\gcd(n,i) = 1$.
+
+\poz Některé vlastnosti Eulerovy funkce jsou:
+\begin{itemize}
+	\item $\varphi(n) = |\Z_n^*|$ (není samozřejmé)
+	\item $\varphi(p) = p-1$ (z definice)
+	\item $\varphi(ab) = \varphi(a) \cdot \varphi(b)$ pokud jsou $a$ a $b$
+		nesoudělná
+\end{itemize}
+Speciálně, známe-li rozklad na prvočísla, je triviální podle posledních dvou
+bodů vypočítat hodnotu funkce $\varphi$.
+
+\vt (Eulerova) Pro libovolné $n > 0$ a $x$ s ním nesoudělné platí
+$x^{\varphi(n)} \equiv_n 1$.
+
+\poz Malá fermatova věta je speciální případ Eulerovy věty, kdy $n := p$.
+
+\vt (O diskrétní odmocnině) Pokud je $p$ liché prvočíslo a $x \in \Z_p^*$, potom
+má $x$ buďto právě dvě odmocniny, nebo nemá žádnou.
+
+\vt (Čínská věta o zbytcích) Nechť $a_1, \dots, a_t$ jsou navzájem nesoudělná
+čísla a $n = \prod a_i$, potom pro každé číslo $0 < x < n$ existuje právě jedna
+$b$-tice zbytků $b_i = n \mod b_i$, tedy číslo je jednoznačně určené zbytky po
+dělení $a_i$.
+
+\alg (Fermatův test) Pro $n$ zvolíme $x$ uniformě náhodně mezi $2$ a $n-1$.
+Spočteme $x^{n-1} \mod n$ a pokud vyjde $1$, prohlásíme $n$ za prvočíslo, jinak
+za číslo složené.
+
+\dk Pokud algoritmus odpoví, že je číslo složené, číslo $x$ je fermatův svědek,
+který pomocí Malé fermatovy věty dokazuje složenost čísla. Abychom mohli Malou
+Fermatovu větu použít, musí být $x$ a $n$ nesoudělné; pokud však soudělné jsou,
+náš algoritmus stále odpoví správně a navíc výsledek výpočtu $x^{n-1}$ je
+dělitelný společným dělitelem. \qed
+
+\poz Bohužel existují čísla, říká se jim Carmichaelova, která Fermatova svědka
+nemají a Fermatův test je nikdy neodhalí.
+
+\vt Pokud $n$ není prvočíslo ani Carmichaelovo číslo, platí $x^{n-1} \equiv_n
+1$ pro nanejvýš $n/2$ různých $x$.
+
+\dk Označme všechna taková čísla jako $H$. Všechna jsou (z definice)
+invertibilní, navíc jejich součin je taktéž v $H$; $H$ je tedy podgrupa $Z_n^*$,
+a protože není číslo Carmichaelovo, musí $|H| \cdot k = \varphi(n) = |Z_n^*|$
+pro nějaké $k \geq 2$ z Lagrangeho věty. \qed
+
+\alg (Rabin-Miller) Nechť na vstupu je $n$, potom následující algoritmus na
+prvočísla odpovídá správně a na složená čísla odpoví špatně s pravděpodobností
+nanejvýš $1/4$.
+\begin{enumerate}
+	\item Vygeneruj náhodné $x: 1 < x < n$.
+	\item Pokud $\gcd(x,n) != 1$, odpověz, že je číslo {\bf složené}.
+	\item Najdi $t$ a liché 4$m$, t. ž. $n-1 = 2^t \cdot m$.
+	\item Spočti $b_0 := x^m$ a $b_{i+1} := b_i^2$ pro $i\in \{1, \dots, t\}$.
+	\item Pokud $b_t \equiv 1$, odpovíme, že je číslo {\bf složené} ($x$ je
+		Fermatův svědek).
+	\item Pokud jsou všechna $b_i \equiv 1$, odpovíme, že je číslo {\bf
+		prvočíslo}.
+	\item Jinak pro nejvyšší $i$ takové, že $b_i \not\equiv 1$, pokud je $b_i
+		\equiv -1$ odpovíme, že je číslo {\bf prvočíslo}, jinak {\bf složené}.
+\end{enumerate}
+
+\pzn (Derandomizace) Pokud by se ukázalo, že platí Riemannova hypotéza (Grupa je
+generována svými $\O(\log^2 n)$ nejmenšími prvky), stačilo by testovat tyto
+generátory (protože všechna $x$, která o prvočísle lžou, jsou v generátoru -- to
+ale není triviální ukázat). Tedy pokud ještě určíme, jaká je konstanta v $\O$,
+což by ale mělo být $2$.
+
+\alg (RSA) Nechť $p,q$ jsou dvě velká prvočísla, $n := p \cdot q$, $y = x^{-1}$
+náhodný reverzibilní prvek a jeho inverzi modulo $\varphi(n)$. Potom lze
+šifrovat pomocí $a^x \mod n$ a dešifrovat pomocí $a^y \mod n$.
+
+\dk (Pouze pro $\gcd(a,n) = 1$) Počítejme: $a^{xy} = a^{1 + k\varphi(n)}$,
+protože $xy \equiv_{\varphi(n)} 1$. Ale to je rovno po vytknutí $1$ z exponentu
+$a \cdot a^{k\varphi(n)} = a \cdot (a^{\varphi(n)})^k = a$ podle Eulerovy věty.
