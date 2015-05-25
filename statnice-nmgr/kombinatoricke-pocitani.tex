@@ -1,0 +1,46 @@
+\section{Kombinatorické počítání}
+Do této kapitoly patří princip inkluze a exkluze, problém šatnářky, počítání dvěma
+způsoby, různé odhady faktoriálu a binomických koeficientů apod.
+
+\subsection{Princip inkluze a exkluze}
+
+\vt \emph{(Princip inkluze a exkluze)} Pro každý soubor $A_1,A_2,\dots,A_n$
+konečných množin platí
+
+$$\left|\bigcup_{i=1}^n A_i\right| = \sum_{\emptyset\neq I\subseteq \{1,\dots,n\}}
+(-1)^{|I|-1}\left|\bigcap_{i\in I}A_i\right|$$
+
+\subsection{Cayleyho formule}
+
+\vt \emph{(Cayleyho formule)} $\forall n\ge 2$ je $\kappa(K_n)$, tj. počet
+stromů na daných $n$ vrcholech, roven $n^{n-2}$.
+
+\dk Budeme počítat tzv. \emph{povykosy}. Povykos\footnote{Postup výroby kořenového
+stromu.} je strom, v němž je jeden vrchol označen jako kořen a hrany jsou
+očíslovány od 1 do $m$. Kořen vybírám z $n$ možností, hrany mohu očíslovat
+$(n-1)!$ způsoby a počet stromů na $n$ vrcholech je $\kappa(K_n)$. Počet
+povykosů na $n$ vrcholech je tedy zjevně $n\cdot(n-1)!\cdot\kappa(K_n)$.
+
+Nyní spočítáme povykosy druhým způsobem. Budeme stavět rovnou stromy orientované
+směrem ke kořeni. Pravidla pro přidávání orientovaných hran jsou následující:
+\begin{enumerate*}
+\item Nesmíme vytvořit (ani neorientovanou) kružnici, tedy každá hrana musí
+spojovat dvě různé komponenty již vytvořenho grafu.
+\item V každém vrcholu až na jeden bude začínat právě jedna hrana. V kořeni
+nezačíná žádná hrana. Navíc je vidět, že v každé komponentě existuje právě jeden
+vrchol, do kterého nevede žádná hrana (tedy každá komponenta má svůj kořen).
+\end{enumerate*}
+Z těchto pravidel už je jasné jak budeme postupovat. Po přidání $k$ hran má graf
+$n-k$ komponent. V dalším kroku vybereme jeden libovolný vrchol (z množiny všech
+vrcholů), do kterého hrana povede a počáteční vrchol hrany vybereme z ostatních
+komponent -- těch je $n-k-1$. Z toho dostáváme počet povykosů $\prod_{k=0}^{n-2}
+n(n-k-1)$. Počítali jsme dvěma způsoby, teď mezi ně položíme rovnítko:
+
+\begin{align*}
+\prod_{k=0}^{n-2} n(n-k-1) &= n\cdot(n-1)!\cdot\kappa(K_n) \\
+n^{n-1}\cdot (n-1)! &= n\cdot(n-1)!\cdot\kappa(K_n) \\
+\kappa(K_n) &= n^{n-2}
+\end{align*}
+\qed
+
+
