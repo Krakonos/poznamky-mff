@@ -1,0 +1,83 @@
+\section{Speciální matice}
+
+\subsection{Pozitivně definitní matice}
+
+\df \emph{Pozitivně definitní matice} je čtvercová matice $M$, pro kterou platí
+$$\mathbf{x} \neq 0 \Rightarrow \mathbf{x}^TM\mathbf{x} > 0$$
+Pozitivně definitní matice má vždy kladná vlastní čísla. Naopak, každá
+symetrická matice, jejíž vlastní čísla jsou kladná, je pozitivně definitní.
+Obecněji můžeme definovat pozitivně definitní matici v oboru komplexních čísel.
+
+\df \emph{Pozitivně definitní matice} je hermitovská\footnote{V hermitovské
+matici platí, že $M_{ij} = \overline{M_{ji}}$, tedy že na symetrickém místě se
+nachází číslo komplexně sdružené. Stejně tak zobecněná transpozice $\mathbf{z}^*
+= \mathbf{\bar z}^T$.} matice $M$, pro kterou platí
+$$\mathbf{z} \neq 0 \Rightarrow \mathbf{z}^*M\mathbf{z} > 0$$
+
+Analogicky můžeme definovat i negativně definitní matice.
+
+\subsection{Pozitivně semidefinitní matice}
+\df \emph{Pozitivně semidefinitní matice} je čtvercová matice $M$, pro kterou platí
+$$\forall \mathbf{x} \in \C^n:\quad \mathbf{x}^*M\mathbf{x} \ge 0$$
+
+Analogicky můžeme definovat i negativně semidefinitní matice.
+
+\todo Láďa: formulace semidefinitního programování + příklad MAXCUT, souvislost
+s elipsoidovou metodou.
+
+\subsection{Hadamardovy matice}
+
+\df Hadamardova matice je čtvercová matice s hodnotami pouze $+1$ a $-1$, jejíž
+řádky jsou po dvou ortogonální.
+
+Mezi jejich zajímavé vlastnosti Hadamardovy matice patří:
+
+\begin{itemize*}
+\item $HH^T = n\In$
+\item $\det(H) = \pm n^{n\over 2}$ Navíc má Hadamardova matice v absolutní
+hodnotě největší determinant ze všech matic, jejichž prvky nabývají hodnot z
+intervalu $[-1, 1]$.
+\item Každé dva řádky mají přesně polovinu hodnot v odpovídajících sloupcích stejných a polovinu opačných.
+\end{itemize*}
+
+\tv Řád Hadamardovy matice musí být 1, 2, nebo násobek 4.
+
+\alg (Silvestrova konstrukce) Mějme Hadamardovu matici $H$ řádu $n$. Potom 
+$$\begin{pmatrix}
+H & H \\
+H & -H
+\end{pmatrix}$$
+je Hadamardova matice řádu $2n$.
+
+Zobecněním této konstrukce můžeme dojít k odvození, že mám-li Hadamardovy matice
+řádu $n$ a $m$, dokážeme zkonstruovat Hadamardovu matici řádu $nm$. Ani to nám
+ale ještě nestačí na všechny násobky 4.
+
+\conj \emph{(Hadamard conjencture)} Pro každé $k \in \Z^+$ existuje Hadamardova
+matice řádu $4k$.
+
+\smallskip
+Nejmenší Hadamardova matice, o níž se zatím neví zda existuje, je řádu 668.
+
+\smallskip
+Hadamardovy matice se používají v samoopravných kódech, v tzv. Hadamardově kódu.
+Ten se používá všude tam, kde hrozí velký šum a nespolehlivost přenosového
+kanálu. Byl např. použit v roce 1971 pro přenos fotografií Marsu zpět na zem ze
+sondy Mariner 9.
+
+\smallskip\noindent\textbf{Hadamardův kód} mapuje zprávy délky $k$ v binární
+abecedě na kódová slova délky $2^k$, přičemž minimální vzdálenost kódu je
+$2^k/2$. Kódová slova získáme jako řádky $H_n$ a $-H_n$ a nahrazením všech
+$1$ za $0$ a $-1$ za $1$. Tak získáme $2n$ kódových slov délky $n = 2^k$.
+
+Existuje i varianta Hadamardova kódu s kódovými slovy délky $2^{k-1}$ a
+minimální vzdálenosti $2^{k-2}$, který je v praxi používán častěji, neboť při
+stejné relativní vzdálenosti používá kratší kódová slova.
+
+\tv Pro délku bloku zprávy $k \le 7$ jsou Hadamardovy kódy optimální vzhledem k
+minimální vzdálenosti kódu.
+
+\subsection{Totálně unimodulární matice}
+
+\todo Láďa
+
