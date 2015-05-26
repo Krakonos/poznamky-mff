@@ -1,0 +1,156 @@
+\subsection{Roviny, nadroviny, mnohostěny}
+
+\df (Nadrovina) V $\R^n$ je nadrovina množinou všech $x$ takových vektorů, kde
+se zafixuje jedna (nebo více) složek vektoru. Matematicky tedy: $\{x \in \R^n:
+a^Tx = b\}$ pro nějaké $a \in \R^n$, kde $a \neq 0$ a $b \in R$ (nulový vektor by generoval
+celý prostor, třeba napíšeme jedničku do skožky $a$, kterou chceme zafixovat,
+a její požadovanou hodnotu do $b$).
+
+\poz Všimneme si, že pokud chceme fixovat více souřadnic, tak to neznamená, že
+se jejich hodnoty zafixují, ale spíše jejich součet (podle hodnoty $a$). To ale
+ve skutečnosti chceme, tím se totiž dá vyrobit nadrovina, která má jiný
+\uv{sklon}, než kolmý na jednu osu.
+
+\df (Poloprostor) V $\R^n$ je poloprostor množina všech $x$ takových vektorů,
+které jsou \uv{na jedné straně nadroviny}, matematicky tedy:  $\{x \in \R^n:
+a^Tx \leq b\}$ pro nějaké $a \in \R^n, a \neq 0, b \in \R$.
+
+\df (Konvexní mnohostěn) Konvexní mnohostěn v $\R^n$ je množina, kterou lez
+vyjádřit jako průnik konečně mnoha poloprostorů.
+
+\poz Může se snadno stát, že mnohostěn sice bude konvexní, ale nebude omezený.
+
+\vt (Oddělovací) Nechť množiny $C,D \subseteq \R^n$ jsou uzavřené, konvexní a disjunktní
+a $C$ navíc omezená. Pak existuje nadrovina, která silně odděluje $C$ a $D$, tj.
+$C \subseteq \{x | a^Tx < b\}$ a $D \subseteq \{x | a^T x > b\}$.
+
+\dk Seženeme si $c \in C$ a $d \in D$ takové, že jejich vzdálenost je minimální.
+Jediný problém může být, když nebude $D$ omezená. V takovém případě můžeme ale
+vybrat nějaký bod $d'\in D$, nejvzdálenější bod k němu v $c'\in C$ a potom
+udělat kružnici se středeme v $c'$ protínající $d'$; průnik této kružnice s $D$
+nám výběr potřebně omezní a z výběru $c'$ a $d'$ je zřejmé, že správný bod v ní
+bude ležet (jinak jsem špatně vybral nejvzdálenější $c'$).
+
+Pak stačí vzít vektor $(c,d)$ jako normálu naší nadroviny, a ukotvit ji třeba na
+půli cesty mezi $c$ a $d$:
+\begin{align}
+	a &:= d - c \\
+	b &:= a^T\left({c+d \over 2}\right)
+\end{align}
+
+\df (Kužel) Nechť $a_i\in R^n$ jsou vektory. Potom definujeme kužel $C$ jako
+konvexní obal polopřímek vycházejících z počátku a procházejících body $a_i$.
+
+\lm (Farkas) Nechť $a_1, \dots, a_n, b \in \R^m$. Pak nástane jedna z možností:
+\begin{enumerate}
+	\item Bod $b$ leží v kuželu definovaným $a_i$.
+	\item Existuje nadrovina $h$ procházející počátkem, tvaru $h = \{x \in \R^m
+	: y^Tx = 0\}$, oddělující .
+\end{enumerate}
+\dk Pokud je $b$ v kuželu, je hotoov. Jinak nadrovinu můžeme najít pomocí
+oddělovací věty aplikované na $b$ a kužel. Ta nám sice nedá nadrovinu nutně
+procházejícíc počátkem, ale protože je kužel konvexní a nadrovina $b$ odděluje
+od kuželu, můžeme ji do počátku posunout a kužel stále protínat nebude. \qed
+
+Dále se nám bude hodit ale více algebraické vyjádření:
+
+\lm (Farkas) Soustava nerovnic $Ax \leq b$ má nezáporné řešení $x$ právě, když
+každé nezáporné $y$, pro než $y^TA \geq 0^T$ splňuje také $y^Tb \geq 0$.
+
+\subsection{Lineární programování}
+
+\df (Standardní tvar) Úloha LP je ve standardním tvaru, pokud je tvaru:
+\begin{align}
+	\max_x c^Tx : \quad Ax \leq b
+\end{align}
+
+\df (Rovnicový tvar) Úloha LP je v rovnicovém tvaru, pokud je tvaru:
+\begin{align}
+	\max_x c^Tx : \quad Ax = b, \quad x \geq 0
+\end{align}
+
+Tedy jediná nerovnice, je podmínka na nezápornost vektoru $x$. Máme-li obecnou
+úlohu LP, můžeme ji celkem snadno do tohoto tvaru převést, nerovnice totiž lze
+nahradit přidáním dalších proměnných a konstant tak, aby stačila nezápornost.
+
+Pro simplexovou metodu chceme rovnicový tvar, pro geometrickou představu nám
+bude ale milejší stadardní tvar, protože svou podobou každá nerovnice přímo
+vyjadřuje nějakou nadrovinu, a tedy jejich průnik nám tvoří mnohostěn!
+
+\df (Bázické řešení) Vektor $x \in \R^n$ je bázické přípustné řešení úlohy LP v
+rovnicovém tvaru, pokud je $x$ přípustné řešení a existuje $B \subseteq \{1,
+\dots, n\}$ taková, že čtvercová matice $A_B$ (sloupečky indexované $B$) je
+regulární a $x_j = 0$ kdykoliv $j \notin B$.
+
+\tv (Unikátnost bázických řešení) Pro každou množinu $B$ existuje nanejvýš jedno
+přípustné bázické řešení $x \in \R^n$.
+
+\dk Kdykoliv máme $B$, matice $A_B$ je regulární a tedy soustava $A_B x_B = b_B$
+právě jedno řešení. Podmínka pro přípustné bázické řešení navíc říká, že ostatní
+prvky $x_{\overline{B}}$ musí být nulové. \qed
+
+\df (Báze) Množině $B$ budeme říkat báze. Pokud navíc určuje přípustné řešení,
+budeme jí říkat {\it přípustná báze}.
+
+\vt (O existenci optimálního řešení) Pro program v rovnicovém tvaru platí:
+\begin{enumerate}
+	\item Pokud existuje alespoň jedno přípustné řešení a účelová funkce je na
+	množině všech přípustných řešení shora omezená (pro minimalizační zdola),
+	pak existuje také optimální řešení.
+	\item Existuje-li optimální řešení, potom i některé z bázickcýh přípustných
+	řešení je optimální.
+\end{enumerate}
+\dk Trošku technický, stačí ale dokázat, že pokud je účelová funkce omezená, pro
+libovolné řešení $x_0$ existuje lepší bázické řešení $x_b$, které je alespoň tak
+dobré.
+
+To nám samo o sobě dává informaci, jak řešit lineární programy: stačí projít
+všechny báze, vyřešit pro každou z nich soustavu rovnic, a hledat
+nejlepší řešení. Bohužel, bazí je exponenciálně mnoho, abychom to dělali hloupě.
+
+{\it Simplexová metoda} je chytrý způsob, jak řešit lineární programy. Typicky
+začíná s nějaký bázickým řešením a s vědomostí, že existuje optimální bázické řešení,
+se k němu snaží dospět postupným vylepšováním účelové funkce. Ačkoli je to
+metoda v praxi rychlá, nikde není záruka, že běží v polynomiálním čase --
+bohužel se může stát, že před nalezením optima projde většinu bazických řešení.
+
+
+\vt (O Dualitě LP) Pro dvě úlohy LP:
+\begin{align}
+\tag P
+\label{dualita:P}
+	\max c^Tx&: \quad Ax \leq b, \quad x \geq 0 \\
+\tag D
+\label{dualita:D}
+	\min b^Ty&: \quad A^T y \geq c, \quad y \geq 0
+\end{align}
+nastane jedna z následujících možností:
+\begin{enumerate}
+	\item Ani jedna z úloh nemá přípustné řešení.
+	\item Jedna z úloha je neomezená, druhá nemá přípustné řešení.
+	\item Obě úlohy mají přípustné řešení, a navíc pro optimální řešení $x^*$ a
+	$y^*$ platí $c^T x^* = b^Ty^*$.
+\end{enumerate}
+
+\dk Použijeme Farkasovo Lemma. Nechť $\gamma = c^Tx^*$ je hodnota účelové funkce
+pro nějaké optimální řešení \eqref{dualita:P}. Pro $\epsilon \geq 0$ má tedy z
+definice optima systém $Ax \leq b, c^Tx \geq \gamma + \epsilon$ přípustné řešení právě pro
+$\epsilon = 0$. Farkasovo lemma ale neví nic o účelové funkci. Nevadí, přidáme
+ji jako řádek do naší matice $A$ a optimalitu vyjádříme jako $\gamma + \epsilon$
+v jedné složce pravé strany!
+\begin{align}
+	A' = \left(\begin{array}{c} A \\ -c^T \end{array}\right), \quad b' =
+	\left(\begin{array}{c} b \\ -\gamma - \epsilon\end{array}\right)
+\end{align}
+A to již můžeme poslat do lemmatu a protože víme, že pro $\epsilon > 0$ žádné
+nezáporné řešení neexistuje. Musí tedy existovat nějaký nezáporný vektor $y'$, že
+$y'^TA' \geq 0$, ale $y'^T b' < 0$. To můžeme ale dát dohromady a levou stranu
+transponovat:
+\begin{align}
+	y^TA' \geq 0 > y^T b' \qquad \Rightarrow \qquad
+	A'^Ty \geq b'^T y
+\end{align}
+Co to ale znamená? Pamatujme, že cílovou funkci máme zakódovanou ve vektoru
+$y'$, dává nám to tedy nějaké řešení duálního programu, které je jenom o epsilon
+menší, než optimum primáru. Protože to můžeme udělat pro libovolně malé
+$\epsilon$, musí si být rovny. \qed
