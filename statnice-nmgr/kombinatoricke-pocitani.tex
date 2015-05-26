@@ -7,8 +7,41 @@ způsoby, různé odhady faktoriálu a binomických koeficientů apod.
 \vt \emph{(Princip inkluze a exkluze)} Pro každý soubor $A_1,A_2,\dots,A_n$
 konečných množin platí
 
-$$\left|\bigcup_{i=1}^n A_i\right| = \sum_{\emptyset\neq I\subseteq \{1,\dots,n\}}
-(-1)^{|I|-1}\left|\bigcap_{i\in I}A_i\right|$$
+$$\left|\bigcup_{i=1}^n A_i\right|
+= \sum_{k=1}^n \left( (-1)^{k-1} \sum_{I\in{\{1,\dots,n\}\choose k}} \left|\bigcap_{i\in I} A_i\right| \right)
+= \sum_{\emptyset\neq I\subseteq \{1,\dots,n\}} (-1)^{|I|-1}\left|\bigcap_{i\in I}A_i\right|$$
+
+V případě, že neznáme velikosti všech průniků, ale známe velikosti všech alespoň
+$m$-násobných průniků, pak nám \emph{Bonferroniho nerovnost} říká, že chyba
+vzniklá zanedbáním průniků všech více než $m$-násobných průniků má stejné
+znaménko, jako první vynechaný průnik.
+
+\subsection{Problém šatnářky}
+
+\noindent\textbf{Pohádka:} Přijde $n$ pánů do divadla a nechají své kloubouky v
+šatně. Šatnářka, neb je roztržitá, vydá při odchodu každému pánovi náhodně
+jeden z klobouků. Jaké je pravděpodobnost, že žádný pán nedostane svůj klobouk?
+
+\smallskip
+\noindent\textbf{Zadání:} Jaký je počet permutací množiny $\{1,\dots,n\}$ bez
+pevného bodu?
+
+Problém můžeme vyřešit pomocí principu inkluze a exkluze. Označme $A_i$ množinu
+všech permutací, ve kterých je $i$ pevným bodem. Počet všech permutací s alespoň
+jedním pevným bodem je pak zjevně $\left|\bigcup_{i=1}^n A_i\right|$. Přitom
+velikost každé $A_i$ je zjevně $(n-1)!$ (prvek $i$ je zafixovaný a ostatní mohou
+být zpermutovány libovolně) a velikost průniku $k$ různých $A_i$ je $|A_{i_1}
+\cap A_{i_2} \cap \dots \cap A_{i_k}| = (n-k)!$. Z toho dosadíme do principu
+inkluze a exkluze.
+
+$$\left|\bigcup_{i=1}^n A_i\right| = \sum_{k=1}^n (-1)^{k-1}{n\choose k}(n-k)! =
+\sum_{k=1}^n (-1)^{k-1}{n!\over k!}$$
+
+Tedy počet permutací bez pevného bodu je:
+
+$$n! - \sum_{k=1}^n (-1)^{k-1}{n!\over k!} = n!\left( 1-{1\over 1!}+{1\over
+2!}-\cdots +(-1)^n{1\over n!} \right) \approx {n!\over e}$$
+
 
 \subsection{Cayleyho formule}
 
@@ -42,5 +75,25 @@ n^{n-1}\cdot (n-1)! &= n\cdot(n-1)!\cdot\kappa(K_n) \\
 \kappa(K_n) &= n^{n-2}
 \end{align*}
 \qed
+
+\subsection{Fibonacciho čísla}
+
+V kapitole \ref{sec:rekurence} jsou Fibonacciho čísla zadefinována a je
+proveden výpočet explicitního vzorce pro $n$-tý člen pomocí vytvořujících
+funkcí.
+
+\subsection{Catalanova čísla}
+
+Catalanova čísla jsou udána rekurencí
+$$C_0 = 1\qquad C_{n+1} = \sum_{i=0}^n C_iC_{n-i} = {2(2n+1)\over n+2}C_n$$
+Explicitní vzorec pro $n$-té Catalanovo číslo je 
+$$C_n = {1\over n+1}{2n\choose n}$$
+Některé aplikace Catalánových čísel:
+\begin{itemize*}
+\item Počet zakořeněných binárních stromů s $n$ listy je $C_{n-1}$.
+\item Počet korektních uzávorkování $2n$ závorek je $C_n$.
+\item Počet triangulací konvexního $n$-úhelníku je $C_{n-2}$.
+\item Počet způsobů, jak se v mřížce $n\times n$ dostat $2n$ kroky z levého dolního do pravého horního rohu, aniž bychom překročili diagonálu je $C_n$.
+\end{itemize*}
 
 
