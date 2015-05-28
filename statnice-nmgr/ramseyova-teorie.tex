@@ -11,11 +11,50 @@ Turánovy grafy jsou pokus o konstrukci hranově extremálních grafů neobsahuj
 
 \vt (Turánova, verze 2) {\it Nechť $G$ je graf na $n$ vrcholech neobsahující $K_{r+1}$ jako podgraf. Pak počet hran $G$ je nejvýš ${r-1\over r}\cdot{n^2\over 2} = \left(1-{1\over r}\right)\cdot{n^2\over 2}$.}
 
-\dk (Turánovy věty): Předpokládejme, že $G$ je graf neobsahující $K_{r+1}$ s maximálním počtem hran. V první části důkazu ukážeme, že $G$ musí být úplný $r$-partitní graf, v druhé části že se velikost jednotlivých partit může lišit nejvýš o 1.
+\dk (Turánovy věty): Předpokládejme, že $G$ je graf neobsahující $K_{r+1}$ s
+maximálním počtem hran. V první části důkazu ukážeme, že $G$ musí být úplný
+$r$-partitní graf, v druhé části že se velikost jednotlivých partit může lišit
+nejvýš o 1.
 
-\textbf{Část 1.} Graf $G$ neobsahuje trojici vrcholů $u$, $v$, $w$ tž. mezi nimi vede pouze jedna hrana. To dokážeme tak, že buď smažeme $w$ a zkopírujeme $u$, nebo smažeme $u$ a $v$ a zkopírujeme dvakrát $w$, čímž dostaneme graf s více hranami. Z toho plyne, že můžeme vrcholy $G$ rozdělit do tříd ekvivalence na základě nesousednosti (dva vrcholy jsou ve stejné třídě, když mezi nimi nevede hrana). Třídy ekvivalence tvoří partity a $G$ je tedy úplný multipartitní graf. Čím více partit, tím více hran, takže $G$ je úplný $r$-partitní graf.
+\textbf{Část 1.} Graf $G$ neobsahuje trojici vrcholů $u$, $v$, $w$ tž. hrana
+vede pouze mezi $u$ a $v$. To dokážeme tak, že buď smažeme $w$ a zkopírujeme
+$u$, nebo smažeme $u$ a $v$ a zkopírujeme dvakrát $w$, čímž dostaneme graf s
+více hranami. Z toho plyne, že můžeme vrcholy $G$ rozdělit do tříd ekvivalence
+na základě nesousednosti (dva vrcholy jsou ve stejné třídě, když mezi nimi
+nevede hrana). Třídy ekvivalence tvoří partity a $G$ je tedy úplný
+multipartitní graf. Čím více partit, tím více hran, takže $G$ je úplný
+$r$-partitní graf.
 
-\textbf{Část 2.} Mějme partity $A$ a $B$ tž. $|A| > |B| + 1$. Pak přesunem vrcholu z $A$ do $B$ ztratíme $|B|$ hran, ale získáme $|A|-1$ hran a tedy zvýšíme počet hran v $G$ alespoň o 1. Tedy, počet hran v $r$-partitním grafu je maximální, když se velikosti partit liší nejvýše o 1.
+\begin{figure}[h]
+\centering
+\begin{subfigure}{8cm}
+\begin{subfigure}{3cm}
+\includegraphics[width=3cm]{img/turan1.pdf}
+\end{subfigure}
+\hspace{0.5cm}$\Rightarrow$\hspace{0.5cm}
+\begin{subfigure}{3cm}
+\includegraphics[width=3cm]{img/turan2.pdf}
+\end{subfigure}
+\caption{$d(w) < d(u)$}
+\end{subfigure}
+\hfill
+\begin{subfigure}{8cm}
+\begin{subfigure}{3cm}
+\includegraphics[width=3cm]{img/turan3.pdf}
+\end{subfigure}
+\hspace{0.5cm}$\Rightarrow$\hspace{0.5cm}
+\begin{subfigure}{3cm}
+\includegraphics[width=3cm]{img/turan4.pdf}
+\end{subfigure}
+\caption{$d(w) \ge d(u)$ a $d(w) \ge d(v)$}
+\end{subfigure}
+\caption{Důkaz Turánovy věty, část 1.}
+\end{figure}
+
+\textbf{Část 2.} Mějme partity $A$ a $B$ tž. $|A| > |B| + 1$. Pak přesunem
+vrcholu z $A$ do $B$ ztratíme $|B|$ hran, ale získáme $|A|-1$ hran a tedy
+zvýšíme počet hran v $G$ alespoň o 1. Tedy, počet hran v $r$-partitním grafu je
+maximální, když se velikosti partit liší nejvýše o 1. 
 \qed
 
 \subsection{Ramseyovy věty}
