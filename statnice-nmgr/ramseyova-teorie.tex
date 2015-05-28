@@ -83,13 +83,13 @@ Zjednodušeně řečeno, Hales-Jewettova věta praví, že když dostanu od prot
 \dk \textbf{(Idea)} Zafixujeme si $r$ a důkaz provedeme indukcí podle $a$. Pro $a=1$ je situace triviální. Pro větší $a$ použijeme pomocné tvrzení o vnořené konzistentní krychli a najdeme krychli $A^n$. Z té sloupneme vnější slupku, v krychli s o jedna kratší hranou nalezneme piškvorku (z indukčního předpokladu) a po doplnění slupky dostaneme piškvorku v $A^n$ (protože krychle je konzistentní). Piškvorka v $A^n$ je i piškvorkou v $A^N$ (jedná se o vnoření), čímž je indukční krok hotový.
 \qed
 
-Důkaz pomocného tvrzení je technický, takže jen pro představu uvedeme konstrukci $N$, abychom měli představu o jeho velikosti. Zadefinujeme $N = N_1 + \dots + N_n$, kde:
+Důkaz pomocného tvrzení je technický, takže jen uvedeme konstrukci $N$, abychom měli představu o jeho velikosti. Zadefinujeme $N = N_1 + \dots + N_n$, kde:
 
 $$N_1 = r^{a^n},\qquad N_i = r^{a^{\left(n+\sum_{j=1}^{i-1} N_j\right)}}$$
 
 \subsection{Van der Waerden}
 
-\vt (Van der Waerden) {\it Pro každé $r, k \in \Z^+$} existuje $N$ takové, že v každém obarvení posloupnosti ${1, 2, \dots, N}$ $r$ barvami najdeme jednobarevnou aritmetickou posloupnost délky alespoň $k$.
+\vt (Van der Waerden) {\it Pro každé $r, k \in \Z^+$ existuje $N$ takové, že v každém obarvení posloupnosti ${1, 2, \dots, N}$ $r$ barvami najdeme jednobarevnou aritmetickou posloupnost délky alespoň $k$.}
 
 V praxi je takové $N$ obludně velké, nejlepší známý horní odhad tvrdí $W(r,k) \le 2^{2^{r^{2^{2^{k+9}}}}}$.
 
