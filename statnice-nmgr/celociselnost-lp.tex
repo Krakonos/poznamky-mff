@@ -1,0 +1,69 @@
+\label{LP:celociselnost}
+\df (Celočíselný LP) Lineární program nazveme celočíselným, pokud k němu přidáme
+podmínku, aby všechny proměnné byly celočíselné. Pro celočíselné programy budeme
+používat zkratku ILP (Integer Linear Program).
+
+Je zřejmé, že ILP nemusí jít řešit polynomiálně, například protože je snadné
+najít redukci ze SATu na ILP. Nadruhou stranu ale není důvod, proč by jednodušší
+programy nemohly jít řešit polynomiálně. 
+
+\tv Pro LP \eqref{LP:max-bipartitni-parovani} řešící perfektní párování v bipartitním grafu platí, že pro každé
+optimální řešení existuje alespoň jedno stejně dobré řešení celočíselné.
+
+\begin{align}
+\label{LP:max-bipartitni-parovani}
+&\max \sum_{e \in E} w_e x_e: \quad \sum_{e \in E: v \in e} x_e = 1 \forall v
+	\in V, \quad x_e \in \{0, 1\} \\
+	\text{relaxace:}\qquad	&\max \sum_{e \in E} w_e x_e: \quad \sum_{e \in E: v \in e} x_e = 1 \forall v
+	\in V, \quad 0 \leq x_e \leq 1
+\end{align}
+
+\dk Nechť máme nějaké řešení, které má neceločíselné
+složky. Začněme tedy s nějakou neceločíselnou hranou a najdeme cyklus (sudý,
+jiné v bipartitním grafu nejsou) neceločíselných hran. Takový existuje, protože
+suma každého vrcholu je 1 a vstoupili jsme z neceločíselného. Na cyklu poté pro
+nějaké $\epsilon$ změníme váhy, pro lichou hranu $+$, pro sudou $-$. To
+zachovává optimalitu, zvolíme tedy $\epsilon$ největší, aby zachovávalo také
+přípustnost. Protože ale suma na každém vrcholu zůstává stejná, znamená to, že
+některá hrana narazila na hranici $0$ nebo $1$. Máme tedy optimální řešení,
+které má méně neceločíselných hodnota. Takto můžeme pokračovat, dokud žádné
+takové nejsou. \qed
+
+Existuje ale nějaké obecné tvrzení, které by nám zaručovalo podobnou hezkou
+vlastnost? Odpovědí jsou totálně unimodulární matice.
+
+\df (Totálně unimodulární matice) Matice je totálně unimodulární, pokud jsou
+determinanty všech jejích čtvercových podmatic rovny $0$, $1$ nebo $-1$.
+
+\poz Pokud je $A$ totálně unimodulární, potom také $A^T$ je totálně
+unimodulární.
+
+\vt (O celočíselnosti LP) Nechť $\max c^Tx : Ax = b$ je lineární program, $A$ je totálně
+unimodulární matice a $b$ je celočíselné. Potom všechna bazická řešení tohoto
+programu jsou celočíselná.
+
+\dk Pro nějaké řešení existuje báze $B$. Vezmeme si matici $A_B$ a víme, že pro
+nějaký vektor $x'$ platí $A_Bx_B = b_B$. Pokud je determinant $A_B$ nenulový
+(což je, jinak by to nebyla báze), můžeme použít Cramerovo pravidlo na výpočet
+$x_i = \det((A_B)_i) / \det_(A_B)$. Tady $(A_B)_i$ je matice, kde $i$-tý
+sloupeček byl nahrazen vektorem $b_i$. Nyní stačí říct, že jmenovatel je $\pm1$
+z totální unimodularity a čitatel můžeme spočítat třeba rozvojem podle sloupečku
+$i$, a opět z totální unimodularity máme v každém kroku celočíselné hodnoty.
+\qed
+
+Takže totálně unimodulární matice nám dávají záruku, že všechny bazické
+řešení (tedy takové, které vydá simplexová metoda) jsou celočíselné. Jak ale
+poznáme, že je matice totálně unimodulární?
+
+\vt Matice $A$ je totálně unimodulární právě tehdy, když pro každou podmnožinu
+řádků matice $X$ lze rozdělit tyto řádky na skupiny $\cdot 1$ a $\cdot -1$ tak,
+aby součet každého sloupečku byl $0$ nebo $\pm 1$.
+
+\poz Matice incidence bipartitního grafu je totálně unimodulární: Nechť řádky
+jsou vrcholy a sloupečky hrany. Pak každý sloupeček má součet právě $2$. V
+libovolném obarvení nám tedy stačí, když řádky budou obarveny dle partity a
+součet bude $0$; pokud některý řádek hraně bude chybět, součet bude $\pm1$.
+
+\poz Matice incidence orientovaného grafu je totálně unimodulární: Všechny řádky
+můžeme obarvit stejně, protože součet sloupečku je vždy $0$ a skládá se právě z
+jedné $1$ a jedné $-1$.

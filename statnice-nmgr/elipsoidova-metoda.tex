@@ -1,0 +1,39 @@
+{\it Trošku širší úvod lze nalézt ve skriptíčkách J. Matouška: Lineární
+programování a lineární algebra pro informatiky, ITI série 2006-311.}
+
+Elipsoidová metoda je výrazná proto, že jako první dala polynomiální odhad na
+řešení lineárních programů. Její praktičnost ale mírně pokulhává, za chvíli bude
+jasné proč.
+
+\alg (Elipsoidová metoda) Pro LP $\max c^Tx: Ax \leq b$, $R$ a $\varepsilon$
+definujeme algoritmus, který vrátí nějaký bod polyedru $P$ definovaného rovnicí $Ax \leq b$,
+pokud tento polyedr obsahuje kouli velikosti alespoň $\varepsilon$.
+\begin{enumerate}
+	\item Začni s koulí $E_0 := B(0, R)$ (předpokládáme, že $P \subseteq E_0$.
+	\item V kroku $k$ nechť $s_k$ je střed elipsoidu $E_k$. Pokud $s_k \in P$,
+	vrať $s_k$ jako výsledek a skonči.
+	\item Jinak zvol nějakou porušenou nerovnost, označ $H_k$ jako půlelipsoid
+	$E_k$ vyhovující porušené nerovnosti a najdi elipsoid $E_{k+1}$, který má
+	nejmenší objem takový, že obsahuje $H_k$.
+	\item Je-li objem $E_{k+1}$ menší, než objem koule o poloměru $\varepsilon$,
+	oznam že úloha nemá řešení a skonči. Jinak pokračuj krokem 2.
+\end{enumerate}
+Tento algoritmus provede zhruba $(\O n^2\log (R/\varepsilon))$ iterací.
+
+Když pomineme spoustu chlupatých problémů, které je potřeba v algoritmu vyřešit
+(například jak se poprat s elipsoidama, které nevypadají, že by měly racionální
+parametry), zbývá ještě vyřešit pár problémů. 
+
+Například algoritmus jak je popsaný vůbec nebere v úvahu účelovou funkci. To lze
+napravit tak, že ji vyjádříme jako další nerovnost do soustavy, parametrizujeme
+a nějak odhadneme. Elipsoidovou metodou pak zjistíme, zda existuje nějaké řešení
+vyhovující našeho parametru a půlením intervalu můžeme najít optimum (s
+libovolnou přesností).
+
+Zajímavé ale je, že elipsoidová metoda nepotřebuje znát celou soustavu rovnic,
+stáčí jí oddělovací orákulum, které v kroku 3. ukáže na nějakou nerovnost, podle
+které se má změnit elipsoid. Pomocí tohoto triku lze například řešit soustavy,
+které mají exponencielně mnoho nerovností, ale je jednéduché (polynomiální)
+určit, zda je nějaké řešení přípustné, a případně poukázat na přerušenou
+nerovnost (typicky například MAXCUT, kde nalezení cesty ukazuje na porušenou
+nerovnost).
