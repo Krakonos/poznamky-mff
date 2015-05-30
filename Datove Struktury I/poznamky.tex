@@ -1,0 +1,204 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{a4wide}
+\usepackage{math}
+
+\begin{document}
+
+\title{Střípky z datových struktur}
+\author{Ladislav Láska}
+
+\renewcommand{\H}{\mathcal{H}}
+\newcommand{\U}{\mathcal{U}}
+
+\maketitle
+
+\section{Univerzální a perfektní hashování}
+Cílem této sekce bude ukázat konstrukci perfektního hashování, která je 
+prakticky použitelná. Plán je ukázat konstrukci dobrého univerzálního systému 
+(modulo prvočíslo) a z něj dvouúrovňově zkonstruovat perfektní hashovací funkci.  
+Zdroje k tomuto textu je zejména přednáška "Universal Hashing, Perfect Hashing" 
+od Charlese Leisersona z MIT (dostupné online) a lecture notů (TODO).
+
+\paragraph{Notace} Zaveďme pro tuto kapitolu notaci. $N$ = počet hashovaných 
+prvků, $M$ = velikost hashovací tabulky. Hashovací funkce jsou funkce $h: \U \to 
+\{0, \dots, M-1\}$.
+
+\subsection{Univerzální systém}
+\df Soubor funkcí $\H$ je univerzální, pokud platí:
+\begin{align}
+	\forall x,y\in \U, h\in \H \text{ náhodné}\quad Pr(h(x) = h(y)) \leq 1/M
+\end{align}
+
+\vt Nechť $h\in \H$ je zvolená náhodně. Potom pro každé $x\in \U$ je 
+$E[\#\text{kolizí s } x] < N/M$.
+
+\dk Nechť $C_x$ je náhodná proměnná udávající počet kolizí s $x$. Pro 
+zjednodušení si zaveďme indikátor $C_{xy}$, který je $1$ pokud pro danou $h$ 
+nastane kolize mezi $x$ a $y$, $0$ jinak. Z definice univerzality hned víme, že 
+$E[C_{xy}] \leq 1/M$. Stačí již použít linearitu střední hodnoty $E[C_x] = 
+\sum_y E[C_{xy}] < N/M$.
+
+\subsection{Konstrukce univerzálního systému}
+Zde použijeme elegantní konstrukci pomocí skalárního součinu. Předpokládáme 
+přitom, že $M$ je prvočíslo (prvočísla jsou dost hustá na to, abychom si 
+nepřihoršili víc než 2-krát!), navíc předpokládáme, že umíme efektivně pracovat 
+s klíči vhodné velikosti a počítat součet a násobit (rozumný předpoklad).
+
+Označme jako $x = (x_0, \dots, x_r)$ rozklad klíče $x$ do soustavy o základu $m 
+:= M$ (všimněme si, že $x_i$ nabývá hodnot od $0$ do $m-1$). Nyní už stačí 
+zvolit $a$ po složkách náhodně a použít jako hashovací funkci skalární součin:
+
+\begin{align}
+	h_a(x) = \langle x,a \rangle = \sum_{i=0}^r a_i x_i \mod m
+\end{align}
+
+Nyní by se nám hodilo vědět, kolik takových funkcí existuje a kolik takových 
+funkcí vytváří kolize. Zřejmě generujeme-li funkce po složkách, vygenerujeme 
+$m^{r+1}$ funkcí. Kolik jich ale vytváří kolize?
+
+Předpokládejme nyní $x \neq y$. Búno se v liší v první složce (děláme sumu přes 
+pozice, takže to vyjde pro libovolnou pozici stejně). Podívejme se na to, co se 
+musí stát, aby nastala kolize:
+
+\begin{align}
+	&\sum_{i=0}^r a_i x_i \equiv \sum_{i=0}^r a_i y_i \mod m \\
+	&\sum_{i=0}^r a_i (x_i - y_i) =  a_0 (x_0 - y_0) + \sum_{i=1}^r a_i (x_i - 
+	y_i) \equiv 0 \mod m\\
+\end{align}
+
+Nyní si stačí všimnou, že $x_0 - y_0$ je nenulové a $m$ je prvočíslo, můžeme k 
+němu nalézt inverzní prvek a tedy s ním dělit. Získáme tedy:
+
+\begin{align}
+	a_0 =  \left(\sum_{i=1}^r a_i (x_i - y_i)\right)(x_0 - y_0)^{-1}
+\end{align}
+
+Z toho vidíme, že pokud má nastat kolize, tak pokud náhodně zvolíme $r$ prvků 
+vektoru, poslední je již jimi jednoznačně určen (jinak nenastane kolize). Tedy 
+Počet kolizních funkcí je $m^r$.
+
+\vt Výše popsaná konstrukce je univerzální systém hashovacích funkcí.
+
+\dk Stačí ukázat vyžadovanou pravděpodobnost. To uděláme středoškolským 
+způsobem: podělíme počet špatných funkcí celkovým počtem funkcí:
+\begin{align}
+	Pr(h(x) = h(y)) = \frac{\#\text{počet špatných }h}{\#\text{počet všech }h} = 
+	\frac{m^{r}}{m^{r+1}} = \frac{1}{m}
+\end{align}
+A věta je dokázána.
+
+\subsection{Konstrukce perfektní hashovací funkce}
+Chtěli bychom rádi lineární hashovací tabulku. Nejprve si však ukážeme 
+kvadratickou verzi, která je značně jednoduchá a následně ji použijeme při 
+chytřejší konstrukci.
+\subsubsection{Kvadratická verze}
+Prvky zahashujeme do kvadratické tabulky a ukážeme, že pravděpodobnost kolize je 
+nízká pokud zvolíme náhodnou univerzální funkci (kterou si poznamenáme k 
+tabulce, abychom věděli, jakou použít). Pokud nastane kolize, zvolíme funkci 
+jinou.
+
+\vt Nechť $m = N^2$. Potom je pravděpodobnost, že nastane kolize $<1/2$.
+
+\dk Hashujeme $N$ prvků, kolize tedy může nastat mezi libovolným párem, kterých 
+je $\binom{N}{2}$. Pravděpodobnost, že konkrétní jeden pár zkoliduje je $1/m$ 
+(víme z definice univerzálního systému). Spočítejme střední hodnotu počtu kolizí 
+zdravým rozumem (\ref{hash-e-kolize}) a použitím Markovovy nerovnosti 
+(\ref{hash-markov}) získáme kýžený výsledek (\ref{hash-vysledek}).
+
+\begin{align}
+	\label{hash-e-kolize}
+	&E[\text{\it\#počet kolizí}] = \binom{N}{2} \cdot 1/m = \frac{N(N-1)}{2} 
+	\cdot \frac{1}{N^2}< 1/2\\
+	\label{hash-markov}
+	&Pr(A\geq t) \leq E[A] / t \\
+	\label{hash-vysledek}
+	&Pr(\text{\it\#počet kolizí}\geq1) \leq E[\text{\it\#počet kolizí}]/1
+\end{align}
+\qed
+
+\subsection{Lineární konstrukce}
+Na lineární konstrukci použijeme dvojúrovňové hashování -- nejprve zahashujeme 
+do tabulky velikosti $N$, kde nám mohou nastat kolize -- tam kde nastaly 
+vytvoříme sekundární tabulku, pro kterou použijeme kvadratickou variantu -- tím 
+získáme jistě perfektní hashovací funkci. Protože ale druhá úroveň má
+kvadratickou velikost, potřebujeme vědět, jak velké budou tabulky druhé úrovně.
+Spočítejme tedy sumu jejich velikostí, pro políčko $i$ označme velikost $n_i$.
+
+\vt Nechť $n_i$ je počet prvků, které se zahashovaly na první úrovni do 
+přihrádky $i$. Potom $E[\sum_i n_i^2] < 2N$.
+
+\dk Větu dokážeme trikem. Všimneme si, že chtěná střední hodnota je vlastně 
+počet kolizí, které nastanou, počítáme-li jako kolizi každou kolidující 
+uspořádanou dvojci. To se nám hodí, stačí si totiž zavést indikátor $C_{xy}$
+(jak jinak, než že je $1$ pokud $x$ a $y$ kolidují, $0$ jinak) a zapsat střední 
+hodnotu jako:
+\begin{align}
+	E[\sum_in_i^2] = E[\sum_x\sum_y C_{xy}]
+\end{align}
+
+Protože ale známe střední hodnotu kolize dvou různých prvků z univerzality (a 
+výpočet jsme provedli v kvadratické verzi), a zároveň víme, že prvek $x$ 
+koliduje s $x$, můžeme snadno dopočítat:
+
+\begin{align}
+	E[\sum_x\sum_y C_{xy}] = N + \sum_x\sum_{x\neq y} E[C_{xy}] \leq N + 
+	N(N-1)/M < 2N
+\end{align}
+
+Kde v první rovnosti jsme jednak vytkli $N$ ze sumy (kolize $x$ se sebou samým) 
+a zároveň použili linearitu střední hodnoty. Zbytek je již triviální dosazení,
+pamatujme však, že $M \sim N$ (tak jsme si ho zvolili).  
+Věta je dokázána.
+\qed
+
+Druhá úroveň tedy bude lineární ve střední hodnotě. Pomocí Markovovy nerovnosti
+ale snadno nahlédneme, že pravděpodobnost, že budeme potřebovat více prostoru,
+než je střední hodnota, je malá, a proto můžeme najít hashovací funkci pro první úroveň taktéž
+randomizovaně (označme potřebný prostor třeba $X$):
+\begin{align}
+	&Pr(X \geq 4N) \leq E[X] / 4N \leq 2N / 4N = 1/2
+\end{align}
+
+
+\section{AVL stromy}
+\subsection{Hloubka}
+\vt Hloubka AVL stromů je $\O(\log n)$.
+
+\dk Nejprve ukážeme, že dolní odhad na počet vrcholů ve stromě dané hloubky jsou 
+Fibbonaciho čísla. Poté si stačí uvědomit, že Fibbonaciho čísla rostou 
+exponenciálně a máme logaritmický odhad hned. Alternativně lze použít zlatý řez
+
+Indukce: Nechť $w_h$ je nejmenší počet vrcholů v AVL stromu hloubky $h$, přičemž 
+triviálně $w_0 = 1$ a $w_1 = 2$. Nyní mějme strom $T$ hloubky $h$ s minimálním 
+počtem vrcholů.  Jeho kořen má jistě dva podstromy a alespoň jeden z nich je o 
+jedna mělčí než $T$.  Pokud jsou oba stejně hluboké, plyne okamžitě spor. Tedy 
+jeden má hloubku $h-1$ a druhý $h-2$ (z AVL podmínky), hloubku $T$ lze tedy 
+napsat jako $h(T) = 1 + h(T_L) + h(T_R)$. Protože ale všechny stromy musí být 
+minimální (jinak je lze nahradit za menší a je to spor s minimalitou $T$), lze 
+psát obecně $w_h = 1 + w_{h-1} + w_{h-2}$.
+
+Pokud nechceme spoléhat na znalost exponenciálního odhadu Fibbonaciho čísel, 
+můžeme dokázat přímo: Nechť $\phi=\frac{1+\sqrt{5}}{2}$ (což je zhruba $1.6$).  
+Ukážeme, že $w_h \geq \phi^h$, což nám dá kýženou exponencielu (s kladným 
+základem).  Dokazujme indukcí (pro $w_0$ a $w_1$ platí triviálně):
+
+\begin{align}
+	w_{h+1} &= 1 + w_h + w_{h-1}\\
+	&\geq 1 + \phi^h + \phi^{h-1} \\
+	&= 1 + \phi^{h-1}(\phi + 1) \\
+	\label{avl-mocnina}&= 1 + \phi^{h+1} \\
+	&> \phi^{h+1}
+\end{align}
+
+Přičemž první nerovnost plyne z indukčních předpokladů a rovnost na řádku 
+(\ref{avl-mocnina}) z faktu, že $1+\phi = \phi^2$ (zkuste si umocnit a uvidíte).
+
+Z exponenciálního počtu vrcholů pak snadno plyne logaritmická hloubka a důkaz je 
+hotov. \qed
+
+
+
+\end{document}
