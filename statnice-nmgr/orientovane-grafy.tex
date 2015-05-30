@@ -10,7 +10,13 @@ Analogicky definujeme silně souvislé komponenty (SSK) grafu $G$.
 
 \subsection{Algoritmus pro hledání SSK}
 
-Než popíšeme algoritmus, všimneme si nejprve několika vlastností orientovaných grafů. Graf SSK je orientovaný acyklický graf. Proto v něm musí existovat alespoň jedna zdrojová komponenta (do níž nevedou žádné hrany) a alespoň jedna stoková varianta (z níž nevedou žádné hrany). Kdybychom měli vrchol ze stokové komponenty, mohli bychom z něj pustit DFS, který najde právě všechny vrcholy v této SSK. Po odebrání této komponenty z grafu bychom našli novou stokovou komponentu a pokračovali, dokud by nebyl celý graf rozdělen.
+Než popíšeme algoritmus, všimneme si nejprve několika vlastností orientovaných
+grafů. Graf SSK je orientovaný acyklický graf. Proto v něm musí existovat
+alespoň jedna zdrojová komponenta (do níž nevedou žádné hrany) a alespoň jedna
+stoková komponenta (z níž nevedou žádné hrany). Kdybychom měli vrchol ze stokové
+komponenty, mohli bychom z něj pustit DFS, který najde právě všechny vrcholy v
+této SSK. Po odebrání této komponenty z grafu bychom našli novou stokovou
+komponentu a pokračovali, dokud by nebyl celý graf rozdělen.
 
 Nevíme sice, jak najít vrchol ze stokové komponenty, ale je jednoduché najít vrchol ze zdrojové komponenty -- stačí na $G$ spustit DFS (opakovaně, pokud neprošel všechny vrcholy). Vrchol, který opustíme jako poslední\footnote{Při zavedení DFS si obvykle zadefinujeme pořadí podle opouštění vrcholu, značíme $out(v)$.}, je určitě ve zdrojové komponentě. Je zjevné, že když otočíme orientaci všech hran v $G$, SSK se nezmění, pouze se ze stokových stanou zdrojové a naopak.
 
@@ -51,5 +57,5 @@ tohoto jevu, pak $\E[I_\pi] = P(X_\pi) = 1/2^{n-1}$.
 
 Spočítáme-li střední hodnotu počtu hamiltonovských cest, tedy součet indikátorů 
 přes všechny permutace, máme $n!/2^{n-1}$. Z vlastností střední hodnoty víme, 
-že existuje alespoň jeden graf, kolik má právě tolik (nebo více) 
-hamiltonovských cest.
+že existuje alespoň jeden graf, který má právě tolik (nebo více) hamiltonovských
+cest.

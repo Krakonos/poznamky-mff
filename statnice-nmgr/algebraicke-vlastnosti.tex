@@ -7,6 +7,19 @@ většinou se udává setříděná podle velikosti (tj. $\lambda_1$ je typicky
 největší vlastní číslo). Pro vlastní čísla platí $Ax = \lambda x$ a lze je 
 vypočítat jako $\det(A - \lambda E) = 0$.
 
+\vt Vlastní čísla grafu jsou reálná.
+\dk Matice sousednosti grafu je symetrická a reálná. Z lineární algebry víme, že
+taková matice má vlastní čísla reálná.
+
+\vt Graf $G$ je $r$-regulární. Potom $r$ je největší vlastní číslo $G$ a jeho
+násobnost je počet komponent $G$.
+
+\vt Nechť $G$ je graf a $A$ jeho matice sousednosti. Potom $A^l_{ij}$ vyjadřuje
+počet sledů délky $l$ mezi vrcholy $i$ a $j$.
+
+\vt Vlastní čísla bipartitního grafu jsou symetrická okolo $0$. Pokud má
+bipartitní graf lichý počet vrcholů, je navíc jedno vlastní číslo rovno $0$.
+
 \subsection{Expandéry}
 
 \vt (O vlastních číslech bipartitního grafu) Graf $G$ je bipartitní právě 
@@ -22,6 +35,7 @@ kde každý graf má \uv{dobrou expanzí} (podle nějakého parametru).
 	\item Hranová expanze: $h(G) = \min_{S\subseteq V, |S|\leq n/2} {|\delta S| 
 	\over |S|}$, kde $\delta S$ značí hrany, které mají právě jeden vrchol v 
 	$S$.
+	\item Spektrální expanze: $h_s(G) = \lambda_1 - \lambda_2 = d - \lambda_2$.
 \end{itemize}
 
 \poz (O hranové a vrcholové expanzi) $h_v(G) \leq h(G) \leq d \cdot h_v(G)$.
@@ -85,4 +99,4 @@ zvětšuje), ale dědí stupeň po grafu $H$ (pokud stupeň byl $h$, nyní bude 
 -- to sice není úplně dobré, ale mohlo by to být horší).
 
 \vt (Zig-Zag) Nechť $H$ je dobrý $d$-regulární expandér, $G_1 := H^2$. Potom 
-rodina grafů $G_{i+1} := G_i\zz H$ je dobrý expandér.
+rodina grafů $G^2_{i+1} := G_i\zz H$ je dobrý expandér.

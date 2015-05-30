@@ -50,16 +50,16 @@ a to je spor.}.
 chromatickým číslem $> k$ a girth $>l$. Speciálně omezením girth nezískáme málo 
 barevné grafy.
 
-\dk {\it (pouze pro grafy bez trojúhelníků)} Začneme s hranou, to jest $G_2$ 
-(potřebuje 2 barvy).  Vybudujeme $G_{n+1}$ tak, že přidáme nový vrchol $z$, 
-zdvojíme všechny vrcholy, kopie spojíme hranou se sousedy svých předloh a $z$.  
-Takový graf je bez trojúhelníků, které mohly vzniknout jenom se $z$ a žádní 
-sousedi $z$ nemají mezi sebou hranu (konstrukce na obrázku 
-\ref{triangle-free-colorful-construction}).  Protože obě části vrcholů lze 
-obarvit stejně, triviálně umíme obarvit graf $n+1$ barvami.  Předpokládejme, že 
-$G_n$ potřeboval $n$ barev.  Potom pro každou barvu $c$ existuje vrchol, který 
-ji má vynucenou v $G_n$; jeho klon ji ale má vynucenou v $G_{n+1}$ také, protože 
-sdílí sousedy -- nelze ji tedy využít pro obarvení $z$.
+\dk {\it (pouze pro grafy bez trojúhelníků, obecný důkaz v pravděpobnostních
+metodách)} Začneme s hranou, to jest $G_2$ (potřebuje 2 barvy).  Vybudujeme
+$G_{n+1}$ tak, že přidáme nový vrchol $z$, zdvojíme všechny vrcholy, kopie
+spojíme hranou se sousedy svých předloh a $z$.  Takový graf je bez trojúhelníků,
+které mohly vzniknout jenom se $z$ a žádní sousedi $z$ nemají mezi sebou hranu
+(konstrukce na obrázku \ref{triangle-free-colorful-construction}).  Protože obě
+části vrcholů lze obarvit stejně, triviálně umíme obarvit graf $n+1$ barvami.
+Předpokládejme, že $G_n$ potřeboval $n$ barev.  Potom pro každou barvu $c$
+existuje vrchol, který ji má vynucenou v $G_n$; jeho klon ji ale má vynucenou v
+$G_{n+1}$ také, protože sdílí sousedy -- nelze ji tedy využít pro obarvení $z$.
 \begin{figure}[h!]
 	\centering
 	\includegraphics{img/triangle-free-colorful-construction.eps}
@@ -73,9 +73,12 @@ sdílí sousedy -- nelze ji tedy využít pro obarvení $z$.
 pro každý vrchol, pokud lze vybrat pro každý vrchol barvu z jeho seznamu 
 takovou, že sousední vrcholy mají různou barvu.
 
-\df (Vybíravost) Graf je $k$-obarvitelný, pokud ho lze obarvit ze seznamů délky 
-$k$. Graf je $k$-vybíravý, pokud $k$ je nejmenší takové, aby byl 
-$k$-obarvitelný.
+\df (Vybíravost) Graf je $k$-vybíravý, pokud ho lze obarvit z libovolných
+seznamů délky
+$k$, značíme $\ch(G) = k$.
+
+\poz Barevnost je speciální případ vybíravosti, speciálně když jsou všechny
+seznamy stejné.
 
 \vt (Thomassen) Každý rovinný graf je 5-vybíravý.
 
@@ -104,6 +107,10 @@ které jsme si vyškrtali ze sousedů $u_i$ kromě $v_{k-1}$!
 	\includegraphics{img/thomassen-induction.eps}
 	\caption{Postup indukce v grafu s chordou a bez ní.}
 \end{figure}
+
+\df Definujme hranovou barevnost a hranovou vybíravost grafu $G$ jako vrcholovou
+barevnost a vybíravost jeho linegrafu, tedy $\L(G)$. Značíme $\chi'(G)$ a
+$\ch'(G)$.
 
 \vt (List Coloring Conjecture) Pro každý graf platí $\chi'(G) = ch'(G)$.
 
