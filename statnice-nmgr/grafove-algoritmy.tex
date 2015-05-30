@@ -1,0 +1,78 @@
+\renewcommand{\arraystretch}{1.25}
+\section{Grafové algoritmy}
+\subsection{Nejkratší cesta}
+
+Nejkratší cesty z jednoho vrcholu do všech ostatních (orientované grafy s
+nezápornými váhami hran):
+
+\begin{center}
+\begin{tabular}{ l l p{8cm} }
+	\hline
+	\bf Algoritmus & \bf Čas & \bf Poznámka \\
+	\hline
+	Bellman-Ford & $O(nm)$ & Funguje i v grafu se zápornými váhami. \\
+	Dijkstra & $O(n^2)$ & Funguje i v neorientovaných grafech. \\
+	Dijkstra + FH & $O(m + n\log n)$ & FH = Fibonacciho halda \\
+	\hline
+\end{tabular}
+\end{center}
+
+\noindent Nejkratší cesty mezi všemi dvojicemi vrcholů (orientované grafy bez záporných cyklů):
+
+\begin{center}
+\begin{tabular}{ l l p{8cm} }
+	\hline
+	\bf Algoritmus & \bf Čas & \bf Poznámka \\
+	\hline
+	Floyd-Warshall & $O(n^3)$ & Funguje i v neorientovaných grafech. \\
+	\hline
+\end{tabular}
+\end{center}
+
+\subsection{Maximální tok}
+
+Tj. algoritmy na hledání maximálního toku v síti ze zadaného vrcholu $s$
+(zdroj), do zadaného vrcholu $t$ (stok). Velikost maximálního toku je navíc
+rovna velikosti minimálního řezu.
+
+\begin{center}
+\begin{tabular}{ l l }
+	\hline
+	\bf Algoritmus & \bf Čas \\ 
+	\hline
+	Ford-Fulkerson & $O(E\cdot \max_f)$\footnote{$\max_f$ je velikost maximálního toku} \\
+    Edmonds-Karp & $O(VE^2)$ \\
+    Dinic & $O(V^2E)$ \\
+	Tři indové & $O(V^3)$ \\
+	Orlin + King, Rao, Tarjan & $O(VE)$ \\ 
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{itemize*}
+\item \textbf{Ford-Fulkerson} hledá libovolnou zlepšující cestu. 
+\item \textbf{Edmonds-Karp} je Ford-Fulkerson, který hledá nejkratší
+zlepšující cestu (pomocí BFS). 
+\item \textbf{Dinic} si staví vrstevnatou síť rezerv a v každém kroku jednu
+hranu nasytí. 
+\item \textbf{Tři indové} počítají potenciál u vrcholů a v každém kroku
+jeden vrchol nasytí. 
+\item \textbf{Orlin + King, Rao, Tarjan} je hodně složitý, dělal se celý
+semestr na Semináři z grafových algoritmů.
+\end{itemize*}
+
+\subsection{Maximální párování}
+
+\begin{center}
+\begin{tabular}{ l l p{10cm} }
+	\hline
+	\bf Algoritmus & \bf Čas & \bf Poznámka \\
+	\hline
+	Edmonds & $O(n^4)$ & Tzv. květinkový algoritmus. Později byla časová složitost zlepšena až na $O(m\sqrt n)$ (Micali, Vazirani). \\
+	Mucha, Sankowski & $O(n^{2.376})$ & Randomizovaný, složitost je odvozena z násobení matic. \\
+	\hline
+\end{tabular}
+\end{center}
+
+
+\renewcommand{\arraystretch}{1.0}

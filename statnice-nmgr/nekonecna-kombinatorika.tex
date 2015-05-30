@@ -19,7 +19,7 @@ Königovo lemma lze využít v důkazu věty o kompaktnosti výrokové logiky.\f
 
 \vt (Bruijn \& Erdös, 1951) {\it Nechť $G$ je graf a $k\in \N$. Pokud je každý konečný podgraf $G$ obarvitelný nejvýše $k$ barvami, pak je nejvýše $k$ barvami obarvitelný i $G$.}
 
-\dk Mějme očíslování vrcholů $G$ $v_0, v_1, \dots$ Definujeme $G_n = G[v_0,\dots, v_n]$. Množinu všech $k$-obarvení grafu $G_n$ označíme $C_n$. Vytvoříme graf, jehož vrcholy tvoří jednotlivá obarvení $\bigcup_{n\in\N} C_n$ a hrany $cc'$ tž. $c\in C_n$ a $c'\in C_{n-1}$ (tedy hrany vedou mezi obarvením grafu s $n-1$ vrcholy, do všech rozšíření tohoto obarvení na graf s $n$ vrcholy). V tomto grafu dle Königova nekonečného lemma najdeme nekonečnou cestu $c_0c_1\dots$ tž. $\forall n\in\N: c_n \in C_n$. Potom $c := \bigcup{n\in\N}c_n$ je obarvení grafu $G$ $k$ barvami.
+\dk Mějme očíslování vrcholů $G$ $v_0, v_1, \dots$ Definujeme $G_n = G[v_0,\dots, v_n]$. Množinu všech $k$-obarvení grafu $G_n$ označíme $C_n$. Vytvoříme graf, jehož vrcholy tvoří jednotlivá obarvení $\bigcup_{n\in\N} C_n$ a hrany $cc'$ tž. $c\in C_n$ a $c'\in C_{n-1}$ (tedy hrany vedou mezi obarvením grafu s $n-1$ vrcholy, do všech rozšíření tohoto obarvení na graf s $n$ vrcholy). V tomto grafu dle Königova nekonečného lemma najdeme nekonečnou cestu $c_0c_1\dots$ tž. $\forall n\in\N: c_n \in C_n$. Potom $c := \bigcup_{n\in\N}c_n$ je obarvení grafu $G$ $k$ barvami.
 \qed
 
 \subsection{Hallova věta}
