@@ -1,0 +1,175 @@
+\documentclass[landscape,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
+\usepackage[usenames,dvipsnames]{color}
+
+\newcommand{\card}[1]{\makebox{\raisebox{4.2cm}{\raisebox{-2.1cm}{\parbox{6.9cm}{\begin{center}{\bf\large#1}\end{center}}}}}}
+\newcommand{\whiteout}[1]{{\color{Gray}#1}}
+
+\newcommand{\cardx}[2]{\framebox{{{%
+\parbox[t][4.2cm]{6.65cm}{\begin{center}{\bf\large#1}\end{center}
+\begin{itemize}
+#2
+\end{itemize}
+}}}}}
+
+\parindent=0pt
+\begin{document}
+\pagestyle{empty}
+
+\noindent
+\cardx{Barevnost grafů}{
+	\item Perfektní grafy
+	\item Barevnost a maximální stupeň
+	\item Barevnost a girth
+	\item Vybíravost
+}
+\cardx{Regulární grafy}{
+	\item Silně regulární grafy
+	\item Moorovy grafy
+	\item Regularita a Hamiltonovskost
+}
+\cardx{Souvislost grafů}{
+	\item Souvislost orientovaných grafů
+	\item Nash-Williams a arboricita
+	\item Linkovanost
+}
+\cardx{Speciální vlastnosti orientovaných grafů}{
+	\item Algoritmus pro hledáíní SSK
+	\item Turnaje a hamiltonovské cesty
+}
+\cardx{Algebraické vlastnosti grafů}{
+	\item Vlastní čísla grafu
+	\item Expandéry
+	\item Konstrukce expandérů
+}
+\cardx{Teorie párování}{
+	\item Párování na množinách
+	\item Párování v grafech
+	\item Velikost maximálního párování
+	\item Matching polytope
+}
+\cardx{Ramseyova teorie}{
+	\item Turánova věta
+	\item Ramseyovy věty
+	\item Hales-Jewett
+	\item Van der Waerden
+}
+\cardx{Nekonečná kombinatorika}{
+	\item Königovo nekonečné lemma
+	\item Věta o barevnosti nekonečných grafů
+	\item Hallova věta
+}
+\cardx{Strukturální vlastnosti množinových systémů}{
+	\item Sunflower lemma
+	\item Discrepancy
+	\item Bollobásova a Spernerova věta
+}
+\cardx{Kombinatorické počítání}{
+	\item Princip inkluze a exkluze
+	\item Problém šatnářky
+	\item Cayleyho formule
+	\item Fibonacciho a Catalanova čísla
+}
+\cardx{Vytvořující funkce}{
+	\item Vlastnosti VF
+	\item Operace s VF
+	\item Použití VF (rekurence)
+	\item Exponenciální VF
+}
+\cardx{Rekurence}{
+	\item Věta o řešení lin. rekurencí
+	\item Příklady použití (Fib. čísla)
+	\item Master theorem
+}
+\cardx{Základní pravděpodobnostní modely}{
+	\item Linearita střední hodnoty, Rozptyl
+	\item Metoda alternace
+	\item Černovova nerovnost, \\ Lovászovo lokální lemma
+}
+\cardx{Asymptotické odhady funkcí}{
+	\item ?
+}
+\cardx{Pravděpodobnostní konstrukce a algoritmy}{
+	\item Snižování potřebné náhody
+	\item Min-Cut, Quick Sort
+	\item Pravděpodobnostní hierarchie
+	\item PCP věta
+}
+\cardx{Grafové algoritmy}{
+	\item Nejkratší cesta
+	\item Maximální tok (3 indové)
+	\item Maximální párování
+}
+
+\newpage
+\card{Speciální vlastnosti orientovaných grafů}
+\card{Souvislost grafů}
+\card{Regulární grafy}
+\card{Barevnost grafů}
+\\
+\card{Nekonečná kombinatorika}
+\card{Ramseyova teorie}
+\card{Teorie párování}
+\card{Algebraické vlastnosti grafů}
+\\
+\card{Rekurence}{
+\card{Vytvořující funkce}{
+\card{Kombinatorické počítání}{
+\card{Strukturální vlastnosti množinových systémů}
+\\
+\card{Grafové algoritmy}
+\card{Pravděpodobnostní konstrukce a algoritmy}{
+\card{Asymptotické odhady funkcí}{
+\card{Základní pravděpodobnostní modely}{
+
+\newpage
+\cardx{Algebraické a aritmetické algoritmy}{
+	\item Strassen, Euklides, Eratosthenes
+	\item Prvočísla
+}
+\cardx{Teorie mnohostěnů}{
+	\item Roviny, nadroviny, mnohostěny
+	\item Lineární programování
+	\item Farkas lemma
+	\item Věta o dualitě
+}
+\cardx{Problém obchodního cestujícího}{
+	\item Obtížnost TSP
+	\item Aproximační alg. na TSP
+}
+\cardx{Speciální matice}{
+	\item Pozitivně definitní \\ a semidefinitní matice
+	\item Hadamardovy matice
+	\item Totálně unimodulární matice
+}
+\cardx{Celočíselnost}{
+	\item Obtížnost
+	\item Relaxace
+	\item Totální unimodularita
+}
+\cardx{Teorie matroidů}{
+	\item Definice přes nezávislé množiny, \\ báze, kružnice, rankovou funkci
+	\item Přehled vlastností, operace
+	\item Hladový algoritmus na matroidu
+	\item Matroid intersection theorem
+}
+\cardx{Elipsoidová metoda}{
+	\item Idea metody
+}
+\cardx{---}{
+	\item ---
+}
+\newpage
+\card{Speciální matice}
+\card{Problém obchodního cestujícího}
+\card{Teorie mnohostěnů}
+\card{Algebraické a aritmetické algoritmy}
+\\
+\card{}
+\card{Elipsoidová metoda}
+\card{Teorie matroidů}
+\card{Celočíselnost}
+
+\end{document}

@@ -10,9 +10,9 @@ nezápornými váhami hran):
 	\hline
 	\bf Algoritmus & \bf Čas & \bf Poznámka \\
 	\hline
-	Bellman-Ford & $O(nm)$ & Funguje i v grafu se zápornými váhami. \\
-	Dijkstra & $O(n^2)$ & Funguje i v neorientovaných grafech. \\
-	Dijkstra + FH & $O(m + n\log n)$ & FH = Fibonacciho halda \\
+	Bellman-Ford & $\O(nm)$ & Funguje i v grafu se zápornými váhami. \\
+	Dijkstra & $\O(n^2)$ & Funguje i v neorientovaných grafech. \\
+	Dijkstra + FH & $\O(m + n\log n)$ & FH = Fibonacciho halda \\
 	\hline
 \end{tabular}
 \end{center}
@@ -24,7 +24,7 @@ nezápornými váhami hran):
 	\hline
 	\bf Algoritmus & \bf Čas & \bf Poznámka \\
 	\hline
-	Floyd-Warshall & $O(n^3)$ & Funguje i v neorientovaných grafech. \\
+	Floyd-Warshall & $\O(n^3)$ & Funguje i v neorientovaných grafech. \\
 	\hline
 \end{tabular}
 \end{center}
@@ -40,11 +40,11 @@ rovna velikosti minimálního řezu.
 	\hline
 	\bf Algoritmus & \bf Čas \\ 
 	\hline
-	Ford-Fulkerson & $O(E\cdot \max_f)$\footnote{$\max_f$ je velikost maximálního toku} \\
-    Edmonds-Karp & $O(VE^2)$ \\
-    Dinic & $O(V^2E)$ \\
-	Tři indové & $O(V^3)$ \\
-	Orlin + King, Rao, Tarjan & $O(VE)$ \\ 
+	Ford-Fulkerson & $\O(E\cdot \max_f)$\footnote{$\max_f$ je velikost maximálního toku} \\
+    Edmonds-Karp & $\O(VE^2)$ \\
+    Dinic & $\O(V^2E)$ \\
+	Tři indové & $\O(V^3)$ \\
+	Orlin + King, Rao, Tarjan & $\O(VE)$ \\ 
     \hline
 \end{tabular}
 \end{center}
@@ -68,8 +68,8 @@ semestr na Semináři z grafových algoritmů.
 	\hline
 	\bf Algoritmus & \bf Čas & \bf Poznámka \\
 	\hline
-	Edmonds & $O(n^4)$ & Tzv. květinkový algoritmus. Později byla časová složitost zlepšena až na $O(m\sqrt n)$ (Micali, Vazirani). \\
-	Mucha, Sankowski & $O(n^{2.376})$ & Randomizovaný, složitost je odvozena z násobení matic. \\
+	Edmonds & $\O(n^4)$ & Tzv. květinkový algoritmus. Později byla časová složitost zlepšena až na $\O(m\sqrt n)$ (Micali, Vazirani). \\
+	Mucha, Sankowski & $\O(n^{2.376})$ & Randomizovaný, složitost je odvozena z násobení matic. \\
 	\hline
 \end{tabular}
 \end{center}
