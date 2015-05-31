@@ -103,7 +103,7 @@ Důkaz vezme nejdelší cestu v $G$ a hledá se spor s tím, že je nejdelší. 
 \label{dk:nw-triv}
 \end{wrapfigure}
 
-Předpokládejme že neexistuje dvojice na sousedních vrcholů $v_{i-1}v_i$, přes které by šla uzavřít kružnice (viz Obrázek \ref{dk:nw-triv}). Pak ale nutně platí, že když $v_0v_i \in E$, pak $v_{i-1}v_{2k} \not\in E$. Vrchol $v_{2k}$ má $k$ sousedů, ale nesmí mezi nimi být žádné vrcholy, jejihž pravý soused je spojen s $v_0$. Jinými slovy, $v_0$ nám vyblokuje $k$ vrcholů, do kterých nesmí vést hrana z $v_{2k}$ a ten sousedí se všemi ostatními. Tedy, když $v_0v_i \not\in E$, pak $v_{i-1}v_{2k} \in E$ (tuto vlastnost použijeme později).
+Předpokládejme že neexistuje dvojice na sousedních vrcholů $v_{i-1}v_i$, přes které by šla uzavřít kružnice (viz Obrázek \ref{dk:nw-triv}). Pak ale nutně platí, že když $v_0v_i \in E$, pak $v_{i-1}v_{2k} \not\in E$. Vrchol $v_{2k}$ má $k$ sousedů, ale nesmí mezi nimi být žádné vrcholy, jejichž pravý soused je spojen s $v_0$. Jinými slovy, $v_0$ nám vyblokuje $k$ vrcholů, do kterých nesmí vést hrana z $v_{2k}$ a ten sousedí se všemi ostatními. Tedy, když $v_0v_i \not\in E$, pak $v_{i-1}v_{2k} \in E$ (tuto vlastnost použijeme později).
 
 \textbf{Případ (i)} $v_0$ sousedí právě s vrcholy v první polovině cesty a $v_{2k}$ právě s vrcholy v druhé polovině cesty. Pak musí existovat dvojice vrcholů $v_i,v_j$ v první polovině cesty, mezi kterými nevede hrana. Kdyby vedla hrana mezi každými dvěma vrcholy v první polovině cesty, pak by byl stupeň $v_k$ vyšší, než $k$. Protože stupeň $v_i$ je $k$, existuje $v_l$ v druhé polovině cesty tž. $v_iv_l \in E$. Pak najdu HK (viz Obrázek \ref{dk:nw-i}).
 

@@ -21,15 +21,25 @@ $G$ $k$-souvislý podgraf.
 \vt (Minimální souvislý graf) Algoritmicky najít nejmenší (co do počtu hran) 
 podgraf, který je $k$-souvislý je $\NP$-těžké.
 
-\df (Arboricita) Arboricita grafu $\A(G)$ je nejmenší počet lesů, které stačí k 
-pokrytí celého grafu.
+%\df (Arboricita) Arboricita grafu $\A(G)$ je nejmenší počet lesů, které stačí k 
+%pokrytí celého grafu.
+%
+%\poz (Dolní odhad na Arboricitu) Pro libovolný graf $\A(G) \geq m/(n-1)$, 
+%protože každá kostra má nanejvýš $n-1$ hran.
+%
+%\vt (Nash-Williams) Pro graf $G=(V,E)$ platí: $\A(G) = \max_{S \subseteq V} 
+%\lceil m_S / (|S| -1 ) \rceil$, kde $m_S$ je počet hran grafu indukovaného na 
+%$S$.
 
-\poz (Dolní odhad na Arboricitu) Pro libovolný graf $\A(G) \geq m/(n-1)$, 
-protože každá kostra má nanejvýš $n-1$ hran.
+\vt (Nash-Williams) Multigraf obsahuje $k$ hranově disjunktních koster právě
+tehdy, když pro každé rozdělení vrcholů na $r$ partit, má $G$ alespoň $k(r-1)$
+hran mezi partitami.
 
-\vt (Nash-Williams) Pro graf $G=(V,E)$ platí: $\A(G) = \max_{S \subseteq V} 
-\lceil m_S / (|S| -1 ) \rceil$, kde $m_S$ je počet hran grafu indukovaného na 
-$S$.
+\vt Každý hranově $2k$-souvislý multigraf má $k$ hranově disjunktních koster.
+
+\dk Pomocí Nash-Williamse: každá partita je s ostatními ze souvislosti spojena
+alespoň $k$ hranově disjunktními cestami, z každé cesty jedna hrana bude mezi
+partitami, což splňuje podmínky pro použití věty.\qed
 
 \subsection{Linkovanost}
 
@@ -41,7 +51,7 @@ do $t_i$.
 je určitě $k$-souvislý, naopak to neplatí; Mengerova věta totiž nezaručuje (a 
 ani nemůže) propojení správných vrcholů.
 
-\vt (Souvislost a linkovanost) Nechť $G$ je $2k$-linkovaný a obsahuje minor 
+\vt (Souvislost a linkovanost) Nechť $G$ je $2k$-souvislý a obsahuje minor 
 $K_{4k}$. Potom je $G$ $k$-linkovaný.
 
 \vt (Velká souvislost a linkovanost) Nechť $G$ je $2^{4k+1}$-souvislý, potom je 
