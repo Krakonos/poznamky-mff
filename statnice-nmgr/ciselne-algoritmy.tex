@@ -9,7 +9,7 @@
 \vt (Lagrangeova) Pokud má konečná grupa $G$ podgrupu $H$, pak je řád $G$
 dělitelný řádem $H$.
 \vt (Malá Fermatova) Je-li $p$ prvočíslo a $\gcd(x,y) = 1$, potom platí $x^{p-1}
-\equiv 1$.
+\equiv_y 1$.
 
 \df (Eulerova funkce) Pro číslo $n$ definujeme $\varphi(n)$ počet čísel mezi $1$
 a $n-1$ nesoudělných s $n$ (tj. $\gcd(n,i) = 1$.
@@ -63,8 +63,8 @@ prvočísla odpovídá správně a na složená čísla odpoví špatně s pravd
 nanejvýš $1/4$.
 \begin{enumerate}
 	\item Vygeneruj náhodné $x: 1 < x < n$.
-	\item Pokud $\gcd(x,n) != 1$, odpověz, že je číslo {\bf složené}.
-	\item Najdi $t$ a liché 4$m$, t. ž. $n-1 = 2^t \cdot m$.
+	\item Pokud $\gcd(x,n) \neq 1$, odpověz, že je číslo {\bf složené}.
+	\item Najdi $t$ a liché $m$, t. ž. $n-1 = 2^t \cdot m$.
 	\item Spočti $b_0 := x^m$ a $b_{i+1} := b_i^2$ pro $i\in \{1, \dots, t\}$.
 	\item Pokud $b_t \equiv 1$, odpovíme, že je číslo {\bf složené} ($x$ je
 		Fermatův svědek).

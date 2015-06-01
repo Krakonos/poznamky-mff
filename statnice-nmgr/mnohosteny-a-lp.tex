@@ -45,11 +45,11 @@ konvexní obal polopřímek vycházejících z počátku a procházejících bod
 \begin{enumerate}
 	\item Bod $b$ leží v kuželu definovaným $a_i$.
 	\item Existuje nadrovina $h$ procházející počátkem, tvaru $h = \{x \in \R^m
-	: y^Tx = 0\}$, oddělující .
+	: y^Tx = 0\}$, oddělující bod $b$ od kuželu definovaného $a_i$.
 \end{enumerate}
 \dk Pokud je $b$ v kuželu, je hotoov. Jinak nadrovinu můžeme najít pomocí
 oddělovací věty aplikované na $b$ a kužel. Ta nám sice nedá nadrovinu nutně
-procházejícíc počátkem, ale protože je kužel konvexní a nadrovina $b$ odděluje
+procházející počátkem, ale protože je kužel konvexní a nadrovina $b$ odděluje
 od kuželu, můžeme ji do počátku posunout a kužel stále protínat nebude. \qed
 
 Dále se nám bude hodit ale více algebraické vyjádření:
@@ -144,13 +144,15 @@ v jedné složce pravé strany!
 \end{align}
 A to již můžeme poslat do lemmatu a protože víme, že pro $\epsilon > 0$ žádné
 nezáporné řešení neexistuje. Musí tedy existovat nějaký nezáporný vektor $y'$, že
-$y'^TA' \geq 0$, ale $y'^T b' < 0$. To můžeme ale dát dohromady a levou stranu
+$y'^TA' \geq 0$, ale $y'^T b' < 0$. To ale můžeme dát dohromady a levou stranu
 transponovat:
 \begin{align}
 	y^TA' \geq 0 > y^T b' \qquad \Rightarrow \qquad
 	A'^Ty \geq b'^T y
 \end{align}
-Co to ale znamená? Pamatujme, že cílovou funkci máme zakódovanou ve vektoru
+Co to znamená? Pamatujme, že cílovou funkci máme zakódovanou ve vektoru
 $y'$, dává nám to tedy nějaké řešení duálního programu, které je jenom o epsilon
 menší, než optimum primáru. Protože to můžeme udělat pro libovolně malé
-$\epsilon$, musí si být rovny. \qed
+$\epsilon$, musí si být rovny. 
+\qed
+
