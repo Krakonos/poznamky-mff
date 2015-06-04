@@ -26,7 +26,7 @@ Algoritmus selže pouze tehdy, když všechny vrcholy, které v grafu navštív�
 patří do $B_x$.Pomocí Markovovských řetězců lze dokázat, že pravděpodobnost, že
 se toto stane je nanejvýš:
 \begin{align}
-	\left({|B_x| \over 2^m} + {\lambda_2(G) \over 2}\right)^{k-1}
+	\left({|B_x| \over 2^m} + {\lambda_2(G) \over d}\right)^{k-1}
 \end{align}
 Aplikujeme/li vytah $|B_x|/2^m < p_f$, máme $(p_f + \lambda_2(G)/d)^{k-1}$, což
 je stále exponenciální pokles pravděpodobnosti, že algoritmus selže.
@@ -49,8 +49,9 @@ sousedící byly triviálním řezem. Jaká je pravděpodobnost, že vybereme hr
 $i$ je číslo iterace, ve které se kotrakce provádí. Celková pravděpodobnost, že
 nevybereme hranu z $C$ je:
 \begin{align}
-	p \geq \prod_{i=1}^{n-l} \left( 1 - {2 \over n-i+1}\right) = \dots = {l
-	\cdot (l-1) \over n \cdot (n-1)}
+	p \geq \prod_{i=1}^{n-l} \left( 1 - {2 \over n-i+1}\right) = 
+	\prod_{i=1}^{n-l}{n-i-1 \over n-i+1}
+	= {l \cdot (l-1) \over n \cdot (n-1)}
 \end{align}
 Pokud zvolíme $l=2$, je výsledný řez jasný -- všechny zbývající hrany.
 Pravděpodobnost, že ale takto získáme řez minimální, není zrovna dobrá.
