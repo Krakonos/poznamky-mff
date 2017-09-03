@@ -39,7 +39,7 @@ náhodnou hranu. Paralelní hrany zanecháváme, smyčky odstraňujeme.
 Kdykoliv má výsledný graf (říkejme mu $G'$) nějaký řez, je tento řez řezem i v
 $G$. Speciálně minimální řez v $G'$ je i řezem v $G$; bohužel naopak to neplatí,
 protože pokud kontrahujeme hranu, která je obsažena ve všech minimálních řezech,
-zvýšíme si tím velikost minimálního řezu alespoň o $1$. 
+zvýšíme si tím velikost minimálního řezu alespoň o $1$.
 
 Graf tedy vydá správný výsledek, pokud jsme nekontrahovali hranu v žádném
 minimálním řezu. To se dá spočítat. Zafixujme si nějaký řez minimální řez $C$ s
@@ -49,7 +49,7 @@ sousedící byly triviálním řezem. Jaká je pravděpodobnost, že vybereme hr
 $i$ je číslo iterace, ve které se kotrakce provádí. Celková pravděpodobnost, že
 nevybereme hranu z $C$ je:
 \begin{align}
-	p \geq \prod_{i=1}^{n-l} \left( 1 - {2 \over n-i+1}\right) = 
+	p \geq \prod_{i=1}^{n-l} \left( 1 - {2 \over n-i+1}\right) =
 	\prod_{i=1}^{n-l}{n-i-1 \over n-i+1}
 	= {l \cdot (l-1) \over n \cdot (n-1)}
 \end{align}
@@ -104,7 +104,7 @@ odpovědět {\bf NE}.
 čase, kde se algorimus může splést s pravděpodobností nanejvýš $1/2$. Třída
 $co$-RP je definovaná se znegovanými odpověďmi (tedy plést se může ${\bf NE}$).
 Třída ZPP je průnik obou tříd, tedy algoritmy, které lze řešit
-pravděpodobnostně bez chyby, ale čas je omezen pouze ve střední hodnotě. 
+pravděpodobnostně bez chyby, ale čas je omezen pouze ve střední hodnotě.
 
 \poz ZPP lze alternativně definovat jako polynomiálně běžící algoritmus, který
 odpoví {\bf ANO}, {\bf NE}, nebo {\bf NEVÍM} s tím, že {\bf NEVÍM} odpvodí s

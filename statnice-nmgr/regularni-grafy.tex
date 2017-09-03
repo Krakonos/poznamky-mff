@@ -8,7 +8,7 @@
 \item 3-regulární grafy nazýváme kubické, patří mezi ně např. Petersen
 \end{itemize*}
 
-\vt (o vlastních číslech) {\it Graf $G$ je $k$-regulární $\Leftrightarrow$ matice sousednosti $G$ má vlastní číslo $k$ a odpovídající vlastní vektor $(1,\dots,1).$ 
+\vt (o vlastních číslech) {\it Graf $G$ je $k$-regulární $\Leftrightarrow$ matice sousednosti $G$ má vlastní číslo $k$ a odpovídající vlastní vektor $(1,\dots,1).$
 $k$-regulární graf je souvislý $\Leftrightarrow$ vlastní číslo $k$ má násobnost 1.}
 
 \subsection{Silně regulární grafy}
@@ -35,7 +35,7 @@ Konstrukcí lze ukázat, že menší počet vrcholů už implikuje malý cyklus,
 
 \vt Moorův graf existuje pro $r=1,2,3,7$, pro $r=57$ se neví (otevřený problém) a pro žádné další $r$ neexistuje.
 
-\dk (Idea) Mějme graf $G$ Moorův a $A$ jeho matici sousednosti. Zapišme druhou 
+\dk (Idea) Mějme graf $G$ Moorův a $A$ jeho matici sousednosti. Zapišme druhou
 mocninu $A$ jako stupeň na diagonále a prohozené 0 a 1 jinde a upravme:
 \begin{align}
 	&A^2 = r\In + ({\bf J}_n- A - \In) \\
@@ -43,16 +43,16 @@ mocninu $A$ jako stupeň na diagonále a prohozené 0 a 1 jinde a upravme:
 \end{align}
 Dále pro nějaké $\lambda\in \Sp(A)$ a $x$ odpovídající vlastní vektor:
 \begin{align}
-	\label{moorova-mocnina}A^2 x = AAx = A\lambda x = \lambda A x = \lambda 
+	\label{moorova-mocnina}A^2 x = AAx = A\lambda x = \lambda A x = \lambda
 	\lambda x = \lambda^2 x
 \end{align}
 A dosadíme (\ref{moorova-matice}) za $A$:
 \begin{align}
 	{\bf J}_nx = (A^2 + A + (1-r)\In)x = (\lambda^2 + \lambda + (1-r))x
 \end{align}
-A tedy $(\lambda^2 + \lambda + 1 -r) \in \Sp({\bf J}_n)$. Vlastní čísla matice ${\bf J}_n$ 
-(matice samých jedniček) ale známe, jsou to $\{0^{(n-1)}, n^{(1)}\}$. Zjevně pro 
-$\lambda = r$ vyjde vlastní číslo $n$, je tedy potřeba vyřešit kvadratickou 
+A tedy $(\lambda^2 + \lambda + 1 -r) \in \Sp({\bf J}_n)$. Vlastní čísla matice ${\bf J}_n$
+(matice samých jedniček) ale známe, jsou to $\{0^{(n-1)}, n^{(1)}\}$. Zjevně pro
+$\lambda = r$ vyjde vlastní číslo $n$, je tedy potřeba vyřešit kvadratickou
 rovnici s parametrem $r$:
 \begin{align}
 	\lambda^2 + \lambda + 1 - r = 0
@@ -73,7 +73,7 @@ Nejdříve
 upravíme do formy (násobení dvěma a přeskupení):
 \begin{align}
 	2r - \sqrt{4r-3}(m_1-m_2) - \underbrace{(m_1+m_2)}_{m_1+m_2=n-1=r^2} &= 0\\
-	2r - r^2 + \sqrt{4r-3}(m_1 - m_2) &= 0 
+	2r - r^2 + \sqrt{4r-3}(m_1 - m_2) &= 0
 	\label{4-2:rovnice}
 \end{align}
 Moorův graf je $r$-regulární, $r\in\N$, tedy máme dvě možnosti:
@@ -88,9 +88,9 @@ Moorův graf je $r$-regulární, $r\in\N$, tedy máme dvě možnosti:
 
 
 \subsection{Regularita a Hamiltonovskost}
-\vt (Dirac) {\it Máme-li souvislý graf $G$, $n \ge 3$ a stupeň každého vrcholu je alespoň $n\over 2$, pak je $G$ hamiltonovský.} 
+\vt (Dirac) {\it Máme-li souvislý graf $G$, $n \ge 3$ a stupeň každého vrcholu je alespoň $n\over 2$, pak je $G$ hamiltonovský.}
 
-Důkaz vezme nejdelší cestu v $G$ a hledá se spor s tím, že je nejdelší. Diracovu větu použijeme v důkazu následující věty od Nash-Williamse. 
+Důkaz vezme nejdelší cestu v $G$ a hledá se spor s tím, že je nejdelší. Diracovu větu použijeme v důkazu následující věty od Nash-Williamse.
 
 \vt (Nash-Williams) {\it Každý $k$-regulární graf na $2k+1$ vrcholech obsahuje Hamiltonovskou kružnici.}
 

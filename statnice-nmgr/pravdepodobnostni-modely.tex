@@ -1,76 +1,76 @@
 \section{Základní pravděpodobnostní modely}
-\df (Pravděpodobnostní prostor) Pravděpodobnostní prostor je trojce $(\Omega, 
-\Sigma, P)$, kde $\Omega$ je množina elementárních jevů, $\Sigma \subseteq 
-2^\Omega$ a $P: \sigma \to [ 0, 1 ]$ je pravděpodobnostní distribuce (tedy 
-funkce udávající pravděpodobnost každého jevu ze $\Sigma$).  $\Sigma$ je 
-$\sigma$-algebra. Pravděpodobnost elementárního jevu $a$ budeme značit jako 
+\df (Pravděpodobnostní prostor) Pravděpodobnostní prostor je trojce $(\Omega,
+\Sigma, P)$, kde $\Omega$ je množina elementárních jevů, $\Sigma \subseteq
+2^\Omega$ a $P: \sigma \to [ 0, 1 ]$ je pravděpodobnostní distribuce (tedy
+funkce udávající pravděpodobnost každého jevu ze $\Sigma$).  $\Sigma$ je
+$\sigma$-algebra. Pravděpodobnost elementárního jevu $a$ budeme značit jako
 $p_a$, pokud je toto označení jednoznačné.
 
-%\df ($\sigma$-algebra) Podmnožina $\Sigma \subseteq 2^X$ množiny $X$ je 
+%\df ($\sigma$-algebra) Podmnožina $\Sigma \subseteq 2^X$ množiny $X$ je
 %$\sigma$-algebra, pokud splňuje:
 %\begin{enumerate}
 %	\item $X \in \Sigma$
-%	\item Je uzavřená na doplněk: $A \in \Sigma \Rightarrow X \setminus A \in 
+%	\item Je uzavřená na doplněk: $A \in \Sigma \Rightarrow X \setminus A \in
 %	\Sigma$
-%	\item Je uzavřená na spočetné sjednocení: $A_1, A_2, \dots \in \Sigma 
+%	\item Je uzavřená na spočetné sjednocení: $A_1, A_2, \dots \in \Sigma
 %	\Rightarrow \bigcup A_i \in \Sigma$.
 %\end{enumerate}
 
-\df (Uniformní distribuce) Distribuce $P$ je uniformní, pokud $P(a) = 1 / 
+\df (Uniformní distribuce) Distribuce $P$ je uniformní, pokud $P(a) = 1 /
 |\Omega|$ pro každé $a \in \Omega$.
 
-Chceme-li získat náhodný graf, potřebujeme k tomu mít dobrý způsob. Obecně není 
-vhodné vybrat náhodný graf ze všech možných grafů, ale spíše vybra náhodný graf 
+Chceme-li získat náhodný graf, potřebujeme k tomu mít dobrý způsob. Obecně není
+vhodné vybrat náhodný graf ze všech možných grafů, ale spíše vybra náhodný graf
 na $n$ vrcholech. Existuje několik možných modelů:
 \begin{enumerate}
-	\item (Gilbert) $G(n,p)$ je náhodný graf na $n$ vrcholech, kde každá 
+	\item (Gilbert) $G(n,p)$ je náhodný graf na $n$ vrcholech, kde každá
 		potenciální hrana je do grafu přidána s pravděpodobností $p$.
-	\item (Erdös-Rényi) $G_e(n,m)$ je náhodný graf vybraný ze všech grafů na $n$ 
+	\item (Erdös-Rényi) $G_e(n,m)$ je náhodný graf vybraný ze všech grafů na $n$
 		vrcholech obsahujících $m$ hran.
-	\item (Regular) $G_r(n,r)$ je náhodný graf vybraný ze všech $r$-regulárních 
+	\item (Regular) $G_r(n,r)$ je náhodný graf vybraný ze všech $r$-regulárních
 		grafů na $n$ vrcholech.
 \end{enumerate}
-Gilbertův model je nejpoužívanější a nejjednodušší na používání, včetně 
-algoritmického výběru. Například vybra regulární graf není vůbec jednoduché.  
-Jeden příklad konstrukce je vzít $nr$ vrcholů, rozdělit je do $n$ skupin po $r$ 
-vrcholech, zvolit náhodné párování a kontrahovat všechny skupiny. Pokud vyjde 
+Gilbertův model je nejpoužívanější a nejjednodušší na používání, včetně
+algoritmického výběru. Například vybra regulární graf není vůbec jednoduché.
+Jeden příklad konstrukce je vzít $nr$ vrcholů, rozdělit je do $n$ skupin po $r$
+vrcholech, zvolit náhodné párování a kontrahovat všechny skupiny. Pokud vyjde
 graf bez smyček a multihran, máme výsledek, jinak musíme opakovat...
 
 
-\tv (Union Bound) Pro spočetně mnoho jevů platí: $P(\bigcup A_i) \leq \sum 
+\tv (Union Bound) Pro spočetně mnoho jevů platí: $P(\bigcup A_i) \leq \sum
 P(A_i)$.
 
 \df (Podmíněná pravděpodobnost) Pro jevy $A$ a $B$ platí:
 \begin{align}
 	P[A|B] = {P[A \cdot B] \over P[B]}
 \end{align}
-Tedy pravděpodobnost, že $A$ nastane za předpokladu, že $B$ nastal, je rovna 
-pravděpodobnosti, že nastanou oba najednou, normalizovaná pravděpodobností jevu 
+Tedy pravděpodobnost, že $A$ nastane za předpokladu, že $B$ nastal, je rovna
+pravděpodobnosti, že nastanou oba najednou, normalizovaná pravděpodobností jevu
 $B$.
 
-\df (Náhodná proměnná) Náhodná proměnná je funkce $X: \Sigma \to Y$, tedy na 
-základě náhodného experimentu nabývá nějaké hodnoty (například: počet hran 
+\df (Náhodná proměnná) Náhodná proměnná je funkce $X: \Sigma \to Y$, tedy na
+základě náhodného experimentu nabývá nějaké hodnoty (například: počet hran
 náhodného grafu, barevnost, velikost největší kliky,...).
 
-\df (Indikátor) Indikátor (nějakého jevu $A$) je náhodná proměnná, která nabývá 
-hodnot $1$ nebo $0$, podle toho, zda při náhodném experimentu jev $A$ nastal, 
+\df (Indikátor) Indikátor (nějakého jevu $A$) je náhodná proměnná, která nabývá
+hodnot $1$ nebo $0$, podle toho, zda při náhodném experimentu jev $A$ nastal,
 nebo ne.
 
-\df (Nezávislost) Jevy $X$ a $Y$ jsou nezávislé právě tehdy, když $P(A\cap B) = 
+\df (Nezávislost) Jevy $X$ a $Y$ jsou nezávislé právě tehdy, když $P(A\cap B) =
 P(A) \cdot P(B)$.
 
-\df (Nezávislost více jevů) Spočetně jevů $A_i$ je navzájem nezávislých právě 
-tehdy, pokud ($I$ je indexová množina představující všechny možné podmnožiny $A 
+\df (Nezávislost více jevů) Spočetně jevů $A_i$ je navzájem nezávislých právě
+tehdy, pokud ($I$ je indexová množina představující všechny možné podmnožiny $A
 = \bigcup A_i$):
 \begin{align}
-	P\left(\bigcap_{i \in I} A_i\right) = \prod_{i\in I} P(A_i) \qquad \forall I 
+	P\left(\bigcap_{i \in I} A_i\right) = \prod_{i\in I} P(A_i) \qquad \forall I
 \end{align}
 
 \pzn Pozor! Po dvou nezávislé jevy nezaručují vzájemnou nezávislost!
 
 \subsection{Linearita střední hodnoty, rozptyl}
 
-\df (Střední hodnota) Pro náhodnou proměnnou $X$ je střední hodnota definována 
+\df (Střední hodnota) Pro náhodnou proměnnou $X$ je střední hodnota definována
 jako:
 \begin{align}
 	\E[X] = \sum_{a \in \Omega} X(a) \cdot p_a
@@ -79,7 +79,7 @@ jako:
 \vt (Princip průměru) Vždy existuje alespoň jeden jev, který nabývající stejné 
 hodnoty, nebo větší, než střední hodnota, a naopak.
 
-\vt (Linearita střední hodnoty) Pro náhodné proměnné $X$, $Y$ a libovolnou 
+\vt (Linearita střední hodnoty) Pro náhodné proměnné $X$, $Y$ a libovolnou
 konstantu $c$ platí:
 \begin{align}
 	\E[X+Y] = \E[X] + \E[Y] \\
@@ -90,11 +90,11 @@ Pokud jsou navíc $X$ a $Y$ nezávislé, potom:
 	\E[X \cdot Y] = \E[X] \cdot \E[Y]
 \end{align}
 
-\poz (Střední hodnota indikátoru) Pro jev $A$ a jeho indikátor $I_A$ platí: 
-$\E[I_A] = \sum_{\omega \in \Omega} I_A(\omega) \cdot p_\omega = \sum_{\omega 
+\poz (Střední hodnota indikátoru) Pro jev $A$ a jeho indikátor $I_A$ platí:
+$\E[I_A] = \sum_{\omega \in \Omega} I_A(\omega) \cdot p_\omega = \sum_{\omega
 \in \Omega} 1 \cdot p_\omega = P(A)$.
 
-\vt (Markovova nerovnost) Nechť $X \geq 0$ je náhodná proměnná a $a > 0$. Potom 
+\vt (Markovova nerovnost) Nechť $X \geq 0$ je náhodná proměnná a $a > 0$. Potom
 platí:
 \begin{align}
 	P(X \geq a) \leq {\E X \over a}
@@ -105,7 +105,7 @@ platí:
 	\Var(X) = \E[(X - \E X)^2] ( = \E(X^2) - (\E X)^2 )
 \end{align}
 
-\vt (Čebyševova nerovnost) Nechť $X$ je náhodná proměnná, potom $\forall t > 0$ 
+\vt (Čebyševova nerovnost) Nechť $X$ je náhodná proměnná, potom $\forall t > 0$
 platí:
 \begin{align}
 	P(|X - \E X| \geq t) \leq {\Var(X) \over t^2}
@@ -115,103 +115,103 @@ platí:
 nerovnost se však stane ostrou!
 
 %\tv Pro $m \geq 1$ platí: $\binom{2m}{m} \geq 2^{2m} / (4 \sqrt m + 2)$.
-%\dk Díváme se na kombinační číslo jako volbu z množiny. Zvolme si $X_1, \dots, 
-%X_{2m}$ proměnné nabývající $0$ nebo $1$ obojí s pravděpodobností $1/2$ a $X = 
+%\dk Díváme se na kombinační číslo jako volbu z množiny. Zvolme si $X_1, \dots,
+%X_{2m}$ proměnné nabývající $0$ nebo $1$ obojí s pravděpodobností $1/2$ a $X =
 %\sum X_i$.  Potom $\E X = m$ a $\Var(X) = m/2$. Podívejme se na pra
 
-%\vt (Erdös-Ko-Rado) Nechť $X$ je množina a $\F\subseteq 2^X$ je protínající se 
-%systém množin a každá množina tohoto systému je alespoň $k$-prvková, kde $|X| = 
+%\vt (Erdös-Ko-Rado) Nechť $X$ je množina a $\F\subseteq 2^X$ je protínající se
+%systém množin a každá množina tohoto systému je alespoň $k$-prvková, kde $|X| =
 %n \geq 2k$, potom $|\F| \leq \binom{n-1}{k-1}$.
 
 \subsection{Metoda alternace}
 
-\vt (Slabá Turánova) Nechť $G$ je graf na $n$ vrcholech s $m$ hranami a $d := 
+\vt (Slabá Turánova) Nechť $G$ je graf na $n$ vrcholech s $m$ hranami a $d :=
 2m/n$ průměrný stupeň. Potom $\alpha(G) \geq n/2d$.
 
-\dk Hledáme velkou nezáváslou množinu: Zvolme si náhodnou podmnožinu $U$, každý 
-vrchol do ní vložme s pravděpodobností $p$ (tu určíme později) a mějme náhodné 
+\dk Hledáme velkou nezáváslou množinu: Zvolme si náhodnou podmnožinu $U$, každý
+vrchol do ní vložme s pravděpodobností $p$ (tu určíme později) a mějme náhodné
 proměnné $X := |U|$ a $Y := |E(G[U])|$. Spočítejme střední hodnotu:
 \begin{align}
 	\E X = np \qquad \E Y = p^2 m = p^2 \cdot {dn \over 2 }
 \end{align}
-Pokud bychom neměli žádné hrany, máme docela velkou nezávislou množinu. My ale 
+Pokud bychom neměli žádné hrany, máme docela velkou nezávislou množinu. My ale
 hrany máme. Odstraníme tedy vrchol od každé hrany a podíváme se, kolik zbyde:
 \begin{align}
 	\E[X - Y] = (pn - p^2 \cdot {dn \over 2}) = pn \cdot (1-p \cdot {d \over 2})
 \end{align}
 Stačí zvolit $ p := 1/d$ a díky principu průměru máme větu dokázánu.
 
-\vt (Vysoká barevnost bez malých cyklů) Pro každé $k,l > 0$ existuje graf 
+\vt (Vysoká barevnost bez malých cyklů) Pro každé $k,l > 0$ existuje graf
 takový, že $\chi(G) > k$ a $\girth(G) > l$.
 
-\dk Zvolíme náhodný graf $G(n,p)$. Počet cyklů dlouhých $i$ je 
-$1/2(i-1)!\binom{n}{i}\leq n^i$ (zvolím $i$ prvků, jedním začnu, zpermutuju 
-jejich pořadí a každý cyklus jsem započítal dvakrát, proto $/2$). Množina hran 
+\dk Zvolíme náhodný graf $G(n,p)$. Počet cyklů dlouhých $i$ je
+$1/2(i-1)!\binom{n}{i}\leq n^i$ (zvolím $i$ prvků, jedním začnu, zpermutuju
+jejich pořadí a každý cyklus jsem započítal dvakrát, proto $/2$). Množina hran
 je cyklus, pokud tam jsou všechny hrany, tedy počet cyklů menších než $l$ je:
 \begin{align}
 	\E(X) \leq \sum_{i=3}^l n^ip^i
 \end{align}
-Stačí zvolit $n$ a $p$ šikovně, aby $\E(X) \leq n/4$ a z Markovovy nerovnosti 
-získáme, že $P(X \geq n/2) < 1/2$. Je tedy snadné získat graf, ve kterém stačí 
+Stačí zvolit $n$ a $p$ šikovně, aby $\E(X) \leq n/4$ a z Markovovy nerovnosti
+získáme, že $P(X \geq n/2) < 1/2$. Je tedy snadné získat graf, ve kterém stačí
 odebrat nanejvýš $n/2$ vrcholů, abychom se zbavili krátkých cyklů.
 
-Dále odhadneme barevnost. Každá barevnostní třída je nezávislá množina, tedy 
-$\chi(G) \geq |V| / \alpha(G)$. Nechť $a$ je dolní odhad na velikost nezávislé 
+Dále odhadneme barevnost. Každá barevnostní třída je nezávislá množina, tedy
+$\chi(G) \geq |V| / \alpha(G)$. Nechť $a$ je dolní odhad na velikost nezávislé
 množiny. Potom z Markovovy nervonosti máme:
 \begin{align}
 	P(\alpha(G) \geq a) \leq \binom{n}{a}(1-p)^{\binom{a}{2}}
 \end{align}
 
-Což pro vhodně zvolené parametry $p$ jde k nule a tedy speciálně pro nějaké 
+Což pro vhodně zvolené parametry $p$ jde k nule a tedy speciálně pro nějaké
 dostatečně velké $n$ je pravděpodobnost $< 1/2$.
 
-Protože obě nerovnosti jsou ostré, existuje graf, který splňuje obojí pro 
-libovolné $a$ a $l$. Stačí tedy zvolit graf dostatečně velký, aby i po odebrání 
-$n/2$ vrcholů, potřebné ke zrušení krátkých cyklů, zbyla dostatečně velká 
-nezávislá množina (teoreticky mohu odebírat pouze z jedné nezávislé množiny, a 
+Protože obě nerovnosti jsou ostré, existuje graf, který splňuje obojí pro
+libovolné $a$ a $l$. Stačí tedy zvolit graf dostatečně velký, aby i po odebrání
+$n/2$ vrcholů, potřebné ke zrušení krátkých cyklů, zbyla dostatečně velká
+nezávislá množina (teoreticky mohu odebírat pouze z jedné nezávislé množiny, a
 to té největší).
 
-A jaké jsou ty šikovné parametry? Určitě $p$ musí být závislé na $n$, aby se 
+A jaké jsou ty šikovné parametry? Určitě $p$ musí být závislé na $n$, aby se
 pravé strany snižovaly, například stačí $p := n^{1/2l -1}$.
 
 \subsection{Černovova nerovnost, Lovászovo Lokální Lemma}
 
-Je typické, že umíme snadno charakterizovat události, které jsou špatné -- 
-například pokud barvíme graf, špatná událost je, že vrchol má stejně barevného 
-souseda. Ačkoliv můžou být pravděpodobnosti jednotlivých událostí libovolně 
+Je typické, že umíme snadno charakterizovat události, které jsou špatné --
+například pokud barvíme graf, špatná událost je, že vrchol má stejně barevného
+souseda. Ačkoliv můžou být pravděpodobnosti jednotlivých událostí libovolně
 velké (blízké 1), pokud jsou nezávislé, stále stačí ukázat,že:
 \begin{align}
-	\overline{P\left(\bigcup_i A_i\right)} = P\left(\bigcap_i 
+	\overline{P\left(\bigcup_i A_i\right)} = P\left(\bigcap_i
 	\overline{A_i}\right) = \prod_i P(\overline{A_i})> 0
 \end{align}
 Bohužel v hodně případech nejsou jevy nezávislé. Definujme si tedy úroveň, jakou
 jsou na sobě závislé:
 
 
-\df (Nezávilost s více událostmi) Událost $A$ je nezávislá s událostmi {$B_1, 
+\df (Nezávilost s více událostmi) Událost $A$ je nezávislá s událostmi {$B_1,
 \dots, B_k$} právě tehdy, když:
 \begin{align}
-	\forall J \subseteq [k] \qquad P\left(A\cap\bigcap_{j\in J} B_j\right) = 
+	\forall J \subseteq [k] \qquad P\left(A\cap\bigcap_{j\in J} B_j\right) =
 	P(A) \cdot P\left(\bigcap_{j \in J} B_j\right)
 \end{align}
 
 \df (Závislostní graf) Nechť $A_i$ jsou (špatné) události. Závislostní graf $D =
-(\{A_i\}, E)$ je orientovaný graf, který má jako vrcholy události a vrchol $A_i$ 
-je nezávislý (ve smyslu předchozí definice) se všemi událostmi, do kterých z něj 
-{\bf nevede hrana}. 
+(\{A_i\}, E)$ je orientovaný graf, který má jako vrcholy události a vrchol $A_i$
+je nezávislý (ve smyslu předchozí definice) se všemi událostmi, do kterých z něj
+{\bf nevede hrana}.
 
-\poz Závislostní graf nemusí být definovaný unikátně, speciálně lze beztrestně 
+\poz Závislostní graf nemusí být definovaný unikátně, speciálně lze beztrestně
 přidávat hrany a úplný graf je vždy závislostní (není ale příliš užitečný).
 
-\lm (Lovászovo Lokální) Nechť $A_1, \dots, A_n$ jsou události omezené 
-pravděpodobností $p$ ($\forall i: P(A_i) \leq p$) a existuje pro ně závislostní 
+\lm (Lovászovo Lokální) Nechť $A_1, \dots, A_n$ jsou události omezené
+pravděpodobností $p$ ($\forall i: P(A_i) \leq p$) a existuje pro ně závislostní
 graf s maximálním výstupním stupněm $d$. Potom pokud je $ep(d+1) \leq 1$, platí:
 \begin{align}
 	P\left(\bigcap_{i=1}^n \overline{A_i}\right) > 0
 \end{align}
 
-\vt (Černovova nerovnost) Nechť $X_1, \dots, X_n$ jsou nezávislé náhodné 
-proměnné, nabývající hodnot $+1$ a $-1$ s pravděpodobností $1/2$. Potom pro $X 
+\vt (Černovova nerovnost) Nechť $X_1, \dots, X_n$ jsou nezávislé náhodné
+proměnné, nabývající hodnot $+1$ a $-1$ s pravděpodobností $1/2$. Potom pro $X
 := \sum X_i$, $\sigma^2 := \Var(X)$ a $t \geq 0$ platí:
 \begin{align}
 	P(X \geq t) &< \exp\left({-t^2 \over 2 \sigma^2}\right) \\

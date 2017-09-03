@@ -20,7 +20,7 @@ komponentu a pokračovali, dokud by nebyl celý graf rozdělen.
 
 Nevíme sice, jak najít vrchol ze stokové komponenty, ale je jednoduché najít vrchol ze zdrojové komponenty -- stačí na $G$ spustit DFS (opakovaně, pokud neprošel všechny vrcholy). Vrchol, který opustíme jako poslední\footnote{Při zavedení DFS si obvykle zadefinujeme pořadí podle opouštění vrcholu, značíme $out(v)$.}, je určitě ve zdrojové komponentě. Je zjevné, že když otočíme orientaci všech hran v $G$, SSK se nezmění, pouze se ze stokových stanou zdrojové a naopak.
 
-\lm {\it V grafu SSK $G$ vede hrana z komponenty $C_1$ do $C_2$, pak 
+\lm {\it V grafu SSK $G$ vede hrana z komponenty $C_1$ do $C_2$, pak
 $\max_{x\in C_1} out(x) > \max_{y\in C_2} out(y)$}
 
 Z výše uvedeného již vyplývá jakým způsobem algoritmus pracuje: Nejprve obrátí orientaci všech hran v $G$ a najde pořadí $out(v)$ pro všechny vrcholy $G$. Poté opakovaně spouští DFS z ještě neprozkoumaných vrcholů, v pořadí od nejvyššího nalezeného $out(v)$.\footnote{Zápis algoritmu v pseudokódu je přejat z \url{http://mj.ucw.cz/vyuka/ads/25-grafy.pdf}.}
@@ -46,16 +46,16 @@ Existuje i tzv. Tarjanův algoritmus pro hledání SSK, který je složitější
 
 \df (Turnaj) Turnaj je orientace úplného grafu.
 
-\vt (O počtu Hamiltonovských cest) Existuje turnaj na $n$ vrcholech, který 
+\vt (O počtu Hamiltonovských cest) Existuje turnaj na $n$ vrcholech, který
 obsahuje alespoň $n!/2^{n-1}$ hamiltonovských cest.
 
-\dk Zorientujme graf nezávisle uniformě náhodně. Nechť máme permutaci $\pi$.  
-Jaká je pravděpodobnost, že daná permutace (tedy pořadí vrcholů) tvoří 
-orientovanou cestu? Máme $n-1$ hran na cestě, všechny mají permutací 
-předepsanou orientaci. Tedy $P(X_\pi)= 1/2^{n-1}$. Nechť $I_\pi$ je indikátor 
+\dk Zorientujme graf nezávisle uniformě náhodně. Nechť máme permutaci $\pi$.
+Jaká je pravděpodobnost, že daná permutace (tedy pořadí vrcholů) tvoří
+orientovanou cestu? Máme $n-1$ hran na cestě, všechny mají permutací
+předepsanou orientaci. Tedy $P(X_\pi)= 1/2^{n-1}$. Nechť $I_\pi$ je indikátor
 tohoto jevu, pak $\E[I_\pi] = P(X_\pi) = 1/2^{n-1}$.
 
-Spočítáme-li střední hodnotu počtu hamiltonovských cest, tedy součet indikátorů 
-přes všechny permutace, máme $n!/2^{n-1}$. Z vlastností střední hodnoty víme, 
+Spočítáme-li střední hodnotu počtu hamiltonovských cest, tedy součet indikátorů
+přes všechny permutace, máme $n!/2^{n-1}$. Z vlastností střední hodnoty víme,
 že existuje alespoň jeden graf, který má právě tolik (nebo více) hamiltonovských
 cest.
