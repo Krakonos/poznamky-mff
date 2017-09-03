@@ -31,7 +31,7 @@ nenalezne zlepšující cestu, víme, že vydá maximální párování. Zlepšu
 se hledá následujícím způsobem:
 
 \begin{enumerate}
-	\item Najdi nespárované vrcholy a prohlaš je za kořeny stromů v lese.
+	\item Najdi nespárované vrcholy a prohlas je za kořeny stromů v lese.
 	\item Pro každý vrchol přidej do stromu jeho sousedy tak, že na 1. patře je
 	pouze kořen, všechny hrany z kořene jsou z $E \setminus M$ a všechny cesty
 	od kořene k listům jsou střídavé. Po každém přidání zkontroluj:
@@ -47,15 +47,15 @@ se hledá následujícím způsobem:
 Algoritmus tedy buduje stromy, pro které cesta kořen-kořen je zlepšující. Liché
 cykly se kontrahují, protože bez nich je těžké poznat, zda se nalezla zlepšující
 cesta (viz obrázek \ref{blossoms}, kde modrá hrana vytvoří květinku a až po
-jejím přidání je možné použít červenou hranu na vylepšující cestu; kotrakce
+jejím přidání je možné použít červenou hranu na vylepšující cestu; kontrakce
 zjednoduší uvažování cyklů).
 
-Kontrakce nerobijí existenci střídavých cest, protože každá střídavá cesta musí
+Kontrakce nerozbijí existenci střídavých cest, protože každá střídavá cesta musí
 vést přes stonek, tedy od propojení směrem ke kořeni (jenom v kořeni jsou
 vrcholy, kterými lze střídavou cestu ukončit) a každá střídavá cesta si může
 vybrat, zda první krok v květince udělá po spárované nebo nespárované hraně.
 
-Vylepšujících cest je najevýš $|E| = m$ po celou dobu běhu algoritmu, jedno
+Vylepšujících cest je nanejvýš $|E| = m$ po celou dobu běhu algoritmu, jedno
 prohledávání spotřebuje nanejvýš $n^2$ času (práce na každém vrcholu může být až
 $n$, protože je potřeba potenciálně prohledat hodně sousedů). Celkový běh
 algoritmu je tedy $\O(n^2m)$. \qed
@@ -73,7 +73,7 @@ algoritmu je tedy $\O(n^2m)$. \qed
 minimálního vrcholového pokrytí.
 
 \vt (Hall) Bipartitní graf $G$ má perfektní párování právě tehdy, když pro každé
-$X \subseteq V$ je počet izolovaných vrcholů $G \setminus X$ nanejvýš $X$.
+$X \subseteq V$ je počet izolovaných vrcholů $G \setminus X$ nanejvýš $|X|$.
 
 \vt (Tutte) Graf $G$ má perfektní párování právě tehdy, když pro každé $X
 \subseteq V$ je počet lichých komponent $G \setminus X$ nanejvýš $|X|$.
@@ -109,7 +109,7 @@ proměnnou pro hranu $e$ a $x(\delta(v)) := \sum_{e \in\delta(v)} x(e)$.
 
 Takový polytop (překvapivě) má vždy celočíselné optimální řešení, ale může se
 stát, že získáme neceločíselné a přesto optimální (například čtyřcyklus
-ohodnocený 1/4). O to horší by byl výsledek tohoto polytopu u nebipartitních
+ohodnocený 1/2). O to horší by byl výsledek tohoto polytopu u nebipartitních
 grafů, protože na lichém cyklu získáme lepší neceločíselné, než nejlepší
 celočíselné řešení; viz obrázek \ref{matching-polytope}.
 

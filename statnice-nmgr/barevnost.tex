@@ -14,7 +14,7 @@ platí, že $\chi(G) = \omega(G)$. Některé třídy perfektních grafů jsou:
 \vt (Berge) Graf je perfektní právě tehdy, když neobsahuje díry (liché cykly)
 ani antidíry (doplňky lichých cyklů) jako indukovaný podgraf.  (Lichý cyklus ani
 doplněk nemůže být perfektní, protože potřebuje 3 barvy, ale má kliku velikosti
-max. 3, opačná implikace je těžká)
+max. 2, opačná implikace je těžká)
 
 \subsection{Barevnost a maximální stupeň}
 
@@ -29,7 +29,7 @@ indukcí. U 3-souvislého grafu najdeme vrchol s maximálním stupněm $u$, jeho
 sousedy $v,w$ nespojené hranou (existují pokud není úplný), vytvoříme kostru
 $G-\{v,w\}$ zakořeněnou v $u$, vrcholy $v,w$ dodáme nakonec a obarvíme hladově
 od listů.  Protože každý vrchol až na $u$ má otce v kostře, zbyde na něj
-barva. Na $u$ zbyde proto, že $v$ a $w$ mají stejnou barvu.
+barva. Na $u$ zbude proto, že $v$ a $w$ mají stejnou barvu.
 
 \vt (Vizingova) Pro libovolný graf $G$ bez smyček a násobných hran platí:
 $\Delta(G) \leq \chi'(G) \leq \Delta(G) +1$, kde $\chi'$ je hranová barevnost.
@@ -50,7 +50,7 @@ a to je spor.}.
 chromatickým číslem $> k$ a girth $>l$. Speciálně omezením girth nezískáme málo
 barevné grafy.
 
-\dk {\it (pouze pro grafy bez trojúhelníků, obecný důkaz v pravděpobnostních
+\dk {\it (pouze pro grafy bez trojúhelníků, obecný důkaz v pravděpodobnostních
 metodách)} Začneme s hranou, to jest $G_2$ (potřebuje 2 barvy).  Vybudujeme
 $G_{n+1}$ tak, že přidáme nový vrchol $z$, zdvojíme všechny vrcholy, kopie
 spojíme hranou se sousedy svých předloh a $z$.  Takový graf je bez trojúhelníků,
@@ -95,7 +95,7 @@ poloviny, aplikujeme indukci na každou zvlášť, nejdříve však na půlku, k
 předbarvené vrcholy. Pokud chordu nemá: předpokládáme $C=\{v_1, \dots, v_k\}$
 vrcholy na vnější stěně, $v_1$ a $v_2$ jsou již obarvené, obarvíme $v_k$:
 zvolíme dvě barvy ze seznamu $v_k$, vyškrtáme
-je z jeho sousedů uvnitř grafu $u_i$ (ti měli 5, zbydou jim alespoň 3, tak
+je z jeho sousedů uvnitř grafu $u_i$ (ti měli 5, zbudou jim alespoň 3, tak
 akorát do indukce) a graf pustíme dál do indukce bez $v_k$ (viz obrázek).
 Následně obarvíme $v_k$ barvou, kterou nepoužil $v_{k-1}$, takové máme dvě,
 které jsme si vyškrtali ze sousedů $u_i$ kromě $v_{k-1}$!

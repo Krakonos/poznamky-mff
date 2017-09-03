@@ -18,7 +18,7 @@ pokud tento polyedr obsahuje kouli velikosti alespoň $\varepsilon$.
 	\item Je-li objem $E_{k+1}$ menší, než objem koule o poloměru $\varepsilon$,
 	oznam že úloha nemá řešení a skonči. Jinak pokračuj krokem 2.
 \end{enumerate}
-Tento algoritmus provede zhruba $(\O n^2\log (R/\varepsilon))$ iterací.
+Tento algoritmus provede zhruba $\O(n^2\log (R/\varepsilon))$ iterací.
 
 Když pomineme spoustu chlupatých problémů, které je potřeba v algoritmu vyřešit
 (například jak se poprat s elipsoidama, které nevypadají, že by měly racionální
@@ -33,7 +33,7 @@ libovolnou přesností).
 Zajímavé ale je, že elipsoidová metoda nepotřebuje znát celou soustavu rovnic,
 stáčí jí oddělovací orákulum, které v kroku 3. ukáže na nějakou nerovnost, podle
 které se má změnit elipsoid. Pomocí tohoto triku lze například řešit soustavy,
-které mají exponencielně mnoho nerovností, ale je jednéduché (polynomiální)
+které mají exponenciálně mnoho nerovností, ale je jednoduché (polynomiální)
 určit, zda je nějaké řešení přípustné, a případně poukázat na přerušenou
 nerovnost (typicky například MAXCUT, kde nalezení cesty ukazuje na porušenou
 nerovnost).

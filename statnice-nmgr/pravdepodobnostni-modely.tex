@@ -31,7 +31,7 @@ na $n$ vrcholech. Existuje několik možných modelů:
 		grafů na $n$ vrcholech.
 \end{enumerate}
 Gilbertův model je nejpoužívanější a nejjednodušší na používání, včetně
-algoritmického výběru. Například vybra regulární graf není vůbec jednoduché.
+algoritmického výběru. Například vybrat regulární graf není vůbec jednoduché.
 Jeden příklad konstrukce je vzít $nr$ vrcholů, rozdělit je do $n$ skupin po $r$
 vrcholech, zvolit náhodné párování a kontrahovat všechny skupiny. Pokud vyjde
 graf bez smyček a multihran, máme výsledek, jinak musíme opakovat...
@@ -76,8 +76,8 @@ jako:
 	\E[X] = \sum_{a \in \Omega} X(a) \cdot p_a
 \end{align}
 
-\vt (Princip průměru) Vždy existuje alespoň jeden jev, který nabývající stejné 
-hodnoty, nebo větší, než střední hodnota, a naopak.
+\vt (Princip průměru) Vždy existuje alespoň jeden jev nabývající stejné nebo
+větší hodnoty, než střední hodnota, a naopak.
 
 \vt (Linearita střední hodnoty) Pro náhodné proměnné $X$, $Y$ a libovolnou
 konstantu $c$ platí:
@@ -111,7 +111,7 @@ platí:
 	P(|X - \E X| \geq t) \leq {\Var(X) \over t^2}
 \end{align}
 
-\pzn Hodí-li se to, můžeme nervonosti otočit (doplněk pravděpodobnosti), vnitřní
+\pzn Hodí-li se to, můžeme nerovnosti otočit (doplněk pravděpodobnosti), vnitřní
 nerovnost se však stane ostrou!
 
 %\tv Pro $m \geq 1$ platí: $\binom{2m}{m} \geq 2^{2m} / (4 \sqrt m + 2)$.
@@ -128,14 +128,14 @@ nerovnost se však stane ostrou!
 \vt (Slabá Turánova) Nechť $G$ je graf na $n$ vrcholech s $m$ hranami a $d :=
 2m/n$ průměrný stupeň. Potom $\alpha(G) \geq n/2d$.
 
-\dk Hledáme velkou nezáváslou množinu: Zvolme si náhodnou podmnožinu $U$, každý
+\dk Hledáme velkou nezávislou množinu: Zvolme si náhodnou podmnožinu $U$, každý
 vrchol do ní vložme s pravděpodobností $p$ (tu určíme později) a mějme náhodné
 proměnné $X := |U|$ a $Y := |E(G[U])|$. Spočítejme střední hodnotu:
 \begin{align}
 	\E X = np \qquad \E Y = p^2 m = p^2 \cdot {dn \over 2 }
 \end{align}
 Pokud bychom neměli žádné hrany, máme docela velkou nezávislou množinu. My ale
-hrany máme. Odstraníme tedy vrchol od každé hrany a podíváme se, kolik zbyde:
+hrany máme. Odstraníme tedy vrchol od každé hrany a podíváme se, kolik zbude:
 \begin{align}
 	\E[X - Y] = (pn - p^2 \cdot {dn \over 2}) = pn \cdot (1-p \cdot {d \over 2})
 \end{align}
@@ -157,7 +157,7 @@ odebrat nanejvýš $n/2$ vrcholů, abychom se zbavili krátkých cyklů.
 
 Dále odhadneme barevnost. Každá barevnostní třída je nezávislá množina, tedy
 $\chi(G) \geq |V| / \alpha(G)$. Nechť $a$ je dolní odhad na velikost nezávislé
-množiny. Potom z Markovovy nervonosti máme:
+množiny. Potom z Markovovy nerovnosti máme:
 \begin{align}
 	P(\alpha(G) \geq a) \leq \binom{n}{a}(1-p)^{\binom{a}{2}}
 \end{align}

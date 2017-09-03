@@ -3,8 +3,8 @@
 Nechť běžný (rozhodovací) randomizovaný algoritmus potřebuje $m$ bitů náhody k jedné iteraci a
 vydá špatný výsledek s pravděpodobností $p$. Typicky není $p_f$ zrovna dobré a tak
 spustíme algoritmus $k$-krát: pokud $k$-odpoví stejně, pravděpodobnost, že se
-spletl je $p_f^k$ (typická aplika je, že se algoritmus plete pouze na jednu
-stranu -- tedy pokud jednou odpoví \uv{ne}, nemusíme dál testovat; pokud opdoví
+spletl je $p_f^k$ (typická aplikace je, že se algoritmus plete pouze na jednu
+stranu -- tedy pokud jednou odpoví \uv{ne}, nemusíme dál testovat; pokud odpoví
 \uv{ano}, mohl se splést). Takový algoritmus potřebuje $k\cdot m$ bitů náhody, což může být problém,
 protože počítače jsou stavěné tak, aby byly deterministické, a pravá náhoda se
 hledá těžko.
@@ -13,7 +13,7 @@ Můžeme si alternativně sehnat expandér (existují deterministické konstrukc
 který má $2^m$ vrcholů, a každému jeho vrcholu přiřadit unikátní $m$-bitové
 číslo, znázorňující náhodné bity pro algoritmus. V prvním kroku použijeme $m$
 bitů náhody k tomu, abychom zvolili jeden vrchol (prvních $m$ bitů pro
-algoritmus). Pro další $m$-tici bitů prostě přejdeme z poslendího navštíneného
+algoritmus). Pro další $m$-tici bitů prostě přejdeme z posledního navštíveného
 vrcholu do nějakého jeho souseda, tedy použijeme dalších $(k -1) \cdot \log d$ bitů, kde $d$
 je ale nějaká malá konstanta (kdybychom vytvořili úplný graf, máme $d = 2^m-1$ a
 dostáváme se na srovnatelnou úroveň s naivním postupem).
@@ -42,11 +42,11 @@ protože pokud kontrahujeme hranu, která je obsažena ve všech minimálních �
 zvýšíme si tím velikost minimálního řezu alespoň o $1$.
 
 Graf tedy vydá správný výsledek, pokud jsme nekontrahovali hranu v žádném
-minimálním řezu. To se dá spočítat. Zafixujme si nějaký řez minimální řez $C$ s
+minimálním řezu. To se dá spočítat. Zafixujme si nějaký minimální řez $C$ s
 velikostí $k$. Každý vrchol má stupeň alespoň $k$, protože jinak by hrany s ním
 sousedící byly triviálním řezem. Jaká je pravděpodobnost, že vybereme hranu
 řezu v nějaké iteraci algoritmu? $p_e \leq k/m \leq k/(kn/2) = 2(n-i+1)$, kde
-$i$ je číslo iterace, ve které se kotrakce provádí. Celková pravděpodobnost, že
+$i$ je číslo iterace, ve které se kontrakce provádí. Celková pravděpodobnost, že
 nevybereme hranu z $C$ je:
 \begin{align}
 	p \geq \prod_{i=1}^{n-l} \left( 1 - {2 \over n-i+1}\right) =
@@ -101,13 +101,13 @@ odpovědět {\bf NE}. Pokud je odpověď {\bf NE}, splést se nemůže a musí v
 odpovědět {\bf NE}.
 
 \df (RP, co-RP a ZPP) Třída RP je třída algoritmů pracujících v polynomiálním
-čase, kde se algorimus může splést s pravděpodobností nanejvýš $1/2$. Třída
+čase, kde se algoritmus může splést s pravděpodobností nanejvýš $1/2$. Třída
 $co$-RP je definovaná se znegovanými odpověďmi (tedy plést se může ${\bf NE}$).
 Třída ZPP je průnik obou tříd, tedy algoritmy, které lze řešit
 pravděpodobnostně bez chyby, ale čas je omezen pouze ve střední hodnotě.
 
 \poz ZPP lze alternativně definovat jako polynomiálně běžící algoritmus, který
-odpoví {\bf ANO}, {\bf NE}, nebo {\bf NEVÍM} s tím, že {\bf NEVÍM} odpvodí s
+odpoví {\bf ANO}, {\bf NE}, nebo {\bf NEVÍM} s tím, že {\bf NEVÍM} odpoví s
 pravděpodobností nanejvýš $1/2$.
 
 \df (BPP) Třída BPP je třída algoritmů pracujících v polynomiálním čase, kde se
@@ -183,7 +183,7 @@ polynomiální algoritmus $A(x, \Pi)$ ($x$ je vstup, $\Pi$ je důkaz) tak:
 
 A co z toho plyne? Pokud máme libovolný problém v NP, PCP věta nám dává
 polynomiální algoritmus na ověření. O tomto algoritmu víme, že potřebuje
-$\O(\log n)$ bitů náhody, a k tomu kostantně mnoho bitů z důkazu (nikde se to
+$\O(\log n)$ bitů náhody, a k tomu konstantně mnoho bitů z důkazu (nikde se to
 nepíše, ale běžně se uvažuje, že je algoritmus neadaptivní -- ve skutečnosti by
 to mělo být jedno).
 

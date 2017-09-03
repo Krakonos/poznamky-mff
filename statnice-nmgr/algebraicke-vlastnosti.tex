@@ -30,12 +30,12 @@ souvislý, stačí pouze $\lambda_{min} = -\lambda_{max}$.
 kde každý graf má \uv{dobrou expanzí} (podle nějakého parametru).
 
 \df (Expanze) \begin{itemize}
-	\item Vrcholová expanze: $h_v(G) = \min_{S\subseteq V, |S|\leq n/2}
+	\item Vrcholová expanze: $\displaystyle h_v(G) = \min_{S\subseteq V, |S|\leq n/2}
 	{|N(S)\setminus S| \over |S|}$.
-	\item Hranová expanze: $h(G) = \min_{S\subseteq V, |S|\leq n/2} {|\delta S|
+	\item Hranová expanze: $\displaystyle h(G) = \min_{S\subseteq V, |S|\leq n/2} {|\delta S|
 	\over |S|}$, kde $\delta S$ značí hrany, které mají právě jeden vrchol v
 	$S$.
-	\item Spektrální expanze: $h_s(G) = \lambda_1 - \lambda_2 = d - \lambda_2$.
+	\item Spektrální expanze: $\displaystyle h_s(G) = \lambda_1 - \lambda_2 = d - \lambda_2$.
 \end{itemize}
 
 \poz (O hranové a vrcholové expanzi) $h_v(G) \leq h(G) \leq d \cdot h_v(G)$.
@@ -47,11 +47,11 @@ kde každý graf má \uv{dobrou expanzí} (podle nějakého parametru).
 
 Ačkoliv například úplný graf je dobrý expandér ve smyslu, že má vysokou
 expanzi, bohužel s expanzí a velikostí roste neúnosně stupeň. Následující
-konstrukce vytváří grafy, které mají vyokou expanzi, ale konstantně malý
+konstrukce vytváří grafy, které mají vysokou expanzi, ale konstantně malý
 stupeň.
 
 \vt (Randomizovaná) Mějme $2n$ vrcholů. Pro $d$-regulární expandér zvolíme $d$
-uniformě náhodných prefektních párování nad těmito vrcholy. Sjednocení těchto
+uniformě náhodných perfektních párování nad těmito vrcholy. Sjednocení těchto
 párování dává $d$-regulární graf, který je navíc dobrý expandér.
 
 \vt (Prvočíselná) Nechť $p$ je prvočíslo a $V:=Z_p$. Definujeme $G_p=(V,E)$ s
