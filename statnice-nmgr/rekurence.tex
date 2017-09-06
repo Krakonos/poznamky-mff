@@ -16,7 +16,7 @@ kořeny tohoto polynomu s násobnostmi po řadě $k_1,\dots,k_z$. Potom existuj�
 konstanty $C_{ij} \in \C$ takové, že
 $$A_n = \sum_{i=1}^z\sum_{j=0}^{k_i-1}\left(C_{ij}\cdot{n+j\choose j}\cdot\lambda_i^n\right)$$
 Pokud polynom $R$ nemá násobné kořeny, vztah lze zapsat jednodušeji:
-$$A_n = \sum_{i=1}^nC_i\lambda_i^n$$
+$$A_n = \sum_{i=1}^kC_i\lambda_i^n$$
 
 \dk Konstrukcí\footnote{Částečně přejato z \url{http://mj.ucw.cz/papers/linrec.pdf}.}. Mějme zadanou lineární rekurenci, kde pro každé $n\ge k$ platí:
 $$A_n = c_0A_{n-k} + c_1A_{n-k+1} + \dots + c_{k-1}A_{n-1}$$
@@ -63,7 +63,7 @@ tomu nám pomůže zobecněná binomická věta.
 Konstanty $D_i$ spočteme z počátečních podmínek rekurence (vyřešením soustavy
 lineárních rovnic). Pro praktické počítání si všimněme, že $\lambda_i$ jsou
 kořeny zrcadlového polynomu ke $Q(x)$ -- můžeme tedy počítat rovnou kořeny
-tohoto zrcadlového polynomu $Q^*(x) = x^k-c_{k-1}x^{k-1}-\dots-c_x^0$ a ušetřit
+tohoto zrcadlového polynomu $Q^*(x) = x^k-c_{k-1}x^{k-1}-\dots-c_0x^0$ a ušetřit
 si práci. Tento polynom se při studiu rekurencí často používá a říká se mu
 charakteristický polynom rekurence.
 
@@ -95,7 +95,7 @@ $$F_n = {1\over\sqrt 5}\left(\left({1+\sqrt 5\over 2}\right)^n - \left({1-\sqrt 
 Master theorem nachází využití v analýze časové složitosti rekurzivních
 algoritmů. Máme-li algoritmus, který v každém kroku rozdělí problém na $a$
 podproblémů velikosti $N/b$ a zároveň tímto dělením a naopak sestavováním
-celkév odpovědi stráví čas $\Theta(N^c)$, můžeme použít následující.
+celků v odpovědi stráví čas $\Theta(N^c)$, můžeme použít následující.
 
 \vt \emph{(Master theorem)} Rekurentní rovnice $T(N) = a\cdot T(N/b) + \Theta(N^c), T(1) = 1$ má pro konstanty $a \ge 1, b > 1, c\ge 0$ řešení:
 \begin{itemize*}
@@ -118,7 +118,7 @@ Problémy na $i$-té hladině mají velikost $N/b^i$ a celý strom rekurze má
 hloubku $\log_b N$.
 
 V jednom vrcholu $i$-té hladiny strávíme čas $\Theta((N/b^i)^c)$, na celé
-hladině $\Theta(a^i\cdot (N/b^i)^c)$. Pro snažší počítání tento čas upravíme do
+hladině $\Theta(a^i\cdot (N/b^i)^c)$. Pro snadnější počítání tento čas upravíme do
 tvaru $\Theta(N^c\cdot (a/b^c)^i)$. Potom v součtu na všech hladinách strávíme:
 \begin{align*}
 \Theta(N^c\cdot [(a/b^c)^0 + (a/b^c)^1 + \dots + (a/b^c)^{\log_b N} ])
@@ -126,8 +126,8 @@ tvaru $\Theta(N^c\cdot (a/b^c)^i)$. Potom v součtu na všech hladinách stráv�
 
 Výraz v hranatých závorkách je geometrická řada s kvocientem $q=a/b^c$. Její součet závisí na velikosti kvocientu.
 \begin{itemize*}
-\item $q = 1$: Všechny členy čady jsou rovny jedné, součet je tedy $\log_b N +
-	1$. Tomu odpovídá časová složitost $T(N) = \Theta(N^c + \log N)$
+\item $q = 1$: Všechny členy řady jsou rovny jedné, součet je tedy $\log_b N +
+	1$. Tomu odpovídá časová složitost $T(N) = \Theta(N^c \cdot \log N)$
 \item $q < 1$: Odhadneme součet shora součtem nekonečné geometrické
 	posloupnosti s kvocientem $q$, tedy $1/(1-q)$, což je konstanta. Proto
 	$T(N) = \Theta(N^c)$.

@@ -58,10 +58,10 @@ Nyní spočítáme povykosy druhým způsobem. Budeme stavět rovnou stromy orie
 směrem ke kořeni. Pravidla pro přidávání orientovaných hran jsou následující:
 \begin{enumerate*}
 \item Nesmíme vytvořit (ani neorientovanou) kružnici, tedy každá hrana musí
-spojovat dvě různé komponenty již vytvořenho grafu.
+spojovat dvě různé komponenty již vytvořeného grafu.
 \item V každém vrcholu až na jeden bude začínat právě jedna hrana. V kořeni
 nezačíná žádná hrana. Navíc je vidět, že v každé komponentě existuje právě jeden
-vrchol, do kterého nevede žádná hrana (tedy každá komponenta má svůj kořen).
+vrchol, ze kterého nevede žádná hrana (tedy každá komponenta má svůj kořen).
 \end{enumerate*}
 Z těchto pravidel už je jasné jak budeme postupovat. Po přidání $k$ hran má graf
 $n-k$ komponent. V dalším kroku vybereme jeden libovolný vrchol (z množiny všech
@@ -86,7 +86,7 @@ funkcí.
 
 Catalanova čísla jsou udána rekurencí
 $$C_0 = 1\qquad C_{n+1} = \sum_{i=0}^n C_iC_{n-i} = {2(2n+1)\over n+2}C_n$$
-Explicitní vzorec pro $n$-té Catalanovo číslo je 
+Explicitní vzorec pro $n$-té Catalanovo číslo je
 $$C_n = {1\over n+1}{2n\choose n}$$
 Některé aplikace Catalánových čísel:
 \begin{itemize*}
